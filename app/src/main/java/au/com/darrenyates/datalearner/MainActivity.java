@@ -1,12 +1,9 @@
 /*
  * DataLearner - a data-mining app for Android
  * MainActivity.java
- * Copyright (C) Darren Yates, Md Zahidul Islam, Junbin Gao, 2018-2019
- * <p>
+   @author: Darren Yates, Md Zahidul Islam, Junbin Gao, 2018-2019
  * Developed using a combination of Weka 3.6.15 and algorithms developed by Charles Sturt University
- * <p>
  * DataLearner is licensed GPLv3.0, source code is available on GitHub
- * <p>
  * Weka 3.6.15 is licensed GPLv2.0, source code is available on GitHub
  */
 package au.com.darrenyates.datalearner;
