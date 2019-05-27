@@ -21,3 +21,5 @@ Algorithms include:
 •	Associations – Apriori, FilteredAssociator, FPGrowth
 
 Training datasets must conform to the Weka’ ARFF format (we are working on a CSV dataset reader – thanks for your patience).
+
+Any problems, please drop me a line at darrenyatesau at gmail dot com.
