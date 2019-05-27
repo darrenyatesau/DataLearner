@@ -1,10 +1,11 @@
 /**
  * DataLearner - a data-mining app for Android
- * Copyright (C) Darren Yates, 2018
+ * MainActivity.java
+ * Copyright (C) Darren Yates, Md Zahidul Islam, Junbin Gao, 2018-2019
  * <p>
  * Developed using a combination of Weka 3.6.15 and algorithms developed by Charles Sturt University
  * <p>
- * DataLearner is licensed GPLv3.0, source code will be available on GitHub
+ * DataLearner is licensed GPLv3.0, source code is available on GitHub
  * <p>
  * Weka 3.6.15 is licensed GPLv2.0, source code is available on GitHub
  */
@@ -87,19 +88,19 @@ public class MainActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
-		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		
+		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the activity.
 		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
 		// Set up the ViewPager with the sections adapter.
-		mViewPager = (ViewPager) findViewById(R.id.container);
+		mViewPager = findViewById(R.id.container);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 		mViewPager.setOffscreenPageLimit(2);
-
-		TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+		
+		TabLayout tabLayout = findViewById(R.id.tabs);
 
 		mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 		tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
@@ -502,10 +503,10 @@ public class MainActivity extends AppCompatActivity {
 			View rootView = inflater.inflate(R.layout.fragment_main_tab3, container, false);
 
 			tvStatus = rootView.findViewById(R.id.tvStatus);
-
-			TextView textView = (TextView) rootView.findViewById(R.id.section_label3);
-			checkBox = (CheckBox) rootView.findViewById(R.id.checkBox);
-			btnRun = (Button) rootView.findViewById(R.id.btnRun);
+			
+			TextView textView = rootView.findViewById(R.id.section_label3);
+			checkBox = rootView.findViewById(R.id.checkBox);
+			btnRun = rootView.findViewById(R.id.btnRun);
 			btnCM = rootView.findViewById(R.id.btnCM);
 
 			cci = rootView.findViewById(R.id.tvCCI);
