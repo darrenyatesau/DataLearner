@@ -1,4 +1,4 @@
-/**
+/*
  * DataLearner - a data-mining app for Android
  * MainActivity.java
  * Copyright (C) Darren Yates, Md Zahidul Islam, Junbin Gao, 2018-2019
