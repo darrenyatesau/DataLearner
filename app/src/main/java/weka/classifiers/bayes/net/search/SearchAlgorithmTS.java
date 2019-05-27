@@ -33,7 +33,7 @@ import java.io.Serializable;
 import java.util.Enumeration;
 import java.util.Vector;
 
-/**
+/*
  * This is the base class for all search algorithms for learning Bayes networks.
  * It contains some common code, used by other network structure search algorithms,
  * and should not be used by itself.
@@ -46,31 +46,31 @@ import java.util.Vector;
  */
 public class SearchAlgorithmTS
     implements OptionHandler, Serializable, RevisionHandler {
-  
-    /** for serialization */
+    
+    /* for serialization */
     static final long serialVersionUID = 6164792240778525312L;
-  
-    /**
+    
+    /*
      * Holds upper bound on number of parents
      */
     protected int m_nMaxNrOfParents = 1;
-
-    /**
+    
+    /*
      * determines whether initial structure is an empty graph or a Naive Bayes network
      */
     protected boolean m_bInitAsNaiveBayes = true;
-
-    /**
+    
+    /*
      * Determines whether after structure is found a MarkovBlanketClassifier correction should be applied
      * If this is true, m_bInitAsNaiveBayes is overridden and interpreted as false.
      */
     protected boolean m_bMarkovBlanketClassifier = false;
-
-    /** c'tor **/
+    
+    /* c'tor **/
     public SearchAlgorithmTS() {
     } // SearchAlgorithm
-
-    /**
+    
+    /*
      * AddArcMakesSense checks whether adding the arc from iAttributeTail to iAttributeHead
      * does not already exists and does not introduce a cycle
      * 
@@ -138,8 +138,8 @@ public class SearchAlgorithmTS
 
         return true;
     } // AddArcMakesCycle
-
-    /**
+    
+    /*
      * reverseArcMakesSense checks whether the arc from iAttributeTail to
      * iAttributeHead exists and reversing does not introduce a cycle
      * 
@@ -210,8 +210,8 @@ public class SearchAlgorithmTS
         bayesNet.getParentSet(iAttributeTail).deleteLastParent(instances);
         return true;
     } // ReverseArcMakesCycle
-
-    /**
+    
+    /*
      * IsArc checks whether the arc from iAttributeTail to iAttributeHead already exists
      * 
      * @param bayesNet
@@ -228,8 +228,8 @@ public class SearchAlgorithmTS
 
         return false;
     } // IsArc
-
-    /**
+    
+    /*
      * Returns an enumeration describing the available options.
      *
      * @return an enumeration of all the available options.
@@ -237,8 +237,8 @@ public class SearchAlgorithmTS
     public Enumeration listOptions() {
         return new Vector(0).elements();
     } // listOption
-
-    /**
+    
+    /*
      * Parses a given list of options. <p/>
      * 
      * @param options the list of options as an array of strings
@@ -246,8 +246,8 @@ public class SearchAlgorithmTS
      */
     public void setOptions(String[] options) throws Exception {
     } // setOptions
-
-    /**
+    
+    /*
      * Gets the current settings of the Classifier.
      *
      * @return an array of strings suitable for passing to setOptions
@@ -255,8 +255,8 @@ public class SearchAlgorithmTS
     public String[] getOptions() {
         return new String[0];
     } // getOptions
-
-    /**
+    
+    /*
      * a string representation of the algorithm
      * 
      * @return a string representation
@@ -264,8 +264,8 @@ public class SearchAlgorithmTS
     public String toString() {
         return "SearchAlgorithm\n";
     } // toString
-
-    /**
+    
+    /*
      * buildStructure determines the network structure/graph of the network.
      * The default behavior is creating a network where all nodes have the first
      * node as its parent (i.e., a BayesNet that behaves like a naive Bayes classifier).
@@ -295,8 +295,8 @@ public class SearchAlgorithmTS
             doMarkovBlanketCorrection(bayesNet, instances);
         }
     } // buildStructure 
-
-    /**
+    
+    /*
      * 
      * @param bayesNet
      * @param instances
@@ -304,8 +304,8 @@ public class SearchAlgorithmTS
     protected void search(BayesNetTS bayesNet, Instances instances) throws Exception {
         // placeholder with implementation in derived classes
     } // search
-
-    /** 
+    
+    /*
      * for each node in the network make sure it is in the
      * Markov blanket of the classifier node, and if not,
      * add arrows so that it is. If the node is an ancestor
@@ -355,24 +355,24 @@ public class SearchAlgorithmTS
             }
         }
     } // doMarkovBlanketCorrection
-
-    /**
+    
+    /*
      * 
      * @param bMarkovBlanketClassifier
      */
     protected void setMarkovBlanketClassifier(boolean bMarkovBlanketClassifier) {
         m_bMarkovBlanketClassifier = bMarkovBlanketClassifier;
     }
-
-    /**
+    
+    /*
      * 
      * @return
      */
     protected boolean getMarkovBlanketClassifier() {
         return m_bMarkovBlanketClassifier;
     }
-
-    /**
+    
+    /*
      * @return a string to describe the MaxNrOfParentsoption.
      */
     public String maxNrOfParentsTipText() {
@@ -384,8 +384,8 @@ public class SearchAlgorithmTS
             + " in the network (the default of 100000 pretty much guarantees this), no"
             + " restriction on the number of parents is enforced";
     } // maxNrOfParentsTipText
-
-    /**
+    
+    /*
      * @return a string to describe the InitAsNaiveBayes option.
      */
     public String initAsNaiveBayesTipText() {
@@ -394,8 +394,8 @@ public class SearchAlgorithmTS
             + " node to each other node. When set to false, an empty network is used as initial"
             + " network structure";
     } // initAsNaiveBayesTipText
-
-    /**
+    
+    /*
      * @return a string to describe the MarkovBlanketClassifier option.
      */
     protected String markovBlanketClassifierTipText() {
@@ -405,7 +405,7 @@ public class SearchAlgorithmTS
             + " node.";
     } // markovBlanketClassifierTipText
     
-    /**
+    /*
      * Returns the revision string.
      * 
      * @return		the revision

@@ -45,7 +45,7 @@ import java.util.Enumeration;
 import java.util.Random;
 import java.util.Vector;
 
-/**
+/*
  * <!-- globalinfo-start -->
  * Class for performing additive logistic regression. <br/>
  * This class performs classification using a regression scheme as the base learner, and can handle multi-class problems.  For more information, see<br/>
@@ -132,89 +132,89 @@ public class LogitBoostTS
 		extends RandomizableIteratedSingleClassifierEnhancer
 		implements Sourcable, WeightedInstancesHandler, TechnicalInformationHandler {
 	
-	/**
+	/*
 	 * for serialization
 	 */
 	private static final long serialVersionUID = 8627452775249625582L;
 	
-	/**
+	/*
 	 * Array for storing the generated base classifiers.
 	 * Note: we are hiding the variable from IteratedSingleClassifierEnhancer
 	 */
 	protected Classifier[][] m_Classifiers;
 	
-	/**
+	/*
 	 * The number of classes
 	 */
 	protected int m_NumClasses;
 	
-	/**
+	/*
 	 * The number of successfully generated base classifiers.
 	 */
 	protected int m_NumGenerated;
 	
-	/**
+	/*
 	 * The number of folds for the internal cross-validation.
 	 */
 	protected int m_NumFolds = 0;
 	
-	/**
+	/*
 	 * The number of runs for the internal cross-validation.
 	 */
 	protected int m_NumRuns = 1;
 	
-	/**
+	/*
 	 * Weight thresholding. The percentage of weight mass used in training
 	 */
 	protected int m_WeightThreshold = 100;
 	
-	/**
+	/*
 	 * A threshold for responses (Friedman suggests between 2 and 4)
 	 */
 	protected static final double Z_MAX = 3;
 	
-	/**
+	/*
 	 * Dummy dataset with a numeric class
 	 */
 	protected Instances m_NumericClassData;
 	
-	/**
+	/*
 	 * The actual class attribute (for getting class names)
 	 */
 	protected Attribute m_ClassAttribute;
 	
-	/**
+	/*
 	 * Use boosting with reweighting?
 	 */
 	protected boolean m_UseResampling;
 	
-	/**
+	/*
 	 * The threshold on the improvement of the likelihood
 	 */
 	protected double m_Precision = -Double.MAX_VALUE;
 	
-	/**
+	/*
 	 * The value of the shrinkage parameter
 	 */
 	protected double m_Shrinkage = 1;
 	
-	/**
+	/*
 	 * The random number generator used
 	 */
 	protected Random m_RandomInstance = null;
 	
-	/**
+	/*
 	 * The value by which the actual target value for the
 	 * true class is offset.
 	 */
 	protected double m_Offset = 0.0;
 	
-	/**
+	/*
 	 * a ZeroR model in case no model can be built from the data
 	 */
 	protected Classifier m_ZeroR;
 	
-	/**
+	/*
 	 * Returns a string describing classifier
 	 *
 	 * @return a description suitable for
@@ -231,7 +231,7 @@ public class LogitBoostTS
 				+ "appropriate number of iterations.";
 	}
 	
-	/**
+	/*
 	 * Constructor.
 	 */
 	public LogitBoostTS() {
@@ -239,7 +239,7 @@ public class LogitBoostTS
 		m_Classifier = new weka.classifiers.trees.DecisionStump();
 	}
 	
-	/**
+	/*
 	 * Returns an instance of a TechnicalInformation object, containing
 	 * detailed information about the technical background of this class,
 	 * e.g., paper reference or book this class is based on.
@@ -259,7 +259,7 @@ public class LogitBoostTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * String describing default classifier.
 	 *
 	 * @return the default classifier classname
@@ -269,7 +269,7 @@ public class LogitBoostTS
 		return "weka.classifiers.trees.DecisionStump";
 	}
 	
-	/**
+	/*
 	 * Select only instances with weights that contribute to
 	 * the specified quantile of the weight distribution
 	 *
@@ -311,7 +311,7 @@ public class LogitBoostTS
 		return trainData;
 	}
 	
-	/**
+	/*
 	 * Returns an enumeration describing the available options.
 	 *
 	 * @return an enumeration of all the available options.
@@ -352,7 +352,7 @@ public class LogitBoostTS
 	}
 	
 	
-	/**
+	/*
 	 * Parses a given list of options. <p/>
 	 * <p>
 	 * <!-- options-start -->
@@ -437,7 +437,7 @@ public class LogitBoostTS
 		
 		String precisionString = Utils.getOption('L', options);
 		if (precisionString.length() != 0) {
-			setLikelihoodThreshold(new Double(precisionString).
+			setLikelihoodThreshold(Double.valueOf(precisionString).
 					doubleValue());
 		} else {
 			setLikelihoodThreshold(-Double.MAX_VALUE);
@@ -445,7 +445,7 @@ public class LogitBoostTS
 		
 		String shrinkageString = Utils.getOption('H', options);
 		if (shrinkageString.length() != 0) {
-			setShrinkage(new Double(shrinkageString).
+			setShrinkage(Double.valueOf(shrinkageString).
 					doubleValue());
 		} else {
 			setShrinkage(1.0);
@@ -460,7 +460,7 @@ public class LogitBoostTS
 		super.setOptions(options);
 	}
 	
-	/**
+	/*
 	 * Gets the current settings of the Classifier.
 	 *
 	 * @return an array of strings suitable for passing to setOptions
@@ -495,7 +495,7 @@ public class LogitBoostTS
 		return options;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -506,7 +506,7 @@ public class LogitBoostTS
 				+ "overfitting).";
 	}
 	
-	/**
+	/*
 	 * Get the value of Shrinkage.
 	 *
 	 * @return Value of Shrinkage.
@@ -516,7 +516,7 @@ public class LogitBoostTS
 		return m_Shrinkage;
 	}
 	
-	/**
+	/*
 	 * Set the value of Shrinkage.
 	 *
 	 * @param newShrinkage Value to assign to Shrinkage.
@@ -526,7 +526,7 @@ public class LogitBoostTS
 		m_Shrinkage = newShrinkage;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -536,7 +536,7 @@ public class LogitBoostTS
 		return "Threshold on improvement in likelihood.";
 	}
 	
-	/**
+	/*
 	 * Get the value of Precision.
 	 *
 	 * @return Value of Precision.
@@ -546,7 +546,7 @@ public class LogitBoostTS
 		return m_Precision;
 	}
 	
-	/**
+	/*
 	 * Set the value of Precision.
 	 *
 	 * @param newPrecision Value to assign to Precision.
@@ -556,7 +556,7 @@ public class LogitBoostTS
 		m_Precision = newPrecision;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -566,7 +566,7 @@ public class LogitBoostTS
 		return "Number of runs for internal cross-validation.";
 	}
 	
-	/**
+	/*
 	 * Get the value of NumRuns.
 	 *
 	 * @return Value of NumRuns.
@@ -576,7 +576,7 @@ public class LogitBoostTS
 		return m_NumRuns;
 	}
 	
-	/**
+	/*
 	 * Set the value of NumRuns.
 	 *
 	 * @param newNumRuns Value to assign to NumRuns.
@@ -586,7 +586,7 @@ public class LogitBoostTS
 		m_NumRuns = newNumRuns;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -597,7 +597,7 @@ public class LogitBoostTS
 				+ "means no cross-validation is performed).";
 	}
 	
-	/**
+	/*
 	 * Get the value of NumFolds.
 	 *
 	 * @return Value of NumFolds.
@@ -607,7 +607,7 @@ public class LogitBoostTS
 		return m_NumFolds;
 	}
 	
-	/**
+	/*
 	 * Set the value of NumFolds.
 	 *
 	 * @param newNumFolds Value to assign to NumFolds.
@@ -617,7 +617,7 @@ public class LogitBoostTS
 		m_NumFolds = newNumFolds;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -627,7 +627,7 @@ public class LogitBoostTS
 		return "Whether resampling is used instead of reweighting.";
 	}
 	
-	/**
+	/*
 	 * Set resampling mode
 	 *
 	 * @param r true if resampling should be done
@@ -637,7 +637,7 @@ public class LogitBoostTS
 		m_UseResampling = r;
 	}
 	
-	/**
+	/*
 	 * Get whether resampling is turned on
 	 *
 	 * @return true if resampling output is on
@@ -647,7 +647,7 @@ public class LogitBoostTS
 		return m_UseResampling;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -658,7 +658,7 @@ public class LogitBoostTS
 				+ "for speeding up learning process).";
 	}
 	
-	/**
+	/*
 	 * Set weight thresholding
 	 *
 	 * @param threshold the percentage of weight mass used for training
@@ -668,7 +668,7 @@ public class LogitBoostTS
 		m_WeightThreshold = threshold;
 	}
 	
-	/**
+	/*
 	 * Get the degree of weight thresholding
 	 *
 	 * @return the percentage of weight mass used for training
@@ -678,7 +678,7 @@ public class LogitBoostTS
 		return m_WeightThreshold;
 	}
 	
-	/**
+	/*
 	 * Returns default capabilities of the classifier.
 	 *
 	 * @return the capabilities of this classifier
@@ -694,7 +694,7 @@ public class LogitBoostTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Builds the boosted classifier
 	 *
 	 * @param data the data to train the classifier with
@@ -873,7 +873,7 @@ public class LogitBoostTS
 		}
 	}
 	
-	/**
+	/*
 	 * Gets the intial class probabilities.
 	 *
 	 * @param numInstances the number of instances
@@ -890,7 +890,7 @@ public class LogitBoostTS
 		return probs;
 	}
 	
-	/**
+	/*
 	 * Computes loglikelihood given class values
 	 * and estimated probablities.
 	 *
@@ -911,7 +911,7 @@ public class LogitBoostTS
 		return logLikelihood / (double) trainYs.length;
 	}
 	
-	/**
+	/*
 	 * Performs one boosting iteration.
 	 *
 	 * @param trainYs          class values
@@ -969,7 +969,7 @@ public class LogitBoostTS
 			
 			// Scale the weights (helps with some base learners)
 			double sumOfWeights = boostData.sumOfWeights();
-			double scalingFactor = (double) origSumOfWeights / sumOfWeights;
+			double scalingFactor = origSumOfWeights / sumOfWeights;
 			for (int i = 0; i < probs.length; i++) {
 				Instance current = boostData.instance(i);
 				current.setWeight(current.weight() * scalingFactor);
@@ -1018,7 +1018,7 @@ public class LogitBoostTS
 		}
 	}
 	
-	/**
+	/*
 	 * Returns the array of classifiers that have been built.
 	 *
 	 * @return the built classifiers
@@ -1035,7 +1035,7 @@ public class LogitBoostTS
 		return classifiers;
 	}
 	
-	/**
+	/*
 	 * Computes probabilities from F scores
 	 *
 	 * @param Fs the F scores
@@ -1059,7 +1059,7 @@ public class LogitBoostTS
 		return probs;
 	}
 	
-	/**
+	/*
 	 * Calculates the class membership probabilities for the given test instance.
 	 *
 	 * @param instance the instance to be classified
@@ -1095,7 +1095,7 @@ public class LogitBoostTS
 		return probs(Fs);
 	}
 	
-	/**
+	/*
 	 * Returns the boosted model as Java source code.
 	 *
 	 * @param className the classname in the generated code
@@ -1166,7 +1166,7 @@ public class LogitBoostTS
 		return text.toString();
 	}
 	
-	/**
+	/*
 	 * Returns description of the boosted classifier.
 	 *
 	 * @return description of the boosted classifier as a string
@@ -1206,7 +1206,7 @@ public class LogitBoostTS
 		return text.toString();
 	}
 	
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision
@@ -1215,7 +1215,7 @@ public class LogitBoostTS
 		return RevisionUtils.extract("$Revision: 9371 $");
 	}
 	
-	/**
+	/*
 	 * Main method for testing this class.
 	 *
 	 * @param argv the options

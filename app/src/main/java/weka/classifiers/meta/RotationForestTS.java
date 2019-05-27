@@ -50,7 +50,7 @@ import java.util.Enumeration;
 import java.util.Random;
 import java.util.Vector;
 
-/**
+/*
  * <!-- globalinfo-start -->
  * Class for construction a Rotation Forest. Can do classification and regression depending on the base learner. <br/>
  * <br/>
@@ -172,69 +172,69 @@ public class RotationForestTS
 	// It implements WeightedInstancesHandler because the base classifier
 	// can implement this interface, but in this method the weights are
 	// not used
-
-	/**
+	
+	/*
 	 * for serialization
 	 */
 	static final long serialVersionUID = -3255631880798499936L;
-
-	/**
+	
+	/*
 	 * The minimum size of a group
 	 */
 	protected int m_MinGroup = 3;
-
-	/**
+	
+	/*
 	 * The maximum size of a group
 	 */
 	protected int m_MaxGroup = 3;
-
-	/**
+	
+	/*
 	 * Whether minGroup and maxGroup refer to the number of groups or their
 	 * size
 	 */
 	protected boolean m_NumberOfGroups = false;
-
-	/**
+	
+	/*
 	 * The percentage of instances to be removed
 	 */
 	protected int m_RemovedPercentage = 50;
-
-	/**
+	
+	/*
 	 * The attributes of each group
 	 */
 	protected int[][][] m_Groups = null;
-
-	/**
+	
+	/*
 	 * The type of projection filter
 	 */
 	protected Filter m_ProjectionFilter = null;
-
-	/**
+	
+	/*
 	 * The projection filters
 	 */
 	protected Filter[][] m_ProjectionFilters = null;
-
-	/**
+	
+	/*
 	 * Headers of the transformed dataset
 	 */
 	protected Instances[] m_Headers = null;
-
-	/**
+	
+	/*
 	 * Headers of the reduced datasets
 	 */
 	protected Instances[][] m_ReducedHeaders = null;
-
-	/**
+	
+	/*
 	 * Filter that remove useless attributes
 	 */
 	protected RemoveUseless m_RemoveUseless = null;
-
-	/**
+	
+	/*
 	 * Filter that normalized the attributes
 	 */
 	protected Normalize m_Normalize = null;
-
-	/**
+	
+	/*
 	 * Constructor.
 	 */
 	public RotationForestTS() {
@@ -242,8 +242,8 @@ public class RotationForestTS
 		m_Classifier = new weka.classifiers.trees.J48();
 		m_ProjectionFilter = defaultFilter();
 	}
-
-	/**
+	
+	/*
 	 * Default projection method.
 	 */
 	protected Filter defaultFilter() {
@@ -252,8 +252,8 @@ public class RotationForestTS
 		filter.setVarianceCovered(1.0);
 		return filter;
 	}
-
-	/**
+	
+	/*
 	 * Returns a string describing classifier
 	 *
 	 * @return a description suitable for
@@ -266,8 +266,8 @@ public class RotationForestTS
 				+ "For more information, see\n\n"
 				+ getTechnicalInformation().toString();
 	}
-
-	/**
+	
+	/*
 	 * Returns an instance of a TechnicalInformation object, containing
 	 * detailed information about the technical background of this class,
 	 * e.g., paper reference or book this class is based on.
@@ -290,8 +290,8 @@ public class RotationForestTS
 
 		return result;
 	}
-
-	/**
+	
+	/*
 	 * String describing default classifier.
 	 *
 	 * @return the default classifier classname
@@ -300,8 +300,8 @@ public class RotationForestTS
 
 		return "weka.classifiers.trees.J48";
 	}
-
-	/**
+	
+	/*
 	 * Returns an enumeration describing the available options.
 	 *
 	 * @return an enumeration of all the available options.
@@ -347,8 +347,8 @@ public class RotationForestTS
 		}
 		return newVector.elements();
 	}
-
-	/**
+	
+	/*
 	 * Parses a given list of options. <p/>
 	 * <p>
 	 * <!-- options-start -->
@@ -479,8 +479,8 @@ public class RotationForestTS
 
 		super.setOptions(options);
 	}
-
-	/**
+	
+	/*
 	 * Gets the current settings of the Classifier.
 	 *
 	 * @return an array of strings suitable for passing to setOptions
@@ -517,8 +517,8 @@ public class RotationForestTS
 		}
 		return options;
 	}
-
-	/**
+	
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -527,8 +527,8 @@ public class RotationForestTS
 	public String numberOfGroupsTipText() {
 		return "Whether minGroup and maxGroup refer to the number of groups or their size.";
 	}
-
-	/**
+	
+	/*
 	 * Set whether minGroup and maxGroup refer to the number of groups or their
 	 * size
 	 *
@@ -539,8 +539,8 @@ public class RotationForestTS
 
 		m_NumberOfGroups = numberOfGroups;
 	}
-
-	/**
+	
+	/*
 	 * Get whether minGroup and maxGroup refer to the number of groups or their
 	 * size
 	 *
@@ -551,8 +551,8 @@ public class RotationForestTS
 
 		return m_NumberOfGroups;
 	}
-
-	/**
+	
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for displaying in the
@@ -561,8 +561,8 @@ public class RotationForestTS
 	public String minGroupTipText() {
 		return "Minimum size of a group (if numberOfGrups is true, the minimum number of groups.";
 	}
-
-	/**
+	
+	/*
 	 * Sets the minimum size of a group.
 	 *
 	 * @param minGroup the minimum value.
@@ -574,8 +574,8 @@ public class RotationForestTS
 			throw new IllegalArgumentException("MinGroup has to be positive.");
 		m_MinGroup = minGroup;
 	}
-
-	/**
+	
+	/*
 	 * Gets the minimum size of a group.
 	 *
 	 * @return the minimum value.
@@ -583,8 +583,8 @@ public class RotationForestTS
 	public int getMinGroup() {
 		return m_MinGroup;
 	}
-
-	/**
+	
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -593,8 +593,8 @@ public class RotationForestTS
 	public String maxGroupTipText() {
 		return "Maximum size of a group (if numberOfGrups is true, the maximum number of groups.";
 	}
-
-	/**
+	
+	/*
 	 * Sets the maximum size of a group.
 	 *
 	 * @param maxGroup the maximum value.
@@ -606,8 +606,8 @@ public class RotationForestTS
 			throw new IllegalArgumentException("MaxGroup has to be positive.");
 		m_MaxGroup = maxGroup;
 	}
-
-	/**
+	
+	/*
 	 * Gets the maximum size of a group.
 	 *
 	 * @return the maximum value.
@@ -615,8 +615,8 @@ public class RotationForestTS
 	public int getMaxGroup() {
 		return m_MaxGroup;
 	}
-
-	/**
+	
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -625,8 +625,8 @@ public class RotationForestTS
 	public String removedPercentageTipText() {
 		return "The percentage of instances to be removed.";
 	}
-
-	/**
+	
+	/*
 	 * Sets the percentage of instance to be removed
 	 *
 	 * @param removedPercentage the percentage.
@@ -640,8 +640,8 @@ public class RotationForestTS
 
 		m_RemovedPercentage = removedPercentage;
 	}
-
-	/**
+	
+	/*
 	 * Gets the percentage of instances to be removed
 	 *
 	 * @return the percentage.
@@ -649,8 +649,8 @@ public class RotationForestTS
 	public int getRemovedPercentage() {
 		return m_RemovedPercentage;
 	}
-
-	/**
+	
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -659,8 +659,8 @@ public class RotationForestTS
 	public String projectionFilterTipText() {
 		return "The filter used to project the data (e.g., PrincipalComponents).";
 	}
-
-	/**
+	
+	/*
 	 * Sets the filter used to project the data.
 	 *
 	 * @param projectionFilter the filter.
@@ -669,8 +669,8 @@ public class RotationForestTS
 
 		m_ProjectionFilter = projectionFilter;
 	}
-
-	/**
+	
+	/*
 	 * Gets the filter used to project the data.
 	 *
 	 * @return the filter.
@@ -678,8 +678,8 @@ public class RotationForestTS
 	public Filter getProjectionFilter() {
 		return m_ProjectionFilter;
 	}
-
-	/**
+	
+	/*
 	 * Gets the filter specification string, which contains the class name of
 	 * the filter and any options to the filter
 	 *
@@ -695,8 +695,8 @@ public class RotationForestTS
 		}
 		return c.getClass().getName();
 	}
-
-	/**
+	
+	/*
 	 * Returns description of the Rotation Forest classifier.
 	 *
 	 * @return description of the Rotation Forest classifier as a string
@@ -713,8 +713,8 @@ public class RotationForestTS
 
 		return text.toString();
 	}
-
-	/**
+	
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision
@@ -722,8 +722,8 @@ public class RotationForestTS
 	public String getRevision() {
 		return RevisionUtils.extract("$Revision: 7012 $");
 	}
-
-	/**
+	
+	/*
 	 * builds the classifier.
 	 *
 	 * @param data the training data to be used for generating the
@@ -912,8 +912,8 @@ public class RotationForestTS
 			printGroups();
 		}
 	}
-
-	/**
+	
+	/*
 	 * Adds random instances to the dataset.
 	 *
 	 * @param dataset      the dataset
@@ -936,8 +936,8 @@ public class RotationForestTS
 			dataset.add(new Instance(1, v));
 		}
 	}
-
-	/**
+	
+	/*
 	 * Checks m_MinGroup and m_MaxGroup
 	 *
 	 * @param data the dataset
@@ -955,8 +955,8 @@ public class RotationForestTS
 		if (m_MinGroup >= n)
 			m_MinGroup = n - 1;
 	}
-
-	/**
+	
+	/*
 	 * Selects a non-empty subset of the classes
 	 *
 	 * @param numClasses the number of classes
@@ -966,7 +966,7 @@ public class RotationForestTS
 	protected boolean[] selectClasses(int numClasses, Random random) {
 
 		int numSelected = 0;
-		boolean selected[] = new boolean[numClasses];
+		boolean[] selected = new boolean[numClasses];
 
 		for (int i = 0; i < selected.length; i++) {
 			if (random.nextBoolean()) {
@@ -979,8 +979,8 @@ public class RotationForestTS
 		}
 		return selected;
 	}
-
-	/**
+	
+	/*
 	 * generates the groups of attributes, given their minimum and maximum
 	 * sizes.
 	 *
@@ -1028,8 +1028,8 @@ public class RotationForestTS
 			}
 		}
 	}
-
-	/**
+	
+	/*
 	 * generates the groups of attributes, given their minimum and maximum
 	 * numbers.
 	 *
@@ -1063,8 +1063,8 @@ public class RotationForestTS
 			}
 		}
 	}
-
-	/**
+	
+	/*
 	 * generates a permutation of the attributes.
 	 *
 	 * @param numAttributes   the number of attributes.
@@ -1087,14 +1087,14 @@ public class RotationForestTS
 
 		return permutation;
 	}
-
-	/**
+	
+	/*
 	 * permutes the elements of a given array.
 	 *
 	 * @param v      the array to permute
 	 * @param random the random number generator.
 	 */
-	protected void permute(int v[], Random random) {
+	protected void permute(int[] v, Random random) {
 
 		for (int i = v.length - 1; i > 0; i--) {
 			int j = random.nextInt(i + 1);
@@ -1105,8 +1105,8 @@ public class RotationForestTS
 			}
 		}
 	}
-
-	/**
+	
+	/*
 	 * prints the groups.
 	 */
 	protected void printGroups() {
@@ -1122,8 +1122,8 @@ public class RotationForestTS
 			System.err.println();
 		}
 	}
-
-	/**
+	
+	/*
 	 * Transforms an instance for the i-th classifier.
 	 *
 	 * @param instance the instance to be transformed
@@ -1158,8 +1158,8 @@ public class RotationForestTS
 		newInstance.setClassValue(instance.classValue());
 		return newInstance;
 	}
-
-	/**
+	
+	/*
 	 * Calculates the class membership probabilities for the given test
 	 * instance.
 	 *
@@ -1199,8 +1199,8 @@ public class RotationForestTS
 			return sums;
 		}
 	}
-
-	/**
+	
+	/*
 	 * Main method for testing this class.
 	 *
 	 * @param argv the options

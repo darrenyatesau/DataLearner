@@ -43,7 +43,7 @@ import weka.core.WeightedInstancesHandler;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.ReplaceMissingValues;
 
-/**
+/*
  * <!-- globalinfo-start --> Cluster data using the k means algorithm
  * <p/>
  * <!-- globalinfo-end -->
@@ -100,39 +100,39 @@ import weka.filters.unsupervised.attribute.ReplaceMissingValues;
 public class SimpleKMeansTS extends RandomizableClusterer implements
 		NumberOfClustersRequestable, WeightedInstancesHandler {
 	
-	/**
+	/*
 	 * for serialization
 	 */
 	static final long serialVersionUID = -3235809600124455376L;
 	
-	/**
+	/*
 	 * replace missing values in training instances
 	 */
 	private ReplaceMissingValues m_ReplaceMissingFilter;
 	
-	/**
+	/*
 	 * number of clusters to generate
 	 */
 	private int m_NumClusters = 2;
 	
-	/**
+	/*
 	 * holds the cluster centroids
 	 */
 	private Instances m_ClusterCentroids;
 	
-	/**
+	/*
 	 * Holds the standard deviations of the numeric attributes in each cluster
 	 */
 	private Instances m_ClusterStdDevs;
 	
-	/**
+	/*
 	 * For each cluster, holds the frequency counts for the values of each nominal
 	 * attribute
 	 */
 	private int[][][] m_ClusterNominalCounts;
 	private int[][] m_ClusterMissingCounts;
 	
-	/**
+	/*
 	 * Stats on the full data set for comparison purposes In case the attribute is
 	 * numeric the value is the mean if is being used the Euclidian distance or
 	 * the median if Manhattan distance and if the attribute is nominal then it's
@@ -143,52 +143,52 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 	private int[][] m_FullNominalCounts;
 	private int[] m_FullMissingCounts;
 	
-	/**
+	/*
 	 * Display standard deviations for numeric atts
 	 */
 	private boolean m_displayStdDevs;
 	
-	/**
+	/*
 	 * Replace missing values globally?
 	 */
 	private boolean m_dontReplaceMissing = false;
 	
-	/**
+	/*
 	 * The number of instances in each cluster
 	 */
 	private int[] m_ClusterSizes;
 	
-	/**
+	/*
 	 * Maximum number of iterations to be executed
 	 */
 	private int m_MaxIterations = 500;
 	
-	/**
+	/*
 	 * Keep track of the number of iterations completed before convergence
 	 */
 	private int m_Iterations = 0;
 	
-	/**
+	/*
 	 * Holds the squared errors for all clusters
 	 */
 	private double[] m_squaredErrors;
 	
-	/**
+	/*
 	 * the distance function used.
 	 */
 	protected DistanceFunction m_DistanceFunction = new EuclideanDistance();
 	
-	/**
+	/*
 	 * Preserve order of instances
 	 */
 	private boolean m_PreserveOrder = false;
 	
-	/**
+	/*
 	 * Assignments obtained
 	 */
 	protected int[] m_Assignments = null;
 	
-	/**
+	/*
 	 * the default constructor
 	 */
 	public SimpleKMeansTS() {
@@ -198,7 +198,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		setSeed(m_SeedDefault);
 	}
 	
-	/**
+	/*
 	 * Returns a string describing this clusterer
 	 *
 	 * @return a description of the evaluator suitable for displaying in the
@@ -211,7 +211,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 				+ "as the component-wise median rather than mean.";
 	}
 	
-	/**
+	/*
 	 * Returns default capabilities of the clusterer.
 	 *
 	 * @return the capabilities of this clusterer
@@ -230,7 +230,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		return result;
 	}
 	
-	/**
+	/*
 	 * Generates a clusterer. Has to initialize all fields of the clusterer that
 	 * are not being set via options.
 	 *
@@ -425,7 +425,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		m_DistanceFunction.clean();
 	}
 	
-	/**
+	/*
 	 * Move the centroid to it's new coordinates. Generate the centroid
 	 * coordinates based on it's members (objects assigned to the cluster of the
 	 * centroid) and the distance function being used.
@@ -499,7 +499,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		return vals;
 	}
 	
-	/**
+	/*
 	 * clusters an instance that has been through the filters
 	 *
 	 * @param instance     the instance to assign a cluster to
@@ -527,7 +527,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		return bestCluster;
 	}
 	
-	/**
+	/*
 	 * Classifies a given instance.
 	 *
 	 * @param instance the instance to be assigned to a cluster
@@ -549,7 +549,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		return clusterProcessedInstance(inst, false);
 	}
 	
-	/**
+	/*
 	 * Returns the number of clusters.
 	 *
 	 * @return the number of clusters generated for a training dataset.
@@ -560,7 +560,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		return m_NumClusters;
 	}
 	
-	/**
+	/*
 	 * Returns an enumeration describing the available options.
 	 *
 	 * @return an enumeration of all the available options.
@@ -594,7 +594,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		return result.elements();
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for displaying in the
@@ -604,7 +604,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		return "set number of clusters";
 	}
 	
-	/**
+	/*
 	 * set the number of clusters to generate
 	 *
 	 * @param n the number of clusters to generate
@@ -618,7 +618,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		m_NumClusters = n;
 	}
 	
-	/**
+	/*
 	 * gets the number of clusters to generate
 	 *
 	 * @return the number of clusters to generate
@@ -627,7 +627,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		return m_NumClusters;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for displaying in the
@@ -637,7 +637,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		return "set maximum number of iterations";
 	}
 	
-	/**
+	/*
 	 * set the maximum number of iterations to be executed
 	 *
 	 * @param n the maximum number of iterations
@@ -650,7 +650,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		m_MaxIterations = n;
 	}
 	
-	/**
+	/*
 	 * gets the number of maximum iterations to be executed
 	 *
 	 * @return the number of clusters to generate
@@ -659,7 +659,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		return m_MaxIterations;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for displaying in the
@@ -670,7 +670,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 				+ "and counts of nominal attributes.";
 	}
 	
-	/**
+	/*
 	 * Sets whether standard deviations and nominal count Should be displayed in
 	 * the clustering output
 	 *
@@ -680,7 +680,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		m_displayStdDevs = stdD;
 	}
 	
-	/**
+	/*
 	 * Gets whether standard deviations and nominal count Should be displayed in
 	 * the clustering output
 	 *
@@ -690,7 +690,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		return m_displayStdDevs;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for displaying in the
@@ -700,7 +700,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		return "Replace missing values globally with mean/mode.";
 	}
 	
-	/**
+	/*
 	 * Sets whether missing values are to be replaced
 	 *
 	 * @param r true if missing values are to be replaced
@@ -709,7 +709,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		m_dontReplaceMissing = r;
 	}
 	
-	/**
+	/*
 	 * Gets whether missing values are to be replaced
 	 *
 	 * @return true if missing values are to be replaced
@@ -718,7 +718,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		return m_dontReplaceMissing;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property.
 	 *
 	 * @return tip text for this property suitable for displaying in the
@@ -729,7 +729,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 				+ "(default: weka.core.EuclideanDistance). ";
 	}
 	
-	/**
+	/*
 	 * returns the distance function currently in use.
 	 *
 	 * @return the distance function
@@ -738,7 +738,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		return m_DistanceFunction;
 	}
 	
-	/**
+	/*
 	 * sets the distance function to use for instance comparison.
 	 *
 	 * @param df the new distance function to use
@@ -753,7 +753,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		m_DistanceFunction = df;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for displaying in the
@@ -763,7 +763,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		return "Preserve order of instances.";
 	}
 	
-	/**
+	/*
 	 * Sets whether order of instances must be preserved
 	 *
 	 * @param r true if missing values are to be replaced
@@ -772,7 +772,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		m_PreserveOrder = r;
 	}
 	
-	/**
+	/*
 	 * Gets whether order of instances must be preserved
 	 *
 	 * @return true if missing values are to be replaced
@@ -781,7 +781,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		return m_PreserveOrder;
 	}
 	
-	/**
+	/*
 	 * Parses a given list of options.
 	 * <p/>
 	 * <p>
@@ -850,7 +850,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		
 		String distFunctionClass = Utils.getOption('A', options);
 		if (distFunctionClass.length() != 0) {
-			String distFunctionClassSpec[] = Utils.splitOptions(distFunctionClass);
+			String[] distFunctionClassSpec = Utils.splitOptions(distFunctionClass);
 			if (distFunctionClassSpec.length == 0) {
 				throw new Exception("Invalid DistanceFunction specification string.");
 			}
@@ -868,7 +868,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		super.setOptions(options);
 	}
 	
-	/**
+	/*
 	 * Gets the current settings of SimpleKMeans
 	 *
 	 * @return an array of strings suitable for passing to setOptions()
@@ -911,7 +911,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		return (String[]) result.toArray(new String[result.size()]);
 	}
 	
-	/**
+	/*
 	 * return a string describing this clusterer
 	 *
 	 * @return a description of the clusterer as a string
@@ -1244,7 +1244,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		return temp.toString();
 	}
 	
-	/**
+	/*
 	 * Gets the the cluster centroids
 	 *
 	 * @return the cluster centroids
@@ -1253,7 +1253,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		return m_ClusterCentroids;
 	}
 	
-	/**
+	/*
 	 * Gets the standard deviations of the numeric attributes in each cluster
 	 *
 	 * @return the standard deviations of the numeric attributes in each cluster
@@ -1262,7 +1262,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		return m_ClusterStdDevs;
 	}
 	
-	/**
+	/*
 	 * Returns for each cluster the frequency counts for the values of each
 	 * nominal attribute
 	 *
@@ -1272,7 +1272,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		return m_ClusterNominalCounts;
 	}
 	
-	/**
+	/*
 	 * Gets the squared error for all clusters
 	 *
 	 * @return the squared error
@@ -1281,7 +1281,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		return Utils.sum(m_squaredErrors);
 	}
 	
-	/**
+	/*
 	 * Gets the number of instances in each cluster
 	 *
 	 * @return The number of instances in each cluster
@@ -1290,7 +1290,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		return m_ClusterSizes;
 	}
 	
-	/**
+	/*
 	 * Gets the assignments for each instance
 	 *
 	 * @return Array of indexes of the centroid assigned to each instance
@@ -1308,7 +1308,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		return m_Assignments;
 	}
 	
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision
@@ -1318,7 +1318,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 		return RevisionUtils.extract("$Revision: 10537 $");
 	}
 	
-	/**
+	/*
 	 * Main method for testing this class.
 	 *
 	 * @param argv should contain the following arguments:

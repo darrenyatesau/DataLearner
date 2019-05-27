@@ -28,7 +28,7 @@ import weka.core.RevisionHandler;
 
 import java.io.Serializable;
 
-/**
+/*
  * Abstract class for model selection criteria.
  *
  * @author Eibe Frank (eibe@cs.waikato.ac.nz)
@@ -36,18 +36,18 @@ import java.io.Serializable;
  */
 public abstract class ModelSelectionTS
   implements Serializable, RevisionHandler {
-
-  /** for serialization */
+  
+  /* for serialization */
   private static final long serialVersionUID = -4850147125096133642L;
-
-  /**
+  
+  /*
    * Selects a model for the given dataset.
    *
    * @exception Exception if model can't be selected
    */
   public abstract ClassifierSplitModelTS selectModel(Instances data) throws Exception;
-
-  /**
+  
+  /*
    * Selects a model for the given train data using the given test data
    *
    * @exception Exception if model can't be selected

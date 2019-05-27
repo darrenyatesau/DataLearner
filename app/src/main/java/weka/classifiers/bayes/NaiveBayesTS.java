@@ -46,7 +46,7 @@ import weka.estimators.NormalEstimator;
 import java.util.Enumeration;
 import java.util.Vector;
 
-/**
+/*
  * <!-- globalinfo-start -->
  * Class for a Naive Bayes classifier using estimator classes. Numeric estimator precision values are chosen based on analysis of the  training data. For this reason, the classifier is not an UpdateableClassifier (which in typical usage are initialized with zero training instances) -- if you need the UpdateableClassifier functionality, use the NaiveBayesUpdateable classifier. The NaiveBayesUpdateable classifier will  use a default precision of 0.1 for numeric attributes when buildClassifier is called with zero training instances.<br/>
  * <br/>
@@ -97,55 +97,57 @@ public class NaiveBayesTS extends Classifier
 		implements OptionHandler, WeightedInstancesHandler,
 		TechnicalInformationHandler {
 	
-	/**
+	/*
 	 * for serialization
 	 */
 	static final long serialVersionUID = 5995231201785697655L;
 	
-	/**
+	/*
 	 * The attribute estimators.
 	 */
 	protected Estimator[][] m_Distributions;
 	
-	/**
+	/*
 	 * The class estimator.
 	 */
 	protected Estimator m_ClassDistribution;
 	
-	/**
+	/*
 	 * Whether to use kernel density estimator rather than normal distribution
 	 * for numeric attributes
 	 */
 	protected boolean m_UseKernelEstimator = false;
 	
-	/**
+	/*
 	 * Whether to use discretization than normal distribution
 	 * for numeric attributes
 	 */
 	protected boolean m_UseDiscretization = false;
 	
-	/**
+	/*
 	 * The number of classes (or 1 for numeric class)
 	 */
 	protected int m_NumClasses;
 	
-	/**
+	/*
 	 * The dataset header for the purposes of printing out a semi-intelligible
 	 * model
 	 */
 	protected Instances m_Instances;
 	
-	/*** The precision parameter used for numeric attributes */
+	/**
+	 * The precision parameter used for numeric attributes
+	 */
 	protected static final double DEFAULT_NUM_PRECISION = 0.01;
 	
-	/**
+	/*
 	 * The discretization filter.
 	 */
 	protected weka.filters.supervised.attribute.Discretize m_Disc = null;
 	
 	protected boolean m_displayModelInOldFormat = false;
 	
-	/**
+	/*
 	 * Returns a string describing this classifier
 	 *
 	 * @return a description of the classifier suitable for
@@ -164,7 +166,7 @@ public class NaiveBayesTS extends Classifier
 				+ getTechnicalInformation().toString();
 	}
 	
-	/**
+	/*
 	 * Returns an instance of a TechnicalInformation object, containing
 	 * detailed information about the technical background of this class,
 	 * e.g., paper reference or book this class is based on.
@@ -186,7 +188,7 @@ public class NaiveBayesTS extends Classifier
 		return result;
 	}
 	
-	/**
+	/*
 	 * Returns default capabilities of the classifier.
 	 *
 	 * @return the capabilities of this classifier
@@ -210,7 +212,7 @@ public class NaiveBayesTS extends Classifier
 		return result;
 	}
 	
-	/**
+	/*
 	 * Generates the classifier.
 	 *
 	 * @param instances set of instances serving as training data
@@ -323,7 +325,7 @@ public class NaiveBayesTS extends Classifier
 	}
 	
 	
-	/**
+	/*
 	 * Updates the classifier with the given instance.
 	 *
 	 * @param instance the new training instance to include in the model
@@ -349,7 +351,7 @@ public class NaiveBayesTS extends Classifier
 	}
 	
 	
-	/**
+	/*
 	 * Calculates the class membership probabilities for the given test
 	 * instance.
 	 *
@@ -402,7 +404,7 @@ public class NaiveBayesTS extends Classifier
 		return probs;
 	}
 	
-	/**
+	/*
 	 * Returns an enumeration describing the available options.
 	 *
 	 * @return an enumeration of all the available options.
@@ -427,7 +429,7 @@ public class NaiveBayesTS extends Classifier
 		return newVector.elements();
 	}
 	
-	/**
+	/*
 	 * Parses a given list of options. <p/>
 	 * <p>
 	 * <!-- options-start -->
@@ -464,7 +466,7 @@ public class NaiveBayesTS extends Classifier
 		Utils.checkForRemainingOptions(options);
 	}
 	
-	/**
+	/*
 	 * Gets the current settings of the classifier.
 	 *
 	 * @return an array of strings suitable for passing to setOptions
@@ -492,7 +494,7 @@ public class NaiveBayesTS extends Classifier
 		return options;
 	}
 	
-	/**
+	/*
 	 * Returns a description of the classifier.
 	 *
 	 * @return a description of the classifier as a string.
@@ -603,7 +605,7 @@ public class NaiveBayesTS extends Classifier
 			// Check width of class priors
 			for (int i = 0; i < m_Instances.numClasses(); i++) {
 				String priorP =
-						Utils.doubleToString(((DiscreteEstimator) m_ClassDistribution).getProbability(i),
+						Utils.doubleToString(m_ClassDistribution.getProbability(i),
 								maxWidth, 2).trim();
 				priorP = "(" + priorP + ")";
 				if (priorP.length() > maxWidth) {
@@ -645,7 +647,7 @@ public class NaiveBayesTS extends Classifier
 			temp.append(pad("", " ", maxAttWidth, true));
 			for (int i = 0; i < m_Instances.numClasses(); i++) {
 				String priorP =
-						Utils.doubleToString(((DiscreteEstimator) m_ClassDistribution).getProbability(i),
+						Utils.doubleToString(m_ClassDistribution.getProbability(i),
 								maxWidth, 2).trim();
 				priorP = "(" + priorP + ")";
 				temp.append(pad(priorP, " ", maxWidth + 1 - priorP.length(), true));
@@ -792,7 +794,7 @@ public class NaiveBayesTS extends Classifier
 		return temp.toString();
 	}
 	
-	/**
+	/*
 	 * Returns a description of the classifier in the old format.
 	 *
 	 * @return a description of the classifier as a string.
@@ -848,7 +850,7 @@ public class NaiveBayesTS extends Classifier
 		return temp.toString();
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -859,7 +861,7 @@ public class NaiveBayesTS extends Classifier
 				+ "normal distribution.";
 	}
 	
-	/**
+	/*
 	 * Gets if kernel estimator is being used.
 	 *
 	 * @return Value of m_UseKernelEstimatory.
@@ -869,7 +871,7 @@ public class NaiveBayesTS extends Classifier
 		return m_UseKernelEstimator;
 	}
 	
-	/**
+	/*
 	 * Sets if kernel estimator is to be used.
 	 *
 	 * @param v Value to assign to m_UseKernelEstimatory.
@@ -882,7 +884,7 @@ public class NaiveBayesTS extends Classifier
 		}
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -893,7 +895,7 @@ public class NaiveBayesTS extends Classifier
 				+ "ones.";
 	}
 	
-	/**
+	/*
 	 * Get whether supervised discretization is to be used.
 	 *
 	 * @return true if supervised discretization is to be used.
@@ -903,7 +905,7 @@ public class NaiveBayesTS extends Classifier
 		return m_UseDiscretization;
 	}
 	
-	/**
+	/*
 	 * Set whether supervised discretization is to be used.
 	 *
 	 * @param newblah true if supervised discretization is to be used.
@@ -916,7 +918,7 @@ public class NaiveBayesTS extends Classifier
 		}
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -928,7 +930,7 @@ public class NaiveBayesTS extends Classifier
 				+ "is better when there are fewer classes and many attributes.";
 	}
 	
-	/**
+	/*
 	 * Set whether to display model output in the old, original
 	 * format.
 	 *
@@ -938,7 +940,7 @@ public class NaiveBayesTS extends Classifier
 		m_displayModelInOldFormat = d;
 	}
 	
-	/**
+	/*
 	 * Get whether to display model output in the old, original
 	 * format.
 	 *
@@ -948,7 +950,7 @@ public class NaiveBayesTS extends Classifier
 		return m_displayModelInOldFormat;
 	}
 	
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision
@@ -957,7 +959,7 @@ public class NaiveBayesTS extends Classifier
 		return RevisionUtils.extract("$Revision: 5516 $");
 	}
 	
-	/**
+	/*
 	 * Main method for testing this class.
 	 *
 	 * @param argv the options

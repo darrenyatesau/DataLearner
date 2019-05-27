@@ -52,7 +52,7 @@ import weka.filters.unsupervised.attribute.ReplaceMissingValues;
 import java.util.Enumeration;
 import java.util.Vector;
 
-/**
+/*
  * <!-- globalinfo-start -->
  * Bayes Network learning using various search algorithms and quality measures.<br/>
  * Base class for a Bayes Network classifier. Provides datastructures (network structure, conditional probability distributions, etc.) and facilities common to Bayes Network learning algorithms like K2 and B.<br/>
@@ -92,76 +92,76 @@ public class BayesNetTS
 		implements OptionHandler, WeightedInstancesHandler, Drawable,
 		AdditionalMeasureProducer {
 	
-	/**
+	/*
 	 * for serialization
 	 */
 	static final long serialVersionUID = 746037443258775954L;
 	
 	
-	/**
+	/*
 	 * The parent sets.
 	 */
 	protected ParentSet[] m_ParentSets;
 	
-	/**
+	/*
 	 * The attribute estimators containing CPTs.
 	 */
 	public Estimator[][] m_Distributions;
 	
 	
-	/**
+	/*
 	 * filter used to quantize continuous variables, if any
 	 **/
 	protected Discretize m_DiscretizeFilter = null;
 	
-	/**
+	/*
 	 * attribute index of a non-nominal attribute
 	 */
 	int m_nNonDiscreteAttribute = -1;
 	
-	/**
+	/*
 	 * filter used to fill in missing values, if any
 	 **/
 	protected ReplaceMissingValues m_MissingValuesFilter = null;
 	
-	/**
+	/*
 	 * The number of classes
 	 */
 	protected int m_NumClasses;
 	
-	/**
+	/*
 	 * The dataset header for the purposes of printing out a semi-intelligible
 	 * model
 	 */
 	public Instances m_Instances;
 	
-	/**
+	/*
 	 * Datastructure containing ADTree representation of the database.
 	 * This may result in more efficient access to the data.
 	 */
 	ADNodeTS m_ADTree;
 	
-	/**
+	/*
 	 * Bayes network to compare the structure with.
 	 */
 	protected BIFReaderTS m_otherBayesNet = null;
 	
-	/**
+	/*
 	 * Use the experimental ADTree datastructure for calculating contingency tables
 	 */
 	boolean m_bUseADTree = false;
 	
-	/**
+	/*
 	 * Search algorithm used for learning the structure of a network.
 	 */
 	SearchAlgorithmTS m_SearchAlgorithm = new K2TS();
 	
-	/**
+	/*
 	 * Search algorithm used for learning the structure of a network.
 	 */
 	BayesNetEstimatorTS m_BayesNetEstimator = new SimpleEstimatorTS();
 	
-	/**
+	/*
 	 * Returns default capabilities of the classifier.
 	 *
 	 * @return the capabilities of this classifier
@@ -185,7 +185,7 @@ public class BayesNetTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Generates the classifier.
 	 *
 	 * @param instances set of instances serving as training data
@@ -230,7 +230,7 @@ public class BayesNetTS
 		m_ADTree = null;
 	} // buildClassifier
 	
-	/**
+	/*
 	 * ensure that all variables are nominal and that there are no missing values
 	 *
 	 * @param instances data set to check and quantize and/or fill in missing values
@@ -277,7 +277,7 @@ public class BayesNetTS
 		return instances;
 	} // normalizeDataSet
 	
-	/**
+	/*
 	 * ensure that all variables are nominal and that there are no missing values
 	 *
 	 * @param instance instance to check and quantize and/or fill in missing values
@@ -311,7 +311,7 @@ public class BayesNetTS
 		return instance;
 	} // normalizeInstance
 	
-	/**
+	/*
 	 * Init structure initializes the structure to an empty graph or a Naive Bayes
 	 * graph (depending on the -N flag).
 	 *
@@ -341,7 +341,7 @@ public class BayesNetTS
 		}
 	} // initStructure
 	
-	/**
+	/*
 	 * buildStructure determines the network structure/graph of the network.
 	 * The default behavior is creating a network where all nodes have the first
 	 * node as its parent (i.e., a BayesNet that behaves like a naive Bayes classifier).
@@ -354,7 +354,7 @@ public class BayesNetTS
 		m_SearchAlgorithm.buildStructure(this, m_Instances);
 	} // buildStructure
 	
-	/**
+	/*
 	 * estimateCPTs estimates the conditional probability tables for the Bayes
 	 * Net using the network structure.
 	 *
@@ -364,7 +364,7 @@ public class BayesNetTS
 		m_BayesNetEstimator.estimateCPTs(this);
 	} // estimateCPTs
 	
-	/**
+	/*
 	 * initializes the conditional probabilities
 	 *
 	 * @throws Exception in case of an error
@@ -373,7 +373,7 @@ public class BayesNetTS
 		m_BayesNetEstimator.initCPTs(this);
 	} // estimateCPTs
 	
-	/**
+	/*
 	 * Updates the classifier with the given instance.
 	 *
 	 * @param instance the new training instance to include in the model
@@ -385,7 +385,7 @@ public class BayesNetTS
 		m_BayesNetEstimator.updateClassifier(this, instance);
 	} // updateClassifier
 	
-	/**
+	/*
 	 * Calculates the class membership probabilities for the given test
 	 * instance.
 	 *
@@ -398,7 +398,7 @@ public class BayesNetTS
 		return m_BayesNetEstimator.distributionForInstance(this, instance);
 	} // distributionForInstance
 	
-	/**
+	/*
 	 * Calculates the counts for Dirichlet distribution for the
 	 * class membership probabilities for the given test instance.
 	 *
@@ -443,7 +443,7 @@ public class BayesNetTS
 		return fCounts;
 	} // countsForInstance
 	
-	/**
+	/*
 	 * Returns an enumeration describing the available options
 	 *
 	 * @return an enumeration of all the available options
@@ -459,7 +459,7 @@ public class BayesNetTS
 		return newVector.elements();
 	} // listOptions
 	
-	/**
+	/*
 	 * Parses a given list of options. <p>
 	 * <p>
 	 * <!-- options-start -->
@@ -520,7 +520,7 @@ public class BayesNetTS
 		Utils.checkForRemainingOptions(options);
 	} // setOptions
 	
-	/**
+	/*
 	 * Returns the secondary set of options (if any) contained in
 	 * the supplied options array. The secondary set is defined to
 	 * be any options after the first "--" but before the "-E". These
@@ -560,7 +560,7 @@ public class BayesNetTS
 	}
 	
 	
-	/**
+	/*
 	 * Gets the current settings of the classifier.
 	 *
 	 * @return an array of strings suitable for passing to setOptions
@@ -577,7 +577,7 @@ public class BayesNetTS
 		
 		if (m_otherBayesNet != null) {
 			options[current++] = "-B";
-			options[current++] = ((BIFReaderTS) m_otherBayesNet).getFileName();
+			options[current++] = m_otherBayesNet.getFileName();
 		}
 		
 		options[current++] = "-Q";
@@ -602,7 +602,7 @@ public class BayesNetTS
 		return options;
 	} // getOptions
 	
-	/**
+	/*
 	 * Set the SearchAlgorithm used in searching for network structures.
 	 *
 	 * @param newSearchAlgorithm the SearchAlgorithm to use.
@@ -611,7 +611,7 @@ public class BayesNetTS
 		m_SearchAlgorithm = newSearchAlgorithm;
 	}
 	
-	/**
+	/*
 	 * Get the SearchAlgorithm used as the search algorithm
 	 *
 	 * @return the SearchAlgorithm used as the search algorithm
@@ -620,7 +620,7 @@ public class BayesNetTS
 		return m_SearchAlgorithm;
 	}
 	
-	/**
+	/*
 	 * Set the Estimator Algorithm used in calculating the CPTs
 	 *
 	 * @param newBayesNetEstimator the Estimator to use.
@@ -629,7 +629,7 @@ public class BayesNetTS
 		m_BayesNetEstimator = newBayesNetEstimator;
 	}
 	
-	/**
+	/*
 	 * Get the BayesNetEstimator used for calculating the CPTs
 	 *
 	 * @return the BayesNetEstimator used.
@@ -638,7 +638,7 @@ public class BayesNetTS
 		return m_BayesNetEstimator;
 	}
 	
-	/**
+	/*
 	 * Set whether ADTree structure is used or not
 	 *
 	 * @param bUseADTree true if an ADTree structure is used
@@ -647,7 +647,7 @@ public class BayesNetTS
 		m_bUseADTree = bUseADTree;
 	}
 	
-	/**
+	/*
 	 * Method declaration
 	 *
 	 * @return whether ADTree structure is used or not
@@ -656,7 +656,7 @@ public class BayesNetTS
 		return m_bUseADTree;
 	}
 	
-	/**
+	/*
 	 * Set name of network in BIF file to compare with
 	 *
 	 * @param sBIFFile the name of the BIF file
@@ -669,7 +669,7 @@ public class BayesNetTS
 		}
 	}
 	
-	/**
+	/*
 	 * Get name of network in BIF file to compare with
 	 *
 	 * @return BIF file name
@@ -682,7 +682,7 @@ public class BayesNetTS
 	}
 	
 	
-	/**
+	/*
 	 * Returns a description of the classifier.
 	 *
 	 * @return a description of the classifier as a string.
@@ -747,7 +747,7 @@ public class BayesNetTS
 	} // toString
 	
 	
-	/**
+	/*
 	 * Returns the type of graph this classifier
 	 * represents.
 	 *
@@ -757,7 +757,7 @@ public class BayesNetTS
 		return Drawable.BayesNet;
 	}
 	
-	/**
+	/*
 	 * Returns a BayesNet graph in XMLBIF ver 0.3 format.
 	 *
 	 * @return String representing this BayesNet in XMLBIF ver  0.3
@@ -788,7 +788,7 @@ public class BayesNetTS
 		return text.toString();
 	} // getBIFHeader
 	
-	/**
+	/*
 	 * Returns a description of the classifier in XML BIF 0.3 format.
 	 * See http://www-2.cs.cmu.edu/~fgcozman/Research/InterchangeFormat/
 	 * for details on XML BIF.
@@ -841,7 +841,7 @@ public class BayesNetTS
 	} // toXMLBIF03
 	
 	
-	/**
+	/*
 	 * XMLNormalize converts the five standard XML entities in a string
 	 * g.e. the string V&D's is returned as V&amp;D&apos;s
 	 *
@@ -876,7 +876,7 @@ public class BayesNetTS
 	} // XMLNormalize
 	
 	
-	/**
+	/*
 	 * @return a string to describe the UseADTreeoption.
 	 */
 	public String useADTreeTipText() {
@@ -888,14 +888,14 @@ public class BayesNetTS
 				+ " By default, ADTrees are used.";
 	}
 	
-	/**
+	/*
 	 * @return a string to describe the SearchAlgorithm.
 	 */
 	public String searchAlgorithmTipText() {
 		return "Select method used for searching network structures.";
 	}
 	
-	/**
+	/*
 	 * This will return a string describing the BayesNetEstimator.
 	 *
 	 * @return The string.
@@ -905,7 +905,7 @@ public class BayesNetTS
 				+ " of the Bayes Network.";
 	}
 	
-	/**
+	/*
 	 * @return a string to describe the BIFFile.
 	 */
 	public String BIFFileTipText() {
@@ -914,7 +914,7 @@ public class BayesNetTS
 				+ " Statistics calculated are o.a. the number of missing and extra arcs.";
 	}
 	
-	/**
+	/*
 	 * This will return a string describing the classifier.
 	 *
 	 * @return The string.
@@ -931,7 +931,7 @@ public class BayesNetTS
 						+ "http://www.cs.waikato.ac.nz/~remco/weka.pdf";
 	}
 	
-	/**
+	/*
 	 * Main method for testing this class.
 	 *
 	 * @param argv the options
@@ -940,7 +940,7 @@ public class BayesNetTS
 		runClassifier(new BayesNetTS(), argv);
 	} // main
 	
-	/**
+	/*
 	 * get name of the Bayes network
 	 *
 	 * @return name of the Bayes net
@@ -949,7 +949,7 @@ public class BayesNetTS
 		return m_Instances.relationName();
 	}
 	
-	/**
+	/*
 	 * get number of nodes in the Bayes network
 	 *
 	 * @return number of nodes
@@ -958,7 +958,7 @@ public class BayesNetTS
 		return m_Instances.numAttributes();
 	}
 	
-	/**
+	/*
 	 * get name of a node in the Bayes network
 	 *
 	 * @param iNode index of the node
@@ -968,7 +968,7 @@ public class BayesNetTS
 		return m_Instances.attribute(iNode).name();
 	}
 	
-	/**
+	/*
 	 * get number of values a node can take
 	 *
 	 * @param iNode index of the node
@@ -978,7 +978,7 @@ public class BayesNetTS
 		return m_Instances.attribute(iNode).numValues();
 	}
 	
-	/**
+	/*
 	 * get name of a particular value of a node
 	 *
 	 * @param iNode  index of the node
@@ -989,7 +989,7 @@ public class BayesNetTS
 		return m_Instances.attribute(iNode).value(iValue);
 	}
 	
-	/**
+	/*
 	 * get number of parents of a node in the network structure
 	 *
 	 * @param iNode index of the node
@@ -999,7 +999,7 @@ public class BayesNetTS
 		return m_ParentSets[iNode].getNrOfParents();
 	}
 	
-	/**
+	/*
 	 * get node index of a parent of a node in the network structure
 	 *
 	 * @param iNode   index of the node
@@ -1010,7 +1010,7 @@ public class BayesNetTS
 		return m_ParentSets[iNode].getParent(iParent);
 	}
 	
-	/**
+	/*
 	 * Get full set of parent sets.
 	 *
 	 * @return parent sets;
@@ -1019,7 +1019,7 @@ public class BayesNetTS
 		return m_ParentSets;
 	}
 	
-	/**
+	/*
 	 * Get full set of estimators.
 	 *
 	 * @return estimators;
@@ -1028,7 +1028,7 @@ public class BayesNetTS
 		return m_Distributions;
 	}
 	
-	/**
+	/*
 	 * get number of values the collection of parents of a node can take
 	 *
 	 * @param iNode index of the node
@@ -1038,7 +1038,7 @@ public class BayesNetTS
 		return m_ParentSets[iNode].getCardinalityOfParents();
 	}
 	
-	/**
+	/*
 	 * get particular probability of the conditional probability distribtion
 	 * of a node given its parents.
 	 *
@@ -1051,7 +1051,7 @@ public class BayesNetTS
 		return m_Distributions[iNode][iParent].getProbability(iValue);
 	}
 	
-	/**
+	/*
 	 * get the parent set of a node
 	 *
 	 * @param iNode index of the node
@@ -1061,7 +1061,7 @@ public class BayesNetTS
 		return m_ParentSets[iNode];
 	}
 	
-	/**
+	/*
 	 * get ADTree strucrture containing efficient representation of counts.
 	 *
 	 * @return ADTree strucrture
@@ -1072,7 +1072,7 @@ public class BayesNetTS
 	
 	// implementation of AdditionalMeasureProducer interface
 	
-	/**
+	/*
 	 * Returns an enumeration of the measure names. Additional measures
 	 * must follow the naming convention of starting with "measure", eg.
 	 * double measureBlah()
@@ -1146,7 +1146,7 @@ public class BayesNetTS
 		return s.logScore(Scoreable.ENTROPY);
 	} // measureEntropyScore
 	
-	/**
+	/*
 	 * Returns the value of the named measure
 	 *
 	 * @param measureName the name of the measure to query for its value
@@ -1184,7 +1184,7 @@ public class BayesNetTS
 		return 0;
 	} // getMeasure
 	
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision

@@ -42,7 +42,7 @@ import java.util.BitSet;
 import java.util.Enumeration;
 import java.util.Vector;
 
-/**
+/*
  * <!-- globalinfo-start -->
  * Class for building and using a decision table/naive bayes hybrid classifier. At each point in the search, the algorithm evaluates the merit of dividing the attributes into two disjoint subsets: one for the decision table, the other for naive Bayes. A forward selection search is used, where at each step, selected attributes are modeled by naive Bayes and the remainder by the decision table, and all attributes are modelled by the decision table initially. At each step, the algorithm also considers dropping an attribute entirely from the model.<br/>
  * <br/>
@@ -94,29 +94,29 @@ import java.util.Vector;
  */
 public class DTNBTS extends DecisionTableTS {
 	
-	/**
+	/*
 	 * The naive Bayes half of the hybrid
 	 */
 	protected NaiveBayesTS m_NB;
 	
-	/**
+	/*
 	 * The features used by naive Bayes
 	 */
 	private int[] m_nbFeatures;
 	
-	/**
+	/*
 	 * Percentage of the total number of features used by the decision table
 	 */
 	private double m_percentUsedByDT;
 	
-	/**
+	/*
 	 * Percentage of the features features that were dropped entirely
 	 */
 	private double m_percentDeleted;
 	
 	static final long serialVersionUID = 2999557077765701326L;
 	
-	/**
+	/*
 	 * Returns a string describing classifier
 	 *
 	 * @return a description suitable for
@@ -135,7 +135,7 @@ public class DTNBTS extends DecisionTableTS {
 						+ getTechnicalInformation().toString();
 	}
 	
-	/**
+	/*
 	 * Returns an instance of a TechnicalInformation object, containing
 	 * detailed information about the technical background of this class,
 	 * e.g., paper reference or book this class is based on.
@@ -157,7 +157,7 @@ public class DTNBTS extends DecisionTableTS {
 		return result;
 	}
 	
-	/**
+	/*
 	 * Calculates the accuracy on a test fold for internal cross validation
 	 * of feature sets
 	 *
@@ -293,7 +293,7 @@ public class DTNBTS extends DecisionTableTS {
 		return acc;
 	}
 	
-	/**
+	/*
 	 * Classifies an instance for internal leave one out cross validation
 	 * of feature sets
 	 *
@@ -369,7 +369,7 @@ public class DTNBTS extends DecisionTableTS {
 		}
 	}
 	
-	/**
+	/*
 	 * Sets up a dummy subset evaluator that basically just delegates
 	 * evaluation to the estimatePerformance method in DecisionTable
 	 */
@@ -447,7 +447,7 @@ public class DTNBTS extends DecisionTableTS {
 			return m_deletedFromDTNB;
 		}
 		
-		/**
+		/*
 		 * Returns the revision string.
 		 *
 		 * @return the revision
@@ -459,7 +459,7 @@ public class DTNBTS extends DecisionTableTS {
 	
 	protected ASSearch m_backwardWithDelete;
 	
-	/**
+	/*
 	 * Inner class implementing a special forwards search that looks for a good
 	 * split of attributes between naive Bayes and the decision table. It also
 	 * considers dropping attributes entirely from the model.
@@ -543,11 +543,7 @@ public class DTNBTS extends DecisionTableTS {
 							temp_index = i;
 							addone = true;
 							done = false;
-							if (deleteBetter) {
-								deleted = true;
-							} else {
-								deleted = false;
-							}
+							deleted = deleteBetter;
 						}
 						
 						// unset this addition/deletion
@@ -570,7 +566,7 @@ public class DTNBTS extends DecisionTableTS {
 			return attributeList(best_group);
 		}
 		
-		/**
+		/*
 		 * converts a BitSet into a list of attribute indexes
 		 *
 		 * @param group the BitSet to convert
@@ -607,7 +603,7 @@ public class DTNBTS extends DecisionTableTS {
 			return list;
 		}
 		
-		/**
+		/*
 		 * Returns the revision string.
 		 *
 		 * @return the revision
@@ -621,7 +617,7 @@ public class DTNBTS extends DecisionTableTS {
 		m_backwardWithDelete = new BackwardsWithDelete();
 	}
 	
-	/**
+	/*
 	 * Generates the classifier.
 	 *
 	 * @param data set of instances serving as training data
@@ -684,7 +680,7 @@ public class DTNBTS extends DecisionTableTS {
 		m_theInstances = new Instances(m_theInstances, 0);
 	}
 	
-	/**
+	/*
 	 * Calculates the class membership probabilities for the given
 	 * test instance.
 	 *
@@ -751,7 +747,7 @@ public class DTNBTS extends DecisionTableTS {
 		return sS;
 	}
 	
-	/**
+	/*
 	 * Returns the number of rules
 	 *
 	 * @return the number of rules
@@ -760,7 +756,7 @@ public class DTNBTS extends DecisionTableTS {
 		return m_percentUsedByDT;
 	}
 	
-	/**
+	/*
 	 * Returns an enumeration of the additional measure names
 	 *
 	 * @return an enumeration of the measure names
@@ -772,7 +768,7 @@ public class DTNBTS extends DecisionTableTS {
 		return newVector.elements();
 	}
 	
-	/**
+	/*
 	 * Returns the value of the named measure
 	 *
 	 * @param additionalMeasureName the name of the measure to query for its value
@@ -790,7 +786,7 @@ public class DTNBTS extends DecisionTableTS {
 		}
 	}
 	
-	/**
+	/*
 	 * Returns default capabilities of the classifier.
 	 *
 	 * @return the capabilities of this classifier
@@ -804,7 +800,7 @@ public class DTNBTS extends DecisionTableTS {
 		return result;
 	}
 	
-	/**
+	/*
 	 * Sets the search method to use
 	 *
 	 * @param search
@@ -815,7 +811,7 @@ public class DTNBTS extends DecisionTableTS {
 		return;
 	}
 	
-	/**
+	/*
 	 * Gets the current search method
 	 *
 	 * @return the search method used
@@ -829,7 +825,7 @@ public class DTNBTS extends DecisionTableTS {
 		return m_search;
 	}
 	
-	/**
+	/*
 	 * Returns an enumeration describing the available options.
 	 *
 	 * @return an enumeration of all the available options.
@@ -860,7 +856,7 @@ public class DTNBTS extends DecisionTableTS {
 		return newVector.elements();
 	}
 	
-	/**
+	/*
 	 * Parses the options for this object. <p/>
 	 * <p>
 	 * <!-- options-start -->
@@ -918,7 +914,7 @@ public class DTNBTS extends DecisionTableTS {
 		}
 	}
 	
-	/**
+	/*
 	 * Gets the current settings of the classifier.
 	 *
 	 * @return an array of strings suitable for passing to setOptions
@@ -961,7 +957,7 @@ public class DTNBTS extends DecisionTableTS {
 		return options;
 	}
 	
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision
@@ -970,7 +966,7 @@ public class DTNBTS extends DecisionTableTS {
 		return RevisionUtils.extract("$Revision: 6269 $");
 	}
 	
-	/**
+	/*
 	 * Main method for testing this class.
 	 *
 	 * @param argv the command-line options

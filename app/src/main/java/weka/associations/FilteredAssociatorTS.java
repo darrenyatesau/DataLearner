@@ -35,7 +35,7 @@ import weka.filters.MultiFilter;
 import java.util.Enumeration;
 import java.util.Vector;
 
-/**
+/*
  * <!-- globalinfo-start -->
  * Class for running an arbitrary associator on data that has been passed through an arbitrary filter. Like the associator, the structure of the filter is based exclusively on the training data and test instances will be processed by the filter without changing their structure.
  * <p/>
@@ -110,27 +110,27 @@ import java.util.Vector;
 public class FilteredAssociatorTS
 		extends SingleAssociatorEnhancer {
 	
-	/**
+	/*
 	 * for serialization
 	 */
 	static final long serialVersionUID = -4523450618538717400L;
 	
-	/**
+	/*
 	 * The filter
 	 */
 	protected Filter m_Filter;
 	
-	/**
+	/*
 	 * The instance structure of the filtered instances
 	 */
 	protected Instances m_FilteredInstances;
 	
-	/**
+	/*
 	 * The class index.
 	 */
 	protected int m_ClassIndex;
 	
-	/**
+	/*
 	 * Default constructor.
 	 */
 	public FilteredAssociatorTS() {
@@ -141,7 +141,7 @@ public class FilteredAssociatorTS
 		m_ClassIndex = -1;
 	}
 	
-	/**
+	/*
 	 * Returns a string describing this Associator
 	 *
 	 * @return a description of the Associator suitable for
@@ -155,7 +155,7 @@ public class FilteredAssociatorTS
 						+ "by the filter without changing their structure.";
 	}
 	
-	/**
+	/*
 	 * String describing default associator.
 	 *
 	 * @return the default associator classname
@@ -164,7 +164,7 @@ public class FilteredAssociatorTS
 		return Apriori.class.getName();
 	}
 	
-	/**
+	/*
 	 * Returns an enumeration describing the available options.
 	 *
 	 * @return an enumeration of all the available options.
@@ -192,7 +192,7 @@ public class FilteredAssociatorTS
 		return result.elements();
 	}
 	
-	/**
+	/*
 	 * Parses a given list of options. <p/>
 	 * <p>
 	 * <!-- options-start -->
@@ -291,7 +291,7 @@ public class FilteredAssociatorTS
 		super.setOptions(options);
 	}
 	
-	/**
+	/*
 	 * Gets the current settings of the Associator.
 	 *
 	 * @return an array of strings suitable for passing to setOptions
@@ -316,7 +316,7 @@ public class FilteredAssociatorTS
 		return result.toArray(new String[result.size()]);
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -326,7 +326,7 @@ public class FilteredAssociatorTS
 		return "The filter to be used.";
 	}
 	
-	/**
+	/*
 	 * Sets the filter
 	 *
 	 * @param value the filter with all options set.
@@ -335,7 +335,7 @@ public class FilteredAssociatorTS
 		m_Filter = value;
 	}
 	
-	/**
+	/*
 	 * Gets the filter used.
 	 *
 	 * @return the current filter
@@ -344,7 +344,7 @@ public class FilteredAssociatorTS
 		return m_Filter;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -354,7 +354,7 @@ public class FilteredAssociatorTS
 		return "Index of the class attribute. If set to -1, the last attribute is taken as class attribute.";
 	}
 	
-	/**
+	/*
 	 * Sets the class index
 	 *
 	 * @param value the class index
@@ -363,7 +363,7 @@ public class FilteredAssociatorTS
 		m_ClassIndex = value;
 	}
 	
-	/**
+	/*
 	 * Gets the class index
 	 *
 	 * @return the index of the class attribute
@@ -372,7 +372,7 @@ public class FilteredAssociatorTS
 		return m_ClassIndex;
 	}
 	
-	/**
+	/*
 	 * Gets the filter specification string, which contains the class name of
 	 * the filter and any options to the filter
 	 *
@@ -388,7 +388,7 @@ public class FilteredAssociatorTS
 			return c.getClass().getName();
 	}
 	
-	/**
+	/*
 	 * Returns default capabilities of the associator.
 	 *
 	 * @return the capabilities of this associator
@@ -411,7 +411,7 @@ public class FilteredAssociatorTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Build the associator on the filtered data.
 	 *
 	 * @param data the training data
@@ -444,7 +444,7 @@ public class FilteredAssociatorTS
 		m_Associator.buildAssociations(data);
 	}
 	
-	/**
+	/*
 	 * Output a representation of this associator
 	 *
 	 * @return a representation of this associator
@@ -468,7 +468,7 @@ public class FilteredAssociatorTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision
@@ -477,7 +477,7 @@ public class FilteredAssociatorTS
 		return RevisionUtils.extract("$Revision: 5504 $");
 	}
 	
-	/**
+	/*
 	 * Main method for running this class.
 	 *
 	 * @param args commandline arguments, use "-h" for full list

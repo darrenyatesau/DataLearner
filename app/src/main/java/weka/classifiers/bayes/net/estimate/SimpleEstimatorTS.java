@@ -31,7 +31,7 @@ import weka.estimators.Estimator;
 
 import java.util.Enumeration;
 
-/** 
+/* 
  <!-- globalinfo-start -->
  * SimpleEstimator is used for estimating the conditional probability tables of a Bayes network once the structure has been learned. Estimates probabilities directly from data.
  * <p/>
@@ -51,11 +51,11 @@ import java.util.Enumeration;
  */
 public class SimpleEstimatorTS
     extends BayesNetEstimatorTS {
-
-    /** for serialization */
+    
+    /* for serialization */
     static final long serialVersionUID = 5874941612331806172L;
     
-    /**
+    /*
      * Returns a string describing this object
      * @return a description of the classifier suitable for
      * displaying in the explorer/experimenter gui
@@ -66,8 +66,8 @@ public class SimpleEstimatorTS
       	+ "tables of a Bayes network once the structure has been learned. "
       	+ "Estimates probabilities directly from data.";
     }
-  
-    /**
+    
+    /*
      * estimateCPTs estimates the conditional probability tables for the Bayes
      * Net using the network structure.
      * 
@@ -85,8 +85,8 @@ public class SimpleEstimatorTS
                 updateClassifier(bayesNet, instance);
             }
     } // estimateCPTs
-
-    /**
+    
+    /*
      * Updates the classifier with the given instance.
      * 
      * @param bayesNet the bayes net to use
@@ -107,9 +107,9 @@ public class SimpleEstimatorTS
             bayesNet.m_Distributions[iAttribute][(int) iCPT].addValue(instance.value(iAttribute), instance.weight());
         }
     } // updateClassifier
-
-
-    /** 
+    
+    
+    /*
      * initCPTs reserves space for CPTs and set all counts to zero
      * 
      * @param bayesNet the bayes net to use
@@ -137,8 +137,8 @@ public class SimpleEstimatorTS
             }
         }
     } // initCPTs
-
-    /**
+    
+    /*
      * Calculates the class membership probabilities for the given test
      * instance.
      * 
@@ -207,7 +207,7 @@ public class SimpleEstimatorTS
         return fProbs;
     } // distributionForInstance
     
-    /**
+    /*
      * Returns the revision string.
      * 
      * @return		the revision

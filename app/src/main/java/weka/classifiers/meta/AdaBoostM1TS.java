@@ -281,7 +281,7 @@ public class AdaBoostM1TS
 	}
 	
 	
-	/**
+	/*
 	 * Parses a given list of options. <p/>
 	 * <p>
 	 * <!-- options-start -->
@@ -443,7 +443,7 @@ public class AdaBoostM1TS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Boosting method.
 	 *
 	 * @param data the training data to be used for generating the
@@ -483,7 +483,7 @@ public class AdaBoostM1TS
 		}
 	}
 	
-	/**
+	/*
 	 * Boosting method. Boosts using resampling
 	 *
 	 * @param data the training data to be used for generating the
@@ -576,7 +576,7 @@ public class AdaBoostM1TS
 		}
 	}
 	
-	/**
+	/*
 	 * Sets the weights for the next iteration.
 	 *
 	 * @param training the training instances
@@ -613,7 +613,7 @@ public class AdaBoostM1TS
 		}
 	}
 	
-	/**
+	/*
 	 * Boosting method. Boosts any classifier that can handle weighted
 	 * instances.
 	 *
@@ -685,7 +685,7 @@ public class AdaBoostM1TS
 		}
 	}
 	
-	/**
+	/*
 	 * Calculates the class membership probabilities for the given test instance.
 	 *
 	 * @param instance the instance to be classified
@@ -716,7 +716,7 @@ public class AdaBoostM1TS
 		}
 	}
 	
-	/**
+	/*
 	 * Returns the boosted model as Java source code.
 	 *
 	 * @param className the classname of the generated class

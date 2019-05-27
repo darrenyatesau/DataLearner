@@ -45,7 +45,7 @@ import weka.filters.unsupervised.attribute.ReplaceMissingValues;
 import java.util.Enumeration;
 import java.util.Vector;
 
-/**
+/*
  * <!-- globalinfo-start -->
  * Classifier for building linear logistic regression models. LogitBoost with simple regression functions as base learners is used for fitting the logistic models. The optimal number of LogitBoost iterations to perform is cross-validated, which leads to automatic attribute selection. For more information see:<br/>
  * Niels Landwehr, Mark Hall, Eibe Frank (2005). Logistic Model Trees.<br/>
@@ -123,63 +123,63 @@ public class SimpleLogisticTS
 		implements OptionHandler, AdditionalMeasureProducer, WeightedInstancesHandler,
 		TechnicalInformationHandler {
 	
-	/**
+	/*
 	 * for serialization
 	 */
 	static final long serialVersionUID = 7397710626304705059L;
 	
-	/**
+	/*
 	 * The actual logistic regression model
 	 */
 	protected LogisticBaseTS m_boostedModel;
 	
-	/**
+	/*
 	 * Filter for converting nominal attributes to binary ones
 	 */
 	protected NominalToBinary m_NominalToBinary = null;
 	
-	/**
+	/*
 	 * Filter for replacing missing values
 	 */
 	protected ReplaceMissingValues m_ReplaceMissingValues = null;
 	
-	/**
+	/*
 	 * If non-negative, use this as fixed number of LogitBoost iterations
 	 */
 	protected int m_numBoostingIterations;
 	
-	/**
+	/*
 	 * Maximum number of iterations for LogitBoost
 	 */
 	protected int m_maxBoostingIterations = 500;
 	
-	/**
+	/*
 	 * Parameter for the heuristic for early stopping of LogitBoost
 	 */
 	protected int m_heuristicStop = 50;
 	
-	/**
+	/*
 	 * If true, cross-validate number of LogitBoost iterations
 	 */
 	protected boolean m_useCrossValidation;
 	
-	/**
+	/*
 	 * If true, use minimize error on probabilities instead of misclassification error
 	 */
 	protected boolean m_errorOnProbabilities;
 	
-	/**
+	/*
 	 * Threshold for trimming weights. Instances with a weight lower than this (as a percentage
 	 * of total weights) are not included in the regression fit.
 	 */
 	protected double m_weightTrimBeta = 0;
 	
-	/**
+	/*
 	 * If true, the AIC is used to choose the best iteration
 	 */
 	private boolean m_useAIC = false;
 	
-	/**
+	/*
 	 * Constructor for creating SimpleLogistic object with standard options.
 	 */
 	public SimpleLogisticTS() {
@@ -190,7 +190,7 @@ public class SimpleLogisticTS
 		m_useAIC = false;
 	}
 	
-	/**
+	/*
 	 * Constructor for creating SimpleLogistic object.
 	 *
 	 * @param numBoostingIterations if non-negative, use this as fixed number of iterations for LogitBoost
@@ -206,7 +206,7 @@ public class SimpleLogisticTS
 		m_useAIC = false;
 	}
 	
-	/**
+	/*
 	 * Returns default capabilities of the classifier.
 	 *
 	 * @return the capabilities of this classifier
@@ -228,7 +228,7 @@ public class SimpleLogisticTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Builds the logistic regression using LogitBoost.
 	 *
 	 * @param data the training data
@@ -264,7 +264,7 @@ public class SimpleLogisticTS
 		m_boostedModel.buildClassifier(data);
 	}
 	
-	/**
+	/*
 	 * Returns class probabilities for an instance.
 	 *
 	 * @param inst the instance to compute the probabilities for
@@ -284,7 +284,7 @@ public class SimpleLogisticTS
 		return m_boostedModel.distributionForInstance(inst);
 	}
 	
-	/**
+	/*
 	 * Returns an enumeration describing the available options.
 	 *
 	 * @return an enumeration of all the available options.
@@ -329,7 +329,7 @@ public class SimpleLogisticTS
 	}
 	
 	
-	/**
+	/*
 	 * Parses a given list of options. <p/>
 	 * <p>
 	 * <!-- options-start -->
@@ -374,7 +374,7 @@ public class SimpleLogisticTS
 		
 		String optionString = Utils.getOption('I', options);
 		if (optionString.length() != 0) {
-			setNumBoostingIterations((new Integer(optionString)).intValue());
+			setNumBoostingIterations((Integer.valueOf(optionString)).intValue());
 		}
 		
 		setUseCrossValidation(!Utils.getFlag('S', options));
@@ -382,17 +382,17 @@ public class SimpleLogisticTS
 		
 		optionString = Utils.getOption('M', options);
 		if (optionString.length() != 0) {
-			setMaxBoostingIterations((new Integer(optionString)).intValue());
+			setMaxBoostingIterations((Integer.valueOf(optionString)).intValue());
 		}
 		
 		optionString = Utils.getOption('H', options);
 		if (optionString.length() != 0) {
-			setHeuristicStop((new Integer(optionString)).intValue());
+			setHeuristicStop((Integer.valueOf(optionString)).intValue());
 		}
 		
 		optionString = Utils.getOption('W', options);
 		if (optionString.length() != 0) {
-			setWeightTrimBeta((new Double(optionString)).doubleValue());
+			setWeightTrimBeta((Double.valueOf(optionString)).doubleValue());
 		}
 		
 		setUseAIC(Utils.getFlag('A', options));
@@ -400,7 +400,7 @@ public class SimpleLogisticTS
 		Utils.checkForRemainingOptions(options);
 	}
 	
-	/**
+	/*
 	 * Gets the current settings of the Classifier.
 	 *
 	 * @return an array of strings suitable for passing to setOptions
@@ -439,7 +439,7 @@ public class SimpleLogisticTS
 		return options;
 	}
 	
-	/**
+	/*
 	 * Get the value of numBoostingIterations.
 	 *
 	 * @return the number of boosting iterations
@@ -448,7 +448,7 @@ public class SimpleLogisticTS
 		return m_numBoostingIterations;
 	}
 	
-	/**
+	/*
 	 * Get the value of useCrossValidation.
 	 *
 	 * @return true if cross-validation is used
@@ -457,7 +457,7 @@ public class SimpleLogisticTS
 		return m_useCrossValidation;
 	}
 	
-	/**
+	/*
 	 * Get the value of errorOnProbabilities.
 	 *
 	 * @return If true, use minimize error on probabilities instead of
@@ -467,7 +467,7 @@ public class SimpleLogisticTS
 		return m_errorOnProbabilities;
 	}
 	
-	/**
+	/*
 	 * Get the value of maxBoostingIterations.
 	 *
 	 * @return the maximum number of boosting iterations
@@ -476,7 +476,7 @@ public class SimpleLogisticTS
 		return m_maxBoostingIterations;
 	}
 	
-	/**
+	/*
 	 * Get the value of heuristicStop.
 	 *
 	 * @return the value of heuristicStop
@@ -485,14 +485,14 @@ public class SimpleLogisticTS
 		return m_heuristicStop;
 	}
 	
-	/**
+	/*
 	 * Get the value of weightTrimBeta.
 	 */
 	public double getWeightTrimBeta() {
 		return m_weightTrimBeta;
 	}
 	
-	/**
+	/*
 	 * Get the value of useAIC.
 	 *
 	 * @return Value of useAIC.
@@ -501,7 +501,7 @@ public class SimpleLogisticTS
 		return m_useAIC;
 	}
 	
-	/**
+	/*
 	 * Set the value of numBoostingIterations.
 	 *
 	 * @param n the number of boosting iterations
@@ -510,7 +510,7 @@ public class SimpleLogisticTS
 		m_numBoostingIterations = n;
 	}
 	
-	/**
+	/*
 	 * Set the value of useCrossValidation.
 	 *
 	 * @param l whether to use cross-validation
@@ -519,7 +519,7 @@ public class SimpleLogisticTS
 		m_useCrossValidation = l;
 	}
 	
-	/**
+	/*
 	 * Set the value of errorOnProbabilities.
 	 *
 	 * @param l If true, use minimize error on probabilities instead of
@@ -529,7 +529,7 @@ public class SimpleLogisticTS
 		m_errorOnProbabilities = l;
 	}
 	
-	/**
+	/*
 	 * Set the value of maxBoostingIterations.
 	 *
 	 * @param n the maximum number of boosting iterations
@@ -538,7 +538,7 @@ public class SimpleLogisticTS
 		m_maxBoostingIterations = n;
 	}
 	
-	/**
+	/*
 	 * Set the value of heuristicStop.
 	 *
 	 * @param n the value of heuristicStop
@@ -550,14 +550,14 @@ public class SimpleLogisticTS
 			m_heuristicStop = n;
 	}
 	
-	/**
+	/*
 	 * Set the value of weightTrimBeta.
 	 */
 	public void setWeightTrimBeta(double n) {
 		m_weightTrimBeta = n;
 	}
 	
-	/**
+	/*
 	 * Set the value of useAIC.
 	 *
 	 * @param c Value to assign to useAIC.
@@ -566,7 +566,7 @@ public class SimpleLogisticTS
 		m_useAIC = c;
 	}
 	
-	/**
+	/*
 	 * Get the number of LogitBoost iterations performed (= the number of
 	 * regression functions fit by LogitBoost).
 	 *
@@ -576,7 +576,7 @@ public class SimpleLogisticTS
 		return m_boostedModel.getNumRegressions();
 	}
 	
-	/**
+	/*
 	 * Returns a description of the logistic model (attributes/coefficients).
 	 *
 	 * @return the model as string
@@ -586,7 +586,7 @@ public class SimpleLogisticTS
 		return "SimpleLogistic:\n" + m_boostedModel.toString();
 	}
 	
-	/**
+	/*
 	 * Returns the fraction of all attributes in the data that are used in the
 	 * logistic model (in percent). An attribute is used in the model if it is
 	 * used in any of the models for the different classes.
@@ -597,7 +597,7 @@ public class SimpleLogisticTS
 		return m_boostedModel.percentAttributesUsed();
 	}
 	
-	/**
+	/*
 	 * Returns an enumeration of the additional measure names
 	 *
 	 * @return an enumeration of the measure names
@@ -609,7 +609,7 @@ public class SimpleLogisticTS
 		return newVector.elements();
 	}
 	
-	/**
+	/*
 	 * Returns the value of the named measure
 	 *
 	 * @param additionalMeasureName the name of the measure to query for its value
@@ -628,7 +628,7 @@ public class SimpleLogisticTS
 	}
 	
 	
-	/**
+	/*
 	 * Returns a string describing classifier
 	 *
 	 * @return a description suitable for
@@ -642,7 +642,7 @@ public class SimpleLogisticTS
 				+ getTechnicalInformation().toString();
 	}
 	
-	/**
+	/*
 	 * Returns an instance of a TechnicalInformation object, containing
 	 * detailed information about the technical background of this class,
 	 * e.g., paper reference or book this class is based on.
@@ -673,7 +673,7 @@ public class SimpleLogisticTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -685,7 +685,7 @@ public class SimpleLogisticTS
 				+ "(depending on the value of useCrossValidation).";
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -698,7 +698,7 @@ public class SimpleLogisticTS
 				+ "(misclassification error or error on probabilities depending on errorOnProbabilities).";
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -710,7 +710,7 @@ public class SimpleLogisticTS
 				+ "(either on the training set or in the cross-validation, depending on useCrossValidation).";
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -721,7 +721,7 @@ public class SimpleLogisticTS
 				+ "datasets a lower/higher value might be preferable.";
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -734,7 +734,7 @@ public class SimpleLogisticTS
 				+ "it gives a large speed-up especially on small datasets. The default value is 50.";
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -747,7 +747,7 @@ public class SimpleLogisticTS
 				+ "The default value is 0.";
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -758,7 +758,7 @@ public class SimpleLogisticTS
 				+ "(instead of cross-validation or training error).";
 	}
 	
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision
@@ -767,7 +767,7 @@ public class SimpleLogisticTS
 		return RevisionUtils.extract("$Revision: 5523 $");
 	}
 	
-	/**
+	/*
 	 * Main method for testing this class
 	 *
 	 * @param argv commandline options

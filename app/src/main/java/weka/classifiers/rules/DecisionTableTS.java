@@ -56,7 +56,7 @@ import java.util.Hashtable;
 import java.util.Random;
 import java.util.Vector;
 
-/**
+/*
  * <!-- globalinfo-start -->
  * Class for building and using a simple decision table majority classifier.<br/>
  * <br/>
@@ -136,108 +136,108 @@ public class DecisionTableTS
 		implements OptionHandler, WeightedInstancesHandler,
 		AdditionalMeasureProducer, TechnicalInformationHandler {
 	
-	/**
+	/*
 	 * for serialization
 	 */
 	static final long serialVersionUID = 2888557078165701326L;
 	
-	/**
+	/*
 	 * The hashtable used to hold training instances
 	 */
 	protected Hashtable m_entries;
 	
-	/**
+	/*
 	 * The class priors to use when there is no match in the table
 	 */
 	protected double[] m_classPriorCounts;
 	protected double[] m_classPriors;
 	
-	/**
+	/*
 	 * Holds the final feature set
 	 */
 	protected int[] m_decisionFeatures;
 	
-	/**
+	/*
 	 * Discretization filter
 	 */
 	protected Filter m_disTransform;
 	
-	/**
+	/*
 	 * Filter used to remove columns discarded by feature selection
 	 */
 	protected Remove m_delTransform;
 	
-	/**
+	/*
 	 * IB1 used to classify non matching instances rather than majority class
 	 */
 	protected IBkTS m_ibk;
 	
-	/**
+	/*
 	 * Holds the original training instances
 	 */
 	protected Instances m_theInstances;
 	
-	/**
+	/*
 	 * Holds the final feature selected set of instances
 	 */
 	protected Instances m_dtInstances;
 	
-	/**
+	/*
 	 * The number of attributes in the dataset
 	 */
 	protected int m_numAttributes;
 	
-	/**
+	/*
 	 * The number of instances in the dataset
 	 */
 	private int m_numInstances;
 	
-	/**
+	/*
 	 * Class is nominal
 	 */
 	protected boolean m_classIsNominal;
 	
-	/**
+	/*
 	 * Use the IBk classifier rather than majority class
 	 */
 	protected boolean m_useIBk;
 	
-	/**
+	/*
 	 * Display Rules
 	 */
 	protected boolean m_displayRules;
 	
-	/**
+	/*
 	 * Number of folds for cross validating feature sets
 	 */
 	private int m_CVFolds;
 	
-	/**
+	/*
 	 * Random numbers for use in cross validation
 	 */
 	private Random m_rr;
 	
-	/**
+	/*
 	 * Holds the majority class
 	 */
 	protected double m_majority;
 	
-	/**
+	/*
 	 * The search method to use
 	 */
 	protected ASSearch m_search = new BestFirst();
 	
-	/**
+	/*
 	 * Our own internal evaluator
 	 */
 	protected ASEvaluation m_evaluator;
 	
-	/**
+	/*
 	 * The evaluation object used to evaluate subsets
 	 */
 	protected EvaluationTS m_evaluation;
 	
-	/**
+	/*
 	 * default is accuracy for discrete class and RMSE for numeric class
 	 */
 	public static final int EVAL_DEFAULT = 1;
@@ -256,7 +256,7 @@ public class DecisionTableTS
 	
 	protected int m_evaluationMeasure = EVAL_DEFAULT;
 	
-	/**
+	/*
 	 * Returns a string describing classifier
 	 *
 	 * @return a description suitable for
@@ -271,7 +271,7 @@ public class DecisionTableTS
 						+ getTechnicalInformation().toString();
 	}
 	
-	/**
+	/*
 	 * Returns an instance of a TechnicalInformation object, containing
 	 * detailed information about the technical background of this class,
 	 * e.g., paper reference or book this class is based on.
@@ -292,7 +292,7 @@ public class DecisionTableTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Inserts an instance into the hash table
 	 *
 	 * @param inst  instance to be inserted
@@ -353,7 +353,7 @@ public class DecisionTableTS
 		}
 	}
 	
-	/**
+	/*
 	 * Classifies an instance for internal leave one out cross validation
 	 * of feature sets
 	 *
@@ -450,7 +450,7 @@ public class DecisionTableTS
 		// return 0.0;
 	}
 	
-	/**
+	/*
 	 * Calculates the accuracy on a test fold for internal cross validation
 	 * of feature sets
 	 *
@@ -572,7 +572,7 @@ public class DecisionTableTS
 	}
 	
 	
-	/**
+	/*
 	 * Evaluates a feature subset by cross validation
 	 *
 	 * @param feature_set the subset to be evaluated
@@ -674,7 +674,7 @@ public class DecisionTableTS
 		return 0.0;
 	}
 	
-	/**
+	/*
 	 * Returns a String representation of a feature subset
 	 *
 	 * @param sub BitSet representation of a subset
@@ -691,7 +691,7 @@ public class DecisionTableTS
 		return s;
 	}
 	
-	/**
+	/*
 	 * Resets the options.
 	 */
 	protected void resetOptions() {
@@ -704,7 +704,7 @@ public class DecisionTableTS
 		m_evaluationMeasure = EVAL_DEFAULT;
 	}
 	
-	/**
+	/*
 	 * Constructor for a DecisionTable
 	 */
 	public DecisionTableTS() {
@@ -712,7 +712,7 @@ public class DecisionTableTS
 		resetOptions();
 	}
 	
-	/**
+	/*
 	 * Returns an enumeration describing the available options.
 	 *
 	 * @return an enumeration of all the available options.
@@ -758,7 +758,7 @@ public class DecisionTableTS
 		return newVector.elements();
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -768,7 +768,7 @@ public class DecisionTableTS
 		return "Sets the number of folds for cross validation (1 = leave one out).";
 	}
 	
-	/**
+	/*
 	 * Sets the number of folds for cross validation (1 = leave one out)
 	 *
 	 * @param folds the number of folds
@@ -778,7 +778,7 @@ public class DecisionTableTS
 		m_CVFolds = folds;
 	}
 	
-	/**
+	/*
 	 * Gets the number of folds for cross validation
 	 *
 	 * @return the number of cross validation folds
@@ -788,7 +788,7 @@ public class DecisionTableTS
 		return m_CVFolds;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -798,7 +798,7 @@ public class DecisionTableTS
 		return "Sets whether IBk should be used instead of the majority class.";
 	}
 	
-	/**
+	/*
 	 * Sets whether IBk should be used instead of the majority class
 	 *
 	 * @param ibk true if IBk is to be used
@@ -808,7 +808,7 @@ public class DecisionTableTS
 		m_useIBk = ibk;
 	}
 	
-	/**
+	/*
 	 * Gets whether IBk is being used instead of the majority class
 	 *
 	 * @return true if IBk is being used
@@ -818,7 +818,7 @@ public class DecisionTableTS
 		return m_useIBk;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -828,7 +828,7 @@ public class DecisionTableTS
 		return "Sets whether rules are to be printed.";
 	}
 	
-	/**
+	/*
 	 * Sets whether rules are to be printed
 	 *
 	 * @param rules true if rules are to be printed
@@ -838,7 +838,7 @@ public class DecisionTableTS
 		m_displayRules = rules;
 	}
 	
-	/**
+	/*
 	 * Gets whether rules are being printed
 	 *
 	 * @return true if rules are being printed
@@ -848,7 +848,7 @@ public class DecisionTableTS
 		return m_displayRules;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -859,7 +859,7 @@ public class DecisionTableTS
 				+ "decision table.";
 	}
 	
-	/**
+	/*
 	 * Sets the search method to use
 	 *
 	 * @param search
@@ -868,7 +868,7 @@ public class DecisionTableTS
 		m_search = search;
 	}
 	
-	/**
+	/*
 	 * Gets the current search method
 	 *
 	 * @return the search method used
@@ -877,7 +877,7 @@ public class DecisionTableTS
 		return m_search;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -888,7 +888,7 @@ public class DecisionTableTS
 				+ "used in the decision table.";
 	}
 	
-	/**
+	/*
 	 * Gets the currently set performance evaluation measure used for selecting
 	 * attributes for the decision table
 	 *
@@ -898,7 +898,7 @@ public class DecisionTableTS
 		return new SelectedTag(m_evaluationMeasure, TAGS_EVALUATION);
 	}
 	
-	/**
+	/*
 	 * Sets the performance evaluation measure to use for selecting attributes
 	 * for the decision table
 	 *
@@ -910,7 +910,7 @@ public class DecisionTableTS
 		}
 	}
 	
-	/**
+	/*
 	 * Parses the options for this object. <p/>
 	 * <p>
 	 * <!-- options-start -->
@@ -1005,7 +1005,7 @@ public class DecisionTableTS
 		setSearch(ASSearch.forName(searchName, searchSpec));
 	}
 	
-	/**
+	/*
 	 * Gets the current settings of the classifier.
 	 *
 	 * @return an array of strings suitable for passing to setOptions
@@ -1051,7 +1051,7 @@ public class DecisionTableTS
 		return options;
 	}
 	
-	/**
+	/*
 	 * Gets the search specification string, which contains the class name of
 	 * the search method and any options to it
 	 *
@@ -1067,7 +1067,7 @@ public class DecisionTableTS
 		return s.getClass().getName();
 	}
 	
-	/**
+	/*
 	 * Returns default capabilities of the classifier.
 	 *
 	 * @return the capabilities of this classifier
@@ -1095,7 +1095,7 @@ public class DecisionTableTS
 	}
 	
 	private class DummySubsetEvaluator extends ASEvaluation implements SubsetEvaluator {
-		/**
+		/*
 		 * for serialization
 		 */
 		private static final long serialVersionUID = 3927442457704974150L;
@@ -1119,7 +1119,7 @@ public class DecisionTableTS
 		}
 	}
 	
-	/**
+	/*
 	 * Sets up a dummy subset evaluator that basically just delegates
 	 * evaluation to the estimatePerformance method in DecisionTable
 	 */
@@ -1129,7 +1129,7 @@ public class DecisionTableTS
 	
 	protected boolean m_saveMemory = true;
 	
-	/**
+	/*
 	 * Generates the classifier.
 	 *
 	 * @param data set of instances serving as training data
@@ -1239,7 +1239,7 @@ public class DecisionTableTS
 		m_evaluation = null;
 	}
 	
-	/**
+	/*
 	 * Calculates the class membership probabilities for the given
 	 * test instance.
 	 *
@@ -1295,7 +1295,7 @@ public class DecisionTableTS
 		return tempDist;
 	}
 	
-	/**
+	/*
 	 * Returns a string description of the features selected
 	 *
 	 * @return a string of features
@@ -1315,7 +1315,7 @@ public class DecisionTableTS
 		return s;
 	}
 	
-	/**
+	/*
 	 * Returns the number of rules
 	 *
 	 * @return the number of rules
@@ -1324,7 +1324,7 @@ public class DecisionTableTS
 		return m_entries.size();
 	}
 	
-	/**
+	/*
 	 * Returns an enumeration of the additional measure names
 	 *
 	 * @return an enumeration of the measure names
@@ -1335,7 +1335,7 @@ public class DecisionTableTS
 		return newVector.elements();
 	}
 	
-	/**
+	/*
 	 * Returns the value of the named measure
 	 *
 	 * @param additionalMeasureName the name of the measure to query for its value
@@ -1351,7 +1351,7 @@ public class DecisionTableTS
 		}
 	}
 	
-	/**
+	/*
 	 * Returns a description of the classifier.
 	 *
 	 * @return a description of the classifier as a string.
@@ -1457,7 +1457,7 @@ public class DecisionTableTS
 		}
 	}
 	
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision
@@ -1466,7 +1466,7 @@ public class DecisionTableTS
 		return RevisionUtils.extract("$Revision: 12089 $");
 	}
 	
-	/**
+	/*
 	 * Main method for testing this class.
 	 *
 	 * @param argv the command-line options

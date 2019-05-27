@@ -42,7 +42,7 @@ import java.util.Enumeration;
 import java.util.Random;
 import java.util.Vector;
 
-/**
+/*
  * <!-- globalinfo-start -->
  * This class implements a single conjunctive rule learner that can predict for numeric and nominal class labels.<br/>
  * <br/>
@@ -96,72 +96,72 @@ public class ConjunctiveRuleTS
 		extends Classifier
 		implements OptionHandler, WeightedInstancesHandler {
 	
-	/**
+	/*
 	 * for serialization
 	 */
 	static final long serialVersionUID = -5938309903225087198L;
 	
-	/**
+	/*
 	 * The number of folds to split data into Grow and Prune for REP
 	 */
 	private int m_Folds = 3;
 	
-	/**
+	/*
 	 * The class attribute of the data
 	 */
 	private Attribute m_ClassAttribute;
 	
-	/**
+	/*
 	 * The vector of antecedents of this rule
 	 */
 	protected FastVector m_Antds = null;
 	
-	/**
+	/*
 	 * The default rule distribution of the data not covered
 	 */
 	protected double[] m_DefDstr = null;
 	
-	/**
+	/*
 	 * The consequent of this rule
 	 */
 	protected double[] m_Cnsqt = null;
 	
-	/**
+	/*
 	 * Number of classes in the training data
 	 */
 	private int m_NumClasses = 0;
 	
-	/**
+	/*
 	 * The seed to perform randomization
 	 */
 	private long m_Seed = 1;
 	
-	/**
+	/*
 	 * The Random object used for randomization
 	 */
 	private Random m_Random = null;
 	
-	/**
+	/*
 	 * The predicted classes recorded for each antecedent in the growing data
 	 */
 	private FastVector m_Targets;
 	
-	/**
+	/*
 	 * Whether to use exlusive expressions for nominal attributes
 	 */
 	private boolean m_IsExclude = false;
 	
-	/**
+	/*
 	 * The minimal number of instance weights within a split
 	 */
 	private double m_MinNo = 2.0;
 	
-	/**
+	/*
 	 * The number of antecedents in pre-pruning
 	 */
 	private int m_NumAntds = -1;
 	
-	/**
+	/*
 	 * Returns a string describing classifier
 	 *
 	 * @return a description suitable for
@@ -189,7 +189,7 @@ public class ConjunctiveRuleTS
 				+ "on the pruning data is used for regression.\n\n";
 	}
 	
-	/**
+	/*
 	 * The single antecedent in the rule, which is composed of an attribute and
 	 * the corresponding value.  There are two inherited classes, namely NumericAntd
 	 * and NominalAntd in which the attributes are numeric and nominal respectively.
@@ -197,45 +197,45 @@ public class ConjunctiveRuleTS
 	private abstract class Antd
 			implements Serializable, RevisionHandler {
 		
-		/**
+		/*
 		 * for serialization
 		 */
 		private static final long serialVersionUID = -8729076306737827571L;
 		
-		/**
+		/*
 		 * The attribute of the antecedent
 		 */
 		protected Attribute att;
 		
-		/**
+		/*
 		 * The attribute value of the antecedent.
 		 * For numeric attribute, value is either 0(1st bag) or 1(2nd bag)
 		 */
 		protected double value;
 		
-		/**
+		/*
 		 * The maximum infoGain achieved by this antecedent test
 		 */
 		protected double maxInfoGain;
 		
-		/**
+		/*
 		 * The information of this antecedent test on the growing data
 		 */
 		protected double inform;
 		
-		/**
+		/*
 		 * The parameter related to the meanSquaredError of the data not covered
 		 * by the previous antecedents when the class is numeric
 		 */
 		protected double uncoverWtSq, uncoverWtVl, uncoverSum;
 		
-		/**
+		/*
 		 * The parameters related to the data not covered by the previous
 		 * antecedents when the class is nominal
 		 */
 		protected double[] uncover;
 		
-		/**
+		/*
 		 * Constructor for nominal class
 		 */
 		public Antd(Attribute a, double[] unc) {
@@ -246,7 +246,7 @@ public class ConjunctiveRuleTS
 			uncover = unc;
 		}
 		
-		/**
+		/*
 		 * Constructor for numeric class
 		 */
 		public Antd(Attribute a, double uncoveredWtSq,
@@ -284,7 +284,7 @@ public class ConjunctiveRuleTS
 			return inform;
 		}
 		
-		/**
+		/*
 		 * Function used to calculate the weighted mean squared error,
 		 * i.e., sum[x-avg(x)]^2 based on the given elements of the formula:
 		 * meanSquaredError = sum(Wi*Xi^2) - (sum(WiXi))^2/sum(Wi)
@@ -300,7 +300,7 @@ public class ConjunctiveRuleTS
 			return (weightedSq - (weightedValue * weightedValue) / sum);
 		}
 		
-		/**
+		/*
 		 * Function used to calculate the entropy of given vector of values
 		 * entropy = (1/sum)*{-sigma[i=1..P](Xi*log2(Xi)) + sum*log2(sum)}
 		 * where P is the length of the vector
@@ -323,7 +323,7 @@ public class ConjunctiveRuleTS
 			return entropy;
 		}
 		
-		/**
+		/*
 		 * Returns the revision string.
 		 *
 		 * @return the revision
@@ -333,23 +333,23 @@ public class ConjunctiveRuleTS
 		}
 	}
 	
-	/**
+	/*
 	 * The antecedent with numeric attribute
 	 */
 	private class NumericAntd
 			extends Antd {
 		
-		/**
+		/*
 		 * for serialization
 		 */
 		static final long serialVersionUID = -7957266498918210436L;
 		
-		/**
+		/*
 		 * The split point for this numeric antecedent
 		 */
 		private double splitPoint;
 		
-		/**
+		/*
 		 * Constructor for nominal class
 		 */
 		public NumericAntd(Attribute a, double[] unc) {
@@ -357,7 +357,7 @@ public class ConjunctiveRuleTS
 			splitPoint = Double.NaN;
 		}
 		
-		/**
+		/*
 		 * Constructor for numeric class
 		 */
 		public NumericAntd(Attribute a, double sq, double vl, double wts) {
@@ -365,7 +365,7 @@ public class ConjunctiveRuleTS
 			splitPoint = Double.NaN;
 		}
 		
-		/**
+		/*
 		 * Get split point of this numeric antecedent
 		 *
 		 * @return the split point
@@ -374,7 +374,7 @@ public class ConjunctiveRuleTS
 			return splitPoint;
 		}
 		
-		/**
+		/*
 		 * Implements the splitData function.
 		 * This procedure is to split the data into two bags according
 		 * to the information gain of the numeric attribute value
@@ -573,7 +573,7 @@ public class ConjunctiveRuleTS
 			return splitData;
 		}
 		
-		/**
+		/*
 		 * Whether the instance is covered by this antecedent
 		 *
 		 * @param inst the instance in question
@@ -592,7 +592,7 @@ public class ConjunctiveRuleTS
 			return isCover;
 		}
 		
-		/**
+		/*
 		 * Prints this antecedent
 		 *
 		 * @return a textual description of this antecedent
@@ -602,7 +602,7 @@ public class ConjunctiveRuleTS
 			return (att.name() + symbol + Utils.doubleToString(splitPoint, 6));
 		}
 		
-		/**
+		/*
 		 * Returns the revision string.
 		 *
 		 * @return the revision
@@ -613,13 +613,13 @@ public class ConjunctiveRuleTS
 	}
 	
 	
-	/**
+	/*
 	 * The antecedent with nominal attribute
 	 */
 	class NominalAntd
 			extends Antd {
 		
-		/**
+		/*
 		 * for serialization
 		 */
 		static final long serialVersionUID = -5949864163376447424L;
@@ -629,7 +629,7 @@ public class ConjunctiveRuleTS
 		private double[] coverage;
 		private boolean isIn;
 		
-		/**
+		/*
 		 * Constructor for nominal class
 		 */
 		public NominalAntd(Attribute a, double[] unc) {
@@ -640,7 +640,7 @@ public class ConjunctiveRuleTS
 			isIn = true;
 		}
 		
-		/**
+		/*
 		 * Constructor for numeric class
 		 */
 		public NominalAntd(Attribute a, double sq, double vl, double wts) {
@@ -651,7 +651,7 @@ public class ConjunctiveRuleTS
 			isIn = true;
 		}
 		
-		/**
+		/*
 		 * Implements the splitData function.
 		 * This procedure is to split the data into bags according
 		 * to the nominal attribute value
@@ -824,7 +824,7 @@ public class ConjunctiveRuleTS
 			return splitData;
 		}
 		
-		/**
+		/*
 		 * Whether the instance is covered by this antecedent
 		 *
 		 * @param inst the instance in question
@@ -843,7 +843,7 @@ public class ConjunctiveRuleTS
 			return isCover;
 		}
 		
-		/**
+		/*
 		 * Whether the expression is "att = value" or att != value"
 		 * for this nominal attribute.  True if in the former expression,
 		 * otherwise the latter
@@ -854,7 +854,7 @@ public class ConjunctiveRuleTS
 			return isIn;
 		}
 		
-		/**
+		/*
 		 * Prints this antecedent
 		 *
 		 * @return a textual description of this antecedent
@@ -864,7 +864,7 @@ public class ConjunctiveRuleTS
 			return (att.name() + symbol + att.value((int) value));
 		}
 		
-		/**
+		/*
 		 * Returns the revision string.
 		 *
 		 * @return the revision
@@ -874,7 +874,7 @@ public class ConjunctiveRuleTS
 		}
 	}
 	
-	/**
+	/*
 	 * Returns an enumeration describing the available options
 	 * Valid options are: <p>
 	 * <p>
@@ -938,7 +938,7 @@ public class ConjunctiveRuleTS
 		return newVector.elements();
 	}
 	
-	/**
+	/*
 	 * Parses a given list of options. <p/>
 	 * <p>
 	 * <!-- options-start -->
@@ -1008,7 +1008,7 @@ public class ConjunctiveRuleTS
 		super.setOptions(options);
 	}
 	
-	/**
+	/*
 	 * Gets the current settings of the Classifier.
 	 *
 	 * @return an array of strings suitable for passing to setOptions
@@ -1036,9 +1036,9 @@ public class ConjunctiveRuleTS
 		return options;
 	}
 	
-	/** The access functions for parameters */
+	/* The access functions for parameters */
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -1049,7 +1049,7 @@ public class ConjunctiveRuleTS
 				+ "pruning, the rest for growing the rules.";
 	}
 	
-	/**
+	/*
 	 * the number of folds to use
 	 *
 	 * @param folds the number of folds to use
@@ -1058,7 +1058,7 @@ public class ConjunctiveRuleTS
 		m_Folds = folds;
 	}
 	
-	/**
+	/*
 	 * returns the current number of folds
 	 *
 	 * @return the number of folds
@@ -1067,7 +1067,7 @@ public class ConjunctiveRuleTS
 		return m_Folds;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -1077,7 +1077,7 @@ public class ConjunctiveRuleTS
 		return "The seed used for randomizing the data.";
 	}
 	
-	/**
+	/*
 	 * sets the seed for randomizing the data
 	 *
 	 * @param s the seed value
@@ -1086,7 +1086,7 @@ public class ConjunctiveRuleTS
 		m_Seed = s;
 	}
 	
-	/**
+	/*
 	 * returns the current seed value for randomizing the data
 	 *
 	 * @return the seed value
@@ -1095,7 +1095,7 @@ public class ConjunctiveRuleTS
 		return m_Seed;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -1106,7 +1106,7 @@ public class ConjunctiveRuleTS
 				+ "attribute splits.";
 	}
 	
-	/**
+	/*
 	 * Returns whether exclusive expressions for nominal attributes splits are
 	 * considered
 	 *
@@ -1117,7 +1117,7 @@ public class ConjunctiveRuleTS
 		return m_IsExclude;
 	}
 	
-	/**
+	/*
 	 * Sets whether exclusive expressions for nominal attributes splits are
 	 * considered
 	 *
@@ -1128,7 +1128,7 @@ public class ConjunctiveRuleTS
 		m_IsExclude = e;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -1138,7 +1138,7 @@ public class ConjunctiveRuleTS
 		return "The minimum total weight of the instances in a rule.";
 	}
 	
-	/**
+	/*
 	 * Sets the minimum total weight of the instances in a rule
 	 *
 	 * @param m the minimum total weight of the instances in a rule
@@ -1147,7 +1147,7 @@ public class ConjunctiveRuleTS
 		m_MinNo = m;
 	}
 	
-	/**
+	/*
 	 * Gets the minimum total weight of the instances in a rule
 	 *
 	 * @return the minimum total weight of the instances in a rule
@@ -1156,7 +1156,7 @@ public class ConjunctiveRuleTS
 		return m_MinNo;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -1169,7 +1169,7 @@ public class ConjunctiveRuleTS
 				+ "pruning.";
 	}
 	
-	/**
+	/*
 	 * Sets the number of antecedants
 	 *
 	 * @param n the number of antecedants
@@ -1178,7 +1178,7 @@ public class ConjunctiveRuleTS
 		m_NumAntds = n;
 	}
 	
-	/**
+	/*
 	 * Gets the number of antecedants
 	 *
 	 * @return the number of antecedants
@@ -1187,7 +1187,7 @@ public class ConjunctiveRuleTS
 		return m_NumAntds;
 	}
 	
-	/**
+	/*
 	 * Returns default capabilities of the classifier.
 	 *
 	 * @return the capabilities of this classifier
@@ -1211,7 +1211,7 @@ public class ConjunctiveRuleTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Builds a single rule learner with REP dealing with nominal classes or
 	 * numeric classes.
 	 * For nominal classes, this rule learner predicts a distribution on
@@ -1267,7 +1267,7 @@ public class ConjunctiveRuleTS
 		}
 	}
 	
-	/**
+	/*
 	 * Computes class distribution for the given instance.
 	 *
 	 * @param instance the instance for which distribution is to be computed
@@ -1284,7 +1284,7 @@ public class ConjunctiveRuleTS
 			return m_DefDstr;
 	}
 	
-	/**
+	/*
 	 * Whether the instance covered by this rule
 	 *
 	 * @param datum the instance in question
@@ -1304,7 +1304,7 @@ public class ConjunctiveRuleTS
 		return isCover;
 	}
 	
-	/**
+	/*
 	 * Whether this rule has antecedents, i.e. whether it is a default rule
 	 *
 	 * @return the boolean value indicating whether the rule has antecedents
@@ -1316,7 +1316,7 @@ public class ConjunctiveRuleTS
 			return (m_Antds.size() > 0);
 	}
 	
-	/**
+	/*
 	 * Build one rule using the growing data
 	 *
 	 * @param data the growing data used to build the rule
@@ -1499,7 +1499,7 @@ public class ConjunctiveRuleTS
 		m_DefDstr = ((double[][]) (m_Targets.lastElement()))[1];
 	}
 	
-	/**
+	/*
 	 * Compute the best information gain for the specified antecedent
 	 *
 	 * @param instances the data based on which the infoGain is computed
@@ -1551,7 +1551,7 @@ public class ConjunctiveRuleTS
 		return coveredData;
 	}
 	
-	/**
+	/*
 	 * Prune the rule using the pruning data.
 	 * The weighted average of accuracy rate/mean-squared error is
 	 * used to prune the rule.
@@ -1671,7 +1671,7 @@ public class ConjunctiveRuleTS
 		m_DefDstr = ((double[][]) (m_Targets.lastElement()))[1];
 	}
 	
-	/**
+	/*
 	 * Private function to compute number of accurate instances
 	 * based on the specified predicted class
 	 *
@@ -1690,7 +1690,7 @@ public class ConjunctiveRuleTS
 	}
 	
 	
-	/**
+	/*
 	 * Private function to compute the squared error of
 	 * the specified data and the specified mean
 	 *
@@ -1713,7 +1713,7 @@ public class ConjunctiveRuleTS
 		return (mSqErr / sum);
 	}
 	
-	/**
+	/*
 	 * Prints this rule with the specified class label
 	 *
 	 * @param att the string standing for attribute in the consequent of this rule
@@ -1724,15 +1724,15 @@ public class ConjunctiveRuleTS
 		StringBuffer text = new StringBuffer();
 		if (m_Antds.size() > 0) {
 			for (int j = 0; j < (m_Antds.size() - 1); j++)
-				text.append("(" + ((Antd) (m_Antds.elementAt(j))).toString() + ") and ");
-			text.append("(" + ((Antd) (m_Antds.lastElement())).toString() + ")");
+				text.append("(" + m_Antds.elementAt(j).toString() + ") and ");
+			text.append("(" + m_Antds.lastElement().toString() + ")");
 		}
 		text.append(" => " + att + " = " + cl);
 		
 		return text.toString();
 	}
 	
-	/**
+	/*
 	 * Prints this rule
 	 *
 	 * @return a textual description of this rule
@@ -1765,7 +1765,7 @@ public class ConjunctiveRuleTS
 		return (title + body + text.toString());
 	}
 	
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision
@@ -1774,7 +1774,7 @@ public class ConjunctiveRuleTS
 		return RevisionUtils.extract("$Revision: 9835 $");
 	}
 	
-	/**
+	/*
 	 * Main method.
 	 *
 	 * @param args the options for the classifier

@@ -30,7 +30,7 @@ import weka.core.Utils;
 
 import java.io.Serializable;
 
-/** 
+/*
  * Abstract class for classification models that can be used 
  * recursively to split the data.
  *
@@ -39,17 +39,17 @@ import java.io.Serializable;
  */
 public abstract class ClassifierSplitModelTS
   implements Cloneable, Serializable, RevisionHandler {
-
-  /** for serialization */
+  
+  /* for serialization */
   private static final long serialVersionUID = 4280730118393457457L;
-
-  /** Distribution of class values. */  
+  
+  /* Distribution of class values. */  
   protected DistributionTS m_distribution;
-
-  /** Number of created subsets. */
-  protected int m_numSubsets;         
-
-  /**
+  
+  /* Number of created subsets. */
+  protected int m_numSubsets;
+  
+  /*
    * Allows to clone a model (shallow copy).
    */
   public Object clone() {
@@ -62,26 +62,23 @@ public abstract class ClassifierSplitModelTS
     } 
     return clone;
   }
-
-  /**
+  
+  /*
    * Builds the classifier split model for the given set of instances.
    *
    * @exception Exception if something goes wrong
    */
   public abstract void buildClassifier(Instances instances) throws Exception;
   
-  /**
+  /*
    * Checks if generated model is valid.
    */
   public final boolean checkModel() {
-    
-    if (m_numSubsets > 0)
-      return true;
-    else
-      return false;
+  
+    return m_numSubsets > 0;
   }
   
-  /**
+  /*
    * Classifies a given instance.
    *
    * @exception Exception if something goes wrong
@@ -97,8 +94,8 @@ public abstract class ClassifierSplitModelTS
     else
       return (double)m_distribution.maxClass();
   }
-
-  /**
+  
+  /*
    * Gets class probability for instance.
    *
    * @exception Exception if something goes wrong
@@ -121,8 +118,8 @@ public abstract class ClassifierSplitModelTS
       }
     }
   }
-
-  /**
+  
+  /*
    * Gets class probability for instance.
    *
    * @exception Exception if something goes wrong
@@ -145,36 +142,36 @@ public abstract class ClassifierSplitModelTS
       }
     }
   }
-
-  /**
+  
+  /*
    * Returns coding costs of model. Returns 0 if not overwritten.
    */
   public double codingCost() {
 
     return 0;
   }
-
-  /**
+  
+  /*
    * Returns the distribution of class values induced by the model.
    */
   public final DistributionTS distribution() {
 
     return m_distribution;
   }
-
-  /**
+  
+  /*
    * Prints left side of condition satisfied by instances.
    *
    * @param data the data.
    */
   public abstract String leftSide(Instances data);
-
-  /**
+  
+  /*
    * Prints left side of condition satisfied by instances in subset index.
    */
   public abstract String rightSide(int index,Instances data);
-
-  /**
+  
+  /*
    * Prints label for subset index of instances (eg class).
    *
    * @exception Exception if something goes wrong
@@ -184,7 +181,7 @@ public abstract class ClassifierSplitModelTS
     StringBuffer text;
 
     text = new StringBuffer();
-    text.append(((Instances)data).classAttribute().
+    text.append(data.classAttribute().
 		value(m_distribution.maxClass(index)));
     text.append(" ("+Utils.roundDouble(m_distribution.perBag(index),2));
     if (Utils.gr(m_distribution.numIncorrect(index),0))
@@ -201,8 +198,8 @@ public abstract class ClassifierSplitModelTS
   }
 
   public abstract String sourceExpression(int index, Instances data);
-
-  /**
+  
+  /*
    * Prints the split model.
    *
    * @exception Exception if something goes wrong
@@ -219,8 +216,8 @@ public abstract class ClassifierSplitModelTS
     }
     return text.toString();
   }
- 
-  /**
+  
+  /*
    * Returns the number of created subsets for the split.
    */
   public final int numSubsets() {
@@ -228,15 +225,15 @@ public abstract class ClassifierSplitModelTS
     return m_numSubsets;
   }
   
-  /**
+  /*
    * Sets distribution associated with model.
    */
   public void resetDistribution(Instances data) throws Exception {
 
     m_distribution = new DistributionTS(data, this);
   }
-
-  /**
+  
+  /*
    * Splits the given set of instances into subsets.
    *
    * @exception Exception if something goes wrong
@@ -251,10 +248,10 @@ public abstract class ClassifierSplitModelTS
     int subset, i, j;
 
     for (j=0;j<m_numSubsets;j++)
-      instances[j] = new Instances((Instances)data,
+      instances[j] = new Instances(data,
 					    data.numInstances());
     for (i = 0; i < data.numInstances(); i++) {
-      instance = ((Instances) data).instance(i);
+      instance = data.instance(i);
       weights = weights(instance);
       subset = whichSubset(instance);
       if (subset > -1)
@@ -272,14 +269,14 @@ public abstract class ClassifierSplitModelTS
     
     return instances;
   }
-
-  /**
+  
+  /*
    * Returns weights if instance is assigned to more than one subset.
    * Returns null if instance is only assigned to one subset.
    */
   public abstract double [] weights(Instance instance);
   
-  /**
+  /*
    * Returns index of subset instance is assigned to.
    * Returns -1 if instance is assigned to more than one subset.
    *

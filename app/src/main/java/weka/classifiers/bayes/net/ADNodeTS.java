@@ -126,7 +126,7 @@ public class ADNodeTS
 		// divide the records among children
 		for (int iRecord = 0; iRecord < nRecords.size(); iRecord++) {
 			int iInstance = ((Integer) nRecords.elementAt(iRecord)).intValue();
-			nChildRecords[(int) instances.instance(iInstance).value(iNode)].addElement(new Integer(iInstance));
+			nChildRecords[(int) instances.instance(iInstance).value(iNode)].addElement(Integer.valueOf(iInstance));
 		}
 
 		// find most common value
@@ -187,7 +187,7 @@ public class ADNodeTS
 	public static ADNodeTS makeADTree(Instances instances) {
           FastVector nRecords = new FastVector(instances.numInstances());
           for (int iRecord = 0; iRecord < instances.numInstances(); iRecord++) {
-            nRecords.addElement(new Integer(iRecord));
+			  nRecords.addElement(Integer.valueOf(iRecord));
           }
           return makeADTree(0, nRecords, instances);
         } // MakeADTree
@@ -246,7 +246,8 @@ public class ADNodeTS
          * print is used for debugging only and shows the ADTree in ASCII graphics
          */
         public void print() {
-          String sTab = new String();for (int i = 0; i < m_nStartNode; i++) {
+			String sTab = "";
+			for (int i = 0; i < m_nStartNode; i++) {
               sTab = sTab + "  ";
           }
           System.out.println(sTab + "Count = " + m_nCount);

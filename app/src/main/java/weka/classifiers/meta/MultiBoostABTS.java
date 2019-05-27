@@ -59,7 +59,7 @@ import java.util.Enumeration;
 import java.util.Random;
 import java.util.Vector;
 
-/**
+/*
  <!-- globalinfo-start -->
  * Class for boosting a classifier using the MultiBoosting method.<br/>
  * <br/>
@@ -137,17 +137,17 @@ import java.util.Vector;
 public class MultiBoostABTS
   extends AdaBoostM1TS
   implements TechnicalInformationHandler {
-
-  /** for serialization */
+  
+  /* for serialization */
   static final long serialVersionUID = -6681619178187935148L;
   
-  /** The number of sub-committees to use */
+  /* The number of sub-committees to use */
   protected int m_NumSubCmtys = 3;
-
-  /** Random number generator */
+  
+  /* Random number generator */
   protected Random m_Random = null;
-    
-  /**
+  
+  /*
    * Returns a string describing classifier
    * @return a description suitable for
    * displaying in the explorer/experimenter gui
@@ -168,8 +168,8 @@ public class MultiBoostABTS
       + "For more information, see\n\n"
       + getTechnicalInformation().toString();
   }
-
-  /**
+  
+  /*
    * Returns an instance of a TechnicalInformation object, containing 
    * detailed information about the technical background of this class,
    * e.g., paper reference or book this class is based on.
@@ -191,8 +191,8 @@ public class MultiBoostABTS
     
     return result;
   }
-
-  /**
+  
+  /*
    * Returns an enumeration describing the available options
    *
    * @return an enumeration of all the available options
@@ -210,8 +210,8 @@ public class MultiBoostABTS
     }
     return vec.elements();
   }
-
-  /**
+  
+  /*
    * Parses a given list of options. <p/>
    *
    <!-- options-start -->
@@ -269,8 +269,8 @@ public class MultiBoostABTS
 
     super.setOptions(options);
   }
-
-  /**
+  
+  /*
    * Gets the current settings of the Classifier.
    *
    * @return an array of strings suitable for passing to setOptions
@@ -283,8 +283,8 @@ public class MultiBoostABTS
     System.arraycopy(ops, 0, options, 2, ops.length);
     return options;
   }
-
-  /**
+  
+  /*
    * Returns the tip text for this property
    * @return tip text for this property suitable for
    * displaying in the explorer/experimenter gui
@@ -292,9 +292,9 @@ public class MultiBoostABTS
   public String numSubCmtysTipText() {
     return "Sets the (approximate) number of subcommittees.";
   }
-
-
-  /**
+  
+  
+  /*
    * Set the number of sub committees to use
    *
    * @param subc the number of sub committees
@@ -303,8 +303,8 @@ public class MultiBoostABTS
 
     m_NumSubCmtys = subc;
   }
-
-  /**
+  
+  /*
    * Get the number of sub committees to use
    *
    * @return the seed for resampling
@@ -313,8 +313,8 @@ public class MultiBoostABTS
 
     return m_NumSubCmtys;
   }
-
-  /**
+  
+  /*
    * Method for building this classifier.
    * 
    * @param training the data to train with
@@ -328,8 +328,8 @@ public class MultiBoostABTS
 
     m_Random = null;
   }
-
-  /**
+  
+  /*
    * Sets the weights for the next iteration.
    * 
    * @param training the data to train with
@@ -363,7 +363,7 @@ public class MultiBoostABTS
     }
   }
   
-  /**
+  /*
    * Returns description of the boosted classifier.
    *
    * @return description of the boosted classifier as a string
@@ -404,7 +404,7 @@ public class MultiBoostABTS
     return text.toString();
   }
   
-  /**
+  /*
    * Returns the revision string.
    * 
    * @return		the revision
@@ -413,7 +413,7 @@ public class MultiBoostABTS
     return RevisionUtils.extract("$Revision: 1.16 $");
   }
   
-  /**
+  /*
    * Main method for testing this class.
    *
    * @param argv the options

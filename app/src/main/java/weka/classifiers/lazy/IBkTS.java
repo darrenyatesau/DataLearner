@@ -49,7 +49,7 @@ import weka.core.AdditionalMeasureProducer;
 import java.util.Enumeration;
 import java.util.Vector;
 
-/**
+/*
  * <!-- globalinfo-start -->
  * K-nearest neighbours classifier. Can select appropriate value of K based on cross-validation. Can also do distance weighting.<br/>
  * <br/>
@@ -118,44 +118,44 @@ public class IBkTS
 		implements OptionHandler, UpdateableClassifier, WeightedInstancesHandler,
 		TechnicalInformationHandler, AdditionalMeasureProducer {
 	
-	/**
+	/*
 	 * for serialization.
 	 */
 	static final long serialVersionUID = -3080186098777067172L;
 	
-	/**
+	/*
 	 * The training instances used for classification.
 	 */
 	protected Instances m_Train;
 	
-	/**
+	/*
 	 * The number of class values (or 1 if predicting numeric).
 	 */
 	protected int m_NumClasses;
 	
-	/**
+	/*
 	 * The class attribute type.
 	 */
 	protected int m_ClassType;
 	
-	/**
+	/*
 	 * The number of neighbours to use for classification (currently).
 	 */
 	protected int m_kNN;
 	
-	/**
+	/*
 	 * The value of kNN provided by the user. This may differ from
 	 * m_kNN if cross-validation is being used.
 	 */
 	protected int m_kNNUpper;
 	
-	/**
+	/*
 	 * Whether the value of k selected by cross validation has
 	 * been invalidated by a change in the training instances.
 	 */
 	protected boolean m_kNNValid;
 	
-	/**
+	/*
 	 * The maximum number of training instances allowed. When
 	 * this limit is reached, old training instances are removed,
 	 * so the training data is "windowed". Set to 0 for unlimited
@@ -163,35 +163,35 @@ public class IBkTS
 	 */
 	protected int m_WindowSize;
 	
-	/**
+	/*
 	 * Whether the neighbours should be distance-weighted.
 	 */
 	protected int m_DistanceWeighting;
 	
-	/**
+	/*
 	 * Whether to select k by cross validation.
 	 */
 	protected boolean m_CrossValidate;
 	
-	/**
+	/*
 	 * Whether to minimise mean squared error rather than mean absolute
 	 * error when cross-validating on numeric prediction tasks.
 	 */
 	protected boolean m_MeanSquared;
 	
-	/**
+	/*
 	 * no weighting.
 	 */
 	public static final int WEIGHT_NONE = 1;
-	/**
+	/*
 	 * weight by 1/distance.
 	 */
 	public static final int WEIGHT_INVERSE = 2;
-	/**
+	/*
 	 * weight by 1-distance.
 	 */
 	public static final int WEIGHT_SIMILARITY = 4;
-	/**
+	/*
 	 * possible instance weighting methods.
 	 */
 	public static final Tag[] TAGS_WEIGHTING = {
@@ -200,22 +200,22 @@ public class IBkTS
 			new Tag(WEIGHT_SIMILARITY, "Weight by 1-distance")
 	};
 	
-	/**
+	/*
 	 * for nearest-neighbor search.
 	 */
 	protected NearestNeighbourSearch m_NNSearch = new LinearNNSearch();
 	
-	/**
+	/*
 	 * The number of attributes the contribute to a prediction.
 	 */
 	protected double m_NumAttributesUsed;
 	
-	/**
+	/*
 	 * Default ZeroR model to use when there are no training instances
 	 */
 	protected ZeroRTS m_defaultModel;
 	
-	/**
+	/*
 	 * IBk classifier. Simple instance-based learner that uses the class
 	 * of the nearest k training instances for the class of the test
 	 * instances.
@@ -228,7 +228,7 @@ public class IBkTS
 		setKNN(k);
 	}
 	
-	/**
+	/*
 	 * IB1 classifer. Instance-based learner. Predicts the class of the
 	 * single nearest training instance for each test instance.
 	 */
@@ -237,7 +237,7 @@ public class IBkTS
 		init();
 	}
 	
-	/**
+	/*
 	 * Returns a string describing classifier.
 	 *
 	 * @return a description suitable for
@@ -252,7 +252,7 @@ public class IBkTS
 				+ getTechnicalInformation().toString();
 	}
 	
-	/**
+	/*
 	 * Returns an instance of a TechnicalInformation object, containing
 	 * detailed information about the technical background of this class,
 	 * e.g., paper reference or book this class is based on.
@@ -273,7 +273,7 @@ public class IBkTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property.
 	 *
 	 * @return tip text for this property suitable for
@@ -283,7 +283,7 @@ public class IBkTS
 		return "The number of neighbours to use.";
 	}
 	
-	/**
+	/*
 	 * Set the number of neighbours the learner is to use.
 	 *
 	 * @param k the number of neighbours.
@@ -294,7 +294,7 @@ public class IBkTS
 		m_kNNValid = false;
 	}
 	
-	/**
+	/*
 	 * Gets the number of neighbours the learner will use.
 	 *
 	 * @return the number of neighbours.
@@ -304,7 +304,7 @@ public class IBkTS
 		return m_kNN;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property.
 	 *
 	 * @return tip text for this property suitable for
@@ -317,7 +317,7 @@ public class IBkTS
 				"to the number of training instances.";
 	}
 	
-	/**
+	/*
 	 * Gets the maximum number of instances allowed in the training
 	 * pool. The addition of new instances above this value will result
 	 * in old instances being removed. A value of 0 signifies no limit
@@ -330,7 +330,7 @@ public class IBkTS
 		return m_WindowSize;
 	}
 	
-	/**
+	/*
 	 * Sets the maximum number of instances allowed in the training
 	 * pool. The addition of new instances above this value will result
 	 * in old instances being removed. A value of 0 signifies no limit
@@ -343,7 +343,7 @@ public class IBkTS
 		m_WindowSize = newWindowSize;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property.
 	 *
 	 * @return tip text for this property suitable for
@@ -354,7 +354,7 @@ public class IBkTS
 		return "Gets the distance weighting method used.";
 	}
 	
-	/**
+	/*
 	 * Gets the distance weighting method used. Will be one of
 	 * WEIGHT_NONE, WEIGHT_INVERSE, or WEIGHT_SIMILARITY
 	 *
@@ -365,7 +365,7 @@ public class IBkTS
 		return new SelectedTag(m_DistanceWeighting, TAGS_WEIGHTING);
 	}
 	
-	/**
+	/*
 	 * Sets the distance weighting method used. Values other than
 	 * WEIGHT_NONE, WEIGHT_INVERSE, or WEIGHT_SIMILARITY will be ignored.
 	 *
@@ -378,7 +378,7 @@ public class IBkTS
 		}
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property.
 	 *
 	 * @return tip text for this property suitable for
@@ -390,7 +390,7 @@ public class IBkTS
 				+ "absolute error when doing cross-validation for regression problems.";
 	}
 	
-	/**
+	/*
 	 * Gets whether the mean squared error is used rather than mean
 	 * absolute error when doing cross-validation.
 	 *
@@ -401,7 +401,7 @@ public class IBkTS
 		return m_MeanSquared;
 	}
 	
-	/**
+	/*
 	 * Sets whether the mean squared error is used rather than mean
 	 * absolute error when doing cross-validation.
 	 *
@@ -412,7 +412,7 @@ public class IBkTS
 		m_MeanSquared = newMeanSquared;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property.
 	 *
 	 * @return tip text for this property suitable for
@@ -425,7 +425,7 @@ public class IBkTS
 				"the KNN parameter.";
 	}
 	
-	/**
+	/*
 	 * Gets whether hold-one-out cross-validation will be used
 	 * to select the best k value.
 	 *
@@ -436,7 +436,7 @@ public class IBkTS
 		return m_CrossValidate;
 	}
 	
-	/**
+	/*
 	 * Sets whether hold-one-out cross-validation will be used
 	 * to select the best k value.
 	 *
@@ -447,7 +447,7 @@ public class IBkTS
 		m_CrossValidate = newCrossValidate;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property.
 	 *
 	 * @return tip text for this property suitable for
@@ -458,7 +458,7 @@ public class IBkTS
 				"(Default: weka.core.neighboursearch.LinearNNSearch).";
 	}
 	
-	/**
+	/*
 	 * Returns the current nearestNeighbourSearch algorithm in use.
 	 *
 	 * @return the NearestNeighbourSearch algorithm currently in use.
@@ -467,7 +467,7 @@ public class IBkTS
 		return m_NNSearch;
 	}
 	
-	/**
+	/*
 	 * Sets the nearestNeighbourSearch algorithm to be used for finding nearest
 	 * neighbour(s).
 	 *
@@ -477,7 +477,7 @@ public class IBkTS
 		m_NNSearch = nearestNeighbourSearchAlgorithm;
 	}
 	
-	/**
+	/*
 	 * Get the number of training instances the classifier is currently using.
 	 *
 	 * @return the number of training instances the classifier is currently using
@@ -487,7 +487,7 @@ public class IBkTS
 		return m_Train.numInstances();
 	}
 	
-	/**
+	/*
 	 * Returns default capabilities of the classifier.
 	 *
 	 * @return the capabilities of this classifier
@@ -514,7 +514,7 @@ public class IBkTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Generates the classifier.
 	 *
 	 * @param instances set of instances serving as training data
@@ -561,7 +561,7 @@ public class IBkTS
 		m_defaultModel.buildClassifier(instances);
 	}
 	
-	/**
+	/*
 	 * Adds the supplied instance to the training set.
 	 *
 	 * @param instance the instance to add
@@ -592,7 +592,7 @@ public class IBkTS
 		}
 	}
 	
-	/**
+	/*
 	 * Calculates the class membership probabilities for the given test instance.
 	 *
 	 * @param instance the instance to be classified
@@ -630,7 +630,7 @@ public class IBkTS
 		return distribution;
 	}
 	
-	/**
+	/*
 	 * Returns an enumeration describing the available options.
 	 *
 	 * @return an enumeration of all the available options.
@@ -672,7 +672,7 @@ public class IBkTS
 		return newVector.elements();
 	}
 	
-	/**
+	/*
 	 * Parses a given list of options. <p/>
 	 * <p>
 	 * <!-- options-start -->
@@ -738,7 +738,7 @@ public class IBkTS
 		
 		String nnSearchClass = Utils.getOption('A', options);
 		if (nnSearchClass.length() != 0) {
-			String nnSearchClassSpec[] = Utils.splitOptions(nnSearchClass);
+			String[] nnSearchClassSpec = Utils.splitOptions(nnSearchClass);
 			if (nnSearchClassSpec.length == 0) {
 				throw new Exception("Invalid NearestNeighbourSearch algorithm " +
 						"specification string.");
@@ -757,7 +757,7 @@ public class IBkTS
 		Utils.checkForRemainingOptions(options);
 	}
 	
-	/**
+	/*
 	 * Gets the current settings of IBk.
 	 *
 	 * @return an array of strings suitable for passing to setOptions()
@@ -792,7 +792,7 @@ public class IBkTS
 		return options;
 	}
 	
-	/**
+	/*
 	 * Returns an enumeration of the additional measure names
 	 * produced by the neighbour search algorithm, plus the chosen K in case
 	 * cross-validation is enabled.
@@ -812,7 +812,7 @@ public class IBkTS
 		}
 	}
 	
-	/**
+	/*
 	 * Returns the value of the named measure from the
 	 * neighbour search algorithm, plus the chosen K in case
 	 * cross-validation is enabled.
@@ -829,7 +829,7 @@ public class IBkTS
 	}
 	
 	
-	/**
+	/*
 	 * Returns a description of this classifier.
 	 *
 	 * @return a description of this classifier as a string.
@@ -869,7 +869,7 @@ public class IBkTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Initialise scheme variables.
 	 */
 	protected void init() {
@@ -881,7 +881,7 @@ public class IBkTS
 		m_MeanSquared = false;
 	}
 	
-	/**
+	/*
 	 * Turn the list of nearest neighbors into a probability distribution.
 	 *
 	 * @param neighbours the list of nearest neighboring instances
@@ -942,7 +942,7 @@ public class IBkTS
 		return distribution;
 	}
 	
-	/**
+	/*
 	 * Select the best value for k by hold-one-out cross-validation.
 	 * If the class attribute is nominal, classification error is
 	 * minimised. If the class attribute is numeric, mean absolute
@@ -1066,7 +1066,7 @@ public class IBkTS
 		}
 	}
 	
-	/**
+	/*
 	 * Prunes the list to contain the k nearest neighbors. If there are
 	 * multiple neighbors at the k'th distance, all will be kept.
 	 *
@@ -1099,7 +1099,7 @@ public class IBkTS
 		return neighbours;
 	}
 	
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision
@@ -1108,7 +1108,7 @@ public class IBkTS
 		return RevisionUtils.extract("$Revision: 10069 $");
 	}
 	
-	/**
+	/*
 	 * Main method for testing this class.
 	 *
 	 * @param argv should contain command line options (see setOptions)

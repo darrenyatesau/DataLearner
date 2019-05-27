@@ -254,7 +254,7 @@ public class BaggingTS extends RandomizableIteratedSingleClassifierEnhancer
 		return newVector.elements();
 	}
 	
-	/**
+	/*
 	 * Parses a given list of options.
 	 * <p/>
 	 * <p>
@@ -355,7 +355,7 @@ public class BaggingTS extends RandomizableIteratedSingleClassifierEnhancer
 		super.setOptions(options);
 	}
 	
-	/**
+	/*
 	 * Gets the current settings of the Classifier.
 	 *
 	 * @return an array of strings suitable for passing to setOptions
@@ -383,7 +383,7 @@ public class BaggingTS extends RandomizableIteratedSingleClassifierEnhancer
 		return options;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for displaying in the
@@ -393,7 +393,7 @@ public class BaggingTS extends RandomizableIteratedSingleClassifierEnhancer
 		return "Size of each bag, as a percentage of the training set size.";
 	}
 	
-	/**
+	/*
 	 * Gets the size of each bag, as a percentage of the training set size.
 	 *
 	 * @return the bag size, as a percentage.
@@ -403,7 +403,7 @@ public class BaggingTS extends RandomizableIteratedSingleClassifierEnhancer
 		return m_BagSizePercent;
 	}
 	
-	/**
+	/*
 	 * Sets the size of each bag, as a percentage of the training set size.
 	 *
 	 * @param newBagSizePercent the bag size, as a percentage.
@@ -413,7 +413,7 @@ public class BaggingTS extends RandomizableIteratedSingleClassifierEnhancer
 		m_BagSizePercent = newBagSizePercent;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for displaying in the
@@ -423,7 +423,7 @@ public class BaggingTS extends RandomizableIteratedSingleClassifierEnhancer
 		return "Whether the out-of-bag error is calculated.";
 	}
 	
-	/**
+	/*
 	 * Set whether the out of bag error is calculated.
 	 *
 	 * @param calcOutOfBag whether to calculate the out of bag error
@@ -433,7 +433,7 @@ public class BaggingTS extends RandomizableIteratedSingleClassifierEnhancer
 		m_CalcOutOfBag = calcOutOfBag;
 	}
 	
-	/**
+	/*
 	 * Get whether the out of bag error is calculated.
 	 *
 	 * @return whether the out of bag error is calculated
@@ -443,7 +443,7 @@ public class BaggingTS extends RandomizableIteratedSingleClassifierEnhancer
 		return m_CalcOutOfBag;
 	}
 	
-	/**
+	/*
 	 * Gets the out of bag error that was calculated as the classifier was built.
 	 *
 	 * @return the out of bag error
@@ -453,7 +453,7 @@ public class BaggingTS extends RandomizableIteratedSingleClassifierEnhancer
 		return m_OutOfBagError;
 	}
 	
-	/**
+	/*
 	 * Returns an enumeration of the additional measure names.
 	 *
 	 * @return an enumeration of the measure names
@@ -465,7 +465,7 @@ public class BaggingTS extends RandomizableIteratedSingleClassifierEnhancer
 		return newVector.elements();
 	}
 	
-	/**
+	/*
 	 * Returns the value of the named measure.
 	 *
 	 * @param additionalMeasureName the name of the measure to query for its value
@@ -482,7 +482,7 @@ public class BaggingTS extends RandomizableIteratedSingleClassifierEnhancer
 		}
 	}
 	
-	/**
+	/*
 	 * Bagging method.
 	 *
 	 * @param data the training data to be used for generating the bagged
@@ -611,7 +611,7 @@ public class BaggingTS extends RandomizableIteratedSingleClassifierEnhancer
 		}
 	}
 	
-	/**
+	/*
 	 * Calculates the class membership probabilities for the given test instance.
 	 *
 	 * @param instance the instance to be classified
@@ -643,7 +643,7 @@ public class BaggingTS extends RandomizableIteratedSingleClassifierEnhancer
 		}
 	}
 	
-	/**
+	/*
 	 * Returns description of the bagged classifier.
 	 *
 	 * @return description of the bagged classifier as a string
@@ -667,7 +667,7 @@ public class BaggingTS extends RandomizableIteratedSingleClassifierEnhancer
 		return text.toString();
 	}
 	
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision
@@ -677,7 +677,7 @@ public class BaggingTS extends RandomizableIteratedSingleClassifierEnhancer
 		return RevisionUtils.extract("$Revision: 11572 $");
 	}
 	
-	/**
+	/*
 	 * Main method for testing this class.
 	 *
 	 * @param argv the options

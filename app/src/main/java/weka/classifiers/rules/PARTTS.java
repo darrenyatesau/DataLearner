@@ -45,7 +45,7 @@ import weka.core.TechnicalInformation.Type;
 import java.util.Enumeration;
 import java.util.Vector;
 
-/**
+/*
  * <!-- globalinfo-start -->
  * Class for generating a PART decision list. Uses separate-and-conquer. Builds a partial C4.5 decision tree in each iteration and makes the "best" leaf into a rule.<br/>
  * <br/>
@@ -110,52 +110,52 @@ public class PARTTS
 		implements OptionHandler, WeightedInstancesHandler, Summarizable,
 		AdditionalMeasureProducer, TechnicalInformationHandler {
 	
-	/**
+	/*
 	 * for serialization
 	 */
 	static final long serialVersionUID = 8121455039782598361L;
 	
-	/**
+	/*
 	 * The decision list
 	 */
 	private MakeDecListTS m_root;
 	
-	/**
+	/*
 	 * Confidence level
 	 */
 	private float m_CF = 0.25f;
 	
-	/**
+	/*
 	 * Minimum number of objects
 	 */
 	private int m_minNumObj = 2;
 	
-	/**
+	/*
 	 * Use reduced error pruning?
 	 */
 	private boolean m_reducedErrorPruning = false;
 	
-	/**
+	/*
 	 * Number of folds for reduced error pruning.
 	 */
 	private int m_numFolds = 3;
 	
-	/**
+	/*
 	 * Binary splits on nominal attributes?
 	 */
 	private boolean m_binarySplits = false;
 	
-	/**
+	/*
 	 * Generate unpruned list?
 	 */
 	private boolean m_unpruned = false;
 	
-	/**
+	/*
 	 * The seed for random number generation.
 	 */
 	private int m_Seed = 1;
 	
-	/**
+	/*
 	 * Returns a string describing classifier
 	 *
 	 * @return a description suitable for
@@ -170,7 +170,7 @@ public class PARTTS
 				+ getTechnicalInformation().toString();
 	}
 	
-	/**
+	/*
 	 * Returns an instance of a TechnicalInformation object, containing
 	 * detailed information about the technical background of this class,
 	 * e.g., paper reference or book this class is based on.
@@ -193,7 +193,7 @@ public class PARTTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Returns default capabilities of the classifier.
 	 *
 	 * @return the capabilities of this classifier
@@ -211,7 +211,7 @@ public class PARTTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Generates the classifier.
 	 *
 	 * @param instances the data to train with
@@ -247,7 +247,7 @@ public class PARTTS
 		}
 	}
 	
-	/**
+	/*
 	 * Classifies an instance.
 	 *
 	 * @param instance the instance to classify
@@ -260,7 +260,7 @@ public class PARTTS
 		return m_root.classifyInstance(instance);
 	}
 	
-	/**
+	/*
 	 * Returns class probabilities for an instance.
 	 *
 	 * @param instance the instance to get the distribution for
@@ -273,7 +273,7 @@ public class PARTTS
 		return m_root.distributionForInstance(instance);
 	}
 	
-	/**
+	/*
 	 * Returns an enumeration describing the available options.
 	 * <p>
 	 * Valid options are: <p>
@@ -335,7 +335,7 @@ public class PARTTS
 		return newVector.elements();
 	}
 	
-	/**
+	/*
 	 * Parses a given list of options. <p/>
 	 * <p>
 	 * <!-- options-start -->
@@ -383,7 +383,7 @@ public class PARTTS
 				throw new Exception("Setting CF doesn't make sense " +
 						"for reduced error pruning.");
 			} else {
-				m_CF = (new Float(confidenceString)).floatValue();
+				m_CF = (Float.valueOf(confidenceString)).floatValue();
 				if ((m_CF <= 0) || (m_CF >= 1)) {
 					throw new Exception("CF has to be greater than zero and smaller than one!");
 				}
@@ -419,7 +419,7 @@ public class PARTTS
 		}
 	}
 	
-	/**
+	/*
 	 * Gets the current settings of the Classifier.
 	 *
 	 * @return an array of strings suitable for passing to setOptions
@@ -457,7 +457,7 @@ public class PARTTS
 		return options;
 	}
 	
-	/**
+	/*
 	 * Returns a description of the classifier
 	 *
 	 * @return a string representation of the classifier
@@ -470,7 +470,7 @@ public class PARTTS
 		return "PART decision list\n------------------\n\n" + m_root.toString();
 	}
 	
-	/**
+	/*
 	 * Returns a superconcise version of the model
 	 *
 	 * @return a concise version of the model
@@ -480,7 +480,7 @@ public class PARTTS
 		return "Number of rules: " + m_root.numRules() + "\n";
 	}
 	
-	/**
+	/*
 	 * Return the number of rules.
 	 *
 	 * @return the number of rules
@@ -489,7 +489,7 @@ public class PARTTS
 		return m_root.numRules();
 	}
 	
-	/**
+	/*
 	 * Returns an enumeration of the additional measure names
 	 *
 	 * @return an enumeration of the measure names
@@ -500,7 +500,7 @@ public class PARTTS
 		return newVector.elements();
 	}
 	
-	/**
+	/*
 	 * Returns the value of the named measure
 	 *
 	 * @param additionalMeasureName the name of the measure to query for its value
@@ -516,7 +516,7 @@ public class PARTTS
 		}
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -527,7 +527,7 @@ public class PARTTS
 				+ "more pruning).";
 	}
 	
-	/**
+	/*
 	 * Get the value of CF.
 	 *
 	 * @return Value of CF.
@@ -537,7 +537,7 @@ public class PARTTS
 		return m_CF;
 	}
 	
-	/**
+	/*
 	 * Set the value of CF.
 	 *
 	 * @param v Value to assign to CF.
@@ -547,7 +547,7 @@ public class PARTTS
 		m_CF = v;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -557,7 +557,7 @@ public class PARTTS
 		return "The minimum number of instances per rule.";
 	}
 	
-	/**
+	/*
 	 * Get the value of minNumObj.
 	 *
 	 * @return Value of minNumObj.
@@ -567,7 +567,7 @@ public class PARTTS
 		return m_minNumObj;
 	}
 	
-	/**
+	/*
 	 * Set the value of minNumObj.
 	 *
 	 * @param v Value to assign to minNumObj.
@@ -577,7 +577,7 @@ public class PARTTS
 		m_minNumObj = v;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -587,7 +587,7 @@ public class PARTTS
 		return "Whether reduced-error pruning is used instead of C.4.5 pruning.";
 	}
 	
-	/**
+	/*
 	 * Get the value of reducedErrorPruning.
 	 *
 	 * @return Value of reducedErrorPruning.
@@ -597,7 +597,7 @@ public class PARTTS
 		return m_reducedErrorPruning;
 	}
 	
-	/**
+	/*
 	 * Set the value of reducedErrorPruning.
 	 *
 	 * @param v Value to assign to reducedErrorPruning.
@@ -607,7 +607,7 @@ public class PARTTS
 		m_reducedErrorPruning = v;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -617,7 +617,7 @@ public class PARTTS
 		return "Whether pruning is performed.";
 	}
 	
-	/**
+	/*
 	 * Get the value of unpruned.
 	 *
 	 * @return Value of unpruned.
@@ -627,7 +627,7 @@ public class PARTTS
 		return m_unpruned;
 	}
 	
-	/**
+	/*
 	 * Set the value of unpruned.
 	 *
 	 * @param newunpruned Value to assign to unpruned.
@@ -637,7 +637,7 @@ public class PARTTS
 		m_unpruned = newunpruned;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -648,7 +648,7 @@ public class PARTTS
 				+ " One fold is used for pruning, the rest for growing the rules.";
 	}
 	
-	/**
+	/*
 	 * Get the value of numFolds.
 	 *
 	 * @return Value of numFolds.
@@ -658,7 +658,7 @@ public class PARTTS
 		return m_numFolds;
 	}
 	
-	/**
+	/*
 	 * Set the value of numFolds.
 	 *
 	 * @param v Value to assign to numFolds.
@@ -668,7 +668,7 @@ public class PARTTS
 		m_numFolds = v;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -679,7 +679,7 @@ public class PARTTS
 				"when reduced-error pruning is used.";
 	}
 	
-	/**
+	/*
 	 * Get the value of Seed.
 	 *
 	 * @return Value of Seed.
@@ -689,7 +689,7 @@ public class PARTTS
 		return m_Seed;
 	}
 	
-	/**
+	/*
 	 * Set the value of Seed.
 	 *
 	 * @param newSeed Value to assign to Seed.
@@ -699,7 +699,7 @@ public class PARTTS
 		m_Seed = newSeed;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -710,7 +710,7 @@ public class PARTTS
 				+ "building the partial trees.";
 	}
 	
-	/**
+	/*
 	 * Get the value of binarySplits.
 	 *
 	 * @return Value of binarySplits.
@@ -720,7 +720,7 @@ public class PARTTS
 		return m_binarySplits;
 	}
 	
-	/**
+	/*
 	 * Set the value of binarySplits.
 	 *
 	 * @param v Value to assign to binarySplits.
@@ -730,7 +730,7 @@ public class PARTTS
 		m_binarySplits = v;
 	}
 	
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision
@@ -739,7 +739,7 @@ public class PARTTS
 		return RevisionUtils.extract("$Revision: 1.10 $");
 	}
 	
-	/**
+	/*
 	 * Main method for testing this class.
 	 *
 	 * @param argv command line options

@@ -64,7 +64,8 @@ public class MainActivity extends AppCompatActivity {
 	static TextView textView, cci, ici, kappa, mae, rmse, rae, rrse, tni, tvsl3, tvStats;
 	static public TextView tvStatus;
 	static HorizontalScrollView idHS;
-	static Button btnRun, btnCM;
+	static Button btnRun;
+	static Button btnCM;
 	static CheckBox checkBox;
 	static String nameClassifier;
 	static int validate;
@@ -73,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
 	public static boolean killThread = false;
 	static boolean isThreadRunning = false;
 	static String statusUpdateStore = "Ready.";
-
-	static DataAnalysis task = null;
+	
+	//DataAnalysis task = null;
 	static Thread thread;
 	static ThreadGroup threadGroup;
 	static int alType = 1;
@@ -122,14 +123,13 @@ public class MainActivity extends AppCompatActivity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-
-		//noinspection SimplifiableIfStatement
+		
 		if (id == R.id.about) {
 			AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
 			builder1.setTitle("About DataLearner");
-			builder1.setMessage("Version 0.9.20190526 \r\n© Darren Yates, Zahid Islam, Junbin Gao\r\nPhD program, School of Computing and Mathematics, Charles Sturt University, 2018-2019." +
+			builder1.setMessage("Version 0.9.20190526-2042\r\n© Darren Yates, Zahid Islam, Junbin Gao\r\nPhD program, School of Computing and Mathematics, Charles Sturt University, 2018-2019." +
 					"\r\n\r\nDataLearner is a data-mining app powered by the Weka data-mining core and includes " +
-					" algorithms developed by Charles Sturt University. Weka was created by the University of Waikato.");
+					"algorithms developed by Charles Sturt University. Weka was created by the University of Waikato.");
 			AlertDialog alert1 = builder1.create();
 			alert1.show();
 			return true;
@@ -155,9 +155,9 @@ public class MainActivity extends AppCompatActivity {
 //        private final String ARG_SECTION_NUMBER = "section_number";
 
 		private static final int READ_REQUEST_CODE = 42;
-		static TextView tvFile, tvIntro, tvTest;
-		static Spinner spinClassAtt;
-		static String tvFileName;
+		TextView tvFile, tvIntro, tvTest;
+		Spinner spinClassAtt;
+		String tvFileName;
 
 		public LoadFragment() {
 		}
@@ -503,8 +503,7 @@ public class MainActivity extends AppCompatActivity {
 			View rootView = inflater.inflate(R.layout.fragment_main_tab3, container, false);
 
 			tvStatus = rootView.findViewById(R.id.tvStatus);
-			
-			TextView textView = rootView.findViewById(R.id.section_label3);
+			//TextView textView = rootView.findViewById(R.id.section_label3);
 			checkBox = rootView.findViewById(R.id.checkBox);
 			btnRun = rootView.findViewById(R.id.btnRun);
 			btnCM = rootView.findViewById(R.id.btnCM);
@@ -526,7 +525,7 @@ public class MainActivity extends AppCompatActivity {
 				public void onClick(View v) {
 				if (uriDataset != null && !nameClassifier.equals("-- none selected --")) {
 					if (thread == null || !isThreadRunning) {
-						launchTask();
+						launchTask(checkBox);
 						System.out.println("Pressed for START");
 						btnRun.setText("Stop");
 						tvsl3.setText("Tap 'Stop' to stop process:");
@@ -559,14 +558,14 @@ public class MainActivity extends AppCompatActivity {
 
 			return rootView;
 		}
-
-
-		public void launchTask() {
+		
+		
+		public void launchTask(CheckBox checkBox) {
 			btnCM.setEnabled(false);
 			cleanDisplay();
 			if (checkBox.isChecked()) validate = 1;
 			else validate = 0;
-			task = new DataAnalysis(getContext(), tvStatus, tvsl3, btnRun, btnCM, nameClassifier, validate, data,
+			DataAnalysis task = new DataAnalysis(getContext(), tvStatus, tvsl3, btnRun, btnCM, nameClassifier, validate, data,
 					cci, ici, kappa, mae, rmse, rae, rrse, tni);
 			threadGroup = new ThreadGroup("null");
 			thread = new Thread(threadGroup, task, "dataRunnable", 64000);

@@ -36,7 +36,7 @@ import weka.core.Capabilities.Capability;
 
 import java.util.Enumeration;
 
-/**
+/*
  * <!-- globalinfo-start -->
  * Class for building and using a 0-R classifier. Predicts the mean (for a numeric class) or the mode (for a nominal class).
  * <p/>
@@ -58,27 +58,27 @@ public class ZeroRTS
 		extends Classifier
 		implements WeightedInstancesHandler, Sourcable {
 	
-	/**
+	/*
 	 * for serialization
 	 */
 	static final long serialVersionUID = 48055541465867954L;
 	
-	/**
+	/*
 	 * The class value 0R predicts.
 	 */
 	private double m_ClassValue;
 	
-	/**
+	/*
 	 * The number of instances in each class (null if class numeric).
 	 */
 	private double[] m_Counts;
 	
-	/**
+	/*
 	 * The class attribute.
 	 */
 	private Attribute m_Class;
 	
-	/**
+	/*
 	 * Returns a string describing classifier
 	 *
 	 * @return a description suitable for
@@ -89,7 +89,7 @@ public class ZeroRTS
 				+ "(for a numeric class) or the mode (for a nominal class).";
 	}
 	
-	/**
+	/*
 	 * Returns default capabilities of the classifier.
 	 *
 	 * @return the capabilities of this classifier
@@ -118,7 +118,7 @@ public class ZeroRTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Generates the classifier.
 	 *
 	 * @param instances set of instances serving as training data
@@ -173,7 +173,7 @@ public class ZeroRTS
 		}
 	}
 	
-	/**
+	/*
 	 * Classifies a given instance.
 	 *
 	 * @param instance the instance to be classified
@@ -184,7 +184,7 @@ public class ZeroRTS
 		return m_ClassValue;
 	}
 	
-	/**
+	/*
 	 * Calculates the class membership probabilities for the given test instance.
 	 *
 	 * @param instance the instance to be classified
@@ -199,11 +199,11 @@ public class ZeroRTS
 			result[0] = m_ClassValue;
 			return result;
 		} else {
-			return (double[]) m_Counts.clone();
+			return m_Counts.clone();
 		}
 	}
 	
-	/**
+	/*
 	 * Returns a string that describes the classifier as source. The
 	 * classifier will be contained in a class with the given name (there may
 	 * be auxiliary classes),
@@ -235,7 +235,7 @@ public class ZeroRTS
 		return result.toString();
 	}
 	
-	/**
+	/*
 	 * Returns a description of the classifier.
 	 *
 	 * @return a description of the classifier as a string.
@@ -252,7 +252,7 @@ public class ZeroRTS
 		}
 	}
 	
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision
@@ -261,7 +261,7 @@ public class ZeroRTS
 		return RevisionUtils.extract("$Revision: 5529 $");
 	}
 	
-	/**
+	/*
 	 * Main method for testing this class.
 	 *
 	 * @param argv the options

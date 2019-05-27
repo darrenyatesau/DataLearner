@@ -365,7 +365,7 @@ public class AprioriTS extends AbstractAssociator implements OptionHandler,
 		m_classIndex = -1;
 	}
 	
-	/**
+	/*
 	 * Removes columns that are all missing from the data
 	 *
 	 * @param instances the instances
@@ -446,7 +446,7 @@ public class AprioriTS extends AbstractAssociator implements OptionHandler,
 		return result;
 	}
 	
-	/**
+	/*
 	 * Method that generates all large itemsets with a minimum support, and from
 	 * these all association rules with a minimum confidence.
 	 *
@@ -669,7 +669,7 @@ public class AprioriTS extends AbstractAssociator implements OptionHandler,
 		m_allTheRules[5] = prunedRules[5];
 	}
 	
-	/**
+	/*
 	 * Method that mines all class association rules with minimum support and with
 	 * a minimum confidence.
 	 *
@@ -746,7 +746,7 @@ public class AprioriTS extends AbstractAssociator implements OptionHandler,
 		return newVector.elements();
 	}
 	
-	/**
+	/*
 	 * Parses a given list of options.
 	 * <p/>
 	 * <p>
@@ -847,19 +847,19 @@ public class AprioriTS extends AbstractAssociator implements OptionHandler,
 			}
 		}
 		if (minConfidenceString.length() != 0) {
-			m_minMetric = (new Double(minConfidenceString)).doubleValue();
+			m_minMetric = (Double.valueOf(minConfidenceString)).doubleValue();
 		}
 		if (deltaString.length() != 0) {
-			m_delta = (new Double(deltaString)).doubleValue();
+			m_delta = (Double.valueOf(deltaString)).doubleValue();
 		}
 		if (maxSupportString.length() != 0) {
-			setUpperBoundMinSupport((new Double(maxSupportString)).doubleValue());
+			setUpperBoundMinSupport((Double.valueOf(maxSupportString)).doubleValue());
 		}
 		if (minSupportString.length() != 0) {
-			m_lowerBoundMinSupport = (new Double(minSupportString)).doubleValue();
+			m_lowerBoundMinSupport = (Double.valueOf(minSupportString)).doubleValue();
 		}
 		if (significanceLevelString.length() != 0) {
-			m_significanceLevel = (new Double(significanceLevelString)).doubleValue();
+			m_significanceLevel = (Double.valueOf(significanceLevelString)).doubleValue();
 		}
 		m_outputItemSets = Utils.getFlag('I', options);
 		m_car = Utils.getFlag('A', options);
@@ -1424,7 +1424,7 @@ public class AprioriTS extends AbstractAssociator implements OptionHandler,
 		return m_verbose;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for displaying in the
@@ -1434,7 +1434,7 @@ public class AprioriTS extends AbstractAssociator implements OptionHandler,
 		return "If enabled the algorithm will be run in verbose mode.";
 	}
 	
-	/**
+	/*
 	 * Method that finds all large itemsets for the given set of instances.
 	 *
 	 * @throws Exception if an attribute is numeric
@@ -1473,7 +1473,7 @@ public class AprioriTS extends AbstractAssociator implements OptionHandler,
 		} while (kSets.size() > 0);
 	}
 	
-	/**
+	/*
 	 * Method that finds all association rules and performs significance test.
 	 *
 	 * @throws Exception if an attribute is numeric
@@ -1507,7 +1507,7 @@ public class AprioriTS extends AbstractAssociator implements OptionHandler,
 		}
 	}
 	
-	/**
+	/*
 	 * Method that finds all association rules.
 	 *
 	 * @throws Exception if an attribute is numeric
@@ -1535,7 +1535,7 @@ public class AprioriTS extends AbstractAssociator implements OptionHandler,
 		}
 	}
 	
-	/**
+	/*
 	 * Method that finds all large itemsets for class association rules for the
 	 * given set of instances.
 	 *
@@ -1587,7 +1587,7 @@ public class AprioriTS extends AbstractAssociator implements OptionHandler,
 		} while (kSets.size() > 0);
 	}
 	
-	/**
+	/*
 	 * Method that finds all class association rules.
 	 *
 	 * @throws Exception if an attribute is numeric
@@ -1613,7 +1613,7 @@ public class AprioriTS extends AbstractAssociator implements OptionHandler,
 		}
 	}
 	
-	/**
+	/*
 	 * returns all the rules
 	 *
 	 * @return all the rules
@@ -1623,7 +1623,7 @@ public class AprioriTS extends AbstractAssociator implements OptionHandler,
 		return m_allTheRules;
 	}
 	
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision
@@ -1633,7 +1633,7 @@ public class AprioriTS extends AbstractAssociator implements OptionHandler,
 		return RevisionUtils.extract("$Revision: 9096 $");
 	}
 	
-	/**
+	/*
 	 * Main method.
 	 *
 	 * @param args the commandline options

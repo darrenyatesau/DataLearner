@@ -45,7 +45,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-/**
+/*
  <!-- globalinfo-start -->
  * Builds a description of a Bayes Net classifier stored in XML BIF 0.3 format.<br/>
  * <br/>
@@ -99,11 +99,11 @@ public class BIFReaderTS
     protected int [] m_nPositionX;
     protected int [] m_nPositionY;
     private int [] m_order;
-    
-    /** for serialization */
+	
+	/* for serialization */
     static final long serialVersionUID = -8358864680379881429L;
-
-    /**
+	
+	/*
      * This will return a string describing the classifier.
      * @return The string.
      */
@@ -114,8 +114,8 @@ public class BIFReaderTS
         + "For more details on XML BIF see:\n\n"
         + getTechnicalInformation().toString();
     }
-
-	/** processFile reads a BIFXML file and initializes a Bayes Net
+	
+	/* processFile reads a BIFXML file and initializes a Bayes Net
 	 * @param sFile name of the file to parse
 	 * @return the BIFReader
 	 * @throws Exception if processing fails
@@ -143,10 +143,10 @@ public class BIFReaderTS
 	} // processString
 	
 	
-	/** the current filename */
+	/* the current filename */
 	String m_sFile;
 	
-	/**
+	/*
 	 * returns the current filename
 	 * 
 	 * @return the current filename
@@ -156,7 +156,7 @@ public class BIFReaderTS
 	}
 	
 	
-	/**
+	/*
 	 * Returns an instance of a TechnicalInformation object, containing 
 	 * detailed information about the technical background of this class,
 	 * e.g., paper reference or book this class is based on.
@@ -175,7 +175,7 @@ public class BIFReaderTS
 	  return result;
 	}
 	
-	/** buildStructure parses the BIF document in the DOM tree contained
+	/* buildStructure parses the BIF document in the DOM tree contained
 	 * in the doc parameter and specifies the the network structure and 
 	 * probability tables.
 	 * It assumes that buildInstances has been called before
@@ -226,20 +226,20 @@ public class BIFReaderTS
 	        StringTokenizer st = new StringTokenizer(sTable.toString());
 */
 	        String sTable = getTable(definition);
-			StringTokenizer st = new StringTokenizer(sTable.toString());
+			StringTokenizer st = new StringTokenizer(sTable);
 	        
 	        
 			for (int i = 0; i < nCardinality; i++) {
 				DiscreteEstimatorBayes d = (DiscreteEstimatorBayes) m_Distributions[iNode][i];
 				for (int iValue = 0; iValue < nValues; iValue++) {
 					String sWeight = st.nextToken();
-					d.addValue(iValue, new Double(sWeight).doubleValue());
+					d.addValue(iValue, Double.valueOf(sWeight).doubleValue());
 				}
 			}
          }
     } // buildStructure
-
-    /** synchronizes the node ordering of this Bayes network with
+	
+	/* synchronizes the node ordering of this Bayes network with
      * those in the other network (if possible).
      * @param other Bayes network to synchronize with
      * @throws Exception if nr of attributes differs or not all of the variables have the same name.
@@ -255,9 +255,9 @@ public class BIFReaderTS
         	m_order[getNode(sName)] = iNode;
         }
     } // Sync
-
-
-    /**
+	
+	
+	/*
      * Returns all TEXT children of the given node in one string. Between
      * the node values new lines are inserted.
      * 
@@ -281,9 +281,9 @@ public class BIFReaderTS
          
       return result;
     }
-
-
-	/** buildInstances parses the BIF document and creates a Bayes Net with its 
+	
+	
+	/* buildInstances parses the BIF document and creates a Bayes Net with its
 	 * nodes specified, but leaves the network structure and probability tables empty.
 	 * @param doc DOM document containing BIF document in DOM tree
 	 * @param sName default name to give to the Bayes Net. Will be overridden if specified in the BIF document.
@@ -350,8 +350,8 @@ public class BIFReaderTS
                     String sX = sValue.substring(i0 + 1, i1).trim();
                     String sY = sValue.substring(i1 + 1, i2).trim();
                     try {
-                    	m_nPositionX[iNode] = (int) Integer.parseInt(sX);
-                    	m_nPositionY[iNode] = (int) Integer.parseInt(sY);
+						m_nPositionX[iNode] = Integer.parseInt(sX);
+						m_nPositionY[iNode] = Integer.parseInt(sY);
                     } catch (NumberFormatException e) {
                     	System.err.println("Wrong number format in position :(" + sX + "," + sY +")");
                    	    m_nPositionX[iNode] = 0;
@@ -368,7 +368,7 @@ public class BIFReaderTS
 		initStructure();
 	} // buildInstances
 
-//	/** selectNodeList selects list of nodes from document specified in XPath expression
+//	/* selectNodeList selects list of nodes from document specified in XPath expression
 //	 * @param doc : document (or node) to query
 //	 * @param sXPath : XPath expression
 //	 * @return list of nodes conforming to XPath expression in doc
@@ -451,7 +451,8 @@ public class BIFReaderTS
 	  }
 	  return nodelist;
   } // selectElements
-	/** Count nr of arcs missing from other network compared to current network
+	
+	/* Count nr of arcs missing from other network compared to current network
 	 * Note that an arc is not 'missing' if it is reversed.
 	 * @param other network to compare with
 	 * @return nr of missing arcs
@@ -474,8 +475,8 @@ public class BIFReaderTS
 			return 0;
 		}
 	} // missingArcs
-
-	/** Count nr of exta arcs  from other network compared to current network
+	
+	/* Count nr of exta arcs  from other network compared to current network
 	 * Note that an arc is not 'extra' if it is reversed.
 	 * @param other network to compare with
 	 * @return nr of missing arcs
@@ -498,9 +499,9 @@ public class BIFReaderTS
 			return 0;
 		}
 	} // extraArcs
-
-
-	/** calculates the divergence between the probability distribution
+	
+	
+	/* calculates the divergence between the probability distribution
 	 * represented by this network and that of another, that is,
 	 * \sum_{x\in X} P(x)log P(x)/Q(x)
 	 * where X is the set of values the nodes in the network can take,
@@ -568,8 +569,8 @@ public class BIFReaderTS
 			return 0;
 		}
 	} // divergence
-
-	/** Count nr of reversed arcs from other network compared to current network
+	
+	/* Count nr of reversed arcs from other network compared to current network
 	 * @param other network to compare with
 	 * @return nr of missing arcs
 	 */
@@ -591,7 +592,8 @@ public class BIFReaderTS
 			return 0;
 		}
 	} // reversedArcs
-	/** getNode finds the index of the node with name sNodeName
+	
+	/* getNode finds the index of the node with name sNodeName
 	 * and throws an exception if no such node can be found.
 	 * @param sNodeName name of the node to get the index from
 	 * @return index of the node with name sNodeName
@@ -607,14 +609,14 @@ public class BIFReaderTS
 		}
    		throw new Exception("Could not find node [[" + sNodeName + "]]");
     } // getNode
-
-    /**
+	
+	/*
      * the default constructor
      */
     public BIFReaderTS() {
     }
-    
-    /**
+	
+	/*
      * Returns the revision string.
      * 
      * @return		the revision
@@ -622,8 +624,8 @@ public class BIFReaderTS
     public String getRevision() {
       return RevisionUtils.extract("$Revision: 1.15 $");
     }
-
-    /**
+	
+	/*
      * Loads the file specified as first parameter and prints it to stdout.
      * 
      * @param args the command line parameters

@@ -34,7 +34,7 @@ import weka.core.RevisionUtils;
 import weka.core.Utils;
 import weka.core.Capabilities.Capability;
 
-/**
+/*
  * Class for handling a tree structure that can
  * be pruned using C4.5 procedures.
  *
@@ -45,32 +45,32 @@ import weka.core.Capabilities.Capability;
 public class C45PruneableClassifierTreeTS
 		extends ClassifierTreeTS {
 	
-	/**
+	/*
 	 * for serialization
 	 */
 	static final long serialVersionUID = -4813820170260388194L;
 	
-	/**
+	/*
 	 * True if the tree is to be pruned.
 	 */
 	boolean m_pruneTheTree = false;
 	
-	/**
+	/*
 	 * The confidence factor for pruning.
 	 */
 	float m_CF = 0.25f;
 	
-	/**
+	/*
 	 * Is subtree raising to be performed?
 	 */
 	boolean m_subtreeRaising = true;
 	
-	/**
+	/*
 	 * Cleanup after the tree has been built.
 	 */
 	boolean m_cleanup = true;
 	
-	/**
+	/*
 	 * Constructor for pruneable tree structure. Stores reference
 	 * to associated training data at each node.
 	 *
@@ -95,7 +95,7 @@ public class C45PruneableClassifierTreeTS
 		m_cleanup = cleanup;
 	}
 	
-	/**
+	/*
 	 * Returns default capabilities of the classifier tree.
 	 *
 	 * @return the capabilities of this classifier tree
@@ -120,7 +120,7 @@ public class C45PruneableClassifierTreeTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Method for building a pruneable classifier tree.
 	 *
 	 * @param data the data for building the tree
@@ -145,7 +145,7 @@ public class C45PruneableClassifierTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * Collapses a tree to a node if training error doesn't increase.
 	 */
 	public final void collapse() {
@@ -171,7 +171,7 @@ public class C45PruneableClassifierTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * Prunes a tree using C4.5's pruning procedure.
 	 *
 	 * @throws Exception if something goes wrong
@@ -199,7 +199,7 @@ public class C45PruneableClassifierTreeTS
 			indexOfLargestBranch = localModel().distribution().maxBag();
 			if (m_subtreeRaising) {
 				errorsLargestBranch = son(indexOfLargestBranch).
-						getEstimatedErrorsForBranch((Instances) m_train);
+						getEstimatedErrorsForBranch(m_train);
 			} else {
 				errorsLargestBranch = Double.MAX_VALUE;
 			}
@@ -237,7 +237,7 @@ public class C45PruneableClassifierTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * Returns a newly created tree.
 	 *
 	 * @param data the data to work with
@@ -249,12 +249,12 @@ public class C45PruneableClassifierTreeTS
 		C45PruneableClassifierTreeTS newTree =
 				new C45PruneableClassifierTreeTS(m_toSelectModel, m_pruneTheTree, m_CF,
 						m_subtreeRaising, m_cleanup);
-		newTree.buildTree((Instances) data, m_subtreeRaising || !m_cleanup);
+		newTree.buildTree(data, m_subtreeRaising || !m_cleanup);
 		
 		return newTree;
 	}
 	
-	/**
+	/*
 	 * Computes estimated errors for tree.
 	 *
 	 * @return the estimated errors
@@ -273,7 +273,7 @@ public class C45PruneableClassifierTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * Computes estimated errors for one branch.
 	 *
 	 * @param data the data to work with
@@ -292,7 +292,7 @@ public class C45PruneableClassifierTreeTS
 		else {
 			DistributionTS savedDist = localModel().m_distribution;
 			localModel().resetDistribution(data);
-			localInstances = (Instances[]) localModel().split(data);
+			localInstances = localModel().split(data);
 			localModel().m_distribution = savedDist;
 			for (i = 0; i < m_sons.length; i++)
 				errors = errors +
@@ -301,7 +301,7 @@ public class C45PruneableClassifierTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * Computes estimated errors for leaf.
 	 *
 	 * @param theDistribution the distribution to use
@@ -318,7 +318,7 @@ public class C45PruneableClassifierTreeTS
 							theDistribution.numIncorrect(), m_CF);
 	}
 	
-	/**
+	/*
 	 * Computes errors of tree on training data.
 	 *
 	 * @return the training errors
@@ -337,17 +337,17 @@ public class C45PruneableClassifierTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * Method just exists to make program easier to read.
 	 *
 	 * @return the local split model
 	 */
 	private ClassifierSplitModelTS localModel() {
 		
-		return (ClassifierSplitModelTS) m_localModel;
+		return m_localModel;
 	}
 	
-	/**
+	/*
 	 * Computes new distributions of instances for nodes
 	 * in tree.
 	 *
@@ -362,7 +362,7 @@ public class C45PruneableClassifierTreeTS
 		m_train = data;
 		if (!m_isLeaf) {
 			localInstances =
-					(Instances[]) localModel().split(data);
+					localModel().split(data);
 			for (int i = 0; i < m_sons.length; i++)
 				son(i).newDistribution(localInstances[i]);
 		} else {
@@ -374,7 +374,7 @@ public class C45PruneableClassifierTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * Method just exists to make program easier to read.
 	 */
 	private C45PruneableClassifierTreeTS son(int index) {
@@ -382,7 +382,7 @@ public class C45PruneableClassifierTreeTS
 		return (C45PruneableClassifierTreeTS) m_sons[index];
 	}
 	
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision

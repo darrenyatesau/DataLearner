@@ -220,8 +220,8 @@ public class ADTreeTS
     
     return result;
   }
-
-  /**
+  
+  /*
    * Sets up the tree ready to be trained, using two-class optimized method.
    *
    * @param instances the instances to train the tree with
@@ -266,8 +266,8 @@ public class ADTreeTS
     // pre-calculate what we can
     generateAttributeIndicesSingle();
   }
-
-  /**
+  
+  /*
    * Performs one iteration.
    * 
    * @param iteration the index of the current iteration (0-based)
@@ -277,8 +277,8 @@ public class ADTreeTS
 
     boost();
   }
-
-  /**
+  
+  /*
    * Performs a single boosting iteration, using two-class optimized method.
    * Will add a new splitter node and two prediction nodes to the tree
    * (unless merging takes place).
@@ -309,7 +309,7 @@ public class ADTreeTS
     }
 
     // insert the new nodes
-    m_search_bestInsertionNode.addChild((SplitterTS) m_search_bestSplitter, this);
+    m_search_bestInsertionNode.addChild(m_search_bestSplitter, this);
 
     // free memory
     m_search_bestPathPosInstances = null;
@@ -331,9 +331,9 @@ public class ADTreeTS
     for (int i=0; i<m_trainInstances.numAttributes(); i++) {
       if (i != m_trainInstances.classIndex()) {
 	if (m_trainInstances.attribute(i).isNumeric())
-	  numericIndices.addElement(new Integer(i));
+      numericIndices.addElement(Integer.valueOf(i));
 	else
-	  nominalIndices.addElement(new Integer(i));
+      nominalIndices.addElement(Integer.valueOf(i));
       }
     }
 
@@ -347,8 +347,8 @@ public class ADTreeTS
     for (int i=0; i<numericIndices.size(); i++)
       m_numericAttIndices[i] = ((Integer)numericIndices.elementAt(i)).intValue();
   }
-
-  /**
+  
+  /*
    * Performs a search for the best test (splitter) to add to the tree, by aiming to
    * minimize the Z value.
    *
@@ -362,8 +362,8 @@ public class ADTreeTS
     m_search_smallestZ = Double.POSITIVE_INFINITY;
     searchForBestTestSingle(m_root, m_posTrainInstances, m_negTrainInstances);
   }
-
-  /**
+  
+  /*
    * Recursive function that carries out search for the best test (splitter) to add to
    * this part of the tree, by aiming to minimize the Z value. Performs Z-pure cutoff to
    * reduce search space.
@@ -425,8 +425,8 @@ public class ADTreeTS
       break;
     }
   }
-
-  /**
+  
+  /*
    * Continues single (two-class optimized) search by investigating every node in the
    * subtree under currentNode.
    *
@@ -447,8 +447,8 @@ public class ADTreeTS
 				split.instancesDownBranch(i, negInstances));
     }
   }
-
-  /**
+  
+  /*
    * Continues single (two-class optimized) search by investigating only the path
    * with the most heavily weighted instances.
    *
@@ -484,8 +484,8 @@ public class ADTreeTS
 			      heaviestSplit.instancesDownBranch(heaviestBranch,
 								negInstances));
   }
-
-  /**
+  
+  /*
    * Continues single (two-class optimized) search by investigating only the path
    * with the best Z-pure value at each branch.
    *
@@ -521,8 +521,8 @@ public class ADTreeTS
     if (bestPath != null)
       searchForBestTestSingle(bestPath, bestPosSplit, bestNegSplit);
   }
-
-  /**
+  
+  /*
    * Continues single (two-class optimized) search by investigating a random path.
    *
    * @param currentNode the root of the subtree to be searched
@@ -566,8 +566,8 @@ public class ADTreeTS
       m_search_bestPathNegInstances = negInstances;
     }
   }
-
-  /**
+  
+  /*
    * Investigates the option of introducing a two-way numeric split under currentNode.
    * If it finds a split that has a Z-value lower than has already been found it will
    * update the search information to record this as the best option so far. 
@@ -714,8 +714,8 @@ public class ADTreeTS
     }
     return weights;
   }
-
-  /**
+  
+  /*
    * Finds the numeric split-point that results in the lowest Z-value.
    *
    * @param instances the instances to find a split for
@@ -874,8 +874,8 @@ public class ADTreeTS
     }
     return text.toString();
   }
-
-  /**
+  
+  /*
    *  Returns the type of graph this classifier
    *  represents.
    *  @return Drawable.TREE
@@ -883,8 +883,8 @@ public class ADTreeTS
   public int graphType() {
       return Drawable.TREE;
   }
-
-  /**
+  
+  /*
    * Returns graph describing the tree.
    *
    * @return the graph of the tree in dotty format
@@ -897,8 +897,8 @@ public class ADTreeTS
     graphTraverse(m_root, text, 0, 0, m_trainInstances);
     return text.toString() +"}\n";
   }
-
-  /**
+  
+  /*
    * Traverses the tree, graphing each node.
    *
    * @param currentNode the currentNode under investigation
@@ -937,8 +937,8 @@ public class ADTreeTS
       }
     }  
   }
-
-  /**
+  
+  /*
    * Returns the legend of the tree, describing how results are to be interpreted.
    *
    * @return a string containing the legend of the classifier
@@ -947,7 +947,10 @@ public class ADTreeTS
     
     Attribute classAttribute = null;
     if (m_trainInstances == null) return "";
-    try {classAttribute = m_trainInstances.classAttribute();} catch (Exception x){};
+    try {
+      classAttribute = m_trainInstances.classAttribute();
+    } catch (Exception x) {
+    }
     return ("-ve = " + classAttribute.value(0) +
 	    ", +ve = " + classAttribute.value(1));
   }
@@ -1107,8 +1110,8 @@ public class ADTreeTS
 				    "D", 0,"-D"));
     return newVector.elements();
   }
-
-  /**
+  
+  /*
    * Parses a given list of options. Valid options are:<p>
    *
    * -B num <br>
@@ -1143,8 +1146,8 @@ public class ADTreeTS
 
     Utils.checkForRemainingOptions(options);
   }
-
-  /**
+  
+  /*
    * Gets the current settings of ADTree.
    *
    * @return an array of strings suitable for passing to setOptions()
@@ -1229,8 +1232,8 @@ public class ADTreeTS
     newVector.addElement("measureExamplesProcessed");
     return newVector.elements();
   }
- 
-  /**
+  
+  /*
    * Returns the value of the named measure.
    *
    * @param additionalMeasureName the name of the measure to query for its value
@@ -1363,8 +1366,8 @@ public class ADTreeTS
     
     return result;
   }
-
-  /**
+  
+  /*
    * Builds a classifier for a set of instances.
    *
    * @param instances the instances to train the classifier with
@@ -1388,8 +1391,8 @@ public class ADTreeTS
     // clean up if desired
     if (!m_saveInstanceData) done();
   }
-
-  /**
+  
+  /*
    * Frees memory that is no longer needed for a final model - will no longer be able
    * to increment the classifier after calling this.
    *
@@ -1462,8 +1465,8 @@ public class ADTreeTS
 
     return clone;
   }
-
-  /**
+  
+  /*
    * Merges two trees together. Modifies the tree being acted on, leaving tree passed
    * as a parameter untouched (cloned). Does not check to see whether training instances
    * are compatible - strange things could occur if they are not.
@@ -1478,7 +1481,7 @@ public class ADTreeTS
     m_root.merge(mergeWith.m_root, this);
   }
   
-  /**
+  /*
    * Returns the revision string.
    * 
    * @return		the revision
@@ -1486,8 +1489,8 @@ public class ADTreeTS
   public String getRevision() {
     return RevisionUtils.extract("$Revision: 10290 $");
   }
-
-  /**
+  
+  /*
    * Main method for testing this class.
    *
    * @param argv the options

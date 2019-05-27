@@ -36,7 +36,7 @@ import java.util.Random;
 import java.util.Vector;
 
 
-/**
+/*
  <!-- globalinfo-start -->
  * This Bayes Network learning algorithm uses a hill climbing algorithm restricted by an order on the variables.<br/>
  * <br/>
@@ -104,14 +104,14 @@ import java.util.Vector;
 public class K2TS
  	extends LocalScoreSearchAlgorithmTS
  	implements TechnicalInformationHandler {
-  
-  	/** for serialization */
+	
+	/* for serialization */
   	static final long serialVersionUID = 6176545934752116631L;
-  
-	/** Holds flag to indicate ordering should be random **/
+	
+	/* Holds flag to indicate ordering should be random **/
 	boolean m_bRandomOrder = false;
-
-	/**
+	
+	/*
 	 * Returns an instance of a TechnicalInformation object, containing 
 	 * detailed information about the technical background of this class,
 	 * e.g., paper reference or book this class is based on.
@@ -140,8 +140,8 @@ public class K2TS
 	  
 	  return result;
 	}
-
-	/**
+	
+	/*
 	 * search determines the network structure/graph of the network
 	 * with the K2 algorithm, restricted by its initial structure (which can
 	 * be an empty graph, or a Naive Bayes graph.
@@ -151,7 +151,7 @@ public class K2TS
 	 * @throws Exception if something goes wrong
 	 */
 	public void search (BayesNet bayesNet, Instances instances) throws Exception {
-		int nOrder[] = new int [instances.numAttributes()];
+		int[] nOrder = new int[instances.numAttributes()];
 		nOrder[0] = instances.classIndex();
 
 		int nAttribute = 0;
@@ -215,44 +215,44 @@ public class K2TS
 			}
 		}
 	} // buildStructure 
-
-	/**
+	
+	/*
 	 * Sets the max number of parents
 	 *
 	 * @param nMaxNrOfParents the max number of parents
 	 */
 	public void setMaxNrOfParents(int nMaxNrOfParents) {
 	  m_nMaxNrOfParents = nMaxNrOfParents;
-	} 
-
-	/**
+	}
+	
+	/*
 	 * Gets the max number of parents.
 	 *
 	 * @return the max number of parents
 	 */
 	public int getMaxNrOfParents() {
 	  return m_nMaxNrOfParents;
-	} 
-
-	/**
+	}
+	
+	/*
 	 * Sets whether to init as naive bayes
 	 *
 	 * @param bInitAsNaiveBayes whether to init as naive bayes
 	 */
 	public void setInitAsNaiveBayes(boolean bInitAsNaiveBayes) {
 	  m_bInitAsNaiveBayes = bInitAsNaiveBayes;
-	} 
-
-	/**
+	}
+	
+	/*
 	 * Gets whether to init as naive bayes
 	 *
 	 * @return whether to init as naive bayes
 	 */
 	public boolean getInitAsNaiveBayes() {
 	  return m_bInitAsNaiveBayes;
-	} 
-
-	/** 
+	}
+	
+	/*
 	 * Set random order flag 
 	 *
 	 * @param bRandomOrder the random order flag
@@ -260,8 +260,8 @@ public class K2TS
 	public void setRandomOrder(boolean bRandomOrder) {
 		m_bRandomOrder = bRandomOrder;
 	} // SetRandomOrder
-
-	/** 
+	
+	/*
 	 * Get random order flag 
 	 *
 	 * @return the random order flag
@@ -269,8 +269,8 @@ public class K2TS
 	public boolean getRandomOrder() {
 		return m_bRandomOrder;
 	} // getRandomOrder
-  
-	/**
+	
+	/*
 	 * Returns an enumeration describing the available options.
 	 *
 	 * @return an enumeration of all the available options.
@@ -295,8 +295,8 @@ public class K2TS
 		}
 	  return newVector.elements();
 	}
-
-	/**
+	
+	/*
 	 * Parses a given list of options. <p/>
 	 *
 	 <!-- options-start -->
@@ -341,8 +341,8 @@ public class K2TS
 	  }
 	  super.setOptions(options);
 	}
-
-	/**
+	
+	/*
 	 * Gets the current settings of the search algorithm.
 	 *
 	 * @return an array of strings suitable for passing to setOptions
@@ -370,8 +370,8 @@ public class K2TS
 	  // Fill up rest with empty strings, not nulls!
 	  return options;
 	}
-
-	/**
+	
+	/*
 	 * This will return a string describing the search algorithm.
 	 * @return The string.
 	 */
@@ -383,8 +383,8 @@ public class K2TS
 	    + getTechnicalInformation().toString() + "\n\n"
 	    + "Works with nominal variables and no missing values only.";
 	}
-
-	/**
+	
+	/*
 	 * @return a string to describe the RandomOrder option.
 	 */
 	public String randomOrderTipText() {
@@ -394,8 +394,8 @@ public class K2TS
 	  " In any case, when the network was initialized as Naive Bayes Network, the" +
 	  " class variable is first in the ordering though.";
 	} // randomOrderTipText
-
-	/**
+	
+	/*
 	 * Returns the revision string.
 	 * 
 	 * @return		the revision

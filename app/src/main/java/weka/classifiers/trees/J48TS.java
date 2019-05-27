@@ -50,7 +50,7 @@ import weka.core.TechnicalInformation.Type;
 import java.util.Enumeration;
 import java.util.Vector;
 
-/**
+/*
  <!-- globalinfo-start -->
  * Class for generating a pruned or unpruned C4.5 decision tree. For more information, see<br/>
  * <br/>
@@ -119,45 +119,45 @@ public class J48TS
   implements OptionHandler, Drawable, Matchable, Sourcable, 
              WeightedInstancesHandler, Summarizable, AdditionalMeasureProducer, 
              TechnicalInformationHandler {
-
-  /** for serialization */
+  
+  /* for serialization */
   static final long serialVersionUID = -217733168393644444L;
-
-  /** The decision tree */
+  
+  /* The decision tree */
   private ClassifierTreeTS m_root;
   
-  /** Unpruned tree? */
+  /* Unpruned tree? */
   private boolean m_unpruned = false;
-
-  /** Confidence level */
+  
+  /* Confidence level */
   private float m_CF = 0.25f;
-
-  /** Minimum number of instances */
+  
+  /* Minimum number of instances */
   private int m_minNumObj = 2;
-
-  /** Determines whether probabilities are smoothed using
+  
+  /* Determines whether probabilities are smoothed using
       Laplace correction when predictions are generated */
   private boolean m_useLaplace = false;
-
-  /** Use reduced error pruning? */
+  
+  /* Use reduced error pruning? */
   private boolean m_reducedErrorPruning = false;
-
-  /** Number of folds for reduced error pruning. */
+  
+  /* Number of folds for reduced error pruning. */
   private int m_numFolds = 3;
-
-  /** Binary splits on nominal attributes? */
+  
+  /* Binary splits on nominal attributes? */
   private boolean m_binarySplits = false;
-
-  /** Subtree raising to be performed? */
+  
+  /* Subtree raising to be performed? */
   private boolean m_subtreeRaising = true;
-
-  /** Cleanup after the tree has been built. */
+  
+  /* Cleanup after the tree has been built. */
   private boolean m_noCleanup = false;
-
-  /** Random number seed for reduced-error pruning. */
+  
+  /* Random number seed for reduced-error pruning. */
   private int m_Seed = 1;
-
-  /**
+  
+  /*
    * Returns a string describing classifier
    * @return a description suitable for
    * displaying in the explorer/experimenter gui
@@ -168,8 +168,8 @@ public class J48TS
       + "information, see\n\n"
       + getTechnicalInformation().toString();
   }
-
-  /**
+  
+  /*
    * Returns an instance of a TechnicalInformation object, containing 
    * detailed information about the technical background of this class,
    * e.g., paper reference or book this class is based on.
@@ -188,8 +188,8 @@ public class J48TS
     
     return result;
   }
-
-  /**
+  
+  /*
    * Returns default capabilities of the classifier.
    *
    * @return      the capabilities of this classifier
@@ -212,7 +212,7 @@ public class J48TS
     return result;
   }
   
-  /**
+  /*
    * Generates the classifier.
    *
    * @param instances the data to train the classifier with
@@ -240,8 +240,8 @@ public class J48TS
       ((C45ModelSelectionTS)modSelection).cleanup();
     }
   }
-
-  /**
+  
+  /*
    * Classifies an instance.
    *
    * @param instance the instance to classify
@@ -252,8 +252,8 @@ public class J48TS
 
     return m_root.classifyInstance(instance);
   }
-
-  /** 
+  
+  /*
    * Returns class probabilities for an instance.
    *
    * @param instance the instance to calculate the class probabilities for
@@ -265,8 +265,8 @@ public class J48TS
 
     return m_root.distributionForInstance(instance, m_useLaplace);
   }
-
-  /**
+  
+  /*
    *  Returns the type of graph this classifier
    *  represents.
    *  @return Drawable.TREE
@@ -274,8 +274,8 @@ public class J48TS
   public int graphType() {
       return Drawable.TREE;
   }
-
-  /**
+  
+  /*
    * Returns graph describing the tree.
    *
    * @return the graph describing the tree
@@ -285,8 +285,8 @@ public class J48TS
 
     return m_root.graph();
   }
-
-  /**
+  
+  /*
    * Returns tree in prefix order.
    *
    * @return the tree in prefix order
@@ -296,9 +296,9 @@ public class J48TS
     
     return m_root.prefix();
   }
-
-
-  /**
+  
+  
+  /*
    * Returns tree as an if-then statement.
    *
    * @param className the name of the Java class 
@@ -319,8 +319,8 @@ public class J48TS
     + source[1]  // Support code
     +"}\n";
   }
-
-  /**
+  
+  /*
    * Returns an enumeration describing the available options.
    *
    * Valid options are: <p>
@@ -399,8 +399,8 @@ public class J48TS
 
     return newVector.elements();
   }
-
-  /**
+  
+  /*
    * Parses a given list of options.
    * 
    <!-- options-start -->
@@ -478,7 +478,7 @@ public class J48TS
 	throw new Exception("Doesn't make sense to change confidence for unpruned "
 			    +"tree!");
       } else {
-	m_CF = (new Float(confidenceString)).floatValue();
+        m_CF = (Float.valueOf(confidenceString)).floatValue();
 	if ((m_CF <= 0) || (m_CF >= 1)) {
 	  throw new Exception("Confidence has to be greater than zero and smaller " +
 			      "than one!");
@@ -506,8 +506,8 @@ public class J48TS
       m_Seed = 1;
     }
   }
-
-  /**
+  
+  /*
    * Gets the current settings of the Classifier.
    *
    * @return an array of strings suitable for passing to setOptions
@@ -547,8 +547,8 @@ public class J48TS
     }
     return options;
   }
-
-  /**
+  
+  /*
    * Returns the tip text for this property
    * @return tip text for this property suitable for
    * displaying in the explorer/experimenter gui
@@ -557,8 +557,8 @@ public class J48TS
     return "The seed used for randomizing the data " +
       "when reduced-error pruning is used.";
   }
-
-  /**
+  
+  /*
    * Get the value of Seed.
    *
    * @return Value of Seed.
@@ -568,7 +568,7 @@ public class J48TS
     return m_Seed;
   }
   
-  /**
+  /*
    * Set the value of Seed.
    *
    * @param newSeed Value to assign to Seed.
@@ -577,8 +577,8 @@ public class J48TS
     
     m_Seed = newSeed;
   }
-
-  /**
+  
+  /*
    * Returns the tip text for this property
    * @return tip text for this property suitable for
    * displaying in the explorer/experimenter gui
@@ -586,8 +586,8 @@ public class J48TS
   public String useLaplaceTipText() {
     return "Whether counts at leaves are smoothed based on Laplace.";
   }
-
-  /**
+  
+  /*
    * Get the value of useLaplace.
    *
    * @return Value of useLaplace.
@@ -597,7 +597,7 @@ public class J48TS
     return m_useLaplace;
   }
   
-  /**
+  /*
    * Set the value of useLaplace.
    *
    * @param newuseLaplace Value to assign to useLaplace.
@@ -607,7 +607,7 @@ public class J48TS
     m_useLaplace = newuseLaplace;
   }
   
-  /**
+  /*
    * Returns a description of the classifier.
    * 
    * @return a description of the classifier
@@ -622,8 +622,8 @@ public class J48TS
     else
       return "J48 pruned tree\n------------------\n" + m_root.toString();
   }
-
-  /**
+  
+  /*
    * Returns a superconcise version of the model
    * 
    * @return a summary of the model
@@ -633,24 +633,24 @@ public class J48TS
     return "Number of leaves: " + m_root.numLeaves() + "\n"
          + "Size of the tree: " + m_root.numNodes() + "\n";
   }
-
-  /**
+  
+  /*
    * Returns the size of the tree
    * @return the size of the tree
    */
   public double measureTreeSize() {
     return m_root.numNodes();
   }
-
-  /**
+  
+  /*
    * Returns the number of leaves
    * @return the number of leaves
    */
   public double measureNumLeaves() {
     return m_root.numLeaves();
   }
-
-  /**
+  
+  /*
    * Returns the number of rules (same as number of leaves)
    * @return the number of rules
    */
@@ -658,7 +658,7 @@ public class J48TS
     return m_root.numLeaves();
   }
   
-  /**
+  /*
    * Returns an enumeration of the additional measure names
    * @return an enumeration of the measure names
    */
@@ -669,8 +669,8 @@ public class J48TS
     newVector.addElement("measureNumRules");
     return newVector.elements();
   }
-
-  /**
+  
+  /*
    * Returns the value of the named measure
    * @param additionalMeasureName the name of the measure to query for its value
    * @return the value of the named measure
@@ -689,7 +689,7 @@ public class J48TS
     }
   }
   
-  /**
+  /*
    * Returns the tip text for this property
    * @return tip text for this property suitable for
    * displaying in the explorer/experimenter gui
@@ -697,8 +697,8 @@ public class J48TS
   public String unprunedTipText() {
     return "Whether pruning is performed.";
   }
-
-  /**
+  
+  /*
    * Get the value of unpruned.
    *
    * @return Value of unpruned.
@@ -708,7 +708,7 @@ public class J48TS
     return m_unpruned;
   }
   
-  /**
+  /*
    * Set the value of unpruned. Turns reduced-error pruning
    * off if set.
    * @param v  Value to assign to unpruned.
@@ -720,8 +720,8 @@ public class J48TS
     }
     m_unpruned = v;
   }
-
-  /**
+  
+  /*
    * Returns the tip text for this property
    * @return tip text for this property suitable for
    * displaying in the explorer/experimenter gui
@@ -731,7 +731,7 @@ public class J48TS
       + "more pruning).";
   }
   
-  /**
+  /*
    * Get the value of CF.
    *
    * @return Value of CF.
@@ -741,7 +741,7 @@ public class J48TS
     return m_CF;
   }
   
-  /**
+  /*
    * Set the value of CF.
    *
    * @param v  Value to assign to CF.
@@ -750,8 +750,8 @@ public class J48TS
     
     m_CF = v;
   }
-   
-  /**
+  
+  /*
    * Returns the tip text for this property
    * @return tip text for this property suitable for
    * displaying in the explorer/experimenter gui
@@ -759,8 +759,8 @@ public class J48TS
   public String minNumObjTipText() {
     return "The minimum number of instances per leaf.";
   }
-
-  /**
+  
+  /*
    * Get the value of minNumObj.
    *
    * @return Value of minNumObj.
@@ -770,7 +770,7 @@ public class J48TS
     return m_minNumObj;
   }
   
-  /**
+  /*
    * Set the value of minNumObj.
    *
    * @param v  Value to assign to minNumObj.
@@ -779,8 +779,8 @@ public class J48TS
     
     m_minNumObj = v;
   }
-
-  /**
+  
+  /*
    * Returns the tip text for this property
    * @return tip text for this property suitable for
    * displaying in the explorer/experimenter gui
@@ -788,8 +788,8 @@ public class J48TS
   public String reducedErrorPruningTipText() {
     return "Whether reduced-error pruning is used instead of C.4.5 pruning.";
   }
- 
-  /**
+  
+  /*
    * Get the value of reducedErrorPruning. 
    *
    * @return Value of reducedErrorPruning.
@@ -799,7 +799,7 @@ public class J48TS
     return m_reducedErrorPruning;
   }
   
-  /**
+  /*
    * Set the value of reducedErrorPruning. Turns
    * unpruned trees off if set.
    *
@@ -813,7 +813,7 @@ public class J48TS
     m_reducedErrorPruning = v;
   }
   
-  /**
+  /*
    * Returns the tip text for this property
    * @return tip text for this property suitable for
    * displaying in the explorer/experimenter gui
@@ -822,8 +822,8 @@ public class J48TS
     return "Determines the amount of data used for reduced-error pruning. "
       + " One fold is used for pruning, the rest for growing the tree.";
   }
-
-  /**
+  
+  /*
    * Get the value of numFolds.
    *
    * @return Value of numFolds.
@@ -833,7 +833,7 @@ public class J48TS
     return m_numFolds;
   }
   
-  /**
+  /*
    * Set the value of numFolds.
    *
    * @param v  Value to assign to numFolds.
@@ -842,8 +842,8 @@ public class J48TS
     
     m_numFolds = v;
   }
- 
-  /**
+  
+  /*
    * Returns the tip text for this property
    * @return tip text for this property suitable for
    * displaying in the explorer/experimenter gui
@@ -853,7 +853,7 @@ public class J48TS
       + "building the trees.";
   }
   
-  /**
+  /*
    * Get the value of binarySplits.
    *
    * @return Value of binarySplits.
@@ -863,7 +863,7 @@ public class J48TS
     return m_binarySplits;
   }
   
-  /**
+  /*
    * Set the value of binarySplits.
    *
    * @param v  Value to assign to binarySplits.
@@ -873,7 +873,7 @@ public class J48TS
     m_binarySplits = v;
   }
   
-  /**
+  /*
    * Returns the tip text for this property
    * @return tip text for this property suitable for
    * displaying in the explorer/experimenter gui
@@ -881,8 +881,8 @@ public class J48TS
   public String subtreeRaisingTipText() {
     return "Whether to consider the subtree raising operation when pruning.";
   }
- 
-  /**
+  
+  /*
    * Get the value of subtreeRaising.
    *
    * @return Value of subtreeRaising.
@@ -892,7 +892,7 @@ public class J48TS
     return m_subtreeRaising;
   }
   
-  /**
+  /*
    * Set the value of subtreeRaising.
    *
    * @param v  Value to assign to subtreeRaising.
@@ -901,8 +901,8 @@ public class J48TS
     
     m_subtreeRaising = v;
   }
-
-  /**
+  
+  /*
    * Returns the tip text for this property
    * @return tip text for this property suitable for
    * displaying in the explorer/experimenter gui
@@ -910,8 +910,8 @@ public class J48TS
   public String saveInstanceDataTipText() {
     return "Whether to save the training data for visualization.";
   }
-
-  /**
+  
+  /*
    * Check whether instance data is to be saved.
    *
    * @return true if instance data is saved
@@ -921,7 +921,7 @@ public class J48TS
     return m_noCleanup;
   }
   
-  /**
+  /*
    * Set whether instance data is to be saved.
    * @param v true if instance data is to be saved
    */
@@ -930,7 +930,7 @@ public class J48TS
     m_noCleanup = v;
   }
   
-  /**
+  /*
    * Returns the revision string.
    * 
    * @return		the revision
@@ -938,8 +938,8 @@ public class J48TS
   public String getRevision() {
     return RevisionUtils.extract("$Revision: 1.9 $");
   }
- 
-  /**
+  
+  /*
    * Main method for testing this class
    *
    * @param argv the commandline options

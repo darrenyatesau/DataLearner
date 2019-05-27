@@ -38,7 +38,7 @@ import java.util.Enumeration;
 import java.util.Random;
 import java.util.Vector;
 
-/**
+/*
  * Class for handling a decision list.
  *
  * @author Eibe Frank (eibe@cs.waikato.ac.nz)
@@ -47,52 +47,52 @@ import java.util.Vector;
 public class MakeDecListTS
 		implements Serializable, CapabilitiesHandler, RevisionHandler {
 	
-	/**
+	/*
 	 * for serialization
 	 */
 	private static final long serialVersionUID = -1427481323245079123L;
 	
-	/**
+	/*
 	 * Vector storing the rules.
 	 */
 	private Vector theRules;
 	
-	/**
+	/*
 	 * The confidence for C45-type pruning.
 	 */
 	private double CF = 0.25f;
 	
-	/**
+	/*
 	 * Minimum number of objects
 	 */
 	private int minNumObj;
 	
-	/**
+	/*
 	 * The model selection method.
 	 */
 	private ModelSelection toSelectModeL;
 	
-	/**
+	/*
 	 * How many subsets of equal size? One used for pruning, the rest for training.
 	 */
 	private int numSetS = 3;
 	
-	/**
+	/*
 	 * Use reduced error pruning?
 	 */
 	private boolean reducedErrorPruning = false;
 	
-	/**
+	/*
 	 * Generated unpruned list?
 	 */
 	private boolean unpruned = false;
 	
-	/**
+	/*
 	 * The seed for random number generation.
 	 */
 	private int m_seed = 1;
 	
-	/**
+	/*
 	 * Constructor for unpruned dec list.
 	 */
 	public MakeDecListTS(ModelSelection toSelectLocModel,
@@ -104,7 +104,7 @@ public class MakeDecListTS
 		minNumObj = minNum;
 	}
 	
-	/**
+	/*
 	 * Constructor for dec list pruned using C4.5 pruning.
 	 */
 	public MakeDecListTS(ModelSelection toSelectLocModel, double cf,
@@ -117,7 +117,7 @@ public class MakeDecListTS
 		minNumObj = minNum;
 	}
 	
-	/**
+	/*
 	 * Constructor for dec list pruned using hold-out pruning.
 	 */
 	public MakeDecListTS(ModelSelection toSelectLocModel, int num,
@@ -131,7 +131,7 @@ public class MakeDecListTS
 		m_seed = seed;
 	}
 	
-	/**
+	/*
 	 * Returns default capabilities of the classifier.
 	 *
 	 * @return the capabilities of this classifier
@@ -153,7 +153,7 @@ public class MakeDecListTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Builds dec list.
 	 *
 	 * @throws Exception if dec list can't be built successfully
@@ -194,7 +194,7 @@ public class MakeDecListTS
 			if (unpruned) {
 				currentRule = new ClassifierDecList(toSelectModeL,
 						minNumObj);
-				((ClassifierDecList) currentRule).buildRule(oldGrowData);
+				currentRule.buildRule(oldGrowData);
 			} else if (reducedErrorPruning) {
 				currentRule = new PruneableDecList(toSelectModeL,
 						minNumObj);
@@ -203,7 +203,7 @@ public class MakeDecListTS
 			} else {
 				currentRule = new C45PruneableDecList(toSelectModeL, CF,
 						minNumObj);
-				((C45PruneableDecList) currentRule).buildRule(oldGrowData);
+				currentRule.buildRule(oldGrowData);
 			}
 			numRules++;
 			
@@ -248,7 +248,7 @@ public class MakeDecListTS
 		}
 	}
 	
-	/**
+	/*
 	 * Outputs the classifier into a string.
 	 */
 	public String toString() {
@@ -256,13 +256,13 @@ public class MakeDecListTS
 		StringBuffer text = new StringBuffer();
 		
 		for (int i = 0; i < theRules.size(); i++)
-			text.append((ClassifierDecList) theRules.elementAt(i) + "\n");
+			text.append(theRules.elementAt(i) + "\n");
 		text.append("Number of Rules  : \t" + theRules.size() + "\n");
 		
 		return text.toString();
 	}
 	
-	/**
+	/*
 	 * Classifies an instance.
 	 *
 	 * @throws Exception if instance can't be classified
@@ -285,7 +285,7 @@ public class MakeDecListTS
 		return (double) maxIndex;
 	}
 	
-	/**
+	/*
 	 * Returns the class distribution for an instance.
 	 *
 	 * @throws Exception if distribution can't be computed
@@ -317,7 +317,7 @@ public class MakeDecListTS
 		return sumProbs;
 	}
 	
-	/**
+	/*
 	 * Outputs the number of rules in the classifier.
 	 */
 	public int numRules() {
@@ -325,7 +325,7 @@ public class MakeDecListTS
 		return theRules.size();
 	}
 	
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision

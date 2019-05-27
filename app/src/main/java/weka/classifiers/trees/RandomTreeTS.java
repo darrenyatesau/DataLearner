@@ -44,7 +44,7 @@ import weka.core.RevisionUtils;
 import weka.core.Utils;
 import weka.core.WeightedInstancesHandler;
 
-/**
+/*
  * <!-- globalinfo-start -->
  * Class for constructing a tree that considers K
  * randomly chosen attributes at each node. Performs no pruning. Also has an
@@ -105,57 +105,57 @@ import weka.core.WeightedInstancesHandler;
 public class RandomTreeTS extends Classifier implements OptionHandler,
 		WeightedInstancesHandler, Randomizable, Drawable {
 	
-	/**
+	/*
 	 * for serialization
 	 */
 	static final long serialVersionUID = 8934314652175299374L;
 	
-	/**
+	/*
 	 * The Tree object
 	 */
 	protected Tree m_Tree = null;
 	
-	/**
+	/*
 	 * The header information.
 	 */
 	protected Instances m_Info = null;
 	
-	/**
+	/*
 	 * Minimum number of instances for leaf.
 	 */
 	protected double m_MinNum = 1.0;
 	
-	/**
+	/*
 	 * The number of attributes considered for a split.
 	 */
 	protected int m_KValue = 0;
 	
-	/**
+	/*
 	 * The random seed to use.
 	 */
 	protected int m_randomSeed = 1;
 	
-	/**
+	/*
 	 * The maximum depth of the tree (0 = unlimited)
 	 */
 	protected int m_MaxDepth = 0;
 	
-	/**
+	/*
 	 * Determines how much data is used for backfitting
 	 */
 	protected int m_NumFolds = 0;
 	
-	/**
+	/*
 	 * Whether unclassified instances are allowed
 	 */
 	protected boolean m_AllowUnclassifiedInstances = false;
 	
-	/**
+	/*
 	 * a ZeroR model in case no model can be built from the data
 	 */
 	protected Classifier m_zeroR;
 	
-	/**
+	/*
 	 * Returns a string describing classifier
 	 *
 	 * @return a description suitable for displaying in the explorer/experimenter
@@ -169,7 +169,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 				+ " a hold-out set (backfitting).";
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for displaying in the
@@ -179,7 +179,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		return "The minimum total weight of the instances in a leaf.";
 	}
 	
-	/**
+	/*
 	 * Get the value of MinNum.
 	 *
 	 * @return Value of MinNum.
@@ -189,7 +189,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		return m_MinNum;
 	}
 	
-	/**
+	/*
 	 * Set the value of MinNum.
 	 *
 	 * @param newMinNum Value to assign to MinNum.
@@ -199,7 +199,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		m_MinNum = newMinNum;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for displaying in the
@@ -209,7 +209,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		return "Sets the number of randomly chosen attributes. If 0, log_2(number_of_attributes) + 1 is used.";
 	}
 	
-	/**
+	/*
 	 * Get the value of K.
 	 *
 	 * @return Value of K.
@@ -219,7 +219,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		return m_KValue;
 	}
 	
-	/**
+	/*
 	 * Set the value of K.
 	 *
 	 * @param k Value to assign to K.
@@ -229,7 +229,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		m_KValue = k;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for displaying in the
@@ -239,7 +239,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		return "The random number seed used for selecting attributes.";
 	}
 	
-	/**
+	/*
 	 * Set the seed for random number generation.
 	 *
 	 * @param seed the seed
@@ -249,7 +249,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		m_randomSeed = seed;
 	}
 	
-	/**
+	/*
 	 * Gets the seed for the random number generations
 	 *
 	 * @return the seed for the random number generation
@@ -259,7 +259,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		return m_randomSeed;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for displaying in the
@@ -269,7 +269,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		return "The maximum depth of the tree, 0 for unlimited.";
 	}
 	
-	/**
+	/*
 	 * Get the maximum depth of trh tree, 0 for unlimited.
 	 *
 	 * @return the maximum depth.
@@ -278,7 +278,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		return m_MaxDepth;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for displaying in the
@@ -289,7 +289,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 				+ "backfitting, the rest for growing the tree. (Default: 0, no backfitting)";
 	}
 	
-	/**
+	/*
 	 * Get the value of NumFolds.
 	 *
 	 * @return Value of NumFolds.
@@ -299,7 +299,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		return m_NumFolds;
 	}
 	
-	/**
+	/*
 	 * Set the value of NumFolds.
 	 *
 	 * @param newNumFolds Value to assign to NumFolds.
@@ -309,7 +309,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		m_NumFolds = newNumFolds;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for displaying in the
@@ -319,7 +319,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		return "Whether to allow unclassified instances.";
 	}
 	
-	/**
+	/*
 	 * Get the value of NumFolds.
 	 *
 	 * @return Value of NumFolds.
@@ -329,7 +329,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		return m_AllowUnclassifiedInstances;
 	}
 	
-	/**
+	/*
 	 * Set the value of AllowUnclassifiedInstances.
 	 *
 	 * @param newAllowUnclassifiedInstances Value to assign to
@@ -341,7 +341,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		m_AllowUnclassifiedInstances = newAllowUnclassifiedInstances;
 	}
 	
-	/**
+	/*
 	 * Set the maximum depth of the tree, 0 for unlimited.
 	 *
 	 * @param value the maximum depth.
@@ -350,7 +350,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		m_MaxDepth = value;
 	}
 	
-	/**
+	/*
 	 * Lists the command-line options for this classifier.
 	 *
 	 * @return an enumeration over all possible options
@@ -390,7 +390,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		return newVector.elements();
 	}
 	
-	/**
+	/*
 	 * Gets options from this classifier.
 	 *
 	 * @return the options for the current setup
@@ -433,7 +433,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		return (String[]) result.toArray(new String[result.size()]);
 	}
 	
-	/**
+	/*
 	 * Parses a given list of options.
 	 * <p/>
 	 * <p>
@@ -530,7 +530,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		Utils.checkForRemainingOptions(options);
 	}
 	
-	/**
+	/*
 	 * Returns default capabilities of the classifier.
 	 *
 	 * @return the capabilities of this classifier
@@ -553,7 +553,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		return result;
 	}
 	
-	/**
+	/*
 	 * Builds classifier.
 	 *
 	 * @param data the data to train with
@@ -627,7 +627,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		}
 	}
 	
-	/**
+	/*
 	 * Computes class distribution of an instance using the tree.
 	 *
 	 * @param instance the instance to compute the distribution for
@@ -644,7 +644,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		}
 	}
 	
-	/**
+	/*
 	 * Outputs the decision tree.
 	 *
 	 * @return a string representation of the classifier
@@ -677,7 +677,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		}
 	}
 	
-	/**
+	/*
 	 * Returns graph describing the tree.
 	 *
 	 * @return the graph describing the tree
@@ -695,7 +695,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		return result;
 	}
 	
-	/**
+	/*
 	 * Returns the type of graph this classifier represents.
 	 *
 	 * @return Drawable.TREE
@@ -704,7 +704,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		return Drawable.TREE;
 	}
 	
-	/**
+	/*
 	 * Builds the classifier to generate a partition.
 	 */
 	public void generatePartition(Instances data) throws Exception {
@@ -712,7 +712,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		buildClassifier(data);
 	}
 	
-	/**
+	/*
 	 * Computes array that indicates node membership. Array locations are
 	 * allocated based on breadth-first exploration of the tree.
 	 */
@@ -767,7 +767,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		}
 	}
 	
-	/**
+	/*
 	 * Returns the number of elements in the partition.
 	 */
 	public int numElements() throws Exception {
@@ -778,42 +778,42 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		return m_Tree.numNodes();
 	}
 	
-	/**
+	/*
 	 * The inner class for dealing with the tree.
 	 */
 	protected class Tree implements Serializable {
 		
-		/**
+		/*
 		 * For serializatiin
 		 */
 		private static final long serialVersionUID = 3549573538656522569L;
 		
-		/**
+		/*
 		 * The subtrees appended to this tree.
 		 */
 		protected Tree[] m_Successors;
 		
-		/**
+		/*
 		 * The attribute to split on.
 		 */
 		protected int m_Attribute = -1;
 		
-		/**
+		/*
 		 * The split point.
 		 */
 		protected double m_SplitPoint = Double.NaN;
 		
-		/**
+		/*
 		 * The proportions of training instances going down each branch.
 		 */
 		protected double[] m_Prop = null;
 		
-		/**
+		/*
 		 * Class probabilities from the training data.
 		 */
 		protected double[] m_ClassDistribution = null;
 		
-		/**
+		/*
 		 * Backfits the given data into the tree.
 		 */
 		public void backfitData(Instances data) throws Exception {
@@ -829,7 +829,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 			backfitData(data, classProbs);
 		}
 		
-		/**
+		/*
 		 * Computes class distribution of an instance using the decision tree.
 		 *
 		 * @param instance the instance to compute the distribution for
@@ -894,7 +894,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 			}
 		}
 		
-		/**
+		/*
 		 * Outputs one node for graph.
 		 *
 		 * @param text the buffer to append the output to
@@ -935,7 +935,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 			return num;
 		}
 		
-		/**
+		/*
 		 * Outputs a leaf.
 		 *
 		 * @return the leaf as string
@@ -955,7 +955,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 					+ Utils.doubleToString(sum - maxCount, 2) + ")";
 		}
 		
-		/**
+		/*
 		 * Recursively outputs the tree.
 		 *
 		 * @param level the current level of the tree
@@ -1008,7 +1008,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 			}
 		}
 		
-		/**
+		/*
 		 * Recursively backfits data into the tree.
 		 *
 		 * @param data       the data to work with
@@ -1112,7 +1112,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 			}
 		}
 		
-		/**
+		/*
 		 * Recursively generates a tree.
 		 *
 		 * @param data             the data to work with
@@ -1228,7 +1228,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 			}
 		}
 		
-		/**
+		/*
 		 * Computes size of the tree.
 		 *
 		 * @return the number of nodes
@@ -1246,7 +1246,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 			}
 		}
 		
-		/**
+		/*
 		 * Splits instances into subsets based on the given split.
 		 *
 		 * @param data the data to work with
@@ -1312,7 +1312,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 			return subsets;
 		}
 		
-		/**
+		/*
 		 * Computes class distribution for an attribute.
 		 *
 		 * @param props
@@ -1452,7 +1452,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 			return splitPoint;
 		}
 		
-		/**
+		/*
 		 * Computes value of splitting criterion before split.
 		 *
 		 * @param dist the distributions
@@ -1463,7 +1463,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 			return ContingencyTables.entropyOverColumns(dist);
 		}
 		
-		/**
+		/*
 		 * Computes value of splitting criterion after split.
 		 *
 		 * @param dist     the distributions
@@ -1475,7 +1475,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 			return priorVal - ContingencyTables.entropyConditionedOnRows(dist);
 		}
 		
-		/**
+		/*
 		 * Returns the revision string.
 		 *
 		 * @return the revision
@@ -1484,7 +1484,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 			return RevisionUtils.extract("$Revision: 10993 $");
 		}
 		
-		/**
+		/*
 		 * Outputs one node for graph.
 		 *
 		 * @param text   the buffer to append the output to
@@ -1527,7 +1527,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		}
 	}
 	
-	/**
+	/*
 	 * Main method for this class.
 	 *
 	 * @param argv the commandline parameters

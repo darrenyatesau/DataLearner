@@ -42,7 +42,7 @@ import weka.core.TechnicalInformationHandler;
 import weka.core.Utils;
 import weka.core.WeightedInstancesHandler;
 
-/**
+/*
  <!-- globalinfo-start --> 
  * Class for constructing a forest of random trees.<br/>
  * <br/>
@@ -109,32 +109,32 @@ import weka.core.WeightedInstancesHandler;
 public class RandomForestTS extends Classifier implements OptionHandler,
     Randomizable, WeightedInstancesHandler, AdditionalMeasureProducer,
     TechnicalInformationHandler {
-
-  /** for serialization */
+  
+  /* for serialization */
   private static final long serialVersionUID = -2260823972777004705L;
-
-  /** Number of trees in forest. */
+  
+  /* Number of trees in forest. */
   protected int m_numTrees = 100;
-
-  /**
+  
+  /*
    * Number of features to consider in random feature selection. If less than 1
    * will use int(logM+1) )
    */
   protected int m_numFeatures = 0;
-
-  /** The random seed. */
+  
+  /* The random seed. */
   protected int m_randomSeed = 1;
-
-  /** Final number of features that were considered in last build. */
+  
+  /* Final number of features that were considered in last build. */
   protected int m_KValue = 0;
-
-  /** The bagger. */
+  
+  /* The bagger. */
   protected BaggingTS m_bagger = null;
-
-  /** The maximum depth of the trees (0 = unlimited) */
+  
+  /* The maximum depth of the trees (0 = unlimited) */
   protected int m_MaxDepth = 0;
-
-  /**
+  
+  /*
    * Returns a string describing classifier
    * 
    * @return a description suitable for displaying in the explorer/experimenter
@@ -146,8 +146,8 @@ public class RandomForestTS extends Classifier implements OptionHandler,
         + "For more information see: \n\n"
         + getTechnicalInformation().toString();
   }
-
-  /**
+  
+  /*
    * Returns an instance of a TechnicalInformation object, containing detailed
    * information about the technical background of this class, e.g., paper
    * reference or book this class is based on.
@@ -168,8 +168,8 @@ public class RandomForestTS extends Classifier implements OptionHandler,
 
     return result;
   }
-
-  /**
+  
+  /*
    * Returns the tip text for this property
    * 
    * @return tip text for this property suitable for displaying in the
@@ -178,8 +178,8 @@ public class RandomForestTS extends Classifier implements OptionHandler,
   public String numTreesTipText() {
     return "The number of trees to be generated.";
   }
-
-  /**
+  
+  /*
    * Get the value of numTrees.
    * 
    * @return Value of numTrees.
@@ -188,8 +188,8 @@ public class RandomForestTS extends Classifier implements OptionHandler,
 
     return m_numTrees;
   }
-
-  /**
+  
+  /*
    * Set the value of numTrees.
    * 
    * @param newNumTrees Value to assign to numTrees.
@@ -198,8 +198,8 @@ public class RandomForestTS extends Classifier implements OptionHandler,
 
     m_numTrees = newNumTrees;
   }
-
-  /**
+  
+  /*
    * Returns the tip text for this property
    * 
    * @return tip text for this property suitable for displaying in the
@@ -208,8 +208,8 @@ public class RandomForestTS extends Classifier implements OptionHandler,
   public String numFeaturesTipText() {
     return "The number of attributes to be used in random selection (see RandomTree).";
   }
-
-  /**
+  
+  /*
    * Get the number of features used in random selection.
    * 
    * @return Value of numFeatures.
@@ -218,8 +218,8 @@ public class RandomForestTS extends Classifier implements OptionHandler,
 
     return m_numFeatures;
   }
-
-  /**
+  
+  /*
    * Set the number of features to use in random selection.
    * 
    * @param newNumFeatures Value to assign to numFeatures.
@@ -228,8 +228,8 @@ public class RandomForestTS extends Classifier implements OptionHandler,
 
     m_numFeatures = newNumFeatures;
   }
-
-  /**
+  
+  /*
    * Returns the tip text for this property
    * 
    * @return tip text for this property suitable for displaying in the
@@ -238,8 +238,8 @@ public class RandomForestTS extends Classifier implements OptionHandler,
   public String seedTipText() {
     return "The random number seed to be used.";
   }
-
-  /**
+  
+  /*
    * Set the seed for random number generation.
    * 
    * @param seed the seed
@@ -248,8 +248,8 @@ public class RandomForestTS extends Classifier implements OptionHandler,
 
     m_randomSeed = seed;
   }
-
-  /**
+  
+  /*
    * Gets the seed for the random number generations
    * 
    * @return the seed for the random number generation
@@ -258,8 +258,8 @@ public class RandomForestTS extends Classifier implements OptionHandler,
 
     return m_randomSeed;
   }
-
-  /**
+  
+  /*
    * Returns the tip text for this property
    * 
    * @return tip text for this property suitable for displaying in the
@@ -268,8 +268,8 @@ public class RandomForestTS extends Classifier implements OptionHandler,
   public String maxDepthTipText() {
     return "The maximum depth of the trees, 0 for unlimited.";
   }
-
-  /**
+  
+  /*
    * Get the maximum depth of trh tree, 0 for unlimited.
    * 
    * @return the maximum depth.
@@ -277,8 +277,8 @@ public class RandomForestTS extends Classifier implements OptionHandler,
   public int getMaxDepth() {
     return m_MaxDepth;
   }
-
-  /**
+  
+  /*
    * Set the maximum depth of the tree, 0 for unlimited.
    * 
    * @param value the maximum depth.
@@ -286,8 +286,8 @@ public class RandomForestTS extends Classifier implements OptionHandler,
   public void setMaxDepth(int value) {
     m_MaxDepth = value;
   }
-
-  /**
+  
+  /*
    * Gets the out of bag error that was calculated as the classifier was built.
    * 
    * @return the out of bag error
@@ -299,8 +299,8 @@ public class RandomForestTS extends Classifier implements OptionHandler,
     } else
       return Double.NaN;
   }
-
-  /**
+  
+  /*
    * Returns an enumeration of the additional measure names.
    * 
    * @return an enumeration of the measure names
@@ -311,8 +311,8 @@ public class RandomForestTS extends Classifier implements OptionHandler,
     newVector.addElement("measureOutOfBagError");
     return newVector.elements();
   }
-
-  /**
+  
+  /*
    * Returns the value of the named measure.
    * 
    * @param additionalMeasureName the name of the measure to query for its value
@@ -328,8 +328,8 @@ public class RandomForestTS extends Classifier implements OptionHandler,
           + " not supported (RandomForest)");
     }
   }
-
-  /**
+  
+  /*
    * Returns an enumeration describing the available options.
    * 
    * @return an enumeration of all the available options
@@ -360,8 +360,8 @@ public class RandomForestTS extends Classifier implements OptionHandler,
 
     return newVector.elements();
   }
-
-  /**
+  
+  /*
    * Gets the current settings of the forest.
    * 
    * @return an array of strings suitable for passing to setOptions()
@@ -394,8 +394,8 @@ public class RandomForestTS extends Classifier implements OptionHandler,
 
     return (String[]) result.toArray(new String[result.size()]);
   }
-
-  /**
+  
+  /*
    * Parses a given list of options.
    * <p/>
    * 
@@ -472,8 +472,8 @@ public class RandomForestTS extends Classifier implements OptionHandler,
 
     Utils.checkForRemainingOptions(options);
   }
-
-  /**
+  
+  /*
    * Returns default capabilities of the classifier.
    * 
    * @return the capabilities of this classifier
@@ -482,8 +482,8 @@ public class RandomForestTS extends Classifier implements OptionHandler,
   public Capabilities getCapabilities() {
     return new RandomTreeTS().getCapabilities();
   }
-
-  /**
+  
+  /*
    * Builds a classifier for a set of instances.
    * 
    * @param data the instances to train the classifier with
@@ -516,8 +516,8 @@ public class RandomForestTS extends Classifier implements OptionHandler,
     m_bagger.setCalcOutOfBag(true);
     m_bagger.buildClassifier(data);
   }
-
-  /**
+  
+  /*
    * Returns the class probability distribution for an instance.
    * 
    * @param instance the instance to be classified
@@ -529,8 +529,8 @@ public class RandomForestTS extends Classifier implements OptionHandler,
 
     return m_bagger.distributionForInstance(instance);
   }
-
-  /**
+  
+  /*
    * Outputs a description of this classifier.
    * 
    * @return a string containing a description of the classifier
@@ -554,8 +554,8 @@ public class RandomForestTS extends Classifier implements OptionHandler,
           + (getMaxDepth() > 0 ? ("Max. depth of trees: " + getMaxDepth() + "\n")
               : ("")) + "\n";
   }
-
-  /**
+  
+  /*
    * Returns the revision string.
    * 
    * @return the revision
@@ -564,8 +564,8 @@ public class RandomForestTS extends Classifier implements OptionHandler,
   public String getRevision() {
     return RevisionUtils.extract("$Revision: 1.13 $");
   }
-
-  /**
+  
+  /*
    * Main method for this class.
    * 
    * @param argv the options

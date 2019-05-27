@@ -41,7 +41,7 @@ import java.util.Enumeration;
 import java.util.Random;
 import java.util.Vector;
 
-/**
+/*
  * <!-- globalinfo-start -->
  * Cluster data using the FarthestFirst algorithm.<br/>
  * <br/>
@@ -105,43 +105,43 @@ public class FarthestFirstTS
 	//Todo: rewrite to be fully incremental
 	//      cleanup, like deleting m_instances
 	
-	/**
+	/*
 	 * for serialization
 	 */
 	static final long serialVersionUID = 7499838100631329509L;
 	
-	/**
+	/*
 	 * training instances, not necessary to keep,
 	 * could be replaced by m_ClusterCentroids where needed for header info
 	 */
 	protected Instances m_instances;
 	
-	/**
+	/*
 	 * replace missing values in training instances
 	 */
 	protected ReplaceMissingValues m_ReplaceMissingFilter;
 	
-	/**
+	/*
 	 * number of clusters to generate
 	 */
 	protected int m_NumClusters = 2;
 	
-	/**
+	/*
 	 * holds the cluster centroids
 	 */
 	protected Instances m_ClusterCentroids;
 	
-	/**
+	/*
 	 * attribute min values
 	 */
 	private double[] m_Min;
 	
-	/**
+	/*
 	 * attribute max values
 	 */
 	private double[] m_Max;
 	
-	/**
+	/*
 	 * Returns a string describing this clusterer
 	 *
 	 * @return a description of the evaluator suitable for
@@ -156,7 +156,7 @@ public class FarthestFirstTS
 				+ "- modelled after SimpleKMeans, might be a useful initializer for it";
 	}
 	
-	/**
+	/*
 	 * Returns an instance of a TechnicalInformation object, containing
 	 * detailed information about the technical background of this class,
 	 * e.g., paper reference or book this class is based on.
@@ -187,7 +187,7 @@ public class FarthestFirstTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Returns default capabilities of the clusterer.
 	 *
 	 * @return the capabilities of this clusterer
@@ -206,7 +206,7 @@ public class FarthestFirstTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Generates a clusterer. Has to initialize all fields of the clusterer
 	 * that are not being set via options.
 	 *
@@ -295,7 +295,7 @@ public class FarthestFirstTS
 	}
 	
 	
-	/**
+	/*
 	 * Updates the minimum and maximum values for all the attributes
 	 * based on a new instance.
 	 *
@@ -320,7 +320,7 @@ public class FarthestFirstTS
 	}
 	
 	
-	/**
+	/*
 	 * clusters an instance that has been through the filters
 	 *
 	 * @param instance the instance to assign a cluster to
@@ -339,7 +339,7 @@ public class FarthestFirstTS
 		return bestCluster;
 	}
 	
-	/**
+	/*
 	 * Classifies a given instance.
 	 *
 	 * @param instance the instance to be assigned to a cluster
@@ -356,7 +356,7 @@ public class FarthestFirstTS
 		return clusterProcessedInstance(inst);
 	}
 	
-	/**
+	/*
 	 * Calculates the distance between two instances
 	 *
 	 * @param first  the first instance
@@ -410,7 +410,7 @@ public class FarthestFirstTS
 		return Math.sqrt(distance / m_instances.numAttributes());
 	}
 	
-	/**
+	/*
 	 * Computes the difference between two given attribute
 	 * values.
 	 */
@@ -455,7 +455,7 @@ public class FarthestFirstTS
 		}
 	}
 	
-	/**
+	/*
 	 * Normalizes a given value of a numeric attribute.
 	 *
 	 * @param x the value to be normalized
@@ -471,7 +471,7 @@ public class FarthestFirstTS
 		}
 	}
 	
-	/**
+	/*
 	 * Returns the number of clusters.
 	 *
 	 * @return the number of clusters generated for a training dataset.
@@ -482,7 +482,7 @@ public class FarthestFirstTS
 		return m_NumClusters;
 	}
 	
-	/**
+	/*
 	 * Returns an enumeration describing the available options.
 	 *
 	 * @return an enumeration of all the available options.
@@ -501,7 +501,7 @@ public class FarthestFirstTS
 		return result.elements();
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -511,7 +511,7 @@ public class FarthestFirstTS
 		return "set number of clusters";
 	}
 	
-	/**
+	/*
 	 * set the number of clusters to generate
 	 *
 	 * @param n the number of clusters to generate
@@ -524,7 +524,7 @@ public class FarthestFirstTS
 		m_NumClusters = n;
 	}
 	
-	/**
+	/*
 	 * gets the number of clusters to generate
 	 *
 	 * @return the number of clusters to generate
@@ -533,7 +533,7 @@ public class FarthestFirstTS
 		return m_NumClusters;
 	}
 	
-	/**
+	/*
 	 * Parses a given list of options. <p/>
 	 * <p>
 	 * <!-- options-start -->
@@ -563,7 +563,7 @@ public class FarthestFirstTS
 		super.setOptions(options);
 	}
 	
-	/**
+	/*
 	 * Gets the current settings of FarthestFirst
 	 *
 	 * @return an array of strings suitable for passing to setOptions()
@@ -585,7 +585,7 @@ public class FarthestFirstTS
 		return (String[]) result.toArray(new String[result.size()]);
 	}
 	
-	/**
+	/*
 	 * return a string describing this clusterer
 	 *
 	 * @return a description of the clusterer as a string
@@ -611,7 +611,7 @@ public class FarthestFirstTS
 		return temp.toString();
 	}
 	
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision
@@ -620,7 +620,7 @@ public class FarthestFirstTS
 		return RevisionUtils.extract("$Revision: 5538 $");
 	}
 	
-	/**
+	/*
 	 * Main method for testing this class.
 	 *
 	 * @param argv should contain the following arguments: <p>

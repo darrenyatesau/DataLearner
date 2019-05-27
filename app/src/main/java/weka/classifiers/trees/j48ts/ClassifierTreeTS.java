@@ -37,7 +37,7 @@ import weka.core.Utils;
 
 import java.io.Serializable;
 
-/**
+/*
  * Class for handling a tree structure used for
  * classification.
  *
@@ -47,58 +47,58 @@ import java.io.Serializable;
 public class ClassifierTreeTS
 		implements Drawable, Serializable, CapabilitiesHandler, RevisionHandler {
 	
-	/**
+	/*
 	 * for serialization
 	 */
 	static final long serialVersionUID = -8722249377542734193L;
 	
-	/**
+	/*
 	 * The model selection method.
 	 */
 	protected ModelSelectionTS m_toSelectModel;
 	
-	/**
+	/*
 	 * Local model at node.
 	 */
 	protected ClassifierSplitModelTS m_localModel;
 	
-	/**
+	/*
 	 * References to sons.
 	 */
 	protected ClassifierTreeTS[] m_sons;
 	
-	/**
+	/*
 	 * True if node is leaf.
 	 */
 	protected boolean m_isLeaf;
 	
-	/**
+	/*
 	 * True if node is empty.
 	 */
 	protected boolean m_isEmpty;
 	
-	/**
+	/*
 	 * The training instances.
 	 */
 	protected Instances m_train;
 	
-	/**
+	/*
 	 * The pruning instances.
 	 */
 	protected DistributionTS m_test;
 	
-	/**
+	/*
 	 * The id for the node.
 	 */
 	protected int m_id;
 	
-	/**
+	/*
 	 * For getting a unique ID when outputting the tree (hashcode isn't
 	 * guaranteed unique)
 	 */
 	private static long PRINTED_NODES = 0;
 	
-	/**
+	/*
 	 * Gets the next unique node ID.
 	 *
 	 * @return the next unique node ID.
@@ -108,7 +108,7 @@ public class ClassifierTreeTS
 		return PRINTED_NODES++;
 	}
 	
-	/**
+	/*
 	 * Resets the unique node ID counter (e.g.
 	 * between repeated separate print types)
 	 */
@@ -117,7 +117,7 @@ public class ClassifierTreeTS
 		PRINTED_NODES = 0;
 	}
 	
-	/**
+	/*
 	 * Constructor.
 	 */
 	public ClassifierTreeTS(ModelSelectionTS toSelectLocModel) {
@@ -125,7 +125,7 @@ public class ClassifierTreeTS
 		m_toSelectModel = toSelectLocModel;
 	}
 	
-	/**
+	/*
 	 * Returns default capabilities of the classifier tree.
 	 *
 	 * @return the capabilities of this classifier tree
@@ -137,7 +137,7 @@ public class ClassifierTreeTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Method for building a classifier tree.
 	 *
 	 * @param data the data to build the tree from
@@ -155,7 +155,7 @@ public class ClassifierTreeTS
 		buildTree(data, false);
 	}
 	
-	/**
+	/*
 	 * Builds the tree structure.
 	 *
 	 * @param data     the data for which the tree structure is to be
@@ -194,7 +194,7 @@ public class ClassifierTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * Builds the tree structure with hold out set
 	 *
 	 * @param train    the data for which the tree structure is to be
@@ -238,7 +238,7 @@ public class ClassifierTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * Classifies an instance.
 	 *
 	 * @param instance the instance to classify
@@ -264,7 +264,7 @@ public class ClassifierTreeTS
 		return (double) maxIndex;
 	}
 	
-	/**
+	/*
 	 * Cleanup in order to save memory.
 	 *
 	 * @param justHeaderInfo
@@ -278,7 +278,7 @@ public class ClassifierTreeTS
 				m_sons[i].cleanup(justHeaderInfo);
 	}
 	
-	/**
+	/*
 	 * Returns class probabilities for a weighted instance.
 	 *
 	 * @param instance   the instance to get the distribution for
@@ -303,7 +303,7 @@ public class ClassifierTreeTS
 		return doubles;
 	}
 	
-	/**
+	/*
 	 * Assigns a uniqe id to every node in the tree.
 	 *
 	 * @param lastID the last ID that was assign
@@ -322,7 +322,7 @@ public class ClassifierTreeTS
 		return currLastID;
 	}
 	
-	/**
+	/*
 	 * Returns the type of graph this classifier
 	 * represents.
 	 *
@@ -332,7 +332,7 @@ public class ClassifierTreeTS
 		return Drawable.TREE;
 	}
 	
-	/**
+	/*
 	 * Returns graph describing the tree.
 	 *
 	 * @return the tree as graph
@@ -370,7 +370,7 @@ public class ClassifierTreeTS
 		return text.toString() + "}\n";
 	}
 	
-	/**
+	/*
 	 * Returns tree in prefix order.
 	 *
 	 * @return the prefix order
@@ -390,7 +390,7 @@ public class ClassifierTreeTS
 		return text.toString();
 	}
 	
-	/**
+	/*
 	 * Returns source code for the tree as an if-then statement. The
 	 * class is assigned to variable "p", and assumes the tested
 	 * instance is named "i". The results are returned as two stringbuffers:
@@ -408,7 +408,7 @@ public class ClassifierTreeTS
 		if (m_isLeaf) {
 			result[0] = new StringBuffer("    p = "
 					+ m_localModel.distribution().maxClass(0) + ";\n");
-			result[1] = new StringBuffer("");
+			result[1] = new StringBuffer();
 		} else {
 			StringBuffer text = new StringBuffer();
 			StringBuffer atEnd = new StringBuffer();
@@ -454,7 +454,7 @@ public class ClassifierTreeTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Returns number of leaves in tree structure.
 	 *
 	 * @return the number of leaves
@@ -473,7 +473,7 @@ public class ClassifierTreeTS
 		return num;
 	}
 	
-	/**
+	/*
 	 * Returns number of nodes in tree structure.
 	 *
 	 * @return the number of nodes
@@ -490,7 +490,7 @@ public class ClassifierTreeTS
 		return no;
 	}
 	
-	/**
+	/*
 	 * Prints tree structure.
 	 *
 	 * @return the tree structure
@@ -514,7 +514,7 @@ public class ClassifierTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * Returns a newly created tree.
 	 *
 	 * @param data the training data
@@ -529,7 +529,7 @@ public class ClassifierTreeTS
 		return newTree;
 	}
 	
-	/**
+	/*
 	 * Returns a newly created tree.
 	 *
 	 * @param train the training data
@@ -546,7 +546,7 @@ public class ClassifierTreeTS
 		return newTree;
 	}
 	
-	/**
+	/*
 	 * Help method for printing tree structure.
 	 *
 	 * @param depth the current depth
@@ -560,7 +560,6 @@ public class ClassifierTreeTS
 		
 		for (i = 0; i < m_sons.length; i++) {
 			text.append("\n");
-			;
 			for (j = 0; j < depth; j++)
 				text.append("|   ");
 			text.append(m_localModel.leftSide(m_train));
@@ -573,7 +572,7 @@ public class ClassifierTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * Help method for printing tree structure as a graph.
 	 *
 	 * @param text for outputting the tree
@@ -610,7 +609,7 @@ public class ClassifierTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * Prints the tree in prefix form
 	 *
 	 * @param text the buffer to output the prefix form to
@@ -638,7 +637,7 @@ public class ClassifierTreeTS
 		text.append("]");
 	}
 	
-	/**
+	/*
 	 * Help method for computing class probabilities of
 	 * a given instance.
 	 *
@@ -677,7 +676,7 @@ public class ClassifierTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * Help method for computing class probabilities of
 	 * a given instance.
 	 *
@@ -716,23 +715,23 @@ public class ClassifierTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * Method just exists to make program easier to read.
 	 */
 	private ClassifierSplitModelTS localModel() {
 		
-		return (ClassifierSplitModelTS) m_localModel;
+		return m_localModel;
 	}
 	
-	/**
+	/*
 	 * Method just exists to make program easier to read.
 	 */
 	private ClassifierTreeTS son(int index) {
 		
-		return (ClassifierTreeTS) m_sons[index];
+		return m_sons[index];
 	}
 	
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision

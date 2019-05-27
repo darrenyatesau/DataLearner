@@ -1,10 +1,8 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#fbfbfb">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/section_label2"
@@ -25,14 +23,13 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="10dp"
         android:entries="@array/arrayBayes"
-        android:gravity="right"
+        android:gravity="end"
         android:textAlignment="textEnd"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/section_label2" />
 
     <TextView
-        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -44,7 +41,6 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -56,7 +52,6 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -73,14 +68,13 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="20dp"
         android:entries="@array/arrayRules"
-        android:gravity="right"
+        android:gravity="end"
         android:textAlignment="textEnd"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner4" />
 
     <TextView
-        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -97,7 +91,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="20dp"
         android:entries="@array/arrayTrees"
-        android:gravity="right"
+        android:gravity="end"
         android:textAlignment="textEnd"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -118,7 +112,6 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -129,7 +122,6 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/tvMeta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -146,14 +138,13 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="20dp"
         android:entries="@array/arrayMeta"
-        android:gravity="right"
+        android:gravity="end"
         android:textAlignment="textEnd"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner5" />
 
     <TextView
-        android:id="@+id/textView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -173,7 +164,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner6"
-        android:gravity="right" />
+        android:gravity="end" />
 
     <Spinner
         android:id="@+id/spinner6"
@@ -182,7 +173,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="20dp"
         android:entries="@array/arrayFunctions"
-        android:gravity="right"
+        android:gravity="end"
         android:textAlignment="textEnd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner1" />
@@ -200,7 +191,6 @@
         app:layout_constraintTop_toBottomOf="@+id/spinner3" />
 
     <TextView
-        android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -211,7 +201,6 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -228,7 +217,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="10dp"
         android:entries="@array/arrayCluster"
-        android:gravity="right"
+        android:gravity="end"
         android:textAlignment="textEnd"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -241,7 +230,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="20dp"
         android:entries="@array/arrayAssociate"
-        android:gravity="right"
+        android:gravity="end"
         android:textAlignment="textEnd"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"

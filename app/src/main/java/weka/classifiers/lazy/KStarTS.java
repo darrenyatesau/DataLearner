@@ -47,7 +47,7 @@ import java.util.Enumeration;
 import java.util.Random;
 import java.util.Vector;
 
-/**
+/*
  * <!-- globalinfo-start -->
  * K* is an instance-based classifier, that is the class of a test instance is based upon the class of those training instances similar to it, as determined by some similarity function.  It differs from other instance-based learners in that it uses an entropy-based distance function.<br/>
  * <br/>
@@ -97,73 +97,73 @@ public class KStarTS
 		extends Classifier
 		implements KStarConstants, UpdateableClassifier, TechnicalInformationHandler {
 	
-	/**
+	/*
 	 * for serialization
 	 */
 	static final long serialVersionUID = 332458330800479083L;
 	
-	/**
+	/*
 	 * The training instances used for classification.
 	 */
 	protected Instances m_Train;
 	
-	/**
+	/*
 	 * The number of instances in the dataset
 	 */
 	protected int m_NumInstances;
 	
-	/**
+	/*
 	 * The number of class values
 	 */
 	protected int m_NumClasses;
 	
-	/**
+	/*
 	 * The number of attributes
 	 */
 	protected int m_NumAttributes;
 	
-	/**
+	/*
 	 * The class attribute type
 	 */
 	protected int m_ClassType;
 	
-	/**
+	/*
 	 * Table of random class value colomns
 	 */
 	protected int[][] m_RandClassCols;
 	
-	/**
+	/*
 	 * Flag turning on and off the computation of random class colomns
 	 */
 	protected int m_ComputeRandomCols = ON;
 	
-	/**
+	/*
 	 * Flag turning on and off the initialisation of config variables
 	 */
 	protected int m_InitFlag = ON;
 	
-	/**
+	/*
 	 * A custom data structure for caching distinct attribute values
 	 * and their scale factor or stop parameter.
 	 */
 	protected KStarCache[] m_Cache;
 	
-	/**
+	/*
 	 * missing value treatment
 	 */
 	protected int m_MissingMode = M_AVERAGE;
 	
-	/**
+	/*
 	 * 0 = use specified blend, 1 = entropic blend setting
 	 */
 	protected int m_BlendMethod = B_SPHERE;
 	
-	/**
+	/*
 	 * default sphere of influence blend setting
 	 */
 	protected int m_GlobalBlend = 20;
 	
-	/**
+	/*
 	 * Define possible missing value handling methods
 	 */
 	public static final Tag[] TAGS_MISSING = {
@@ -173,7 +173,7 @@ public class KStarTS
 			new Tag(M_AVERAGE, "Average column entropy curves")
 	};
 	
-	/**
+	/*
 	 * Returns a string describing classifier
 	 *
 	 * @return a description suitable for
@@ -190,7 +190,7 @@ public class KStarTS
 				+ getTechnicalInformation().toString();
 	}
 	
-	/**
+	/*
 	 * Returns an instance of a TechnicalInformation object, containing
 	 * detailed information about the technical background of this class,
 	 * e.g., paper reference or book this class is based on.
@@ -210,7 +210,7 @@ public class KStarTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Returns default capabilities of the classifier.
 	 *
 	 * @return the capabilities of this classifier
@@ -237,7 +237,7 @@ public class KStarTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Generates the classifier.
 	 *
 	 * @param instances set of instances serving as training data
@@ -259,7 +259,7 @@ public class KStarTS
 		init_m_Attributes();
 	}
 	
-	/**
+	/*
 	 * Adds the supplied instance to the training set
 	 *
 	 * @param instance the instance to add
@@ -277,7 +277,7 @@ public class KStarTS
 		update_m_Attributes();
 	}
 	
-	/**
+	/*
 	 * Calculates the class membership probabilities for the given test instance.
 	 *
 	 * @param instance the instance to be classified
@@ -338,7 +338,7 @@ public class KStarTS
 		}
 	}
 	
-	/**
+	/*
 	 * Calculate the probability of the first instance transforming into the
 	 * second instance:
 	 * the probability is the product of the transformation probabilities of
@@ -374,7 +374,7 @@ public class KStarTS
 		return transProb / m_NumInstances;
 	}
 	
-	/**
+	/*
 	 * Calculates the transformation probability of the indexed test attribute
 	 * to the indexed train attribute.
 	 *
@@ -410,7 +410,7 @@ public class KStarTS
 		return transProb;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -420,7 +420,7 @@ public class KStarTS
 		return "Determines how missing attribute values are treated.";
 	}
 	
-	/**
+	/*
 	 * Gets the method to use for handling missing values. Will be one of
 	 * M_NORMAL, M_AVERAGE, M_MAXDIFF or M_DELETE.
 	 *
@@ -431,7 +431,7 @@ public class KStarTS
 		return new SelectedTag(m_MissingMode, TAGS_MISSING);
 	}
 	
-	/**
+	/*
 	 * Sets the method to use for handling missing values. Values other than
 	 * M_NORMAL, M_AVERAGE, M_MAXDIFF and M_DELETE will be ignored.
 	 *
@@ -444,7 +444,7 @@ public class KStarTS
 		}
 	}
 	
-	/**
+	/*
 	 * Returns an enumeration describing the available options.
 	 *
 	 * @return an enumeration of all the available options.
@@ -465,7 +465,7 @@ public class KStarTS
 		return optVector.elements();
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -475,7 +475,7 @@ public class KStarTS
 		return "The parameter for global blending. Values are restricted to [0,100].";
 	}
 	
-	/**
+	/*
 	 * Set the global blend parameter
 	 *
 	 * @param b the value for global blending
@@ -490,7 +490,7 @@ public class KStarTS
 		}
 	}
 	
-	/**
+	/*
 	 * Get the value of the global blend parameter
 	 *
 	 * @return the value of the global blend parameter
@@ -499,7 +499,7 @@ public class KStarTS
 		return m_GlobalBlend;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -509,7 +509,7 @@ public class KStarTS
 		return "Whether entropy-based blending is to be used.";
 	}
 	
-	/**
+	/*
 	 * Set whether entropic blending is to be used.
 	 *
 	 * @param e true if entropic blending is to be used
@@ -522,20 +522,17 @@ public class KStarTS
 		}
 	}
 	
-	/**
+	/*
 	 * Get whether entropic blending being used
 	 *
 	 * @return true if entropic blending is used
 	 */
 	public boolean getEntropicAutoBlend() {
-		if (m_BlendMethod == B_ENTROPY) {
-			return true;
-		}
+		return m_BlendMethod == B_ENTROPY;
 		
-		return false;
 	}
 	
-	/**
+	/*
 	 * Parses a given list of options. <p/>
 	 * <p>
 	 * <!-- options-start -->
@@ -591,7 +588,7 @@ public class KStarTS
 	}
 	
 	
-	/**
+	/*
 	 * Gets the current settings of K*.
 	 *
 	 * @return an array of strings suitable for passing to setOptions()
@@ -623,7 +620,7 @@ public class KStarTS
 		return options;
 	}
 	
-	/**
+	/*
 	 * Returns a description of this classifier.
 	 *
 	 * @return a description of this classifier as a string.
@@ -641,7 +638,7 @@ public class KStarTS
 		return st.toString();
 	}
 	
-	/**
+	/*
 	 * Main method for testing this class.
 	 *
 	 * @param argv should contain command line options (see setOptions)
@@ -650,7 +647,7 @@ public class KStarTS
 		runClassifier(new KStarTS(), argv);
 	}
 	
-	/**
+	/*
 	 * Initializes the m_Attributes of the class.
 	 */
 	private void init_m_Attributes() {
@@ -665,7 +662,7 @@ public class KStarTS
 		}
 	}
 	
-	/**
+	/*
 	 * Updates the m_attributes of the class.
 	 */
 	private void update_m_Attributes() {
@@ -673,7 +670,7 @@ public class KStarTS
 		m_InitFlag = ON;
 	}
 	
-	/**
+	/*
 	 * Note: for Nominal Class Only!
 	 * Generates a set of random versions of the class colomn.
 	 */
@@ -691,7 +688,7 @@ public class KStarTS
 		m_RandClassCols[NUM_RAND_COLS] = classvals;
 	}
 	
-	/**
+	/*
 	 * Note: for Nominal Class Only!
 	 * Returns an array of the class values
 	 *
@@ -710,7 +707,7 @@ public class KStarTS
 		return classval;
 	}
 	
-	/**
+	/*
 	 * Returns a copy of the array with its elements randomly redistributed.
 	 *
 	 * @param array     the array to randomize.
@@ -732,7 +729,7 @@ public class KStarTS
 		return newArray;
 	}
 	
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision

@@ -33,7 +33,7 @@ import weka.core.RevisionUtils;
 import weka.core.Utils;
 import weka.core.WeightedInstancesHandler;
 
-/**
+/*
  * Base/helper class for building logistic regression models with the LogitBoost algorithm.
  * Used for building logistic model trees (weka.classifiers.trees.lmt.LMT)
  * and standalone logistic regression (weka.classifiers.functions.SimpleLogistic).
@@ -54,65 +54,65 @@ import weka.core.WeightedInstancesHandler;
 public class LogisticBaseTS
     extends Classifier 
     implements WeightedInstancesHandler {
-
-    /** for serialization */
+	
+	/* for serialization */
     static final long serialVersionUID = 168765678097825064L;
-  
-    /** Header-only version of the numeric version of the training data*/
+	
+	/* Header-only version of the numeric version of the training data*/
     protected Instances m_numericDataHeader;
-    /** 
-     * Numeric version of the training data. Original class is replaced by a numeric pseudo-class.
+	/*
+	 * Numeric version of the training data. Original class is replaced by a numeric pseudo-class.
      */
     protected Instances m_numericData;
-    
-    /** Training data */
+	
+	/* Training data */
     protected Instances m_train;
-    
-    /** Use cross-validation to determine best number of LogitBoost iterations ?*/
+	
+	/* Use cross-validation to determine best number of LogitBoost iterations ?*/
     protected boolean m_useCrossValidation;
-
-    /**Use error on probabilities for stopping criterion of LogitBoost? */
+	
+	/*Use error on probabilities for stopping criterion of LogitBoost? */
     protected boolean m_errorOnProbabilities;
-
-    /**Use fixed number of iterations for LogitBoost? (if negative, cross-validate number of iterations)*/
+	
+	/*Use fixed number of iterations for LogitBoost? (if negative, cross-validate number of iterations)*/
     protected int m_fixedNumIterations;
-    
-    /**Use heuristic to stop performing LogitBoost iterations earlier?
+	
+	/*Use heuristic to stop performing LogitBoost iterations earlier?
      * If enabled, LogitBoost is stopped if the current (local) minimum of the error on a test set as 
      * a function of the number of iterations has not changed for m_heuristicStop iterations.
      */
     protected int m_heuristicStop = 50;
- 
-    /**The number of LogitBoost iterations performed.*/
+	
+	/*The number of LogitBoost iterations performed.*/
     protected int m_numRegressions = 0;
-    
-    /**The maximum number of LogitBoost iterations*/
+	
+	/*The maximum number of LogitBoost iterations*/
     protected int m_maxIterations;
-    
-    /**The number of different classes*/
+	
+	/*The number of different classes*/
     protected int m_numClasses;
-
-    /**Array holding the simple regression functions fit by LogitBoost*/
+	
+	/*Array holding the simple regression functions fit by LogitBoost*/
     protected SimpleLinearRegression[][] m_regressions;
-        
-    /**Number of folds for cross-validating number of LogitBoost iterations*/
+	
+	/*Number of folds for cross-validating number of LogitBoost iterations*/
     protected static int m_numFoldsBoosting = 5;
-
-    /**Threshold on the Z-value for LogitBoost*/
+	
+	/*Threshold on the Z-value for LogitBoost*/
     protected static final double Z_MAX = 3;
-    
-    /** If true, the AIC is used to choose the best iteration*/
+	
+	/* If true, the AIC is used to choose the best iteration*/
     private boolean m_useAIC = false;
-    
-    /** Effective number of parameters used for AIC / BIC automatic stopping */
+	
+	/* Effective number of parameters used for AIC / BIC automatic stopping */
     protected double m_numParameters = 0;
-    
-    /**Threshold for trimming weights. Instances with a weight lower than this (as a percentage
+	
+	/*Threshold for trimming weights. Instances with a weight lower than this (as a percentage
      * of total weights) are not included in the regression fit.
      **/
     protected double m_weightTrimBeta = 0;
-
-    /**
+	
+	/*
      * Constructor that creates LogisticBase object with standard options.
      */
     public LogisticBaseTS(){
@@ -123,8 +123,8 @@ public class LogisticBaseTS
         m_useAIC = false;
         m_numParameters = 0;
     }
-    
-    /**
+	
+	/*
      * Constructor to create LogisticBase object.
      * @param numBoostingIterations fixed number of iterations for LogitBoost (if negative, use cross-validation or
      * stopping criterion on the training data).
@@ -140,9 +140,9 @@ public class LogisticBaseTS
 	m_maxIterations = 500;
         m_useAIC = false;
         m_numParameters = 0;
-    }    
-
-    /**
+	}
+	
+	/*
      * Builds the logistic regression model usiing LogitBoost.
      * 
      * @param data the training data
@@ -180,10 +180,10 @@ public class LogisticBaseTS
 	}	
 	
 	//only keep the simple regression functions that correspond to the selected number of LogitBoost iterations
-	m_regressions = selectRegressions(m_regressions);	
-    }   
-
-    /**
+	m_regressions = selectRegressions(m_regressions);
+	}
+	
+	/*
      * Runs LogitBoost, determining the best number of iterations by cross-validation.
      * 
      * @throws Exception if something goes wrong
@@ -221,9 +221,9 @@ public class LogisticBaseTS
 	//rebuild model on all of the training data
 	m_numRegressions = 0;
 	performBoosting(bestIteration);
-    }    
-    
-    /**
+	}
+	
+	/*
      * Runs LogitBoost, determining the best number of iterations by an information criterion (currently AIC).
      */
     protected void performBoostingInfCriterion() throws Exception{
@@ -277,8 +277,8 @@ public class LogisticBaseTS
         m_numRegressions = 0;
         performBoosting(bestIteration);
     }
-
-    /**
+	
+	/*
      * Runs LogitBoost on a training set and monitors the error on a test set.
      * Used for running one fold when cross-validating the number of LogitBoost iterations.
      * @param train the training set
@@ -339,8 +339,8 @@ public class LogisticBaseTS
 
 	return iteration;
     }
-
-    /**
+	
+	/*
      * Runs LogitBoost with a fixed number of iterations.
      * @param numIterations the number of iterations to run
      * @throws Exception if something goes wrong
@@ -366,8 +366,8 @@ public class LogisticBaseTS
 	
 	m_numRegressions = iteration;
     }
-    
-    /**
+	
+	/*
      * Runs LogitBoost using the stopping criterion on the training set.
      * The number of iterations is used that gives the lowest error on the training set, either misclassification
      * or error on probabilities (depending on the errorOnProbabilities option).
@@ -416,8 +416,8 @@ public class LogisticBaseTS
 	//find iteration with best error
         m_numRegressions = getBestIteration(trainErrors, iteration);	
     }
-
-    /**
+	
+	/*
      * Returns the misclassification error of the current model on a set of instances.
      * @param data the set of instances
      * @return the error rate
@@ -428,8 +428,8 @@ public class LogisticBaseTS
 	eval.evaluateModel(this,data);
 	return eval.errorRate();
     }
-
-    /**
+	
+	/*
      * Returns the error of the probability estimates for the current model on a set of instances.
      * @param data the set of instances
      * @return the error
@@ -440,8 +440,8 @@ public class LogisticBaseTS
 	eval.evaluateModel(this,data);
 	return eval.meanAbsoluteError();
     }
-
-    /**
+	
+	/*
      * Helper function to find the minimum in an array of error values.
      * 
      * @param errors an array containing errors
@@ -459,8 +459,8 @@ public class LogisticBaseTS
 	} 
 	return bestIteration;
     }
-
-    /**
+	
+	/*
      * Performs a single iteration of LogitBoost, and updates the model accordingly.
      * A simple regression function is fit to the response and added to the m_regressions array.
      * @param iteration the current iteration 
@@ -561,9 +561,9 @@ public class LogisticBaseTS
 	    probs[i] = probs(trainFs[i]);
 	}
 	return true;
-    }    
-
-    /**
+	}
+	
+	/*
      * Helper function to initialize m_regressions.
      * 
      * @return the generated classifiers
@@ -579,8 +579,8 @@ public class LogisticBaseTS
 	}
 	return classifiers;
     }
-
-    /**
+	
+	/*
      * Converts training data to numeric version. The class variable is replaced by a pseudo-class 
      * used by LogitBoost.
      * 
@@ -598,8 +598,8 @@ public class LogisticBaseTS
 	numericData.setClassIndex(classIndex);
 	return numericData;
     }
-    
-    /**
+	
+	/*
      * Helper function for cutting back m_regressions to the set of classifiers 
      * (corresponsing to the number of LogitBoost iterations) that gave the 
      * smallest error.
@@ -617,9 +617,9 @@ public class LogisticBaseTS
 	    }
 	}
 	return goodClassifiers;
-    }		
-    
-    /**
+	}
+	
+	/*
      * Computes the LogitBoost response variable from y/p values 
      * (actual/estimated class probabilities).
      * 
@@ -642,8 +642,8 @@ public class LogisticBaseTS
 	}
 	return z;
     }
-    
-    /**
+	
+	/*
      * Computes the LogitBoost response for an array of y/p values 
      * (actual/estimated class probabilities).
      * 
@@ -658,8 +658,8 @@ public class LogisticBaseTS
 	    for (int i = 0; i < probs.length; i++) dataZs[i][j] = getZ(dataYs[i][j], probs[i][j]);
 	return dataZs;
     }
-    
-    /**
+	
+	/*
      * Computes the LogitBoost weights from an array of y/p values 
      * (actual/estimated class probabilities).
      * 
@@ -677,8 +677,8 @@ public class LogisticBaseTS
 	    }
 	return dataWs;
     }
-
-    /**
+	
+	/*
      * Computes the p-values (probabilities for the classes) from the F-values 
      * of the logistic model.
      * 
@@ -703,8 +703,8 @@ public class LogisticBaseTS
 	Utils.normalize(probs, sum);
 	return probs;
     }
-
-    /**
+	
+	/*
      * Computes the Y-values (actual class probabilities) for a set of instances.
      * 
      * @param data the data to compute the Y-values from
@@ -721,8 +721,8 @@ public class LogisticBaseTS
 	}
 	return dataYs;
     }
-
-    /**
+	
+	/*
      * Computes the F-values for a single instance.
      * 
      * @param instance the instance to compute the F-values for
@@ -748,10 +748,10 @@ public class LogisticBaseTS
 	    }
 	}	
 	
-	return instanceFs; 
-    } 
-    
-    /**
+	return instanceFs;
+	}
+	
+	/*
      * Computes the F-values for a set of instances.
      * 
      * @param data the data to work on
@@ -766,10 +766,10 @@ public class LogisticBaseTS
 	    dataFs[k] = getFs(data.instance(k));
 	}
 	
-	return dataFs;	
-    }   
-
-    /**
+	return dataFs;
+	}
+	
+	/*
      * Computes the p-values (probabilities for the different classes) from 
      * the F-values for a set of instances.
      * 
@@ -786,8 +786,8 @@ public class LogisticBaseTS
 	}
 	return probs;
     }
-    
-    /**
+	
+	/*
      * Returns the negative loglikelihood of the Y-values (actual class probabilities) given the 
      * p-values (current probability estimates).
      * 
@@ -807,8 +807,8 @@ public class LogisticBaseTS
 	}
 	return logLikelihood;// / (double)dataYs.length;
     }
-
-    /**
+	
+	/*
      * Returns an array of the indices of the attributes used in the logistic model.
      * The first dimension is the class, the second dimension holds a list of attribute indices.
      * Attribute indices start at zero.
@@ -848,8 +848,8 @@ public class LogisticBaseTS
 	
 	return usedAttributes;
     }
-
-    /**
+	
+	/*
      * The number of LogitBoost iterations performed (= the number of simple 
      * regression functions fit).
      * 
@@ -858,8 +858,8 @@ public class LogisticBaseTS
     public int getNumRegressions() {
 	return m_numRegressions;
     }
-    
-    /**
+	
+	/*
      * Get the value of weightTrimBeta.
      *
      * @return Value of weightTrimBeta.
@@ -867,8 +867,8 @@ public class LogisticBaseTS
     public double getWeightTrimBeta(){
         return m_weightTrimBeta;
     }
-    
-    /**
+	
+	/*
      * Get the value of useAIC.
      *
      * @return Value of useAIC.
@@ -876,8 +876,8 @@ public class LogisticBaseTS
     public boolean getUseAIC(){
         return m_useAIC;
     }
-
-    /**
+	
+	/*
      * Sets the parameter "maxIterations".
      * 
      * @param maxIterations the maximum iterations
@@ -885,8 +885,8 @@ public class LogisticBaseTS
     public void setMaxIterations(int maxIterations) {
 	m_maxIterations = maxIterations;
     }
-    
-    /**
+	
+	/*
      * Sets the option "heuristicStop".
      * 
      * @param heuristicStop the heuristic stop to use
@@ -894,15 +894,15 @@ public class LogisticBaseTS
     public void setHeuristicStop(int heuristicStop){
 	m_heuristicStop = heuristicStop;
     }
-    
-    /**
+	
+	/*
      * Sets the option "weightTrimBeta".
      */
     public void setWeightTrimBeta(double w){
         m_weightTrimBeta = w;
     }
-    
-    /**
+	
+	/*
      * Set the value of useAIC.
      *
      * @param c Value to assign to useAIC.
@@ -910,8 +910,8 @@ public class LogisticBaseTS
     public void setUseAIC(boolean c){
         m_useAIC = c;
     }
-
-    /**
+	
+	/*
      * Returns the maxIterations parameter.
      * 
      * @return the maximum iteration
@@ -919,8 +919,8 @@ public class LogisticBaseTS
     public int getMaxIterations(){
 	return m_maxIterations;
     }
-        
-    /**
+	
+	/*
      * Returns an array holding the coefficients of the logistic model.
      * First dimension is the class, the second one holds a list of coefficients.
      * At position zero, the constant term of the model is stored, then, the coefficients for
@@ -952,8 +952,8 @@ public class LogisticBaseTS
 
 	return coefficients;
     }
-
-    /**
+	
+	/*
      * Returns the fraction of all attributes in the data that are used in the 
      * logistic model (in percent). 
      * An attribute is used in the model if it is used in any of the models for 
@@ -978,8 +978,8 @@ public class LogisticBaseTS
 	for (int i = 0; i < attributes.length; i++) if (attributes[i]) count++;
 	return count / (double)(m_numericDataHeader.numAttributes() - 1) * 100.0;
     }
-    
-    /**
+	
+	/*
      * Returns a description of the logistic model (i.e., attributes and 
      * coefficients).
      * 
@@ -1009,9 +1009,9 @@ public class LogisticBaseTS
 	}	
 	return new String(s);
     }
-
-    /** 
-     * Returns class probabilities for an instance.
+	
+	/*
+	 * Returns class probabilities for an instance.
      *
      * @param instance the instance to compute the distribution for
      * @return the class probabilities
@@ -1027,8 +1027,8 @@ public class LogisticBaseTS
 	//calculate probs via Fs
 	return probs(getFs(instance));
     }
-
-    /**
+	
+	/*
      * Cleanup in order to save memory.
      */
     public void cleanup() {
@@ -1036,8 +1036,8 @@ public class LogisticBaseTS
 	m_train = new Instances(m_train,0);
 	m_numericData = null;	
     }
-    
-    /**
+	
+	/*
      * Returns the revision string.
      * 
      * @return		the revision

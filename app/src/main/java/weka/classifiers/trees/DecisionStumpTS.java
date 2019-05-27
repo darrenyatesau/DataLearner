@@ -35,7 +35,7 @@ import weka.core.Utils;
 import weka.core.WeightedInstancesHandler;
 import weka.core.Capabilities.Capability;
 
-/**
+/*
  * <!-- globalinfo-start -->
  * Class for building and using a decision stump. Usually used in conjunction with a boosting algorithm. Does regression (based on mean-squared error) or classification (based on entropy). Missing is treated as a separate value.
  * <p/>
@@ -61,37 +61,37 @@ public class DecisionStumpTS
 		extends Classifier
 		implements WeightedInstancesHandler, Sourcable {
 	
-	/**
+	/*
 	 * for serialization
 	 */
 	static final long serialVersionUID = 1618384535950391L;
 	
-	/**
+	/*
 	 * The attribute used for classification.
 	 */
 	private int m_AttIndex;
 	
-	/**
+	/*
 	 * The split point (index respectively).
 	 */
 	private double m_SplitPoint;
 	
-	/**
+	/*
 	 * The distribution of class values or the means in each subset.
 	 */
 	private double[][] m_Distribution;
 	
-	/**
+	/*
 	 * The instances used for training.
 	 */
 	private Instances m_Instances;
 	
-	/**
+	/*
 	 * a ZeroR model in case no model can be built from the data
 	 */
 	private Classifier m_ZeroR;
 	
-	/**
+	/*
 	 * Returns a string describing classifier
 	 *
 	 * @return a description suitable for
@@ -105,7 +105,7 @@ public class DecisionStumpTS
 				+ "is treated as a separate value.";
 	}
 	
-	/**
+	/*
 	 * Returns default capabilities of the classifier.
 	 *
 	 * @return the capabilities of this classifier
@@ -129,7 +129,7 @@ public class DecisionStumpTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Generates the classifier.
 	 *
 	 * @param instances set of instances serving as training data
@@ -223,7 +223,7 @@ public class DecisionStumpTS
 		m_Instances = new Instances(m_Instances, 0);
 	}
 	
-	/**
+	/*
 	 * Calculates the class membership probabilities for the given test instance.
 	 *
 	 * @param instance the instance to be classified
@@ -240,7 +240,7 @@ public class DecisionStumpTS
 		return m_Distribution[whichSubset(instance)];
 	}
 	
-	/**
+	/*
 	 * Returns the decision tree as Java source code.
 	 *
 	 * @param className the classname of the generated code
@@ -275,7 +275,7 @@ public class DecisionStumpTS
 		return text.toString();
 	}
 	
-	/**
+	/*
 	 * Returns the value as string out of the given distribution
 	 *
 	 * @param c    the attribute to get the value for
@@ -291,7 +291,7 @@ public class DecisionStumpTS
 		}
 	}
 	
-	/**
+	/*
 	 * Returns a description of the classifier.
 	 *
 	 * @return a description of the classifier as a string.
@@ -358,7 +358,7 @@ public class DecisionStumpTS
 		}
 	}
 	
-	/**
+	/*
 	 * Prints a class distribution.
 	 *
 	 * @param dist the class distribution to print
@@ -383,7 +383,7 @@ public class DecisionStumpTS
 		return text.toString();
 	}
 	
-	/**
+	/*
 	 * Prints a classification.
 	 *
 	 * @param dist the class distribution
@@ -403,7 +403,7 @@ public class DecisionStumpTS
 		return text.toString() + "\n";
 	}
 	
-	/**
+	/*
 	 * Finds best split for nominal attribute and returns value.
 	 *
 	 * @param index attribute index
@@ -419,7 +419,7 @@ public class DecisionStumpTS
 		}
 	}
 	
-	/**
+	/*
 	 * Finds best split for nominal attribute and nominal class
 	 * and returns value.
 	 *
@@ -488,7 +488,7 @@ public class DecisionStumpTS
 		return bestVal;
 	}
 	
-	/**
+	/*
 	 * Finds best split for nominal attribute and numeric class
 	 * and returns value.
 	 *
@@ -574,7 +574,7 @@ public class DecisionStumpTS
 		return bestVal;
 	}
 	
-	/**
+	/*
 	 * Finds best split for numeric attribute and returns value.
 	 *
 	 * @param index attribute index
@@ -590,7 +590,7 @@ public class DecisionStumpTS
 		}
 	}
 	
-	/**
+	/*
 	 * Finds best split for numeric attribute and nominal class
 	 * and returns value.
 	 *
@@ -655,7 +655,7 @@ public class DecisionStumpTS
 		return bestVal;
 	}
 	
-	/**
+	/*
 	 * Finds best split for numeric attribute and numeric class
 	 * and returns value.
 	 *
@@ -729,7 +729,7 @@ public class DecisionStumpTS
 		return bestVal;
 	}
 	
-	/**
+	/*
 	 * Computes variance for subsets.
 	 *
 	 * @param s
@@ -743,14 +743,14 @@ public class DecisionStumpTS
 		
 		for (int i = 0; i < s.length; i++) {
 			if (sumOfWeights[i] > 0) {
-				var += sS[i] - ((s[i][0] * s[i][0]) / (double) sumOfWeights[i]);
+				var += sS[i] - ((s[i][0] * s[i][0]) / sumOfWeights[i]);
 			}
 		}
 		
 		return var;
 	}
 	
-	/**
+	/*
 	 * Returns the subset an instance falls into.
 	 *
 	 * @param instance the instance to check
@@ -776,7 +776,7 @@ public class DecisionStumpTS
 		}
 	}
 	
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision
@@ -785,7 +785,7 @@ public class DecisionStumpTS
 		return RevisionUtils.extract("$Revision: 5535 $");
 	}
 	
-	/**
+	/*
 	 * Main method for testing this class.
 	 *
 	 * @param argv the options

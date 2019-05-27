@@ -32,7 +32,7 @@ import weka.core.Utils;
 import java.io.Serializable;
 import java.util.Enumeration;
 
-/**
+/*
  * Class for handling a distribution of class values.
  *
  * @author Eibe Frank (eibe@cs.waikato.ac.nz)
@@ -40,23 +40,23 @@ import java.util.Enumeration;
  */
 public class DistributionTS
   implements Cloneable, Serializable, RevisionHandler {
-
-  /** for serialization */
+  
+  /* for serialization */
   private static final long serialVersionUID = 8526859638230806576L;
-
-  /** Weight of instances per class per bag. */
-  private double m_perClassPerBag[][]; 
-
-  /** Weight of instances per bag. */
-  private double m_perBag[];           
-
-  /** Weight of instances per class. */
-  private double m_perClass[];         
-
-  /** Total weight of instances. */
-  private double totaL;            
-
-  /**
+  
+  /* Weight of instances per class per bag. */
+  private double[][] m_perClassPerBag;
+  
+  /* Weight of instances per bag. */
+  private double[] m_perBag;
+  
+  /* Weight of instances per class. */
+  private double[] m_perClass;
+  
+  /* Total weight of instances. */
+  private double totaL;
+  
+  /*
    * Creates and initializes a new distribution.
    */
   public DistributionTS(int numBags,int numClasses) {
@@ -70,8 +70,8 @@ public class DistributionTS
       m_perClassPerBag[i] = new double [numClasses];
     totaL = 0;
   }
-
-  /**
+  
+  /*
    * Creates and initializes a new distribution using the given
    * array. WARNING: it just copies a reference to this array.
    */
@@ -89,8 +89,8 @@ public class DistributionTS
 	totaL += table[i][j];
       }
   }
-
-  /**
+  
+  /*
    * Creates a distribution with only one bag according
    * to instances in source.
    *
@@ -107,8 +107,8 @@ public class DistributionTS
     while (enu.hasMoreElements())
       add(0,(Instance) enu.nextElement());
   }
-
-  /**
+  
+  /*
    * Creates a distribution according to given instances and
    * split model.
    *
@@ -141,8 +141,8 @@ public class DistributionTS
       }
     }
   }
-
-  /**
+  
+  /*
    * Creates distribution with only one bag by merging all
    * bags of given distribution.
    */
@@ -158,8 +158,8 @@ public class DistributionTS
     m_perBag = new double [1];
     m_perBag[0] = totaL;
   }
-
-  /**
+  
+  /*
    * Creates distribution with two bags by merging all bags apart of
    * the indicated one.
    */
@@ -182,7 +182,7 @@ public class DistributionTS
     m_perBag[1] = totaL-m_perBag[0];
   }
   
-  /**
+  /*
    * Returns number of non-empty bags of distribution.
    */
   public final int actualNumBags() {
@@ -196,8 +196,8 @@ public class DistributionTS
     
     return returnValue;
   }
-
-  /**
+  
+  /*
    * Returns number of classes actually occuring in distribution.
    */
   public final int actualNumClasses() {
@@ -211,8 +211,8 @@ public class DistributionTS
     
     return returnValue;
   }
-
-  /**
+  
+  /*
    * Returns number of classes actually occuring in given bag.
    */
   public final int actualNumClasses(int bagIndex) {
@@ -226,8 +226,8 @@ public class DistributionTS
     
     return returnValue;
   }
-
-  /**
+  
+  /*
    * Adds given instance to given bag.
    *
    * @exception Exception if something goes wrong
@@ -246,8 +246,8 @@ public class DistributionTS
     m_perClass[classIndex] = m_perClass[classIndex]+weight;
     totaL = totaL+weight;
   }
-
-  /**
+  
+  /*
    * Subtracts given instance from given bag.
    *
    * @exception Exception if something goes wrong
@@ -266,8 +266,8 @@ public class DistributionTS
     m_perClass[classIndex] = m_perClass[classIndex]-weight;
     totaL = totaL-weight;
   }
-
-  /**
+  
+  /*
    * Adds counts to given bag.
    */
   public final void add(int bagIndex, double[] counts) {
@@ -281,8 +281,8 @@ public class DistributionTS
       m_perClass[i] = m_perClass[i]+counts[i];
     totaL = totaL+sum;
   }
-
-  /**
+  
+  /*
    * Adds all instances with unknown values for given attribute, weighted
    * according to frequency of instances in each bag.
    *
@@ -323,8 +323,8 @@ public class DistributionTS
       }
     }
   }
-
-  /**
+  
+  /*
    * Adds all instances in given range to given bag.
    *
    * @exception Exception if something goes wrong
@@ -339,7 +339,7 @@ public class DistributionTS
     int i;
 
     for (i = startIndex; i < lastPlusOne; i++) {
-      instance = (Instance) source.instance(i);
+      instance = source.instance(i);
       classIndex = (int)instance.classValue();
       sumOfWeights = sumOfWeights+instance.weight();
       m_perClassPerBag[bagIndex][classIndex] += instance.weight();
@@ -348,8 +348,8 @@ public class DistributionTS
     m_perBag[bagIndex] += sumOfWeights;
     totaL += sumOfWeights;
   }
-
-  /**
+  
+  /*
    * Adds given instance to all bags weighting it according to given weights.
    *
    * @exception Exception if something goes wrong
@@ -370,8 +370,8 @@ public class DistributionTS
       totaL = totaL + weight;
     }
   }
-
-  /**
+  
+  /*
    * Checks if at least two bags contain a minimum number of instances.
    */
   public final boolean check(double minNoObj) {
@@ -382,13 +382,10 @@ public class DistributionTS
     for (i=0;i<m_perBag.length;i++)
       if (Utils.grOrEq(m_perBag[i],minNoObj))
 	counter++;
-    if (counter > 1)
-      return true;
-    else
-      return false;
+    return counter > 1;
   }
-
-  /**
+  
+  /*
    * Clones distribution (Deep copy of distribution).
    */
   public final Object clone() {
@@ -408,8 +405,8 @@ public class DistributionTS
   
     return newDistribution;
   }
-
-  /**
+  
+  /*
    * Deletes given instance from given bag.
    *
    * @exception Exception if something goes wrong
@@ -428,8 +425,8 @@ public class DistributionTS
     m_perClass[classIndex] = m_perClass[classIndex]-weight;
     totaL = totaL-weight;
   }
-
-  /**
+  
+  /*
    * Deletes all instances in given range from given bag.
    *
    * @exception Exception if something goes wrong
@@ -444,7 +441,7 @@ public class DistributionTS
     int i;
 
     for (i = startIndex; i < lastPlusOne; i++) {
-      instance = (Instance) source.instance(i);
+      instance = source.instance(i);
       classIndex = (int)instance.classValue();
       sumOfWeights = sumOfWeights+instance.weight();
       m_perClassPerBag[bagIndex][classIndex] -= instance.weight();
@@ -453,8 +450,8 @@ public class DistributionTS
     m_perBag[bagIndex] -= sumOfWeights;
     totaL -= sumOfWeights;
   }
-
-  /**
+  
+  /*
    * Prints distribution.
    */
   
@@ -471,8 +468,8 @@ public class DistributionTS
     }
     return text.toString();
   }
-
-  /**
+  
+  /*
    * Sets all counts to zero.
    */
   public final void initialize() {
@@ -486,8 +483,8 @@ public class DistributionTS
 	m_perClassPerBag[i][j] = 0;
     totaL = 0;
   }
-
-  /**
+  
+  /*
    * Returns matrix with distribution of class values.
    */
   public final double[][] matrix() {
@@ -495,7 +492,7 @@ public class DistributionTS
     return m_perClassPerBag;
   }
   
-  /**
+  /*
    * Returns index of bag containing maximum number of instances.
    */
   public final int maxBag() {
@@ -513,8 +510,8 @@ public class DistributionTS
       }
     return maxIndex;
   }
-
-  /**
+  
+  /*
    * Returns class with highest frequency over all bags.
    */
   public final int maxClass() {
@@ -531,8 +528,8 @@ public class DistributionTS
 
     return maxIndex;
   }
-
-  /**
+  
+  /*
    * Returns class with highest frequency for given bag.
    */
   public final int maxClass(int index) {
@@ -551,56 +548,56 @@ public class DistributionTS
     }else
       return maxClass();
   }
-
-  /**
+  
+  /*
    * Returns number of bags.
    */
   public final int numBags() {
     
     return m_perBag.length;
   }
-
-  /**
+  
+  /*
    * Returns number of classes.
    */
   public final int numClasses() {
 
     return m_perClass.length;
   }
-
-  /**
+  
+  /*
    * Returns perClass(maxClass()).
    */
   public final double numCorrect() {
 
     return m_perClass[maxClass()];
   }
-
-  /**
+  
+  /*
    * Returns perClassPerBag(index,maxClass(index)).
    */
   public final double numCorrect(int index) {
 
     return m_perClassPerBag[index][maxClass(index)];
   }
-
-  /**
+  
+  /*
    * Returns total-numCorrect().
    */
   public final double numIncorrect() {
 
     return totaL-numCorrect();
   }
-
-  /**
+  
+  /*
    * Returns perBag(index)-numCorrect(index).
    */
   public final double numIncorrect(int index) {
 
     return m_perBag[index]-numCorrect(index);
   }
-
-  /**
+  
+  /*
    * Returns number of (possibly fractional) instances of given class in 
    * given bag.
    */
@@ -608,24 +605,24 @@ public class DistributionTS
 
     return m_perClassPerBag[bagIndex][classIndex];
   }
-
-  /**
+  
+  /*
    * Returns number of (possibly fractional) instances in given bag.
    */
   public final double perBag(int bagIndex) {
 
     return m_perBag[bagIndex];
   }
-
-  /**
+  
+  /*
    * Returns number of (possibly fractional) instances of given class.
    */
   public final double perClass(int classIndex) {
 
     return m_perClass[classIndex];
   }
-
-  /**
+  
+  /*
    * Returns relative frequency of class over all bags with
    * Laplace correction.
    */
@@ -634,8 +631,8 @@ public class DistributionTS
     return (m_perClass[classIndex] + 1) / 
       (totaL + (double) m_perClass.length);
   }
-
-  /**
+  
+  /*
    * Returns relative frequency of class for given bag.
    */
   public final double laplaceProb(int classIndex, int intIndex) {
@@ -647,8 +644,8 @@ public class DistributionTS
 	    return laplaceProb(classIndex);
 	  
   }
-
-  /**
+  
+  /*
    * Returns relative frequency of class over all bags.
    */
   public final double prob(int classIndex) {
@@ -659,8 +656,8 @@ public class DistributionTS
       return 0;
     }
   }
-
-  /**
+  
+  /*
    * Returns relative frequency of class for given bag.
    */
   public final double prob(int classIndex,int intIndex) {
@@ -670,8 +667,8 @@ public class DistributionTS
     else
       return prob(classIndex);
   }
-
-  /** 
+  
+  /*
    * Subtracts the given distribution from this one. The results
    * has only one bag.
    */
@@ -687,16 +684,16 @@ public class DistributionTS
     }
     return newDist;
   }
-
-  /**
+  
+  /*
    * Returns total number of (possibly fractional) instances.
    */
   public final double total() {
 
     return totaL;
   }
-
-  /**
+  
+  /*
    * Shifts given instance from one bag to another one.
    *
    * @exception Exception if something goes wrong
@@ -714,8 +711,8 @@ public class DistributionTS
     m_perBag[from] -= weight;
     m_perBag[to] += weight;
   }
-
-  /**
+  
+  /*
    * Shifts all instances in given range from one bag to another one.
    *
    * @exception Exception if something goes wrong
@@ -730,7 +727,7 @@ public class DistributionTS
     int i;
 
     for (i = startIndex; i < lastPlusOne; i++) {
-      instance = (Instance) source.instance(i);
+      instance = source.instance(i);
       classIndex = (int)instance.classValue();
       weight = instance.weight();
       m_perClassPerBag[from][classIndex] -= weight;
@@ -740,7 +737,7 @@ public class DistributionTS
     }
   }
   
-  /**
+  /*
    * Returns the revision string.
    * 
    * @return		the revision

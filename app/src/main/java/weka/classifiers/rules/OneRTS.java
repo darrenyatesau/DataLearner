@@ -45,7 +45,7 @@ import weka.core.TechnicalInformationHandler;
 import weka.core.Utils;
 import weka.core.WekaException;
 
-/**
+/*
  * <!-- globalinfo-start -->
  * Class for building and using a 1R classifier; in other words, uses the minimum-error attribute for prediction, discretizing numeric attributes. For more information, see:<br/>
  * <br/>
@@ -83,12 +83,12 @@ public class OneRTS
 		extends Classifier
 		implements TechnicalInformationHandler, Sourcable {
 	
-	/**
+	/*
 	 * for serialization
 	 */
 	static final long serialVersionUID = -3459427003147861443L;
 	
-	/**
+	/*
 	 * Returns a string describing classifier
 	 *
 	 * @return a description suitable for
@@ -102,7 +102,7 @@ public class OneRTS
 				+ getTechnicalInformation().toString();
 	}
 	
-	/**
+	/*
 	 * Returns an instance of a TechnicalInformation object, containing
 	 * detailed information about the technical background of this class,
 	 * e.g., paper reference or book this class is based on.
@@ -123,53 +123,53 @@ public class OneRTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Class for storing store a 1R rule.
 	 */
 	private class OneRRule
 			implements Serializable, RevisionHandler {
 		
-		/**
+		/*
 		 * for serialization
 		 */
 		static final long serialVersionUID = 2252814630957092281L;
 		
-		/**
+		/*
 		 * The class attribute.
 		 */
 		private Attribute m_class;
 		
-		/**
+		/*
 		 * The number of instances used for building the rule.
 		 */
 		private int m_numInst;
 		
-		/**
+		/*
 		 * Attribute to test
 		 */
 		private Attribute m_attr;
 		
-		/**
+		/*
 		 * Training set examples this rule gets right
 		 */
 		private int m_correct;
 		
-		/**
+		/*
 		 * Predicted class for each value of attr
 		 */
 		private int[] m_classifications;
 		
-		/**
+		/*
 		 * Predicted class for missing values
 		 */
 		private int m_missingValueClass = -1;
 		
-		/**
+		/*
 		 * Breakpoints (numeric attributes only)
 		 */
 		private double[] m_breakpoints;
 		
-		/**
+		/*
 		 * Constructor for nominal attribute.
 		 *
 		 * @param data      the data to work with
@@ -185,7 +185,7 @@ public class OneRTS
 			m_classifications = new int[m_attr.numValues()];
 		}
 		
-		/**
+		/*
 		 * Constructor for numeric attribute.
 		 *
 		 * @param data      the data to work with
@@ -203,7 +203,7 @@ public class OneRTS
 			m_breakpoints = new double[nBreaks - 1]; // last breakpoint is infinity
 		}
 		
-		/**
+		/*
 		 * Returns a description of the rule.
 		 *
 		 * @return a string representation of the rule
@@ -236,7 +236,7 @@ public class OneRTS
 			}
 		}
 		
-		/**
+		/*
 		 * Returns the revision string.
 		 *
 		 * @return the revision
@@ -246,22 +246,22 @@ public class OneRTS
 		}
 	}
 	
-	/**
+	/*
 	 * A 1-R rule
 	 */
 	private OneRRule m_rule;
 	
-	/**
+	/*
 	 * The minimum bucket size
 	 */
 	private int m_minBucketSize = 6;
 	
-	/**
+	/*
 	 * a ZeroR model in case no model can be built from the data
 	 */
 	private Classifier m_ZeroR;
 	
-	/**
+	/*
 	 * Classifies a given instance.
 	 *
 	 * @param inst the instance to be classified
@@ -293,7 +293,7 @@ public class OneRTS
 		return m_rule.m_classifications[v];
 	}
 	
-	/**
+	/*
 	 * Returns default capabilities of the classifier.
 	 *
 	 * @return the capabilities of this classifier
@@ -315,7 +315,7 @@ public class OneRTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Generates the classifier.
 	 *
 	 * @param instances the instances to be used for building the classifier
@@ -367,7 +367,7 @@ public class OneRTS
 			throw new WekaException("No attributes found to work with!");
 	}
 	
-	/**
+	/*
 	 * Create a rule branching on this attribute.
 	 *
 	 * @param attr the attribute to branch on
@@ -397,7 +397,7 @@ public class OneRTS
 		return r;
 	}
 	
-	/**
+	/*
 	 * Create a rule branching on this nominal attribute.
 	 *
 	 * @param attr               the attribute to branch on
@@ -433,7 +433,7 @@ public class OneRTS
 		return r;
 	}
 	
-	/**
+	/*
 	 * Create a rule branching on this numeric attribute
 	 *
 	 * @param attr               the attribute to branch on
@@ -584,7 +584,7 @@ public class OneRTS
 		return r;
 	}
 	
-	/**
+	/*
 	 * Returns an enumeration describing the available options..
 	 *
 	 * @return an enumeration of all the available options.
@@ -601,7 +601,7 @@ public class OneRTS
 		return newVector.elements();
 	}
 	
-	/**
+	/*
 	 * Parses a given list of options. <p/>
 	 * <p>
 	 * <!-- options-start -->
@@ -625,7 +625,7 @@ public class OneRTS
 		}
 	}
 	
-	/**
+	/*
 	 * Gets the current settings of the OneR classifier.
 	 *
 	 * @return an array of strings suitable for passing to setOptions
@@ -644,7 +644,7 @@ public class OneRTS
 		return options;
 	}
 	
-	/**
+	/*
 	 * Returns a string that describes the classifier as source. The
 	 * classifier will be contained in a class with the given name (there may
 	 * be auxiliary classes),
@@ -717,7 +717,7 @@ public class OneRTS
 		return result.toString();
 	}
 	
-	/**
+	/*
 	 * Returns a description of the classifier
 	 *
 	 * @return a string representation of the classifier
@@ -740,7 +740,7 @@ public class OneRTS
 		return m_rule.toString();
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -751,7 +751,7 @@ public class OneRTS
 				+ "attributes.";
 	}
 	
-	/**
+	/*
 	 * Get the value of minBucketSize.
 	 *
 	 * @return Value of minBucketSize.
@@ -761,7 +761,7 @@ public class OneRTS
 		return m_minBucketSize;
 	}
 	
-	/**
+	/*
 	 * Set the value of minBucketSize.
 	 *
 	 * @param v Value to assign to minBucketSize.
@@ -771,7 +771,7 @@ public class OneRTS
 		m_minBucketSize = v;
 	}
 	
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision
@@ -780,7 +780,7 @@ public class OneRTS
 		return RevisionUtils.extract("$Revision: 9918 $");
 	}
 	
-	/**
+	/*
 	 * Main method for testing this class
 	 *
 	 * @param argv the commandline options

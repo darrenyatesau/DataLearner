@@ -35,7 +35,7 @@ import weka.core.Capabilities.Capability;
 
 import java.util.Random;
 
-/**
+/*
  * Class for handling a tree structure that can
  * be pruned using a pruning set.
  *
@@ -45,32 +45,32 @@ import java.util.Random;
 public class PruneableClassifierTreeTS
 		extends ClassifierTreeTS {
 	
-	/**
+	/*
 	 * for serialization
 	 */
 	static final long serialVersionUID = -555775736857600201L;
 	
-	/**
+	/*
 	 * True if the tree is to be pruned.
 	 */
 	private boolean pruneTheTree = false;
 	
-	/**
+	/*
 	 * How many subsets of equal size? One used for pruning, the rest for training.
 	 */
 	private int numSets = 3;
 	
-	/**
+	/*
 	 * Cleanup after the tree has been built.
 	 */
 	private boolean m_cleanup = true;
 	
-	/**
+	/*
 	 * The random number seed.
 	 */
 	private int m_seed = 1;
 	
-	/**
+	/*
 	 * Constructor for pruneable tree structure. Stores reference
 	 * to associated training data at each node.
 	 *
@@ -94,7 +94,7 @@ public class PruneableClassifierTreeTS
 		m_seed = seed;
 	}
 	
-	/**
+	/*
 	 * Returns default capabilities of the classifier tree.
 	 *
 	 * @return the capabilities of this classifier tree
@@ -119,7 +119,7 @@ public class PruneableClassifierTreeTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Method for building a pruneable classifier tree.
 	 *
 	 * @param data the data to build the tree from
@@ -147,7 +147,7 @@ public class PruneableClassifierTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * Prunes a tree.
 	 *
 	 * @throws Exception if tree can't be pruned successfully
@@ -177,7 +177,7 @@ public class PruneableClassifierTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * Returns a newly created tree.
 	 *
 	 * @param train the training data
@@ -195,7 +195,7 @@ public class PruneableClassifierTreeTS
 		return newTree;
 	}
 	
-	/**
+	/*
 	 * Computes estimated errors for tree.
 	 *
 	 * @return the estimated errors
@@ -220,7 +220,7 @@ public class PruneableClassifierTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * Computes estimated errors for leaf.
 	 *
 	 * @return the estimated errors
@@ -232,15 +232,15 @@ public class PruneableClassifierTreeTS
 				m_test.perClass(localModel().distribution().maxClass());
 	}
 	
-	/**
+	/*
 	 * Method just exists to make program easier to read.
 	 */
 	private ClassifierSplitModelTS localModel() {
 		
-		return (ClassifierSplitModelTS) m_localModel;
+		return m_localModel;
 	}
 	
-	/**
+	/*
 	 * Method just exists to make program easier to read.
 	 */
 	private PruneableClassifierTreeTS son(int index) {
@@ -248,7 +248,7 @@ public class PruneableClassifierTreeTS
 		return (PruneableClassifierTreeTS) m_sons[index];
 	}
 	
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision

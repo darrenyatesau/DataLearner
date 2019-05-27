@@ -46,7 +46,7 @@ import weka.filters.unsupervised.attribute.ReplaceMissingValues;
 import java.util.Enumeration;
 import java.util.Vector;
 
-/**
+/*
  * <!-- globalinfo-start -->
  * Class for building and using a multinomial logistic regression model with a ridge estimator.<br/>
  * <br/>
@@ -119,74 +119,74 @@ import java.util.Vector;
 public class LogisticTS extends Classifier
 		implements OptionHandler, WeightedInstancesHandler, TechnicalInformationHandler {
 	
-	/**
+	/*
 	 * for serialization
 	 */
 	static final long serialVersionUID = 3932117032546553727L;
 	
-	/**
+	/*
 	 * The coefficients (optimized parameters) of the model
 	 */
 	protected double[][] m_Par;
 	
-	/**
+	/*
 	 * The data saved as a matrix
 	 */
 	protected double[][] m_Data;
 	
-	/**
+	/*
 	 * The number of attributes in the model
 	 */
 	protected int m_NumPredictors;
 	
-	/**
+	/*
 	 * The index of the class attribute
 	 */
 	protected int m_ClassIndex;
 	
-	/**
+	/*
 	 * The number of the class labels
 	 */
 	protected int m_NumClasses;
 	
-	/**
+	/*
 	 * The ridge parameter.
 	 */
 	protected double m_Ridge = 1e-8;
 	
-	/**
+	/*
 	 * An attribute filter
 	 */
 	private RemoveUseless m_AttFilter;
 	
-	/**
+	/*
 	 * The filter used to make attributes numeric.
 	 */
 	private NominalToBinary m_NominalToBinary;
 	
-	/**
+	/*
 	 * The filter used to get rid of missing values.
 	 */
 	private ReplaceMissingValues m_ReplaceMissingValues;
 	
-	/**
+	/*
 	 * Debugging output
 	 */
 	protected boolean m_Debug;
 	
-	/**
+	/*
 	 * Log-likelihood of the searched model
 	 */
 	protected double m_LL;
 	
-	/**
+	/*
 	 * The maximum number of iterations.
 	 */
 	private int m_MaxIts = -1;
 	
 	private Instances m_structure;
 	
-	/**
+	/*
 	 * Returns a string describing this classifier
 	 *
 	 * @return a description of the classifier suitable for
@@ -223,7 +223,7 @@ public class LogisticTS extends Classifier
 				+ "NominalToBinaryFilter.";
 	}
 	
-	/**
+	/*
 	 * Returns an instance of a TechnicalInformation object, containing
 	 * detailed information about the technical background of this class,
 	 * e.g., paper reference or book this class is based on.
@@ -245,7 +245,7 @@ public class LogisticTS extends Classifier
 		return result;
 	}
 	
-	/**
+	/*
 	 * Returns an enumeration describing the available options
 	 *
 	 * @return an enumeration of all the available options
@@ -262,7 +262,7 @@ public class LogisticTS extends Classifier
 		return newVector.elements();
 	}
 	
-	/**
+	/*
 	 * Parses a given list of options. <p/>
 	 * <p>
 	 * <!-- options-start -->
@@ -298,7 +298,7 @@ public class LogisticTS extends Classifier
 			m_MaxIts = -1;
 	}
 	
-	/**
+	/*
 	 * Gets the current settings of the classifier.
 	 *
 	 * @return an array of strings suitable for passing to setOptions
@@ -319,7 +319,7 @@ public class LogisticTS extends Classifier
 		return options;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -329,7 +329,7 @@ public class LogisticTS extends Classifier
 		return "Output debug information to the console.";
 	}
 	
-	/**
+	/*
 	 * Sets whether debugging output will be printed.
 	 *
 	 * @param debug true if debugging output should be printed
@@ -338,7 +338,7 @@ public class LogisticTS extends Classifier
 		m_Debug = debug;
 	}
 	
-	/**
+	/*
 	 * Gets whether debugging output will be printed.
 	 *
 	 * @return true if debugging output will be printed
@@ -347,7 +347,7 @@ public class LogisticTS extends Classifier
 		return m_Debug;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -357,7 +357,7 @@ public class LogisticTS extends Classifier
 		return "Set the Ridge value in the log-likelihood.";
 	}
 	
-	/**
+	/*
 	 * Sets the ridge in the log-likelihood.
 	 *
 	 * @param ridge the ridge
@@ -366,7 +366,7 @@ public class LogisticTS extends Classifier
 		m_Ridge = ridge;
 	}
 	
-	/**
+	/*
 	 * Gets the ridge in the log-likelihood.
 	 *
 	 * @return the ridge
@@ -375,7 +375,7 @@ public class LogisticTS extends Classifier
 		return m_Ridge;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -385,7 +385,7 @@ public class LogisticTS extends Classifier
 		return "Maximum number of iterations to perform.";
 	}
 	
-	/**
+	/*
 	 * Get the value of MaxIts.
 	 *
 	 * @return Value of MaxIts.
@@ -395,7 +395,7 @@ public class LogisticTS extends Classifier
 		return m_MaxIts;
 	}
 	
-	/**
+	/*
 	 * Set the value of MaxIts.
 	 *
 	 * @param newMaxIts Value to assign to MaxIts.
@@ -406,17 +406,17 @@ public class LogisticTS extends Classifier
 	}
 	
 	private class OptEng extends Optimization {
-		/**
+		/*
 		 * Weights of instances in the data
 		 */
 		private double[] weights;
 		
-		/**
+		/*
 		 * Class labels of instances
 		 */
 		private int[] cls;
 		
-		/**
+		/*
 		 * Set the weights of instances
 		 *
 		 * @param w the weights to be set
@@ -425,7 +425,7 @@ public class LogisticTS extends Classifier
 			weights = w;
 		}
 		
-		/**
+		/*
 		 * Set the class labels of instances
 		 *
 		 * @param c the class labels to be set
@@ -434,7 +434,7 @@ public class LogisticTS extends Classifier
 			cls = c;
 		}
 		
-		/**
+		/*
 		 * Evaluate objective function
 		 *
 		 * @param x the current values of variables
@@ -477,7 +477,7 @@ public class LogisticTS extends Classifier
 			return nll;
 		}
 		
-		/**
+		/*
 		 * Evaluate Jacobian vector
 		 *
 		 * @param x the current values of variables
@@ -535,7 +535,7 @@ public class LogisticTS extends Classifier
 			return grad;
 		}
 		
-		/**
+		/*
 		 * Returns the revision string.
 		 *
 		 * @return the revision
@@ -545,7 +545,7 @@ public class LogisticTS extends Classifier
 		}
 	}
 	
-	/**
+	/*
 	 * Returns default capabilities of the classifier.
 	 *
 	 * @return the capabilities of this classifier
@@ -567,7 +567,7 @@ public class LogisticTS extends Classifier
 		return result;
 	}
 	
-	/**
+	/*
 	 * Builds the classifier
 	 *
 	 * @param train the training data to be used for generating the
@@ -693,7 +693,7 @@ public class LogisticTS extends Classifier
 			System.out.println("\nIteration History...");
 		}
 		
-		double x[] = new double[(nR + 1) * nK];
+		double[] x = new double[(nR + 1) * nK];
 		double[][] b = new double[2][x.length]; // Boundary constraints, N/A here
 		
 		// Initialize
@@ -758,7 +758,7 @@ public class LogisticTS extends Classifier
 		}
 	}
 	
-	/**
+	/*
 	 * Computes the distribution for a given instance
 	 *
 	 * @param instance the instance for which distribution is computed
@@ -789,7 +789,7 @@ public class LogisticTS extends Classifier
 		return distribution;
 	}
 	
-	/**
+	/*
 	 * Compute the posterior distribution using optimized parameter values
 	 * and the testing instance.
 	 *
@@ -819,7 +819,7 @@ public class LogisticTS extends Classifier
 		return prob;
 	}
 	
-	/**
+	/*
 	 * Returns the coefficients for this logistic model.
 	 * The first dimension indexes the attributes, and
 	 * the second the classes.
@@ -830,7 +830,7 @@ public class LogisticTS extends Classifier
 		return m_Par;
 	}
 	
-	/**
+	/*
 	 * Gets a string describing the classifier.
 	 *
 	 * @return a string describing the classifer built.
@@ -954,7 +954,7 @@ public class LogisticTS extends Classifier
 		return temp.toString();
 	}
 	
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision
@@ -963,7 +963,7 @@ public class LogisticTS extends Classifier
 		return RevisionUtils.extract("$Revision: 5523 $");
 	}
 	
-	/**
+	/*
 	 * Main method for testing this class.
 	 *
 	 * @param argv should contain the command line arguments to the

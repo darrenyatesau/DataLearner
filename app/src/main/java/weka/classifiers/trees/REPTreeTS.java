@@ -47,7 +47,7 @@ import java.util.Enumeration;
 import java.util.Random;
 import java.util.Vector;
 
-/**
+/*
  * <!-- globalinfo-start -->
  * Fast decision tree learner. Builds a decision/regression tree using information gain/variance and prunes it using reduced-error pruning (with backfitting).  Only sorts values for numeric attributes once. Missing values are dealt with by splitting the corresponding instances into pieces (i.e. as in C4.5).
  * <p/>
@@ -85,17 +85,17 @@ public class REPTreeTS
 		implements OptionHandler, WeightedInstancesHandler, Drawable,
 		AdditionalMeasureProducer, Sourcable, Randomizable {
 	
-	/**
+	/*
 	 * for serialization
 	 */
 	static final long serialVersionUID = -9216785998198681299L;
 	
-	/**
+	/*
 	 * ZeroR model that is used if no attributes are present.
 	 */
 	protected ZeroR m_zeroR;
 	
-	/**
+	/*
 	 * Returns a string describing classifier
 	 *
 	 * @return a description suitable for
@@ -110,70 +110,70 @@ public class REPTreeTS
 				+ "instances into pieces (i.e. as in C4.5).";
 	}
 	
-	/**
+	/*
 	 * An inner class for building and storing the tree structure
 	 */
 	protected class Tree
 			implements Serializable, RevisionHandler {
 		
-		/**
+		/*
 		 * for serialization
 		 */
 		static final long serialVersionUID = -1635481717888437935L;
 		
-		/**
+		/*
 		 * The header information (for printing the tree).
 		 */
 		protected Instances m_Info = null;
 		
-		/**
+		/*
 		 * The subtrees of this tree.
 		 */
 		protected Tree[] m_Successors;
 		
-		/**
+		/*
 		 * The attribute to split on.
 		 */
 		protected int m_Attribute = -1;
 		
-		/**
+		/*
 		 * The split point.
 		 */
 		protected double m_SplitPoint = Double.NaN;
 		
-		/**
+		/*
 		 * The proportions of training instances going down each branch.
 		 */
 		protected double[] m_Prop = null;
 		
-		/**
+		/*
 		 * Class probabilities from the training data in the nominal case.
 		 * Holds the mean in the numeric case.
 		 */
 		protected double[] m_ClassProbs = null;
 		
-		/**
+		/*
 		 * The (unnormalized) class distribution in the nominal
 		 * case. Holds the sum of squared errors and the weight
 		 * in the numeric case.
 		 */
 		protected double[] m_Distribution = null;
 		
-		/**
+		/*
 		 * Class distribution of hold-out set at node in the nominal
 		 * case.  Straight sum of weights plus sum of weighted targets in
 		 * the numeric case (i.e. array has only two elements).
 		 */
 		protected double[] m_HoldOutDist = null;
 		
-		/**
+		/*
 		 * The hold-out error of the node. The number of miss-classified
 		 * instances in the nominal case, the sum of squared errors in the
 		 * numeric case.
 		 */
 		protected double m_HoldOutError = 0;
 		
-		/**
+		/*
 		 * Computes class distribution of an instance using the tree.
 		 *
 		 * @param instance the instance to compute the distribution for
@@ -226,13 +226,13 @@ public class REPTreeTS
 				if (m_ClassProbs == null) {
 					return m_ClassProbs;
 				}
-				return (double[]) m_ClassProbs.clone();
+				return m_ClassProbs.clone();
 			} else {
 				return returnedDist;
 			}
 		}
 		
-		/**
+		/*
 		 * Returns a string containing java source code equivalent to the test
 		 * made at this node. The instance being tested is called "i". This
 		 * routine assumes to be called in the order of branching, enabling us to
@@ -255,7 +255,7 @@ public class REPTreeTS
 				expr.append(".equals(\"").append(m_Info.attribute(m_Attribute)
 						.value(index)).append("\")");
 			} else {
-				expr = new StringBuffer("");
+				expr = new StringBuffer();
 				if (index == 0) {
 					expr.append("((Double)i[")
 							.append(m_Attribute).append("]).doubleValue() < ")
@@ -267,7 +267,7 @@ public class REPTreeTS
 			return expr.toString();
 		}
 		
-		/**
+		/*
 		 * Returns source code for the tree as if-then statements. The
 		 * class is assigned to variable "p", and assumes the tested
 		 * instance is named "i". The results are returned as two stringbuffers:
@@ -307,10 +307,10 @@ public class REPTreeTS
 					result[0].append(Utils.maxIndex(currentProbs));
 				}
 				result[0].append(";\n");
-				result[1] = new StringBuffer("");
+				result[1] = new StringBuffer();
 			} else {
-				StringBuffer text = new StringBuffer("");
-				StringBuffer atEnd = new StringBuffer("");
+				StringBuffer text = new StringBuffer();
+				StringBuffer atEnd = new StringBuffer();
 				
 				text.append("  static double N")
 						.append(Integer.toHexString(this.hashCode()) + printID)
@@ -363,7 +363,7 @@ public class REPTreeTS
 		}
 		
 		
-		/**
+		/*
 		 * Outputs one node for graph.
 		 *
 		 * @param text   the buffer to append the output to
@@ -410,7 +410,7 @@ public class REPTreeTS
 			return num;
 		}
 		
-		/**
+		/*
 		 * Outputs description of a leaf node.
 		 *
 		 * @param parent the parent of the node
@@ -463,7 +463,7 @@ public class REPTreeTS
 			}
 		}
 		
-		/**
+		/*
 		 * Recursively outputs the tree.
 		 *
 		 * @param level  the current level
@@ -517,7 +517,7 @@ public class REPTreeTS
 			}
 		}
 		
-		/**
+		/*
 		 * Recursively generates a tree.
 		 *
 		 * @param sortedIndices the sorted indices of the instances
@@ -734,7 +734,7 @@ public class REPTreeTS
 			}
 		}
 		
-		/**
+		/*
 		 * Computes size of the tree.
 		 *
 		 * @return the number of nodes
@@ -752,7 +752,7 @@ public class REPTreeTS
 			}
 		}
 		
-		/**
+		/*
 		 * Splits instances into subsets.
 		 *
 		 * @param subsetIndices the sorted indices in the subset
@@ -850,7 +850,7 @@ public class REPTreeTS
 			}
 		}
 		
-		/**
+		/*
 		 * Computes class distribution for an attribute.
 		 *
 		 * @param props
@@ -968,7 +968,7 @@ public class REPTreeTS
 			return splitPoint;
 		}
 		
-		/**
+		/*
 		 * Computes class distribution for an attribute.
 		 *
 		 * @param props
@@ -1147,7 +1147,7 @@ public class REPTreeTS
 			return splitPoint;
 		}
 		
-		/**
+		/*
 		 * Computes variance for subsets.
 		 *
 		 * @param s
@@ -1169,7 +1169,7 @@ public class REPTreeTS
 			return var;
 		}
 		
-		/**
+		/*
 		 * Computes the variance for a single set
 		 *
 		 * @param s
@@ -1182,7 +1182,7 @@ public class REPTreeTS
 			return sS - ((s * s) / weight);
 		}
 		
-		/**
+		/*
 		 * Computes value of splitting criterion before split.
 		 *
 		 * @param dist
@@ -1193,7 +1193,7 @@ public class REPTreeTS
 			return ContingencyTables.entropyOverColumns(dist);
 		}
 		
-		/**
+		/*
 		 * Computes value of splitting criterion after split.
 		 *
 		 * @param dist
@@ -1205,7 +1205,7 @@ public class REPTreeTS
 			return priorVal - ContingencyTables.entropyConditionedOnRows(dist);
 		}
 		
-		/**
+		/*
 		 * Prunes the tree using the hold-out data (bottom-up).
 		 *
 		 * @return the error
@@ -1234,7 +1234,7 @@ public class REPTreeTS
 			}
 		}
 		
-		/**
+		/*
 		 * Inserts hold-out set into tree.
 		 *
 		 * @param data the data to insert
@@ -1248,7 +1248,7 @@ public class REPTreeTS
 			}
 		}
 		
-		/**
+		/*
 		 * Inserts an instance from the hold-out set into the tree.
 		 *
 		 * @param inst   the instance to insert
@@ -1320,7 +1320,7 @@ public class REPTreeTS
 			}
 		}
 		
-		/**
+		/*
 		 * Backfits data from holdout set.
 		 *
 		 * @throws Exception if insertion fails
@@ -1367,7 +1367,7 @@ public class REPTreeTS
 			}
 		}
 		
-		/**
+		/*
 		 * Returns the revision string.
 		 *
 		 * @return the revision
@@ -1377,43 +1377,43 @@ public class REPTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * The Tree object
 	 */
 	protected Tree m_Tree = null;
 	
-	/**
+	/*
 	 * Number of folds for reduced error pruning.
 	 */
 	protected int m_NumFolds = 3;
 	
-	/**
+	/*
 	 * Seed for random data shuffling.
 	 */
 	protected int m_Seed = 1;
 	
-	/**
+	/*
 	 * Don't prune
 	 */
 	protected boolean m_NoPruning = false;
 	
-	/**
+	/*
 	 * The minimum number of instances per leaf.
 	 */
 	protected double m_MinNum = 2;
 	
-	/**
+	/*
 	 * The minimum proportion of the total variance (over all the data)
 	 * required for split.
 	 */
 	protected double m_MinVarianceProp = 1e-3;
 	
-	/**
+	/*
 	 * Upper bound on the tree depth
 	 */
 	protected int m_MaxDepth = -1;
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -1423,7 +1423,7 @@ public class REPTreeTS
 		return "Whether pruning is performed.";
 	}
 	
-	/**
+	/*
 	 * Get the value of NoPruning.
 	 *
 	 * @return Value of NoPruning.
@@ -1433,7 +1433,7 @@ public class REPTreeTS
 		return m_NoPruning;
 	}
 	
-	/**
+	/*
 	 * Set the value of NoPruning.
 	 *
 	 * @param newNoPruning Value to assign to NoPruning.
@@ -1443,7 +1443,7 @@ public class REPTreeTS
 		m_NoPruning = newNoPruning;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -1453,7 +1453,7 @@ public class REPTreeTS
 		return "The minimum total weight of the instances in a leaf.";
 	}
 	
-	/**
+	/*
 	 * Get the value of MinNum.
 	 *
 	 * @return Value of MinNum.
@@ -1463,7 +1463,7 @@ public class REPTreeTS
 		return m_MinNum;
 	}
 	
-	/**
+	/*
 	 * Set the value of MinNum.
 	 *
 	 * @param newMinNum Value to assign to MinNum.
@@ -1473,7 +1473,7 @@ public class REPTreeTS
 		m_MinNum = newMinNum;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -1485,7 +1485,7 @@ public class REPTreeTS
 				"be performed in regression trees.";
 	}
 	
-	/**
+	/*
 	 * Get the value of MinVarianceProp.
 	 *
 	 * @return Value of MinVarianceProp.
@@ -1495,7 +1495,7 @@ public class REPTreeTS
 		return m_MinVarianceProp;
 	}
 	
-	/**
+	/*
 	 * Set the value of MinVarianceProp.
 	 *
 	 * @param newMinVarianceProp Value to assign to MinVarianceProp.
@@ -1505,7 +1505,7 @@ public class REPTreeTS
 		m_MinVarianceProp = newMinVarianceProp;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -1515,7 +1515,7 @@ public class REPTreeTS
 		return "The seed used for randomizing the data.";
 	}
 	
-	/**
+	/*
 	 * Get the value of Seed.
 	 *
 	 * @return Value of Seed.
@@ -1525,7 +1525,7 @@ public class REPTreeTS
 		return m_Seed;
 	}
 	
-	/**
+	/*
 	 * Set the value of Seed.
 	 *
 	 * @param newSeed Value to assign to Seed.
@@ -1535,7 +1535,7 @@ public class REPTreeTS
 		m_Seed = newSeed;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -1546,7 +1546,7 @@ public class REPTreeTS
 				+ "pruning, the rest for growing the rules.";
 	}
 	
-	/**
+	/*
 	 * Get the value of NumFolds.
 	 *
 	 * @return Value of NumFolds.
@@ -1556,7 +1556,7 @@ public class REPTreeTS
 		return m_NumFolds;
 	}
 	
-	/**
+	/*
 	 * Set the value of NumFolds.
 	 *
 	 * @param newNumFolds Value to assign to NumFolds.
@@ -1566,7 +1566,7 @@ public class REPTreeTS
 		m_NumFolds = newNumFolds;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -1576,7 +1576,7 @@ public class REPTreeTS
 		return "The maximum tree depth (-1 for no restriction).";
 	}
 	
-	/**
+	/*
 	 * Get the value of MaxDepth.
 	 *
 	 * @return Value of MaxDepth.
@@ -1586,7 +1586,7 @@ public class REPTreeTS
 		return m_MaxDepth;
 	}
 	
-	/**
+	/*
 	 * Set the value of MaxDepth.
 	 *
 	 * @param newMaxDepth Value to assign to MaxDepth.
@@ -1596,7 +1596,7 @@ public class REPTreeTS
 		m_MaxDepth = newMaxDepth;
 	}
 	
-	/**
+	/*
 	 * Lists the command-line options for this classifier.
 	 *
 	 * @return an enumeration over all commandline options
@@ -1630,7 +1630,7 @@ public class REPTreeTS
 		return newVector.elements();
 	}
 	
-	/**
+	/*
 	 * Gets options from this classifier.
 	 *
 	 * @return the options for the current setup
@@ -1658,7 +1658,7 @@ public class REPTreeTS
 		return options;
 	}
 	
-	/**
+	/*
 	 * Parses a given list of options. <p/>
 	 * <p>
 	 * <!-- options-start -->
@@ -1724,7 +1724,7 @@ public class REPTreeTS
 		Utils.checkForRemainingOptions(options);
 	}
 	
-	/**
+	/*
 	 * Computes size of the tree.
 	 *
 	 * @return the number of nodes
@@ -1734,7 +1734,7 @@ public class REPTreeTS
 		return m_Tree.numNodes();
 	}
 	
-	/**
+	/*
 	 * Returns an enumeration of the additional measure names.
 	 *
 	 * @return an enumeration of the measure names
@@ -1746,7 +1746,7 @@ public class REPTreeTS
 		return newVector.elements();
 	}
 	
-	/**
+	/*
 	 * Returns the value of the named measure.
 	 *
 	 * @param additionalMeasureName the name of the measure to query for its value
@@ -1763,7 +1763,7 @@ public class REPTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * Returns default capabilities of the classifier.
 	 *
 	 * @return the capabilities of this classifier
@@ -1787,7 +1787,7 @@ public class REPTreeTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Builds classifier.
 	 *
 	 * @param data the data to train with
@@ -1907,7 +1907,7 @@ public class REPTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * Computes class distribution of an instance using the tree.
 	 *
 	 * @param instance the instance to compute the distribution for
@@ -1925,13 +1925,13 @@ public class REPTreeTS
 	}
 	
 	
-	/**
+	/*
 	 * For getting a unique ID when outputting the tree source
 	 * (hashcode isn't guaranteed unique)
 	 */
 	private static long PRINTED_NODES = 0;
 	
-	/**
+	/*
 	 * Gets the next unique node ID.
 	 *
 	 * @return the next unique node ID.
@@ -1941,14 +1941,14 @@ public class REPTreeTS
 		return PRINTED_NODES++;
 	}
 	
-	/**
+	/*
 	 * resets the counter for the nodes
 	 */
 	protected static void resetID() {
 		PRINTED_NODES = 0;
 	}
 	
-	/**
+	/*
 	 * Returns the tree as if-then statements.
 	 *
 	 * @param className the name for the generated class
@@ -1974,7 +1974,7 @@ public class REPTreeTS
 						+ "}\n";
 	}
 	
-	/**
+	/*
 	 * Returns the type of graph this classifier
 	 * represents.
 	 *
@@ -1984,7 +1984,7 @@ public class REPTreeTS
 		return Drawable.TREE;
 	}
 	
-	/**
+	/*
 	 * Outputs the decision tree as a graph
 	 *
 	 * @return the tree as a graph
@@ -2002,7 +2002,7 @@ public class REPTreeTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Outputs the decision tree.
 	 *
 	 * @return a string representation of the classifier
@@ -2020,7 +2020,7 @@ public class REPTreeTS
 						"\nSize of the tree : " + numNodes();
 	}
 	
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision
@@ -2029,7 +2029,7 @@ public class REPTreeTS
 		return RevisionUtils.extract("$Revision: 10275 $");
 	}
 	
-	/**
+	/*
 	 * Main method for this class.
 	 *
 	 * @param argv the commandline options

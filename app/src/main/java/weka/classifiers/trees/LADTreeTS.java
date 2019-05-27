@@ -37,7 +37,7 @@ import weka.core.TechnicalInformationHandler;
 import weka.core.TechnicalInformation.Field;
 import weka.core.TechnicalInformation.Type;
 
-/**
+/*
  * <!-- globalinfo-start -->
  * Class for generating a multi-class alternating decision tree using the LogitBoost strategy. For more info, see<br/>
  * <br/>
@@ -82,7 +82,7 @@ public class LADTreeTS
 		AdditionalMeasureProducer,
 		TechnicalInformationHandler {
 	
-	/**
+	/*
 	 * For serialization
 	 */
 	private static final long serialVersionUID = -4940716114518300302L;
@@ -121,7 +121,7 @@ public class LADTreeTS
 	// options
 	protected int m_boostingIterations = 10;
 	
-	/**
+	/*
 	 * Returns a string describing classifier
 	 *
 	 * @return a description suitable for
@@ -134,7 +134,7 @@ public class LADTreeTS
 				+ getTechnicalInformation().toString();
 	}
 	
-	/**
+	/*
 	 * Returns an instance of a TechnicalInformation object, containing
 	 * detailed information about the technical background of this class,
 	 * e.g., paper reference or book this class is based on.
@@ -155,7 +155,7 @@ public class LADTreeTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * helper classes
 	 ********************************************************************/
 	
@@ -319,7 +319,7 @@ public class LADTreeTS
 			PredictionNode clone = new PredictionNode(values);
 			// should actually clone once merges are enabled!
 			for (Enumeration e = children.elements(); e.hasMoreElements(); )
-				clone.children.addElement((Splitter) ((Splitter) e.nextElement()).clone());
+				clone.children.addElement(((Splitter) e.nextElement()).clone());
 			return clone;
 		}
 		
@@ -332,7 +332,7 @@ public class LADTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * splitter classes
 	 ******************************************************************/
 	
@@ -565,7 +565,7 @@ public class LADTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * Sets up the tree ready to be trained.
 	 *
 	 * @param instances the instances to train the tree with
@@ -614,7 +614,7 @@ public class LADTreeTS
 	public void done() throws Exception {
 	}
 	
-	/**
+	/*
 	 * Performs a single boosting iteration.
 	 * Will add a new splitter node and two prediction nodes to the tree
 	 * (unless merging takes place).
@@ -653,7 +653,7 @@ public class LADTreeTS
 		}
 		
 		// insert the new nodes
-		m_search_bestInsertionNode.addChild((Splitter) m_search_bestSplitter);
+		m_search_bestInsertionNode.addChild(m_search_bestSplitter);
 		
 		if (m_Debug) {
 			System.out.println("Tree is now:\n" + toString(m_root, 1) + "\n");
@@ -670,7 +670,7 @@ public class LADTreeTS
 			((LADInstance) instances.instance(i)).updateWeights(newPredictionValues);
 	}
 	
-	/**
+	/*
 	 * Generates the m_staticPotentialSplitters2way
 	 * vector to contain all possible nominal splits, and the m_numericAttIndices array to
 	 * index the numeric attributes in the training data.
@@ -683,7 +683,7 @@ public class LADTreeTS
 		for (int i = 0; i < m_trainInstances.numAttributes(); i++) {
 			if (i == m_trainInstances.classIndex()) continue;
 			if (m_trainInstances.attribute(i).isNumeric())
-				numericIndices.addElement(new Integer(i));
+				numericIndices.addElement(Integer.valueOf(i));
 			else {
 				int numValues = m_trainInstances.attribute(i).numValues();
 				if (numValues == 2) // avoid redundancy due to 2-way symmetry
@@ -698,7 +698,7 @@ public class LADTreeTS
 			m_numericAttIndices[i] = ((Integer) numericIndices.elementAt(i)).intValue();
 	}
 	
-	/**
+	/*
 	 * Performs a search for the best test (splitter) to add to the tree, by looking
 	 * for the largest weight change.
 	 *
@@ -714,7 +714,7 @@ public class LADTreeTS
 		searchForBestTest(m_root, m_trainInstances);
 	}
 	
-	/**
+	/*
 	 * Recursive function that carries out search for the best test (splitter) to add to
 	 * this part of the tree, by looking for the largest weight change. Will try 2-way
 	 * and/or multi-way splits depending on the current state.
@@ -752,7 +752,7 @@ public class LADTreeTS
 		goDownAllPaths(currentNode, instances);
 	}
 	
-	/**
+	/*
 	 * Continues general multi-class search by investigating every node in the
 	 * subtree under currentNode.
 	 *
@@ -771,7 +771,7 @@ public class LADTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * Investigates the option of introducing a split under currentNode. If the
 	 * split creates a weight change that is larger than has already been found it will
 	 * update the search information to record this as the best option so far.
@@ -832,7 +832,6 @@ public class LADTreeTS
 			m_search_smallestLeastSquares = gain; //splitAndLS[1];
 			m_search_bestInsertionNode = currentNode;
 			m_search_bestSplitter = new TwoWayNumericSplit(attIndex, splitAndLS[0]);
-			;
 			m_search_bestPathInstances = instances;
 		}
 		if (m_Debug) {
@@ -886,9 +885,7 @@ public class LADTreeTS
 		
 		for (int i = 0; i < instances.numInstances() - 1; i++) {// shift inst from right to left
 			if (instances.instance(i + 1).isMissing(attIndex)) break;
-			if (instances.instance(i + 1).value(attIndex) > instances.instance(i).value(attIndex))
-				newSplit = true;
-			else newSplit = false;
+			newSplit = instances.instance(i + 1).value(attIndex) > instances.instance(i).value(attIndex);
 			LADInstance inst = (LADInstance) instances.instance(i);
 			leastSquares = 0.0;
 			for (int j = 0; j < m_numOfClasses; j++) {
@@ -1023,7 +1020,7 @@ public class LADTreeTS
 		return classMeans;
 	}
 	
-	/**
+	/*
 	 * Returns the class probability distribution for an instance.
 	 *
 	 * @param instance the instance to be classified
@@ -1043,7 +1040,7 @@ public class LADTreeTS
 		return distribution;
 	}
 	
-	/**
+	/*
 	 * Returns the class prediction values (votes) for an instance.
 	 *
 	 * @param inst          the instance
@@ -1069,9 +1066,9 @@ public class LADTreeTS
 	}
 	
 	
-	/** model output functions ************************************************************/
+	/* model output functions ************************************************************/
 	
-	/**
+	/*
 	 * Returns a description of the classifier.
 	 *
 	 * @return a string containing a description of the classifier
@@ -1100,7 +1097,7 @@ public class LADTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * Traverses the tree, forming a string that describes it.
 	 *
 	 * @param currentNode the current node under investigation
@@ -1136,7 +1133,7 @@ public class LADTreeTS
 		return text.toString();
 	}
 	
-	/**
+	/*
 	 * Returns graph describing the tree.
 	 *
 	 * @return the graph of the tree in dotty format
@@ -1152,7 +1149,7 @@ public class LADTreeTS
 	}
 	
 	
-	/**
+	/*
 	 * Traverses the tree, graphing each node.
 	 *
 	 * @param currentNode the currentNode under investigation
@@ -1192,7 +1189,7 @@ public class LADTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * Returns the legend of the tree, describing how results are to be interpreted.
 	 *
 	 * @return a string containing the legend of the classifier
@@ -1205,7 +1202,6 @@ public class LADTreeTS
 			classAttribute = m_trainInstances.classAttribute();
 		} catch (Exception x) {
 		}
-		;
 		if (m_numOfClasses == 1) {
 			return ("-ve = " + classAttribute.value(0)
 					+ ", +ve = " + classAttribute.value(1));
@@ -1220,9 +1216,9 @@ public class LADTreeTS
 	}
 	
 	
-	/** option handling  ******************************************************************/
+	/* option handling  ******************************************************************/
 	
-	/**
+	/*
 	 * @return tip text for this property suitable for
 	 * displaying in the explorer/experimenter gui
 	 */
@@ -1231,7 +1227,7 @@ public class LADTreeTS
 		return "The number of boosting iterations to use, which determines the size of the tree.";
 	}
 	
-	/**
+	/*
 	 * Gets the number of boosting iterations.
 	 *
 	 * @return the number of boosting iterations
@@ -1241,7 +1237,7 @@ public class LADTreeTS
 		return m_boostingIterations;
 	}
 	
-	/**
+	/*
 	 * Sets the number of boosting iterations.
 	 *
 	 * @param b the number of boosting iterations to use
@@ -1251,7 +1247,7 @@ public class LADTreeTS
 		m_boostingIterations = b;
 	}
 	
-	/**
+	/*
 	 * Returns an enumeration describing the available options.
 	 *
 	 * @return an enumeration of all the available options
@@ -1272,7 +1268,7 @@ public class LADTreeTS
 		return newVector.elements();
 	}
 	
-	/**
+	/*
 	 * Parses a given list of options. Valid options are:<p>
 	 * <p>
 	 * -B num <br>
@@ -1292,7 +1288,7 @@ public class LADTreeTS
 		Utils.checkForRemainingOptions(options);
 	}
 	
-	/**
+	/*
 	 * Gets the current settings of ADTree.
 	 *
 	 * @return an array of strings suitable for passing to setOptions()
@@ -1312,9 +1308,9 @@ public class LADTreeTS
 	}
 	
 	
-	/** additional measures ***************************************************************/
+	/* additional measures ***************************************************************/
 	
-	/**
+	/*
 	 * Calls measure function for tree size.
 	 *
 	 * @return the tree size
@@ -1324,7 +1320,7 @@ public class LADTreeTS
 		return numOfAllNodes(m_root);
 	}
 	
-	/**
+	/*
 	 * Calls measure function for leaf size.
 	 *
 	 * @return the leaf size
@@ -1334,7 +1330,7 @@ public class LADTreeTS
 		return numOfPredictionNodes(m_root);
 	}
 	
-	/**
+	/*
 	 * Calls measure function for leaf size.
 	 *
 	 * @return the leaf size
@@ -1344,7 +1340,7 @@ public class LADTreeTS
 		return numOfLeafNodes(m_root);
 	}
 	
-	/**
+	/*
 	 * Returns the number of nodes expanded.
 	 *
 	 * @return the number of nodes expanded during search
@@ -1354,7 +1350,7 @@ public class LADTreeTS
 		return m_nodesExpanded;
 	}
 	
-	/**
+	/*
 	 * Returns the number of examples "counted".
 	 *
 	 * @return the number of nodes processed during search
@@ -1364,7 +1360,7 @@ public class LADTreeTS
 		return m_examplesCounted;
 	}
 	
-	/**
+	/*
 	 * Returns an enumeration of the additional measure names.
 	 *
 	 * @return an enumeration of the measure names
@@ -1380,7 +1376,7 @@ public class LADTreeTS
 		return newVector.elements();
 	}
 	
-	/**
+	/*
 	 * Returns the value of the named measure.
 	 *
 	 * @param measureName the name of the measure to query for its value
@@ -1405,7 +1401,7 @@ public class LADTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * Returns the number of prediction nodes in a tree.
 	 *
 	 * @param root the root of the tree being measured
@@ -1425,7 +1421,7 @@ public class LADTreeTS
 		return numSoFar;
 	}
 	
-	/**
+	/*
 	 * Returns the number of leaf nodes in a tree.
 	 *
 	 * @param root the root of the tree being measured
@@ -1444,7 +1440,7 @@ public class LADTreeTS
 		return numSoFar;
 	}
 	
-	/**
+	/*
 	 * Returns the total number of nodes in a tree.
 	 *
 	 * @param root the root of the tree being measured
@@ -1465,9 +1461,9 @@ public class LADTreeTS
 		return numSoFar;
 	}
 	
-	/** main functions ********************************************************************/
+	/* main functions ********************************************************************/
 	
-	/**
+	/*
 	 * Builds a classifier for a set of instances.
 	 *
 	 * @param instances the instances to train the classifier with
@@ -1501,7 +1497,7 @@ public class LADTreeTS
 		return error;
 	}
 	
-	/**
+	/*
 	 * Merges two trees together. Modifies the tree being acted on, leaving tree passed
 	 * as a parameter untouched (cloned). Does not check to see whether training instances
 	 * are compatible - strange things could occur if they are not.
@@ -1519,7 +1515,7 @@ public class LADTreeTS
 		m_root.merge(mergeWith.m_root);
 	}
 	
-	/**
+	/*
 	 * Returns the type of graph this classifier
 	 * represents.
 	 *
@@ -1529,7 +1525,7 @@ public class LADTreeTS
 		return Drawable.TREE;
 	}
 	
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision
@@ -1538,7 +1534,7 @@ public class LADTreeTS
 		return RevisionUtils.extract("$Revision: 10279 $");
 	}
 	
-	/**
+	/*
 	 * Returns default capabilities of the classifier.
 	 *
 	 * @return the capabilities of this classifier
@@ -1560,7 +1556,7 @@ public class LADTreeTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Main method for testing this class.
 	 *
 	 * @param argv the options

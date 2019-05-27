@@ -39,7 +39,7 @@ import java.util.Enumeration;
 import java.util.Random;
 import java.util.Vector;
 
-/**
+/*
  * <!-- globalinfo-start -->
  * Simple EM (expectation maximisation) class.<br/>
  * <br/>
@@ -93,109 +93,109 @@ public class EMTS
 		extends RandomizableDensityBasedClusterer
 		implements NumberOfClustersRequestable, WeightedInstancesHandler {
 	
-	/**
+	/*
 	 * for serialization
 	 */
 	static final long serialVersionUID = 8348181483812829475L;
 	
-	private Estimator m_modelPrev[][];
+	private Estimator[][] m_modelPrev;
 	private double[][][] m_modelNormalPrev;
 	private double[] m_priorsPrev;
 	
-	/**
+	/*
 	 * hold the discrete estimators for each cluster
 	 */
-	private Estimator m_model[][];
+	private Estimator[][] m_model;
 	
-	/**
+	/*
 	 * hold the normal estimators for each cluster
 	 */
-	private double m_modelNormal[][][];
+	private double[][][] m_modelNormal;
 	
-	/**
+	/*
 	 * default minimum standard deviation
 	 */
 	private double m_minStdDev = 1e-6;
 	
 	private double[] m_minStdDevPerAtt;
 	
-	/**
+	/*
 	 * hold the weights of each instance for each cluster
 	 */
-	private double m_weights[][];
+	private double[][] m_weights;
 	
-	/**
+	/*
 	 * the prior probabilities for clusters
 	 */
-	private double m_priors[];
+	private double[] m_priors;
 	
-	/**
+	/*
 	 * the loglikelihood of the data
 	 */
 	private double m_loglikely;
 	
-	/**
+	/*
 	 * training instances
 	 */
 	private Instances m_theInstances = null;
 	
-	/**
+	/*
 	 * number of clusters selected by the user or cross validation
 	 */
 	private int m_num_clusters;
 	
-	/**
+	/*
 	 * the initial number of clusters requested by the user--- -1 if
 	 * xval is to be used to find the number of clusters
 	 */
 	private int m_initialNumClusters;
 	
-	/**
+	/*
 	 * number of attributes
 	 */
 	private int m_num_attribs;
 	
-	/**
+	/*
 	 * number of training instances
 	 */
 	private int m_num_instances;
 	
-	/**
+	/*
 	 * maximum iterations to perform
 	 */
 	private int m_max_iterations;
 	
-	/**
+	/*
 	 * attribute min values
 	 */
 	private double[] m_minValues;
 	
-	/**
+	/*
 	 * attribute max values
 	 */
 	private double[] m_maxValues;
 	
-	/**
+	/*
 	 * random number generator
 	 */
 	private Random m_rr;
 	
-	/**
+	/*
 	 * Verbose?
 	 */
 	private boolean m_verbose;
 	
-	/**
+	/*
 	 * globally replace missing values
 	 */
 	private ReplaceMissingValues m_replaceMissing;
 	
-	/**
+	/*
 	 * display model output in old-style format
 	 */
 	private boolean m_displayModelInOldFormat;
 	
-	/**
+	/*
 	 * Returns a string describing this clusterer
 	 *
 	 * @return a description of the evaluator suitable for
@@ -221,7 +221,7 @@ public class EMTS
 						+ "the number of folds is set equal to the number of instances.";
 	}
 	
-	/**
+	/*
 	 * Returns an enumeration describing the available options.
 	 *
 	 * @return an enumeration of all the available options.
@@ -262,7 +262,7 @@ public class EMTS
 	}
 	
 	
-	/**
+	/*
 	 * Parses a given list of options. <p/>
 	 * <p>
 	 * <!-- options-start -->
@@ -314,7 +314,7 @@ public class EMTS
 		
 		optionString = Utils.getOption('M', options);
 		if (optionString.length() != 0) {
-			setMinStdDev((new Double(optionString)).doubleValue());
+			setMinStdDev((Double.valueOf(optionString)).doubleValue());
 		}
 		
 		setDisplayModelInOldFormat(Utils.getFlag('O', options));
@@ -322,7 +322,7 @@ public class EMTS
 		super.setOptions(options);
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -334,7 +334,7 @@ public class EMTS
 				+ "is better when there are fewer clusters and many attributes.";
 	}
 	
-	/**
+	/*
 	 * Set whether to display model output in the old, original
 	 * format.
 	 *
@@ -344,7 +344,7 @@ public class EMTS
 		m_displayModelInOldFormat = d;
 	}
 	
-	/**
+	/*
 	 * Get whether to display model output in the old, original
 	 * format.
 	 *
@@ -354,7 +354,7 @@ public class EMTS
 		return m_displayModelInOldFormat;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -364,7 +364,7 @@ public class EMTS
 		return "set minimum allowable standard deviation";
 	}
 	
-	/**
+	/*
 	 * Set the minimum value for standard deviation when calculating
 	 * normal density. Reducing this value can help prevent arithmetic
 	 * overflow resulting from multiplying large densities (arising from small
@@ -381,7 +381,7 @@ public class EMTS
 		m_minStdDevPerAtt = m;
 	}
 	
-	/**
+	/*
 	 * Get the minimum allowable standard deviation.
 	 *
 	 * @return the minumum allowable standard deviation
@@ -390,7 +390,7 @@ public class EMTS
 		return m_minStdDev;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -401,7 +401,7 @@ public class EMTS
 				+ "automatically by cross validation.";
 	}
 	
-	/**
+	/*
 	 * Set the number of clusters (-1 to select by CV).
 	 *
 	 * @param n the number of clusters
@@ -425,7 +425,7 @@ public class EMTS
 	}
 	
 	
-	/**
+	/*
 	 * Get the number of clusters
 	 *
 	 * @return the number of clusters.
@@ -434,7 +434,7 @@ public class EMTS
 		return m_initialNumClusters;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -444,7 +444,7 @@ public class EMTS
 		return "maximum number of iterations";
 	}
 	
-	/**
+	/*
 	 * Set the maximum number of iterations to perform
 	 *
 	 * @param i the number of iterations
@@ -460,7 +460,7 @@ public class EMTS
 	}
 	
 	
-	/**
+	/*
 	 * Get the maximum number of iterations
 	 *
 	 * @return the number of iterations
@@ -470,7 +470,7 @@ public class EMTS
 	}
 	
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -482,7 +482,7 @@ public class EMTS
 	}
 	
 	
-	/**
+	/*
 	 * Set debug mode - verbose output
 	 *
 	 * @param v true for verbose output
@@ -492,7 +492,7 @@ public class EMTS
 	}
 	
 	
-	/**
+	/*
 	 * Get debug mode
 	 *
 	 * @return true if debug mode is set
@@ -502,7 +502,7 @@ public class EMTS
 	}
 	
 	
-	/**
+	/*
 	 * Gets the current settings of EM.
 	 *
 	 * @return an array of strings suitable for passing to setOptions()
@@ -531,7 +531,7 @@ public class EMTS
 		return (String[]) result.toArray(new String[result.size()]);
 	}
 	
-	/**
+	/*
 	 * Initialise estimators and storage.
 	 *
 	 * @param inst the instances
@@ -621,7 +621,7 @@ public class EMTS
 	}
 	
 	
-	/**
+	/*
 	 * calculate prior probabilites for the clusters
 	 *
 	 * @param inst the instances
@@ -645,12 +645,12 @@ public class EMTS
 	}
 	
 	
-	/**
+	/*
 	 * Constant for normal distribution.
 	 */
 	private static double m_normConst = Math.log(Math.sqrt(2 * Math.PI));
 	
-	/**
+	/*
 	 * Density function of normal distribution.
 	 *
 	 * @param x      input value
@@ -667,7 +667,7 @@ public class EMTS
 		return -(diff * diff / (2 * stdDev * stdDev)) - m_normConst - Math.log(stdDev);
 	}
 	
-	/**
+	/*
 	 * New probability estimators for an iteration
 	 */
 	private void new_estimators() {
@@ -690,7 +690,7 @@ public class EMTS
 	}
 	
 	
-	/**
+	/*
 	 * The M step of the EM algorithm.
 	 *
 	 * @param inst the training instances
@@ -773,7 +773,7 @@ public class EMTS
 		}
 	}
 	
-	/**
+	/*
 	 * The E step of the EM algorithm. Estimate cluster membership
 	 * probabilities.
 	 *
@@ -807,7 +807,7 @@ public class EMTS
 	}
 	
 	
-	/**
+	/*
 	 * Constructor.
 	 **/
 	public EMTS() {
@@ -818,7 +818,7 @@ public class EMTS
 	}
 	
 	
-	/**
+	/*
 	 * Reset to default options
 	 */
 	protected void resetOptions() {
@@ -830,7 +830,7 @@ public class EMTS
 		m_verbose = false;
 	}
 	
-	/**
+	/*
 	 * Return the normal distributions for the cluster models
 	 *
 	 * @return a <code>double[][][]</code> value
@@ -839,7 +839,7 @@ public class EMTS
 		return m_modelNormal;
 	}
 	
-	/**
+	/*
 	 * Return the priors for the clusters
 	 *
 	 * @return a <code>double[]</code> value
@@ -848,7 +848,7 @@ public class EMTS
 		return m_priors;
 	}
 	
-	/**
+	/*
 	 * Outputs the generated clusters into a string.
 	 *
 	 * @return the clusterer in string representation
@@ -1031,7 +1031,7 @@ public class EMTS
 		return temp.toString();
 	}
 	
-	/**
+	/*
 	 * Outputs the generated clusters into a string.
 	 *
 	 * @return the clusterer in string representation
@@ -1074,7 +1074,7 @@ public class EMTS
 	}
 	
 	
-	/**
+	/*
 	 * verbose output for debugging
 	 *
 	 * @param inst the training instances
@@ -1117,7 +1117,7 @@ public class EMTS
 	}
 	
 	
-	/**
+	/*
 	 * estimate the number of clusters by cross validation on the training
 	 * data.
 	 *
@@ -1237,7 +1237,7 @@ public class EMTS
 	}
 	
 	
-	/**
+	/*
 	 * Returns the number of clusters.
 	 *
 	 * @return the number of clusters generated for a training dataset.
@@ -1253,7 +1253,7 @@ public class EMTS
 		return m_num_clusters;
 	}
 	
-	/**
+	/*
 	 * Updates the minimum and maximum values for all the attributes
 	 * based on a new instance.
 	 *
@@ -1279,7 +1279,7 @@ public class EMTS
 		}
 	}
 	
-	/**
+	/*
 	 * Returns default capabilities of the clusterer (i.e., the ones of
 	 * SimpleKMeans).
 	 *
@@ -1291,7 +1291,7 @@ public class EMTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Generates a clusterer. Has to initialize all fields of the clusterer
 	 * that are not being set via options.
 	 *
@@ -1336,7 +1336,7 @@ public class EMTS
 		m_theInstances = new Instances(m_theInstances, 0);
 	}
 	
-	/**
+	/*
 	 * Returns the cluster priors.
 	 *
 	 * @return the cluster priors
@@ -1349,7 +1349,7 @@ public class EMTS
 		return n;
 	}
 	
-	/**
+	/*
 	 * Computes the log of the conditional density (per cluster) for a given instance.
 	 *
 	 * @param inst the instance to compute the density for
@@ -1392,7 +1392,7 @@ public class EMTS
 	}
 	
 	
-	/**
+	/*
 	 * Perform the EM algorithm
 	 *
 	 * @throws Exception if something goes wrong
@@ -1439,7 +1439,7 @@ public class EMTS
 	}
 	
 	
-	/**
+	/*
 	 * iterates the E and M steps until the log likelihood of the data
 	 * converges.
 	 *
@@ -1513,7 +1513,7 @@ public class EMTS
 		return llk;
 	}
 	
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision
@@ -1526,7 +1526,7 @@ public class EMTS
 	// Test method.
 	// ============
 	
-	/**
+	/*
 	 * Main method for testing this class.
 	 *
 	 * @param argv should contain the following arguments: <p>

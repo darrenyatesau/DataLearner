@@ -70,7 +70,7 @@ import weka.core.xml.XMLSerialization;
 import weka.estimators.Estimator;
 import weka.estimators.KernelEstimator;
 
-/**
+/*
  * Class for evaluating machine learning models.
  * <p/>
  * <p>
@@ -208,189 +208,191 @@ import weka.estimators.KernelEstimator;
  * @version $Revision: 10974 $
  */
 public class EvaluationTS implements Summarizable, RevisionHandler {
-
-	/**
+	
+	/*
 	 * The number of classes.
 	 */
 	protected int m_NumClasses;
-
-	/**
+	
+	/*
 	 * The number of folds for a cross-validation.
 	 */
 	protected int m_NumFolds;
-
-	/**
+	
+	/*
 	 * The weight of all incorrectly classified instances.
 	 */
 	protected double m_Incorrect;
-
-	/**
+	
+	/*
 	 * The weight of all correctly classified instances.
 	 */
 	protected double m_Correct;
-
-	/**
+	
+	/*
 	 * The weight of all unclassified instances.
 	 */
 	protected double m_Unclassified;
-
-	/*** The weight of all instances that had no class assigned to them. */
+	
+	/**
+	 * The weight of all instances that had no class assigned to them.
+	 */
 	protected double m_MissingClass;
 
-	/**
+	/*
 	 * The weight of all instances that had a class assigned to them.
 	 */
 	protected double m_WithClass;
 
-	/**
+	/*
 	 * Array for storing the confusion matrix.
 	 */
 	protected double[][] m_ConfusionMatrix;
 
-	/**
+	/*
 	 * The names of the classes.
 	 */
 	protected String[] m_ClassNames;
 
-	/**
+	/*
 	 * Is the class nominal or numeric?
 	 */
 	protected boolean m_ClassIsNominal;
 
-	/**
+	/*
 	 * The prior probabilities of the classes
 	 */
 	protected double[] m_ClassPriors;
 
-	/**
+	/*
 	 * The sum of counts for priors
 	 */
 	protected double m_ClassPriorsSum;
 
-	/**
+	/*
 	 * The cost matrix (if given).
 	 */
 	protected CostMatrix m_CostMatrix;
 
-	/**
+	/*
 	 * The total cost of predictions (includes instance weights)
 	 */
 	protected double m_TotalCost;
 
-	/**
+	/*
 	 * Sum of errors.
 	 */
 	protected double m_SumErr;
 
-	/**
+	/*
 	 * Sum of absolute errors.
 	 */
 	protected double m_SumAbsErr;
 
-	/**
+	/*
 	 * Sum of squared errors.
 	 */
 	protected double m_SumSqrErr;
 
-	/**
+	/*
 	 * Sum of class values.
 	 */
 	protected double m_SumClass;
 
-	/**
+	/*
 	 * Sum of squared class values.
 	 */
 	protected double m_SumSqrClass;
-
-	/*** Sum of predicted values. */
+	
+	/** Sum of predicted values. */
 	protected double m_SumPredicted;
 
-	/**
+	/*
 	 * Sum of squared predicted values.
 	 */
 	protected double m_SumSqrPredicted;
 
-	/**
+	/*
 	 * Sum of predicted * class values.
 	 */
 	protected double m_SumClassPredicted;
 
-	/**
+	/*
 	 * Sum of absolute errors of the prior
 	 */
 	protected double m_SumPriorAbsErr;
 
-	/**
+	/*
 	 * Sum of absolute errors of the prior
 	 */
 	protected double m_SumPriorSqrErr;
 
-	/**
+	/*
 	 * Total Kononenko & Bratko Information
 	 */
 	protected double m_SumKBInfo;
-
-	/*** Resolution of the margin histogram */
+	
+	/** Resolution of the margin histogram */
 	protected static int k_MarginResolution = 500;
-
-	/**
+	
+	/*
 	 * Cumulative margin distribution
 	 */
-	protected double m_MarginCounts[];
+	protected double[] m_MarginCounts;
 
-	/**
+	/*
 	 * Number of non-missing class training instances seen
 	 */
 	protected int m_NumTrainClassVals;
 
-	/**
+	/*
 	 * Array containing all numeric training class values seen
 	 */
 	protected double[] m_TrainClassVals;
 
-	/**
+	/*
 	 * Array containing all numeric training class weights
 	 */
 	protected double[] m_TrainClassWeights;
 
-	/**
+	/*
 	 * Numeric class error estimator for prior
 	 */
 	protected Estimator m_PriorErrorEstimator;
 
-	/**
+	/*
 	 * Numeric class error estimator for scheme
 	 */
 	protected Estimator m_ErrorEstimator;
 
-	/**
+	/*
 	 * The minimum probablility accepted from an estimator to avoid taking log(0)
 	 * in Sf calculations.
 	 */
 	protected static final double MIN_SF_PROB = Double.MIN_VALUE;
 
-	/**
+	/*
 	 * Total entropy of prior predictions
 	 */
 	protected double m_SumPriorEntropy;
 
-	/**
+	/*
 	 * Total entropy of scheme predictions
 	 */
 	protected double m_SumSchemeEntropy;
 
-	/**
+	/*
 	 * The list of predictions that have been generated (for computing AUC)
 	 */
 	private FastVector m_Predictions;
 
-	/**
+	/*
 	 * enables/disables the use of priors, e.g., if no training set is present in
 	 * case of de-serialized schemes
 	 */
 	protected boolean m_NoPriors = false;
-
-//	/**
+	
+	//	/*
 //	 * Initializes all the counters for the evaluation. Use
 //	 * <code>useNoPriors()</code> if the dataset is the test set and you can't
 //	 * initialize with the priors from the training set via
@@ -406,8 +408,8 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 
 		this(data, null);
 	}
-
-//	/**
+	
+	//	/*
 //	 * Initializes all the counters for the evaluation and also takes a cost
 //	 * matrix as parameter. Use <code>useNoPriors()</code> if the dataset is the
 //	 * test set and you can't initialize with the priors from the training set via
@@ -449,7 +451,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		m_MarginCounts = new double[k_MarginResolution + 1];
 	}
 
-	/**
+	/*
 	 * Returns the area under ROC for those predictions that have been collected
 	 * in the evaluateClassifier(Classifier, Instances) method. Returns
 	 * Instance.missingValue() if the area is not available.
@@ -469,7 +471,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		}
 	}
 
-	/**
+	/*
 	 * Calculates the weighted (by class size) AUC.
 	 *
 	 * @return the weighted AUC.
@@ -496,7 +498,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return aucTotal / classCountSum;
 	}
 
-	/**
+	/*
 	 * Returns a copy of the confusion matrix.
 	 *
 	 * @return a copy of the confusion matrix as a two-dimensional array
@@ -512,8 +514,8 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		}
 		return newMatrix;
 	}
-
-	//  /**
+	
+	//  /*
 //   * Performs a (stratified if class is nominal) cross-validation for a
 //   * classifier on a set of instances. Now performs a deep copy of the
 //   * classifier before each call to buildClassifier() (just in case the
@@ -574,7 +576,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		m_NumFolds = numFolds;
 	}
 
-	/**
+	/*
 	 * Performs a (stratified if class is nominal) cross-validation for a
 	 * classifier on a set of instances.
 	 *
@@ -594,7 +596,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 				numFolds, random);
 	}
 
-	/**
+	/*
 	 * Evaluates a classifier with the options given in an array of strings.
 	 * <p/>
 	 * <p>
@@ -722,7 +724,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return evaluateModel(classifier, options);
 	}
 
-	/**
+	/*
 	 * A test method for this class. Just extracts the first command line argument
 	 * as a classifier class name and calls evaluateModel.
 	 *
@@ -745,7 +747,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		}
 	}
 
-	/**
+	/*
 	 * Evaluates a classifier with the options given in an array of strings.
 	 * <p/>
 	 * <p>
@@ -1417,7 +1419,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 					predsBuff.append("\n=== Predictions under cross-validation ===\n\n");
 					testingEvaluation.crossValidateModel(classifier,
 							trainSource.getDataSet(actualClassIndex), folds, random, predsBuff,
-							attributesToOutput, new Boolean(printDistribution));
+							attributesToOutput, Boolean.valueOf(printDistribution));
 					/*
 					 * if (template.classAttribute().isNumeric()) { text.append("\n\n\n" +
 					 * testingEvaluation. toSummaryString("=== Cross-validation ===\n",
@@ -1460,7 +1462,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return text.toString();
 	}
 
-	/**
+	/*
 	 * Attempts to load a cost matrix.
 	 *
 	 * @param costFileName the filename of the cost matrix
@@ -1515,8 +1517,8 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 			return null;
 		}
 	}
-
-	//  /**
+	
+	//  /*
 //   * Evaluates the classifier on a given set of instances. Note that the data
 //   * must have exactly the same format (e.g. order of attributes) as the data
 //   * used to train the classifier! Otherwise the results will generally be
@@ -1537,8 +1539,8 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		StringBuffer buff = null;
 		Range attsToOutput = null;
 		boolean printDist = false;
-
-		double predictions[] = new double[data.numInstances()];
+		
+		double[] predictions = new double[data.numInstances()];
 
 		if (forPredictionsPrinting.length > 0) {
 			buff = (StringBuffer) forPredictionsPrinting[0];
@@ -1563,7 +1565,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return predictions;
 	}
 
-	/**
+	/*
 	 * Evaluates the classifier on a single instance and records the prediction
 	 * (if the class is nominal).
 	 *
@@ -1599,7 +1601,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return pred;
 	}
 
-	/**
+	/*
 	 * Evaluates the classifier on a single instance.
 	 *
 	 * @param classifier machine learning classifier
@@ -1629,7 +1631,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return pred;
 	}
 
-	/**
+	/*
 	 * Evaluates the supplied distribution on a single instance.
 	 *
 	 * @param dist     the supplied distribution
@@ -1653,7 +1655,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return pred;
 	}
 
-	/**
+	/*
 	 * Evaluates the supplied distribution on a single instance.
 	 *
 	 * @param dist     the supplied distribution
@@ -1682,7 +1684,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return pred;
 	}
 
-	/**
+	/*
 	 * Evaluates the supplied prediction on a single instance.
 	 *
 	 * @param prediction the supplied prediction
@@ -1699,7 +1701,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		}
 	}
 
-	/**
+	/*
 	 * Returns the predictions that have been collected.
 	 *
 	 * @return a reference to the FastVector containing the predictions that have
@@ -1711,7 +1713,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return m_Predictions;
 	}
 
-	/**
+	/*
 	 * Wraps a static classifier in enough source to test using the weka class
 	 * libraries.
 	 *
@@ -1749,7 +1751,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 
 		// globalInfo
 		result.append("\n");
-		result.append("  /**\n");
+		result.append("  /*\n");
 		result.append("   * Returns only the toString() method.\n");
 		result.append("   *\n");
 		result.append("   * @return a string describing the classifier\n");
@@ -1760,7 +1762,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 
 		// getCapabilities
 		result.append("\n");
-		result.append("  /**\n");
+		result.append("  /*\n");
 		result.append("   * Returns the capabilities of this classifier.\n");
 		result.append("   *\n");
 		result.append("   * @return the capabilities\n");
@@ -1773,7 +1775,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 
 		// buildClassifier
 		result.append("\n");
-		result.append("  /**\n");
+		result.append("  /*\n");
 		result.append("   * only checks the data against its capabilities.\n");
 		result.append("   *\n");
 		result.append("   * @param i the training data\n");
@@ -1786,7 +1788,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 
 		// classifyInstance
 		result.append("\n");
-		result.append("  /**\n");
+		result.append("  /*\n");
 		result.append("   * Classifies the given instance.\n");
 		result.append("   *\n");
 		result.append("   * @param i the instance to classify\n");
@@ -1813,7 +1815,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 
 		// getRevision
 		result.append("\n");
-		result.append("  /**\n");
+		result.append("  /*\n");
 		result.append("   * Returns the revision string.\n");
 		result.append("   * \n");
 		result.append("   * @return        the revision\n");
@@ -1824,7 +1826,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 
 		// toString
 		result.append("\n");
-		result.append("  /**\n");
+		result.append("  /*\n");
 		result
 				.append("   * Returns only the classnames and what classifier it is based on.\n");
 		result.append("   *\n");
@@ -1839,7 +1841,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 
 		// main
 		result.append("\n");
-		result.append("  /**\n");
+		result.append("  /*\n");
 		result.append("   * Runs the classfier from commandline.\n");
 		result.append("   *\n");
 		result.append("   * @param args the commandline arguments\n");
@@ -1856,7 +1858,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return result.toString();
 	}
 
-	/**
+	/*
 	 * Gets the number of test instances that had a known class value (actually
 	 * the sum of the weights of test instances with known class value).
 	 *
@@ -1867,7 +1869,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return m_WithClass;
 	}
 
-	/**
+	/*
 	 * Gets the number of instances incorrectly classified (that is, for which an
 	 * incorrect prediction was made). (Actually the sum of the weights of these
 	 * instances)
@@ -1879,7 +1881,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return m_Incorrect;
 	}
 
-	/**
+	/*
 	 * Gets the percentage of instances incorrectly classified (that is, for which
 	 * an incorrect prediction was made).
 	 *
@@ -1890,7 +1892,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return 100 * m_Incorrect / m_WithClass;
 	}
 
-	/**
+	/*
 	 * Gets the total cost, that is, the cost of each prediction times the weight
 	 * of the instance, summed over all instances.
 	 *
@@ -1901,7 +1903,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return m_TotalCost;
 	}
 
-	/**
+	/*
 	 * Gets the average cost, that is, total cost of misclassifications (incorrect
 	 * plus unclassified) over the total number of instances.
 	 *
@@ -1912,7 +1914,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return m_TotalCost / m_WithClass;
 	}
 
-	/**
+	/*
 	 * Gets the number of instances correctly classified (that is, for which a
 	 * correct prediction was made). (Actually the sum of the weights of these
 	 * instances)
@@ -1924,7 +1926,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return m_Correct;
 	}
 
-	/**
+	/*
 	 * Gets the percentage of instances correctly classified (that is, for which a
 	 * correct prediction was made).
 	 *
@@ -1935,7 +1937,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return 100 * m_Correct / m_WithClass;
 	}
 
-	/**
+	/*
 	 * Gets the number of instances not classified (that is, for which no
 	 * prediction was made by the classifier). (Actually the sum of the weights of
 	 * these instances)
@@ -1947,7 +1949,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return m_Unclassified;
 	}
 
-	/**
+	/*
 	 * Gets the percentage of instances not classified (that is, for which no
 	 * prediction was made by the classifier).
 	 *
@@ -1958,7 +1960,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return 100 * m_Unclassified / m_WithClass;
 	}
 
-	/**
+	/*
 	 * Returns the estimated error rate or the root mean squared error (if the
 	 * class is numeric). If a cost matrix was given this error rate gives the
 	 * average cost.
@@ -1978,7 +1980,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		}
 	}
 
-	/**
+	/*
 	 * Returns value of kappa statistic if class is nominal.
 	 *
 	 * @return the value of the kappa statistic
@@ -2010,7 +2012,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		}
 	}
 
-	/**
+	/*
 	 * Returns the correlation coefficient if the class is numeric.
 	 *
 	 * @return the correlation coefficient
@@ -2042,7 +2044,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return correlation;
 	}
 
-	/**
+	/*
 	 * Returns the mean absolute error. Refers to the error of the predicted
 	 * values for numeric classes, and the error of the predicted probability
 	 * distribution for nominal classes.
@@ -2054,7 +2056,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return m_SumAbsErr / (m_WithClass - m_Unclassified);
 	}
 
-	/**
+	/*
 	 * Returns the mean absolute error of the prior.
 	 *
 	 * @return the mean absolute error
@@ -2068,7 +2070,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return m_SumPriorAbsErr / m_WithClass;
 	}
 
-	/**
+	/*
 	 * Returns the relative absolute error.
 	 *
 	 * @return the relative absolute error
@@ -2083,7 +2085,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return 100 * meanAbsoluteError() / meanPriorAbsoluteError();
 	}
 
-	/**
+	/*
 	 * Returns the root mean squared error.
 	 *
 	 * @return the root mean squared error
@@ -2093,7 +2095,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return Math.sqrt(m_SumSqrErr / (m_WithClass - m_Unclassified));
 	}
 
-	/**
+	/*
 	 * Returns the root mean prior squared error.
 	 *
 	 * @return the root mean prior squared error
@@ -2107,7 +2109,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return Math.sqrt(m_SumPriorSqrErr / m_WithClass);
 	}
 
-	/**
+	/*
 	 * Returns the root relative squared error if the class is numeric.
 	 *
 	 * @return the root relative squared error
@@ -2121,7 +2123,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return 100.0 * rootMeanSquaredError() / rootMeanPriorSquaredError();
 	}
 
-	/**
+	/*
 	 * Calculate the entropy of the prior distribution
 	 *
 	 * @return the entropy of the prior distribution
@@ -2147,7 +2149,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return entropy;
 	}
 
-	/**
+	/*
 	 * Return the total Kononenko & Bratko Information score in bits
 	 *
 	 * @return the K&B information score
@@ -2166,7 +2168,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return m_SumKBInfo;
 	}
 
-	/**
+	/*
 	 * Return the Kononenko & Bratko Information score in bits per instance.
 	 *
 	 * @return the K&B information score
@@ -2185,7 +2187,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return m_SumKBInfo / (m_WithClass - m_Unclassified);
 	}
 
-	/**
+	/*
 	 * Return the Kononenko & Bratko Relative Information score
 	 *
 	 * @return the K&B relative information score
@@ -2204,7 +2206,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return 100.0 * KBInformation() / priorEntropy();
 	}
 
-	/**
+	/*
 	 * Returns the total entropy for the null model
 	 *
 	 * @return the total null model entropy
@@ -2218,7 +2220,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return m_SumPriorEntropy;
 	}
 
-	/**
+	/*
 	 * Returns the entropy per instance for the null model
 	 *
 	 * @return the null model entropy per instance
@@ -2232,7 +2234,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return m_SumPriorEntropy / m_WithClass;
 	}
 
-	/**
+	/*
 	 * Returns the total entropy for the scheme
 	 *
 	 * @return the total scheme entropy
@@ -2246,7 +2248,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return m_SumSchemeEntropy;
 	}
 
-	/**
+	/*
 	 * Returns the entropy per instance for the scheme
 	 *
 	 * @return the scheme entropy per instance
@@ -2260,7 +2262,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return m_SumSchemeEntropy / (m_WithClass - m_Unclassified);
 	}
 
-	/**
+	/*
 	 * Returns the total SF, which is the null model entropy minus the scheme
 	 * entropy.
 	 *
@@ -2275,7 +2277,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return m_SumPriorEntropy - m_SumSchemeEntropy;
 	}
 
-	/**
+	/*
 	 * Returns the SF per instance, which is the null model entropy minus the
 	 * scheme entropy, per instance.
 	 *
@@ -2291,7 +2293,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 				/ (m_WithClass - m_Unclassified);
 	}
 
-	/**
+	/*
 	 * Output the cumulative margin distribution as a string suitable for input
 	 * for gnuplot or similar package.
 	 *
@@ -2323,7 +2325,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return result;
 	}
 
-	/**
+	/*
 	 * Calls toSummaryString() with no title and no complexity stats
 	 *
 	 * @return a summary description of the classifier evaluation
@@ -2334,7 +2336,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return toSummaryString("", false);
 	}
 
-	/**
+	/*
 	 * Calls toSummaryString() with a default title.
 	 *
 	 * @param printComplexityStatistics if true, complexity statistics are
@@ -2346,7 +2348,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return toSummaryString("=== Summary ===\n", printComplexityStatistics);
 	}
 
-	/**
+	/*
 	 * Outputs the performance statistics in summary form. Lists number (and
 	 * percentage) of instances classified correctly, incorrectly and
 	 * unclassified. Outputs the total number of instances classified, and the
@@ -2449,7 +2451,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return text.toString();
 	}
 
-	/**
+	/*
 	 * Calls toMatrixString() with a default title.
 	 *
 	 * @return the confusion matrix as a string
@@ -2460,7 +2462,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return toMatrixString("=== Confusion Matrix ===\n");
 	}
 
-	/**
+	/*
 	 * Outputs the performance statistics as a classification confusion matrix.
 	 * For each class value, shows the distribution of predicted class values.
 	 *
@@ -2526,7 +2528,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return text.toString();
 	}
 
-	/**
+	/*
 	 * Generates a breakdown of the accuracy for each class (with default title),
 	 * incorporating various information-retrieval statistics, such as true/false
 	 * positive rate, precision/recall/F-Measure. Should be useful for ROC curves,
@@ -2540,7 +2542,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return toClassDetailsString("=== Detailed Accuracy By Class ===\n");
 	}
 
-	/**
+	/*
 	 * Generates a breakdown of the accuracy for each class, incorporating various
 	 * information-retrieval statistics, such as true/false positive rate,
 	 * precision/recall/F-Measure. Should be useful for ROC curves,
@@ -2591,7 +2593,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return text.toString();
 	}
 
-	/**
+	/*
 	 * Calculate the number of true positives with respect to a particular class.
 	 * This is defined as
 	 * <p/>
@@ -2614,7 +2616,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return correct;
 	}
 
-	/**
+	/*
 	 * Calculate the true positive rate with respect to a particular class. This
 	 * is defined as
 	 * <p/>
@@ -2643,7 +2645,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return correct / total;
 	}
 
-	/**
+	/*
 	 * Calculates the weighted (by class size) true positive rate.
 	 *
 	 * @return the weighted true positive rate.
@@ -2668,7 +2670,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return truePosTotal / classCountSum;
 	}
 
-	/**
+	/*
 	 * Calculate the number of true negatives with respect to a particular class.
 	 * This is defined as
 	 * <p/>
@@ -2695,7 +2697,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return correct;
 	}
 
-	/**
+	/*
 	 * Calculate the true negative rate with respect to a particular class. This
 	 * is defined as
 	 * <p/>
@@ -2728,7 +2730,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return correct / total;
 	}
 
-	/**
+	/*
 	 * Calculates the weighted (by class size) true negative rate.
 	 *
 	 * @return the weighted true negative rate.
@@ -2753,7 +2755,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return trueNegTotal / classCountSum;
 	}
 
-	/**
+	/*
 	 * Calculate number of false positives with respect to a particular class.
 	 * This is defined as
 	 * <p/>
@@ -2780,7 +2782,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return incorrect;
 	}
 
-	/**
+	/*
 	 * Calculate the false positive rate with respect to a particular class. This
 	 * is defined as
 	 * <p/>
@@ -2813,7 +2815,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return incorrect / total;
 	}
 
-	/**
+	/*
 	 * Calculates the weighted (by class size) false positive rate.
 	 *
 	 * @return the weighted false positive rate.
@@ -2838,7 +2840,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return falsePosTotal / classCountSum;
 	}
 
-	/**
+	/*
 	 * Calculate number of false negatives with respect to a particular class.
 	 * This is defined as
 	 * <p/>
@@ -2865,7 +2867,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return incorrect;
 	}
 
-	/**
+	/*
 	 * Calculate the false negative rate with respect to a particular class. This
 	 * is defined as
 	 * <p/>
@@ -2898,7 +2900,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return incorrect / total;
 	}
 
-	/**
+	/*
 	 * Calculates the weighted (by class size) false negative rate.
 	 *
 	 * @return the weighted false negative rate.
@@ -2923,7 +2925,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return falseNegTotal / classCountSum;
 	}
 
-	/**
+	/*
 	 * Calculate the recall with respect to a particular class. This is defined as
 	 * <p/>
 	 * <p>
@@ -2943,7 +2945,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return truePositiveRate(classIndex);
 	}
 
-	/**
+	/*
 	 * Calculates the weighted (by class size) recall.
 	 *
 	 * @return the weighted recall.
@@ -2952,7 +2954,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return weightedTruePositiveRate();
 	}
 
-	/**
+	/*
 	 * Calculate the precision with respect to a particular class. This is defined
 	 * as
 	 * <p/>
@@ -2981,7 +2983,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return correct / total;
 	}
 
-	/**
+	/*
 	 * Calculates the weighted (by class size) false precision.
 	 *
 	 * @return the weighted precision.
@@ -3006,7 +3008,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return precisionTotal / classCountSum;
 	}
 
-	/**
+	/*
 	 * Calculate the F-Measure with respect to a particular class. This is defined
 	 * as
 	 * <p/>
@@ -3030,7 +3032,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return 2 * precision * recall / (precision + recall);
 	}
 
-	/**
+	/*
 	 * Calculates the weighted (by class size) F-Measure.
 	 *
 	 * @return the weighted F-Measure.
@@ -3055,7 +3057,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return fMeasureTotal / classCountSum;
 	}
 
-	/**
+	/*
 	 * Sets the class prior probabilities
 	 *
 	 * @param train the training instances used to determine the prior
@@ -3095,7 +3097,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		}
 	}
 
-	/**
+	/*
 	 * Get the current weighted class counts
 	 *
 	 * @return the weighted class counts
@@ -3104,7 +3106,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return m_ClassPriors;
 	}
 
-	/**
+	/*
 	 * Updates the class prior probabilities (when incrementally training)
 	 *
 	 * @param instance the new training instance seen
@@ -3123,7 +3125,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		}
 	}
 
-	/**
+	/*
 	 * disables the use of priors, e.g., in case of de-serialized schemes that
 	 * have no access to the original training set, but are evaluated on a set
 	 * set.
@@ -3132,7 +3134,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		m_NoPriors = true;
 	}
 
-	/**
+	/*
 	 * Tests whether the current evaluation object is equal to another evaluation
 	 * object
 	 *
@@ -3207,7 +3209,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return true;
 	}
 
-	/**
+	/*
 	 * Prints the predictions for the given dataset into a String variable.
 	 *
 	 * @param classifier         the classifier to use
@@ -3228,7 +3230,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 				attributesToOutput, false, predsText);
 	}
 
-	/**
+	/*
 	 * Prints the header for the predictions output into a supplied StringBuffer
 	 *
 	 * @param test               structure of the test set to print predictions for
@@ -3271,7 +3273,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		text.append("\n");
 	}
 
-	/**
+	/*
 	 * Prints the predictions for the given dataset into a supplied StringBuffer
 	 *
 	 * @param classifier         the classifier to use
@@ -3318,8 +3320,8 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		}
 		// return text.toString();
 	}
-
-	//  /**
+	
+	//  /*
 //   * store the prediction made by the classifier as a string
 //   *
 //   * @param classifier the classifier to use
@@ -3428,7 +3430,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return result.toString();
 	}
 
-	/**
+	/*
 	 * Builds a string listing the attribute values in a specified range of
 	 * indices, separated by commas and enclosed in brackets.
 	 *
@@ -3460,7 +3462,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return text.toString();
 	}
 
-	/**
+	/*
 	 * Make up the help string giving all the command line options
 	 *
 	 * @param classifier the classifier to include options for
@@ -3470,8 +3472,8 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 */
 	protected static String makeOptionString(Classifier classifier,
 											 boolean globalInfo) {
-
-		StringBuffer optionsText = new StringBuffer("");
+		
+		StringBuffer optionsText = new StringBuffer();
 
 		// General options
 		optionsText.append("\n\nGeneral options:\n\n");
@@ -3584,7 +3586,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return optionsText.toString();
 	}
 
-	/**
+	/*
 	 * Return the global info (if it exists) for the supplied classifier
 	 *
 	 * @param classifier the classifier to get the global info for
@@ -3612,7 +3614,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return result;
 	}
 
-	/**
+	/*
 	 * Method for generating indices for the confusion matrix.
 	 *
 	 * @param num     integer to format
@@ -3621,8 +3623,8 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @return the formatted integer as a string
 	 */
 	protected String num2ShortID(int num, char[] IDChars, int IDWidth) {
-
-		char ID[] = new char[IDWidth];
+		
+		char[] ID = new char[IDWidth];
 		int i;
 
 		for (i = IDWidth - 1; i >= 0; i--) {
@@ -3639,7 +3641,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return new String(ID);
 	}
 
-	/**
+	/*
 	 * Convert a single prediction into a probability distribution with all zero
 	 * probabilities except the predicted value which has probability 1.0;
 	 *
@@ -3660,7 +3662,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		return result;
 	}
 
-	/**
+	/*
 	 * Updates all the statistics about a classifiers performance for the current
 	 * test instance.
 	 *
@@ -3744,7 +3746,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		}
 	}
 
-	/**
+	/*
 	 * Updates all the statistics about a predictors performance for the current
 	 * test instance.
 	 *
@@ -3795,7 +3797,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		}
 	}
 
-	/**
+	/*
 	 * Update the cumulative record of classification margins
 	 *
 	 * @param predictedDistribution the probability distribution predicted for the
@@ -3820,7 +3822,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		m_MarginCounts[bin] += weight;
 	}
 
-	/**
+	/*
 	 * Update the numeric accuracy measures. For numeric classes, the accuracy is
 	 * between the actual and predicted class values. For nominal classes, the
 	 * accuracy is between the actual and predicted class probabilities.
@@ -3851,7 +3853,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		m_SumPriorSqrErr += weight * sumPriorSqrErr / m_NumClasses;
 	}
 
-	/**
+	/*
 	 * Adds a numeric (non-missing) training class value and weight to the buffer
 	 * of stored values.
 	 *
@@ -3879,7 +3881,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		m_NumTrainClassVals++;
 	}
 
-	/**
+	/*
 	 * Sets up the priors for numeric class attributes from the training class
 	 * values that have been seen so far.
 	 */
@@ -3916,7 +3918,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		}
 	}
 
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision

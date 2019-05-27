@@ -43,7 +43,7 @@ import java.util.Enumeration;
 import java.util.Random;
 import java.util.Vector;
 
-/**
+/*
  * <!-- globalinfo-start -->
  * An implementation of a RIpple-DOwn Rule learner.<br/>
  * <br/>
@@ -105,62 +105,62 @@ public class RidorTS
 		extends Classifier
 		implements AdditionalMeasureProducer, WeightedInstancesHandler {
 	
-	/**
+	/*
 	 * for serialization
 	 */
 	static final long serialVersionUID = -7261533075088314436L;
 	
-	/**
+	/*
 	 * The number of folds to split data into Grow and Prune for IREP
 	 */
 	private int m_Folds = 3;
 	
-	/**
+	/*
 	 * The number of shuffles performed on the data for randomization
 	 */
 	private int m_Shuffle = 1;
 	
-	/**
+	/*
 	 * Random object for randomization
 	 */
 	private Random m_Random = null;
 	
-	/**
+	/*
 	 * The seed to perform randomization
 	 */
 	private int m_Seed = 1;
 	
-	/**
+	/*
 	 * Whether use error rate on all the data
 	 */
 	private boolean m_IsAllErr = false;
 	
-	/**
+	/*
 	 * Whether use majority class as default class
 	 */
 	private boolean m_IsMajority = false;
 	
-	/**
+	/*
 	 * The root of Ridor
 	 */
 	private Ridor_node m_Root = null;
 	
-	/**
+	/*
 	 * The class attribute of the data
 	 */
 	private Attribute m_Class;
 	
-	/**
+	/*
 	 * Statistics of the data
 	 */
 	private double m_Cover, m_Err;
 	
-	/**
+	/*
 	 * The minimal number of instance weights within a split
 	 */
 	private double m_MinNo = 2.0;
 	
-	/**
+	/*
 	 * Returns a string describing classifier
 	 *
 	 * @return a description suitable for
@@ -177,7 +177,7 @@ public class RidorTS
 				+ "For more information about Ripple-Down Rules, see:\n\n";
 	}
 	
-	/**
+	/*
 	 * Private class implementing the single node of Ridor.
 	 * It consists of a default class label, a set of exceptions to the default rule
 	 * and the exceptions to each exception
@@ -185,34 +185,34 @@ public class RidorTS
 	private class Ridor_node
 			implements Serializable, RevisionHandler {
 		
-		/**
+		/*
 		 * for serialization
 		 */
 		static final long serialVersionUID = -581370560157467677L;
 		
-		/**
+		/*
 		 * The default class label
 		 */
 		private double defClass = Double.NaN;
 		
-		/**
+		/*
 		 * The set of exceptions of the default rule.
 		 * Each element also has its own exceptions and the consequent of each rule
 		 * is determined by its exceptions
 		 */
 		private RidorRule[] rules = null;
 		
-		/**
+		/*
 		 * The exceptions of the exception rules
 		 */
 		private Ridor_node[] excepts = null;
 		
-		/**
+		/*
 		 * The level of this node
 		 */
 		private int level;
 		
-		/**
+		/*
 		 * Gets the default class label
 		 *
 		 * @return the default class label
@@ -221,7 +221,7 @@ public class RidorTS
 			return defClass;
 		}
 		
-		/**
+		/*
 		 * Gets the set of exceptions
 		 *
 		 * @return the set of exceptions
@@ -230,7 +230,7 @@ public class RidorTS
 			return rules;
 		}
 		
-		/**
+		/*
 		 * Gets the exceptions of the exceptions rules
 		 *
 		 * @return the exceptions of the exceptions rules
@@ -239,7 +239,7 @@ public class RidorTS
 			return excepts;
 		}
 		
-		/**
+		/*
 		 * Builds a ripple-down manner rule learner.
 		 *
 		 * @param dataByClass the divided data by their class label. The real class
@@ -355,7 +355,7 @@ public class RidorTS
 			}
 		}
 		
-		/**
+		/*
 		 * Private function to build a rule set and return the weighted avg of accuracy
 		 * rate of rules in the set.
 		 *
@@ -435,7 +435,7 @@ public class RidorTS
 			return wAcRt;
 		}
 		
-		/**
+		/*
 		 * Private function to combine two data
 		 *
 		 * @param data1 the data to which data2 is appended
@@ -450,7 +450,7 @@ public class RidorTS
 			return data;
 		}
 		
-		/**
+		/*
 		 * Compute the weighted average of accuracy rate of a certain rule
 		 * Each rule is weighted by its coverage proportion in the whole data.
 		 * So the accuracy rate of one ruleset is actually
@@ -471,7 +471,7 @@ public class RidorTS
 			return (worthRt * (cover / total));
 		}
 		
-		/**
+		/*
 		 * Builds an array of data according to their true class label
 		 * Each bag of data is filtered through the rule specified and
 		 * is totally covered by this rule.
@@ -495,7 +495,7 @@ public class RidorTS
 			return dataBags;
 		}
 		
-		/**
+		/*
 		 * The size of the certain node of Ridor, i.e. the
 		 * number of rules generated within and below this node
 		 *
@@ -511,7 +511,7 @@ public class RidorTS
 			return size;
 		}
 		
-		/**
+		/*
 		 * Prints the all the rules of one node of Ridor.
 		 *
 		 * @return a textual description of one node of Ridor
@@ -536,7 +536,7 @@ public class RidorTS
 			return text.toString();
 		}
 		
-		/**
+		/*
 		 * Returns the revision string.
 		 *
 		 * @return the revision
@@ -546,7 +546,7 @@ public class RidorTS
 		}
 	}
 	
-	/**
+	/*
 	 * This class implements a single rule that predicts the 2-class distribution.
 	 * <p>
 	 * A rule consists of antecedents "AND"ed together and the consequent (class value)
@@ -558,47 +558,47 @@ public class RidorTS
 	private class RidorRule
 			implements WeightedInstancesHandler, Serializable, RevisionHandler {
 		
-		/**
+		/*
 		 * for serialization
 		 */
 		static final long serialVersionUID = 4375199423973848157L;
 		
-		/**
+		/*
 		 * The internal representation of the class label to be predicted
 		 */
 		private double m_Class = -1;
 		
-		/**
+		/*
 		 * The class attribute of the data
 		 */
 		private Attribute m_ClassAttribute;
 		
-		/**
+		/*
 		 * The vector of antecedents of this rule
 		 */
 		protected FastVector m_Antds = null;
 		
-		/**
+		/*
 		 * The worth rate of this rule, in this case, accuracy rate in the pruning data
 		 */
 		private double m_WorthRate = 0;
 		
-		/**
+		/*
 		 * The worth value of this rule, in this case, accurate # in pruning data
 		 */
 		private double m_Worth = 0;
 		
-		/**
+		/*
 		 * The sum of weights of the data covered by this rule in the pruning data
 		 */
 		private double m_CoverP = 0;
 		
-		/**
+		/*
 		 * The accurate and covered data of this rule in the growing data
 		 */
 		private double m_CoverG = 0, m_AccuG = 0;
 		
-		/**
+		/*
 		 * The access functions for parameters
 		 */
 		public void setPredictedClass(double cl) {
@@ -609,7 +609,7 @@ public class RidorTS
 			return m_Class;
 		}
 		
-		/**
+		/*
 		 * Builds a single rule learner with REP dealing with 2 classes.
 		 * This rule learner always tries to predict the class with label
 		 * m_Class.
@@ -649,7 +649,7 @@ public class RidorTS
 			prune(pruneData);    // Prune this rule
 		}
 		
-		/**
+		/*
 		 * Find all the instances in the dataset covered by this rule.
 		 * The instances not covered will also be deducted from the the original data
 		 * and returned by this procedure.
@@ -673,7 +673,7 @@ public class RidorTS
 			return data;
 		}
 		
-		/**
+		/*
 		 * Whether the instance covered by this rule
 		 *
 		 * @param inst the instance in question
@@ -693,7 +693,7 @@ public class RidorTS
 			return isCover;
 		}
 		
-		/**
+		/*
 		 * Whether this rule has antecedents, i.e. whether it is a default rule
 		 *
 		 * @return the boolean value indicating whether the rule has antecedents
@@ -705,7 +705,7 @@ public class RidorTS
 				return (m_Antds.size() > 0);
 		}
 		
-		/**
+		/*
 		 * Build one rule using the growing data
 		 *
 		 * @param data the growing data used to build the rule
@@ -774,7 +774,7 @@ public class RidorTS
 					numUnused--;
 				}
 				
-				m_Antds.addElement((Object) oneAntd);
+				m_Antds.addElement(oneAntd);
 				growData = coverData;// Grow data size is shrinking
 				
 				defAcRt = oneAntd.getAccuRate();
@@ -785,7 +785,7 @@ public class RidorTS
 			}
 		}
 		
-		/**
+		/*
 		 * Compute the best information gain for the specified antecedent
 		 *
 		 * @param data    the data based on which the infoGain is computed
@@ -806,7 +806,7 @@ public class RidorTS
 			else return null;
 		}
 		
-		/**
+		/*
 		 * Prune the rule using the pruning data and update the worth parameters for this rule
 		 * The accuracy rate is used to prune the rule.
 		 *
@@ -887,7 +887,7 @@ public class RidorTS
 			}
 		}
 		
-		/**
+		/*
 		 * Private function to compute default number of accurate instances
 		 * in the specified data for m_Class
 		 *
@@ -904,7 +904,7 @@ public class RidorTS
 			return defAccu;
 		}
 		
-		/**
+		/*
 		 * The following are get functions after prune() has set the value of worthRate and worth
 		 */
 		public double getWorthRate() {
@@ -927,7 +927,7 @@ public class RidorTS
 			return m_AccuG;
 		}
 		
-		/**
+		/*
 		 * Prints this rule with the specified class label
 		 *
 		 * @param att the string standing for attribute in the consequent of this rule
@@ -938,8 +938,8 @@ public class RidorTS
 			StringBuffer text = new StringBuffer();
 			if (m_Antds.size() > 0) {
 				for (int j = 0; j < (m_Antds.size() - 1); j++)
-					text.append("(" + ((Antd) (m_Antds.elementAt(j))).toString() + ") and ");
-				text.append("(" + ((Antd) (m_Antds.lastElement())).toString() + ")");
+					text.append("(" + m_Antds.elementAt(j).toString() + ") and ");
+				text.append("(" + m_Antds.lastElement().toString() + ")");
 			}
 			text.append(" => " + att + " = " + cl);
 			text.append("  (" + m_CoverG + "/" + (m_CoverG - m_AccuG) + ") [" +
@@ -947,7 +947,7 @@ public class RidorTS
 			return text.toString();
 		}
 		
-		/**
+		/*
 		 * Prints this rule
 		 *
 		 * @return a textual description of this rule
@@ -956,7 +956,7 @@ public class RidorTS
 			return toString(m_ClassAttribute.name(), m_ClassAttribute.value((int) m_Class));
 		}
 		
-		/**
+		/*
 		 * Returns the revision string.
 		 *
 		 * @return the revision
@@ -967,7 +967,7 @@ public class RidorTS
 	}
 	
 	
-	/**
+	/*
 	 * The single antecedent in the rule, which is composed of an attribute and
 	 * the corresponding value.  There are two inherited classes, namely NumericAntd
 	 * and NominalAntd in which the attributes are numeric and nominal respectively.
@@ -975,43 +975,43 @@ public class RidorTS
 	private abstract class Antd
 			implements Serializable, RevisionHandler {
 		
-		/**
+		/*
 		 * for serialization
 		 */
 		private static final long serialVersionUID = 5317379013858933369L;
 		
-		/**
+		/*
 		 * The attribute of the antecedent
 		 */
 		protected Attribute att;
 		
-		/**
+		/*
 		 * The attribute value of the antecedent.
 		 * For numeric attribute, value is either 0(1st bag) or 1(2nd bag)
 		 */
 		protected double value;
 		
-		/**
+		/*
 		 * The maximum infoGain achieved by this antecedent test
 		 */
 		protected double maxInfoGain;
 		
-		/**
+		/*
 		 * The accurate rate of this antecedent test on the growing data
 		 */
 		protected double accuRate;
 		
-		/**
+		/*
 		 * The coverage of this antecedent
 		 */
 		protected double cover;
 		
-		/**
+		/*
 		 * The accurate data for this antecedent
 		 */
 		protected double accu;
 		
-		/**
+		/*
 		 * Constructor
 		 */
 		public Antd(Attribute a) {
@@ -1055,7 +1055,7 @@ public class RidorTS
 			return cover;
 		}
 		
-		/**
+		/*
 		 * Returns the revision string.
 		 *
 		 * @return the revision
@@ -1065,23 +1065,23 @@ public class RidorTS
 		}
 	}
 	
-	/**
+	/*
 	 * The antecedent with numeric attribute
 	 */
 	private class NumericAntd
 			extends Antd {
 		
-		/**
+		/*
 		 * for serialization
 		 */
 		static final long serialVersionUID = 1968761518014492214L;
 		
-		/**
+		/*
 		 * The split point for this numeric antecedent
 		 */
 		private double splitPoint;
 		
-		/**
+		/*
 		 * Constructor
 		 */
 		public NumericAntd(Attribute a) {
@@ -1089,14 +1089,14 @@ public class RidorTS
 			splitPoint = Double.NaN;
 		}
 		
-		/**
+		/*
 		 * Get split point of this numeric antecedent
 		 */
 		public double getSplitPoint() {
 			return splitPoint;
 		}
 		
-		/**
+		/*
 		 * Implements the splitData function.
 		 * This procedure is to split the data into two bags according
 		 * to the information gain of the numeric attribute value
@@ -1221,7 +1221,7 @@ public class RidorTS
 			return splitData;
 		}
 		
-		/**
+		/*
 		 * Whether the instance is covered by this antecedent
 		 *
 		 * @param inst the instance in question
@@ -1240,7 +1240,7 @@ public class RidorTS
 			return isCover;
 		}
 		
-		/**
+		/*
 		 * Prints this antecedent
 		 *
 		 * @return a textual description of this antecedent
@@ -1250,7 +1250,7 @@ public class RidorTS
 			return (att.name() + symbol + Utils.doubleToString(splitPoint, 6));
 		}
 		
-		/**
+		/*
 		 * Returns the revision string.
 		 *
 		 * @return the revision
@@ -1261,13 +1261,13 @@ public class RidorTS
 	}
 	
 	
-	/**
+	/*
 	 * The antecedent with nominal attribute
 	 */
 	private class NominalAntd
 			extends Antd {
 		
-		/**
+		/*
 		 * for serialization
 		 */
 		static final long serialVersionUID = -256386137196078004L;
@@ -1277,7 +1277,7 @@ public class RidorTS
 		private double[] coverage;
 		private double[] infoGain;
 		
-		/**
+		/*
 		 * Constructor
 		 */
 		public NominalAntd(Attribute a) {
@@ -1288,7 +1288,7 @@ public class RidorTS
 			infoGain = new double[bag];
 		}
 		
-		/**
+		/*
 		 * Implements the splitData function.
 		 * This procedure is to split the data into bags according
 		 * to the nominal attribute value
@@ -1349,7 +1349,7 @@ public class RidorTS
 			return splitData;
 		}
 		
-		/**
+		/*
 		 * Whether the instance is covered by this antecedent
 		 *
 		 * @param inst the instance in question
@@ -1365,7 +1365,7 @@ public class RidorTS
 			return isCover;
 		}
 		
-		/**
+		/*
 		 * Prints this antecedent
 		 *
 		 * @return a textual description of this antecedent
@@ -1374,7 +1374,7 @@ public class RidorTS
 			return (att.name() + " = " + att.value((int) value));
 		}
 		
-		/**
+		/*
 		 * Returns the revision string.
 		 *
 		 * @return the revision
@@ -1384,7 +1384,7 @@ public class RidorTS
 		}
 	}
 	
-	/**
+	/*
 	 * Returns default capabilities of the classifier.
 	 *
 	 * @return the capabilities of this classifier
@@ -1406,7 +1406,7 @@ public class RidorTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Builds a ripple-down manner rule learner.
 	 *
 	 * @param instances the training data
@@ -1455,7 +1455,7 @@ public class RidorTS
 		
 	}
 	
-	/**
+	/*
 	 * Classify the test instance with the rule learner
 	 *
 	 * @param datum the instance to be classified
@@ -1465,7 +1465,7 @@ public class RidorTS
 		return classify(m_Root, datum);
 	}
 	
-	/**
+	/*
 	 * Classify the test instance with one node of Ridor
 	 *
 	 * @param node  the node of Ridor to classify the test instance
@@ -1489,7 +1489,7 @@ public class RidorTS
 		return classValue;
 	}
 	
-	/**
+	/*
 	 * Returns an enumeration describing the available options
 	 * Valid options are: <p>
 	 * <p>
@@ -1539,7 +1539,7 @@ public class RidorTS
 		return newVector.elements();
 	}
 	
-	/**
+	/*
 	 * Parses a given list of options. <p/>
 	 * <p>
 	 * <!-- options-start -->
@@ -1606,7 +1606,7 @@ public class RidorTS
 		m_IsMajority = Utils.getFlag('M', options);
 	}
 	
-	/**
+	/*
 	 * Gets the current settings of the Classifier.
 	 *
 	 * @return an array of strings suitable for passing to setOptions
@@ -1631,9 +1631,9 @@ public class RidorTS
 		return options;
 	}
 	
-	/** Set and get members for parameters */
+	/* Set and get members for parameters */
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -1652,7 +1652,7 @@ public class RidorTS
 		return m_Folds;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -1672,7 +1672,7 @@ public class RidorTS
 		return m_Shuffle;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -1690,7 +1690,7 @@ public class RidorTS
 		return m_Seed;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -1709,7 +1709,7 @@ public class RidorTS
 		return m_IsAllErr;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -1727,7 +1727,7 @@ public class RidorTS
 		return m_IsMajority;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -1745,7 +1745,7 @@ public class RidorTS
 		return m_MinNo;
 	}
 	
-	/**
+	/*
 	 * Returns an enumeration of the additional measure names
 	 *
 	 * @return an enumeration of the measure names
@@ -1756,7 +1756,7 @@ public class RidorTS
 		return newVector.elements();
 	}
 	
-	/**
+	/*
 	 * Returns the value of the named measure
 	 *
 	 * @param additionalMeasureName the name of the measure to query for its value
@@ -1770,7 +1770,7 @@ public class RidorTS
 			throw new IllegalArgumentException(additionalMeasureName + " not supported (Ripple down rule learner)");
 	}
 	
-	/**
+	/*
 	 * Measure the number of rules in total in the model
 	 *
 	 * @return the number of rules
@@ -1783,7 +1783,7 @@ public class RidorTS
 		return (double) (size + 1); // Add the default rule
 	}
 	
-	/**
+	/*
 	 * Prints the all the rules of the rule learner.
 	 *
 	 * @return a textual description of the classifier
@@ -1798,7 +1798,7 @@ public class RidorTS
 				"\nTotal number of rules (incl. the default rule): " + (int) numRules());
 	}
 	
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision
@@ -1807,7 +1807,7 @@ public class RidorTS
 		return RevisionUtils.extract("$Revision: 5529 $");
 	}
 	
-	/**
+	/*
 	 * Main method.
 	 *
 	 * @param args the options for the classifier

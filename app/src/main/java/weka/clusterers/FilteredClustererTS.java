@@ -36,7 +36,7 @@ import weka.filters.SupervisedFilter;
 import java.util.Enumeration;
 import java.util.Vector;
 
-/**
+/*
  * <!-- globalinfo-start -->
  * Class for running an arbitrary clusterer on data that has been passed through an arbitrary filter. Like the clusterer, the structure of the filter is based exclusively on the training data and test instances will be processed by the filter without changing their structure.
  * <p/>
@@ -87,22 +87,22 @@ import java.util.Vector;
 public class FilteredClustererTS
 		extends SingleClustererEnhancer {
 	
-	/**
+	/*
 	 * for serialization.
 	 */
 	private static final long serialVersionUID = 1420005943163412943L;
 	
-	/**
+	/*
 	 * The filter.
 	 */
 	protected Filter m_Filter;
 	
-	/**
+	/*
 	 * The instance structure of the filtered instances.
 	 */
 	protected Instances m_FilteredInstances;
 	
-	/**
+	/*
 	 * Default constructor.
 	 */
 	public FilteredClustererTS() {
@@ -110,7 +110,7 @@ public class FilteredClustererTS
 		m_Filter = new weka.filters.AllFilter();
 	}
 	
-	/**
+	/*
 	 * Returns a string describing this clusterer.
 	 *
 	 * @return a description of the clusterer suitable for
@@ -124,7 +124,7 @@ public class FilteredClustererTS
 						+ "by the filter without changing their structure.";
 	}
 	
-	/**
+	/*
 	 * String describing default filter.
 	 *
 	 * @return the default filter classname
@@ -133,7 +133,7 @@ public class FilteredClustererTS
 		return weka.filters.AllFilter.class.getName();
 	}
 	
-	/**
+	/*
 	 * Returns an enumeration describing the available options.
 	 *
 	 * @return an enumeration of all the available options.
@@ -155,7 +155,7 @@ public class FilteredClustererTS
 		return result.elements();
 	}
 	
-	/**
+	/*
 	 * Parses a given list of options. <p/>
 	 * <p>
 	 * <!-- options-start -->
@@ -215,7 +215,7 @@ public class FilteredClustererTS
 		super.setOptions(options);
 	}
 	
-	/**
+	/*
 	 * Gets the current settings of the clusterer.
 	 *
 	 * @return an array of strings suitable for passing to setOptions
@@ -237,7 +237,7 @@ public class FilteredClustererTS
 		return (String[]) result.toArray(new String[result.size()]);
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property.
 	 *
 	 * @return tip text for this property suitable for
@@ -247,7 +247,7 @@ public class FilteredClustererTS
 		return "The filter to be used.";
 	}
 	
-	/**
+	/*
 	 * Sets the filter.
 	 *
 	 * @param filter the filter with all options set.
@@ -261,7 +261,7 @@ public class FilteredClustererTS
 							+ "information about the class attribute!");
 	}
 	
-	/**
+	/*
 	 * Gets the filter used.
 	 *
 	 * @return the filter
@@ -270,7 +270,7 @@ public class FilteredClustererTS
 		return m_Filter;
 	}
 	
-	/**
+	/*
 	 * Gets the filter specification string, which contains the class name of
 	 * the filter and any options to the filter.
 	 *
@@ -289,7 +289,7 @@ public class FilteredClustererTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Returns default capabilities of the clusterer.
 	 *
 	 * @return the capabilities of this clusterer
@@ -312,7 +312,7 @@ public class FilteredClustererTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Build the clusterer on the filtered data.
 	 *
 	 * @param data the training data
@@ -338,7 +338,7 @@ public class FilteredClustererTS
 		m_Clusterer.buildClusterer(data);
 	}
 	
-	/**
+	/*
 	 * Classifies a given instance after filtering.
 	 *
 	 * @param instance the instance to be classified
@@ -362,7 +362,7 @@ public class FilteredClustererTS
 		return m_Clusterer.distributionForInstance(newInstance);
 	}
 	
-	/**
+	/*
 	 * Output a representation of this clusterer.
 	 *
 	 * @return a representation of this clusterer
@@ -385,7 +385,7 @@ public class FilteredClustererTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision
@@ -394,7 +394,7 @@ public class FilteredClustererTS
 		return RevisionUtils.extract("$Revision: 5538 $");
 	}
 	
-	/**
+	/*
 	 * Main method for testing this class.
 	 *
 	 * @param args the commandline options, use "-h" for help

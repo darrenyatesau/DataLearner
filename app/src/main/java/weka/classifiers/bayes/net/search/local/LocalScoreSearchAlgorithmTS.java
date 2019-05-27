@@ -37,7 +37,7 @@ import weka.core.SelectedTag;
 import java.util.Vector;
 import java.util.Enumeration;
 
-/** 
+/* 
  <!-- globalinfo-start -->
  * The ScoreBasedSearchAlgorithm class supports Bayes net structure search algorithms that are based on maximizing scores (as opposed to for example conditional independence based search algorithms).
  * <p/>
@@ -62,20 +62,20 @@ import java.util.Enumeration;
  */
 public class LocalScoreSearchAlgorithmTS
 	extends SearchAlgorithmTS {
-
-  	/** for serialization */
+	
+	/* for serialization */
   	static final long serialVersionUID = 3325995552474190374L;
-  	
-	/** points to Bayes network for which a structure is searched for **/
+	
+	/* points to Bayes network for which a structure is searched for **/
 	BayesNetTS m_BayesNet;
 	
-	/**
+	/*
 	 * default constructor
 	 */
 	public LocalScoreSearchAlgorithmTS() {
 	} // c'tor
 	
-	/**
+	/*
 	 * constructor
 	 * 
 	 * @param bayesNet the network
@@ -86,12 +86,12 @@ public class LocalScoreSearchAlgorithmTS
 //		m_Instances = instances;
 	} // c'tor
 	
-	/**
+	/*
 	 * Holds prior on count
 	 */
 	double m_fAlpha = 0.5;
-
-	/** the score types */
+	
+	/* the score types */
 	public static final Tag[] TAGS_SCORE_TYPE = {
 	  new Tag(Scoreable.BAYES, "BAYES"),
 	  new Tag(Scoreable.BDeu, "BDeu"),
@@ -99,13 +99,13 @@ public class LocalScoreSearchAlgorithmTS
 	  new Tag(Scoreable.ENTROPY, "ENTROPY"),
 	  new Tag(Scoreable.AIC, "AIC")
 	};
-
-	/**
+	
+	/*
 	 * Holds the score type used to measure quality of network
 	 */
 	int m_nScoreType = Scoreable.BAYES;
-
-	/**
+	
+	/*
 	 * logScore returns the log of the quality of a network
 	 * (e.g. the posterior probability of the network, or the MDL
 	 * value).
@@ -148,8 +148,8 @@ public class LocalScoreSearchAlgorithmTS
 
         return fLogScore;
     } // logScore
-
-	/**
+	
+	/*
 	* buildStructure determines the network structure/graph of the network
 	* with the K2 algorithm, restricted by its initial structure (which can
 	* be an empty graph, or a Naive Bayes graph.
@@ -162,9 +162,9 @@ public class LocalScoreSearchAlgorithmTS
 		m_BayesNet = bayesNet;
 		super.buildStructure(bayesNet, instances);
 	} // buildStructure
-
-
-	/**
+	
+	
+	/*
 	 * Calc Node Score for given parent set
 	 * 
 	 * @param nNode node for which the score is calculate
@@ -177,8 +177,8 @@ public class LocalScoreSearchAlgorithmTS
 			return calcNodeScorePlain(nNode);
 		}
 	}
-
-	/**
+	
+	/*
 	 * helper function for CalcNodeScore above using the ADTree data structure
 	 * 
 	 * @param nNode node for which the score is calculate
@@ -264,8 +264,8 @@ public class LocalScoreSearchAlgorithmTS
 
 		return calcScoreOfCounts(nCounts, nCardinality, numValues, instances);
 	} // CalcNodeScore
-
-	/**
+	
+	/*
 	 * utility function used by CalcScore and CalcNodeScore to determine the score
 	 * based on observed frequencies.
 	 * 
@@ -469,9 +469,9 @@ public class LocalScoreSearchAlgorithmTS
 
 		return fLogScore;
 	} // CalcNodeScore
-
-
-	/**
+	
+	
+	/*
 	 * Calc Node Score With AddedParent
 	 * 
 	 * @param nNode node for which the score is calculate
@@ -497,9 +497,9 @@ public class LocalScoreSearchAlgorithmTS
 
 		return logScore;
 	} // CalcScoreWithExtraParent
-
-
-	/**
+	
+	
+	/*
 	 * Calc Node Score With Parent Deleted
 	 * 
 	 * @param nNode node for which the score is calculate
@@ -525,8 +525,8 @@ public class LocalScoreSearchAlgorithmTS
 
 		return logScore;
 	} // CalcScoreWithMissingParent
-
-	/**
+	
+	/*
 	 * set quality measure to be used in searching for networks.
 	 * 
 	 * @param newScoreType the new score type
@@ -536,16 +536,16 @@ public class LocalScoreSearchAlgorithmTS
 			m_nScoreType = newScoreType.getSelectedTag().getID();
 		}
 	}
-
-	/**
+	
+	/*
 	 * get quality measure to be used in searching for networks.
 	 * @return quality measure
 	 */
 	public SelectedTag getScoreType() {
 		return new SelectedTag(m_nScoreType, TAGS_SCORE_TYPE);
 	}
-
-	/**
+	
+	/*
 	 * 
 	 * @param bMarkovBlanketClassifier
 	 */
@@ -553,15 +553,15 @@ public class LocalScoreSearchAlgorithmTS
 	  super.setMarkovBlanketClassifier(bMarkovBlanketClassifier);
 	}
 	
-	/**
+	/*
 	 * 
 	 * @return
 	 */
 	public boolean getMarkovBlanketClassifier() {
 	  return super.getMarkovBlanketClassifier();
 	}
-
-	/**
+	
+	/*
 	 * Returns an enumeration describing the available options
 	 * 
 	 * @return an enumeration of all the available options
@@ -585,8 +585,8 @@ public class LocalScoreSearchAlgorithmTS
 
 		return newVector.elements();
 	} // listOptions
-
-	/**
+	
+	/*
 	 * Parses a given list of options. <p/>
 	 *
 	 <!-- options-start -->
@@ -628,8 +628,8 @@ public class LocalScoreSearchAlgorithmTS
 			setScoreType(new SelectedTag(Scoreable.AIC, TAGS_SCORE_TYPE));
 		}
 	} // setOptions
-
-	/**
+	
+	/*
 	 * Gets the current settings of the search algorithm.
 	 *
 	 * @return an array of strings suitable for passing to setOptions
@@ -680,8 +680,8 @@ public class LocalScoreSearchAlgorithmTS
 
 		return options;
 	} // getOptions
-
-	/**
+	
+	/*
 	 * @return a string to describe the ScoreType option.
 	 */
 	public String scoreTypeTipText() {
@@ -690,14 +690,14 @@ public class LocalScoreSearchAlgorithmTS
 			+ " Akaike Information Criterion (AIC), and Entropy.";
 	}
 	
-	/**
+	/*
 	 * @return a string to describe the MarkovBlanketClassifier option.
 	 */
 	public String markovBlanketClassifierTipText() {
 	  return super.markovBlanketClassifierTipText();
 	}
-
-	/**
+	
+	/*
 	 * This will return a string describing the search algorithm.
 	 * @return The string.
 	 */
@@ -708,8 +708,8 @@ public class LocalScoreSearchAlgorithmTS
 	    + "scores (as opposed to for example conditional independence "
 	    + "based search algorithms).";
 	} // globalInfo
-
-	/**
+	
+	/*
 	 * Returns the revision string.
 	 * 
 	 * @return		the revision

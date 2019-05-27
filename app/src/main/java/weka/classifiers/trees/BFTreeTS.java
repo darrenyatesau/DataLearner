@@ -48,7 +48,7 @@ import java.util.Enumeration;
 import java.util.Random;
 import java.util.Vector;
 
-/**
+/*
  * <!-- globalinfo-start -->
  * Class for building a best-first decision tree classifier. This class uses binary split for both nominal and numeric attributes. For missing values, the method of 'fractional' instances is used.<br/>
  * <br/>
@@ -139,24 +139,24 @@ public class BFTreeTS
 		extends RandomizableClassifier
 		implements AdditionalMeasureProducer, TechnicalInformationHandler {
 	
-	/**
+	/*
 	 * For serialization.
 	 */
 	private static final long serialVersionUID = -7035607375962528217L;
 	
-	/**
+	/*
 	 * pruning strategy: un-pruned
 	 */
 	public static final int PRUNING_UNPRUNED = 0;
-	/**
+	/*
 	 * pruning strategy: post-pruning
 	 */
 	public static final int PRUNING_POSTPRUNING = 1;
-	/**
+	/*
 	 * pruning strategy: pre-pruning
 	 */
 	public static final int PRUNING_PREPRUNING = 2;
-	/**
+	/*
 	 * pruning strategy
 	 */
 	public static final Tag[] TAGS_PRUNING = {
@@ -165,130 +165,130 @@ public class BFTreeTS
 			new Tag(PRUNING_PREPRUNING, "prepruned", "Pre-pruning")
 	};
 	
-	/**
+	/*
 	 * the pruning strategy
 	 */
 	protected int m_PruningStrategy = PRUNING_POSTPRUNING;
 	
-	/**
+	/*
 	 * Successor nodes.
 	 */
 	protected BFTreeTS[] m_Successors;
 	
-	/**
+	/*
 	 * Attribute used for splitting.
 	 */
 	protected Attribute m_Attribute;
 	
-	/**
+	/*
 	 * Split point (for numeric attributes).
 	 */
 	protected double m_SplitValue;
 	
-	/**
+	/*
 	 * Split subset (for nominal attributes).
 	 */
 	protected String m_SplitString;
 	
-	/**
+	/*
 	 * Class value for a node.
 	 */
 	protected double m_ClassValue;
 	
-	/**
+	/*
 	 * Class attribute of a dataset.
 	 */
 	protected Attribute m_ClassAttribute;
 	
-	/**
+	/*
 	 * Minimum number of instances at leaf nodes.
 	 */
 	protected int m_minNumObj = 2;
 	
-	/**
+	/*
 	 * Number of folds for the pruning.
 	 */
 	protected int m_numFoldsPruning = 5;
 	
-	/**
+	/*
 	 * If the ndoe is leaf node.
 	 */
 	protected boolean m_isLeaf;
 	
-	/**
+	/*
 	 * Number of expansions.
 	 */
 	protected static int m_Expansion;
 	
-	/**
+	/*
 	 * Fixed number of expansions (if no pruning method is used, its value is -1. Otherwise,
 	 * its value is gotten from internal cross-validation).
 	 */
 	protected int m_FixedExpansion = -1;
 	
-	/**
+	/*
 	 * If use huristic search for binary split (default true). Note even if its value is true, it is only
 	 * used when the number of values of a nominal attribute is larger than 4.
 	 */
 	protected boolean m_Heuristic = true;
 	
-	/**
+	/*
 	 * If use Gini index as the splitting criterion - default (if not, information is used).
 	 */
 	protected boolean m_UseGini = true;
 	
-	/**
+	/*
 	 * If use error rate in internal cross-validation to fix the number of expansions - default
 	 * (if not, root mean squared error is used).
 	 */
 	protected boolean m_UseErrorRate = true;
 	
-	/**
+	/*
 	 * If use the 1SE rule to make the decision.
 	 */
 	protected boolean m_UseOneSE = false;
 	
-	/**
+	/*
 	 * Class distributions.
 	 */
 	protected double[] m_Distribution;
 	
-	/**
+	/*
 	 * Branch proportions.
 	 */
 	protected double[] m_Props;
 	
-	/**
+	/*
 	 * Sorted indices.
 	 */
 	protected int[][] m_SortedIndices;
 	
-	/**
+	/*
 	 * Sorted weights.
 	 */
 	protected double[][] m_Weights;
 	
-	/**
+	/*
 	 * Distributions of each attribute for two successor nodes.
 	 */
 	protected double[][][] m_Dists;
 	
-	/**
+	/*
 	 * Class probabilities.
 	 */
 	protected double[] m_ClassProbs;
 	
-	/**
+	/*
 	 * Total weights.
 	 */
 	protected double m_TotalWeight;
 	
-	/**
+	/*
 	 * The training data size (0-1). Default 1.
 	 */
 	protected double m_SizePer = 1;
 	
-	/**
+	/*
 	 * Returns a string describing classifier
 	 *
 	 * @return a description suitable for displaying in the
@@ -303,7 +303,7 @@ public class BFTreeTS
 						+ getTechnicalInformation().toString();
 	}
 	
-	/**
+	/*
 	 * Returns an instance of a TechnicalInformation object, containing
 	 * detailed information about the technical background of this class,
 	 * e.g., paper reference or book this class is based on.
@@ -335,7 +335,7 @@ public class BFTreeTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Returns default capabilities of the classifier.
 	 *
 	 * @return the capabilities of this classifier
@@ -355,7 +355,7 @@ public class BFTreeTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Method for building a BestFirst decision tree classifier.
 	 *
 	 * @param data set of instances serving as training data
@@ -538,7 +538,7 @@ public class BFTreeTS
 				if (count == 0) break;
 				
 				expansionError /= count;
-				errorList.addElement(new Double(expansionError));
+				errorList.addElement(Double.valueOf(expansionError));
 				currentError = expansionError;
 				
 				if (!m_UseOneSE) {
@@ -593,7 +593,7 @@ public class BFTreeTS
 				double error;
 				if (m_UseErrorRate) error = eval.errorRate();
 				else error = eval.rootMeanSquaredError();
-				modelError[i].addElement(new Double(error));
+				modelError[i].addElement(Double.valueOf(error));
 				
 				m_roots[i].m_isLeaf = false;
 				BFTreeTS nodeToSplit = (BFTreeTS)
@@ -680,7 +680,7 @@ public class BFTreeTS
 				m_Heuristic, m_UseGini, expansion);
 	}
 	
-	/**
+	/*
 	 * Recursively build a best-first decision tree.
 	 * Method for building a Best-First tree for a given number of expansions.
 	 * preExpasion is -1 means that no expansion is specified (just for a
@@ -726,7 +726,7 @@ public class BFTreeTS
 		if (att.isNumeric())
 			splitValue = ((Double) firstElement.elementAt(2)).doubleValue();
 		else {
-			splitStr = ((String) firstElement.elementAt(2)).toString();
+			splitStr = (String) firstElement.elementAt(2);
 		}
 		
 		// the best gini gain or information gain of this node
@@ -851,7 +851,7 @@ public class BFTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * This method is to find the number of expansions based on internal
 	 * cross-validation for just pre-pruning. It expands the first BestFirst
 	 * node in the BestFirstElements if it is expansible, otherwise it looks
@@ -902,7 +902,7 @@ public class BFTreeTS
 		if (att.isNumeric())
 			splitValue = ((Double) firstElement.elementAt(2)).doubleValue();
 		else {
-			splitStr = ((String) firstElement.elementAt(2)).toString();
+			splitStr = (String) firstElement.elementAt(2);
 		}
 		
 		// the best gini gain or information gain of this node
@@ -983,7 +983,7 @@ public class BFTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * This method is to find the number of expansions based on internal
 	 * cross-validation for just post-pruning. It expands the first BestFirst
 	 * node in the BestFirstElements until no node can be split. When building
@@ -1034,7 +1034,7 @@ public class BFTreeTS
 		if (att.isNumeric())
 			splitValue = ((Double) firstElement.elementAt(2)).doubleValue();
 		else {
-			splitStr = ((String) firstElement.elementAt(2)).toString();
+			splitStr = (String) firstElement.elementAt(2);
 		}
 		
 		// the best gini gain or information of this node
@@ -1120,7 +1120,7 @@ public class BFTreeTS
 				double error;
 				if (useErrorRate) error = eval.errorRate();
 				else error = eval.rootMeanSquaredError();
-				modelError.addElement(new Double(error));
+				modelError.addElement(Double.valueOf(error));
 			}
 			
 			if (BestFirstElements.size() != 0) {
@@ -1140,7 +1140,7 @@ public class BFTreeTS
 	}
 	
 	
-	/**
+	/*
 	 * Generate successor nodes for a node and put them into BestFirstElements
 	 * according to gini gain or information gain in a descending order.
 	 *
@@ -1232,7 +1232,7 @@ public class BFTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * Compute sorted indices, weights and class probabilities for a given
 	 * dataset. Return total weights of the data at the node.
 	 *
@@ -1300,7 +1300,7 @@ public class BFTreeTS
 		return totalWeight;
 	}
 	
-	/**
+	/*
 	 * Compute the best splitting attribute, split point or subset and the best
 	 * gini gain or iformation gain for a given dataset.
 	 *
@@ -1355,14 +1355,14 @@ public class BFTreeTS
 		FastVector splitInfo = new FastVector();
 		splitInfo.addElement(node);
 		splitInfo.addElement(att);
-		if (att.isNumeric()) splitInfo.addElement(new Double(mValue));
+		if (att.isNumeric()) splitInfo.addElement(Double.valueOf(mValue));
 		else splitInfo.addElement(mString);
-		splitInfo.addElement(new Double(mBestGain));
+		splitInfo.addElement(Double.valueOf(mBestGain));
 		
 		return splitInfo;
 	}
 	
-	/**
+	/*
 	 * Compute distributions, proportions and total weights of two successor nodes for
 	 * a given numeric attribute.
 	 *
@@ -1477,7 +1477,7 @@ public class BFTreeTS
 		return splitPoint;
 	}
 	
-	/**
+	/*
 	 * Compute distributions, proportions and total weights of two successor
 	 * nodes for a given nominal attribute.
 	 *
@@ -1739,7 +1739,7 @@ public class BFTreeTS
 			for (int j = 0; j < meanClass.length; j++) meanClass[j] = 0;
 			
 			for (int j = 0; j < numInstances; j++) {
-				Instance inst = (Instance) data.instance(j);
+				Instance inst = data.instance(j);
 				int valueIndex = 0; // attribute value index in nonEmptyValues
 				for (int i = 0; i < nonEmpty; i++) {
 					if (att.value((int) inst.value(att)).compareToIgnoreCase(nonEmptyValues[i]) == 0) {
@@ -1915,7 +1915,7 @@ public class BFTreeTS
 	}
 	
 	
-	/**
+	/*
 	 * Split data into two subsets and store sorted indices and weights for two
 	 * successor nodes.
 	 *
@@ -1983,7 +1983,7 @@ public class BFTreeTS
 	}
 	
 	
-	/**
+	/*
 	 * Compute and return gini gain for given distributions of a node and its
 	 * successor nodes.
 	 *
@@ -2006,7 +2006,7 @@ public class BFTreeTS
 				rightWeight / totalWeight * rightGini;
 	}
 	
-	/**
+	/*
 	 * Compute and return gini index for a given distribution of a node.
 	 *
 	 * @param dist  class distributions
@@ -2022,7 +2022,7 @@ public class BFTreeTS
 		return 1 - val;
 	}
 	
-	/**
+	/*
 	 * Compute and return information gain for given distributions of a node
 	 * and its successor nodes.
 	 *
@@ -2045,7 +2045,7 @@ public class BFTreeTS
 				rightWeight / totalWeight * rightInfo;
 	}
 	
-	/**
+	/*
 	 * Compute and return entropy for a given distribution of a node.
 	 *
 	 * @param dist  class distributions
@@ -2061,7 +2061,7 @@ public class BFTreeTS
 		return entropy;
 	}
 	
-	/**
+	/*
 	 * Make the node leaf node.
 	 *
 	 * @param data training data
@@ -2073,7 +2073,7 @@ public class BFTreeTS
 		m_ClassAttribute = data.classAttribute();
 	}
 	
-	/**
+	/*
 	 * Computes class probabilities for instance using the decision tree.
 	 *
 	 * @param instance the instance for which class probabilities is to be computed
@@ -2120,7 +2120,7 @@ public class BFTreeTS
 		else return m_ClassProbs;
 	}
 	
-	/**
+	/*
 	 * Prints the decision tree using the protected toString method from below.
 	 *
 	 * @return a textual description of the classifier
@@ -2134,7 +2134,7 @@ public class BFTreeTS
 				+ "Number of Leaf Nodes: " + numLeaves();
 	}
 	
-	/**
+	/*
 	 * Outputs a tree at a certain level.
 	 *
 	 * @param level the level at which the tree is to be printed
@@ -2177,7 +2177,7 @@ public class BFTreeTS
 		return text.toString();
 	}
 	
-	/**
+	/*
 	 * Compute size of the tree.
 	 *
 	 * @return size of the tree
@@ -2194,7 +2194,7 @@ public class BFTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * Compute number of leaf nodes.
 	 *
 	 * @return number of leaf nodes
@@ -2210,7 +2210,7 @@ public class BFTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * Returns an enumeration describing the available options.
 	 *
 	 * @return an enumeration describing the available options.
@@ -2268,7 +2268,7 @@ public class BFTreeTS
 		return result.elements();
 	}
 	
-	/**
+	/*
 	 * Parses the options for this object. <p/>
 	 * <p>
 	 * <!-- options-start -->
@@ -2358,7 +2358,7 @@ public class BFTreeTS
 		setUseOneSE(Utils.getFlag('A', options));
 	}
 	
-	/**
+	/*
 	 * Gets the current settings of the Classifier.
 	 *
 	 * @return the current settings of the Classifier
@@ -2401,7 +2401,7 @@ public class BFTreeTS
 		return (String[]) result.toArray(new String[result.size()]);
 	}
 	
-	/**
+	/*
 	 * Return an enumeration of the measure names.
 	 *
 	 * @return an enumeration of the measure names
@@ -2414,7 +2414,7 @@ public class BFTreeTS
 		return result.elements();
 	}
 	
-	/**
+	/*
 	 * Return number of tree size.
 	 *
 	 * @return number of tree size
@@ -2423,7 +2423,7 @@ public class BFTreeTS
 		return numNodes();
 	}
 	
-	/**
+	/*
 	 * Returns the value of the named measure
 	 *
 	 * @param additionalMeasureName the name of the measure to query for its value
@@ -2439,7 +2439,7 @@ public class BFTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -2449,7 +2449,7 @@ public class BFTreeTS
 		return "Sets the pruning strategy.";
 	}
 	
-	/**
+	/*
 	 * Sets the pruning strategy.
 	 *
 	 * @param value the strategy
@@ -2460,7 +2460,7 @@ public class BFTreeTS
 		}
 	}
 	
-	/**
+	/*
 	 * Gets the pruning strategy.
 	 *
 	 * @return the current strategy.
@@ -2469,7 +2469,7 @@ public class BFTreeTS
 		return new SelectedTag(m_PruningStrategy, TAGS_PRUNING);
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -2479,7 +2479,7 @@ public class BFTreeTS
 		return "Set minimal number of instances at the terminal nodes.";
 	}
 	
-	/**
+	/*
 	 * Set minimal number of instances at the terminal nodes.
 	 *
 	 * @param value minimal number of instances at the terminal nodes
@@ -2488,7 +2488,7 @@ public class BFTreeTS
 		m_minNumObj = value;
 	}
 	
-	/**
+	/*
 	 * Get minimal number of instances at the terminal nodes.
 	 *
 	 * @return minimal number of instances at the terminal nodes
@@ -2497,7 +2497,7 @@ public class BFTreeTS
 		return m_minNumObj;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -2507,7 +2507,7 @@ public class BFTreeTS
 		return "Number of folds in internal cross-validation.";
 	}
 	
-	/**
+	/*
 	 * Set number of folds in internal cross-validation.
 	 *
 	 * @param value the number of folds
@@ -2516,7 +2516,7 @@ public class BFTreeTS
 		m_numFoldsPruning = value;
 	}
 	
-	/**
+	/*
 	 * Set number of folds in internal cross-validation.
 	 *
 	 * @return number of folds in internal cross-validation
@@ -2525,7 +2525,7 @@ public class BFTreeTS
 		return m_numFoldsPruning;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -2535,7 +2535,7 @@ public class BFTreeTS
 		return "If heuristic search is used for binary split for nominal attributes.";
 	}
 	
-	/**
+	/*
 	 * Set if use heuristic search for nominal attributes in multi-class problems.
 	 *
 	 * @param value if use heuristic search for nominal attributes in
@@ -2545,7 +2545,7 @@ public class BFTreeTS
 		m_Heuristic = value;
 	}
 	
-	/**
+	/*
 	 * Get if use heuristic search for nominal attributes in multi-class problems.
 	 *
 	 * @return if use heuristic search for nominal attributes in
@@ -2555,7 +2555,7 @@ public class BFTreeTS
 		return m_Heuristic;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -2565,7 +2565,7 @@ public class BFTreeTS
 		return "If true the Gini index is used for splitting criterion, otherwise the information is used.";
 	}
 	
-	/**
+	/*
 	 * Set if use Gini index as splitting criterion.
 	 *
 	 * @param value if use Gini index splitting criterion
@@ -2574,7 +2574,7 @@ public class BFTreeTS
 		m_UseGini = value;
 	}
 	
-	/**
+	/*
 	 * Get if use Gini index as splitting criterion.
 	 *
 	 * @return if use Gini index as splitting criterion
@@ -2583,7 +2583,7 @@ public class BFTreeTS
 		return m_UseGini;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -2593,7 +2593,7 @@ public class BFTreeTS
 		return "If error rate is used as error estimate. if not, root mean squared error is used.";
 	}
 	
-	/**
+	/*
 	 * Set if use error rate in internal cross-validation.
 	 *
 	 * @param value if use error rate in internal cross-validation
@@ -2602,7 +2602,7 @@ public class BFTreeTS
 		m_UseErrorRate = value;
 	}
 	
-	/**
+	/*
 	 * Get if use error rate in internal cross-validation.
 	 *
 	 * @return if use error rate in internal cross-validation.
@@ -2611,7 +2611,7 @@ public class BFTreeTS
 		return m_UseErrorRate;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -2621,7 +2621,7 @@ public class BFTreeTS
 		return "Use the 1SE rule to make pruning decision.";
 	}
 	
-	/**
+	/*
 	 * Set if use the 1SE rule to choose final model.
 	 *
 	 * @param value if use the 1SE rule to choose final model
@@ -2630,7 +2630,7 @@ public class BFTreeTS
 		m_UseOneSE = value;
 	}
 	
-	/**
+	/*
 	 * Get if use the 1SE rule to choose final model.
 	 *
 	 * @return if use the 1SE rule to choose final model
@@ -2639,7 +2639,7 @@ public class BFTreeTS
 		return m_UseOneSE;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -2649,7 +2649,7 @@ public class BFTreeTS
 		return "The percentage of the training set size (0-1, 0 not included).";
 	}
 	
-	/**
+	/*
 	 * Set training set size.
 	 *
 	 * @param value training set size
@@ -2663,7 +2663,7 @@ public class BFTreeTS
 			m_SizePer = value;
 	}
 	
-	/**
+	/*
 	 * Get training set size.
 	 *
 	 * @return training set size
@@ -2672,7 +2672,7 @@ public class BFTreeTS
 		return m_SizePer;
 	}
 	
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision
@@ -2681,7 +2681,7 @@ public class BFTreeTS
 		return RevisionUtils.extract("$Revision: 6947 $");
 	}
 	
-	/**
+	/*
 	 * Main method.
 	 *
 	 * @param args the options for the classifier

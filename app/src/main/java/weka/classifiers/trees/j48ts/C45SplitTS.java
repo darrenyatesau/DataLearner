@@ -33,7 +33,7 @@ import weka.core.Utils;
 
 import java.util.Enumeration;
 
-/**
+/*
  * Class implementing a C4.5-type split on an attribute.
  *
  * @author Eibe Frank (eibe@cs.waikato.ac.nz)
@@ -41,41 +41,41 @@ import java.util.Enumeration;
  */
 public class C45SplitTS
   extends ClassifierSplitModelTS {
-
-  /** for serialization */
+	
+	/* for serialization */
   private static final long serialVersionUID = 3064079330067903161L;
-
-  /** Desired number of branches. */
-  private int m_complexityIndex;  
-
-  /** Attribute to split on. */
-  private int m_attIndex;         
-
-  /** Minimum number of objects in a split.   */
-  private int m_minNoObj;         
-
-  /** Value of split point. */
-  private double m_splitPoint;   
-
-  /** InfoGain of split. */ 
-  private double m_infoGain; 
-
-  /** GainRatio of split.  */
-  private double m_gainRatio;  
-
-  /** The sum of the weights of the instances. */
-  private double m_sumOfWeights;  
-
-  /** Number of split points. */
-  private int m_index;            
-
-  /** Static reference to splitting criterion. */
+	
+	/* Desired number of branches. */
+	private int m_complexityIndex;
+	
+	/* Attribute to split on. */
+	private int m_attIndex;
+	
+	/* Minimum number of objects in a split.   */
+	private int m_minNoObj;
+	
+	/* Value of split point. */
+	private double m_splitPoint;
+	
+	/* InfoGain of split. */
+	private double m_infoGain;
+	
+	/* GainRatio of split.  */
+	private double m_gainRatio;
+	
+	/* The sum of the weights of the instances. */
+	private double m_sumOfWeights;
+	
+	/* Number of split points. */
+	private int m_index;
+	
+	/* Static reference to splitting criterion. */
   private static InfoGainSplitCritTS infoGainCrit = new InfoGainSplitCritTS();
-
-  /** Static reference to splitting criterion. */
+	
+	/* Static reference to splitting criterion. */
   private static GainRatioSplitCritTS gainRatioCrit = new GainRatioSplitCritTS();
-
-  /**
+	
+	/*
    * Initializes the split model.
    */
   public C45SplitTS(int attIndex,int minNoObj, double sumOfWeights) {
@@ -89,8 +89,8 @@ public class C45SplitTS
     // Set the sum of the weights
     m_sumOfWeights = sumOfWeights;
   }
-
-  /**
+	
+	/*
    * Creates a C4.5-type split on the given data. Assumes that none of
    * the class values is missing.
    *
@@ -117,17 +117,17 @@ public class C45SplitTS
       trainInstances.sort(trainInstances.attribute(m_attIndex));
       handleNumericAttribute(trainInstances);
     }
-  }    
-
-  /**
+  }
+	
+	/*
    * Returns index of attribute for which split was generated.
    */
   public final int attIndex() {
 
     return m_attIndex;
   }
-
-  /**
+	
+	/*
    * Gets class probability for instance.
    *
    * @exception Exception if something goes wrong
@@ -154,23 +154,23 @@ public class C45SplitTS
       }
     }
   }
- 
-  /**
+	
+	/*
    * Returns coding cost for split (used in rule learner).
    */
   public final double codingCost() {
 
     return Utils.log2(m_index);
   }
- 
-  /**
+	
+	/*
    * Returns (C4.5-type) gain ratio for the generated split.
    */
   public final double gainRatio() {
     return m_gainRatio;
   }
-
-  /**
+	
+	/*
    * Creates split on enumerated attribute.
    *
    * @exception Exception if something goes wrong
@@ -202,8 +202,8 @@ public class C45SplitTS
 				     m_infoGain);
     }
   }
-  
-  /**
+	
+	/*
    * Creates split on numeric attribute.
    *
    * @exception Exception if something goes wrong
@@ -312,16 +312,16 @@ public class C45SplitTS
       splitCritValue(m_distribution,m_sumOfWeights,
 		     m_infoGain);
   }
-
-  /**
+	
+	/*
    * Returns (C4.5-type) information gain for the generated split.
    */
   public final double infoGain() {
 
     return m_infoGain;
   }
-
-  /**
+	
+	/*
    * Prints left side of condition..
    *
    * @param data training set.
@@ -330,8 +330,8 @@ public class C45SplitTS
 
     return data.attribute(m_attIndex).name();
   }
-
-  /**
+	
+	/*
    * Prints the condition satisfied by instances in a subset.
    *
    * @param index of subset 
@@ -354,8 +354,8 @@ public class C45SplitTS
 		    Utils.doubleToString(m_splitPoint,6));
     return text.toString();
   }
-  
-  /**
+	
+	/*
    * Returns a string containing java source code equivalent to the test
    * made at this node. The instance being tested is called "i".
    *
@@ -384,9 +384,9 @@ public class C45SplitTS
       }
     }
     return expr.toString();
-  }  
-
-  /**
+  }
+	
+	/*
    * Sets split point to greatest value in given data smaller or equal to
    * old split point.
    * (C4.5 does this for some strange reason).
@@ -412,8 +412,8 @@ public class C45SplitTS
       m_splitPoint = newSplitPoint;
     }
   }
-  
-  /**
+	
+	/*
    * Returns the minsAndMaxs of the index.th subset.
    */
   public final double [][] minsAndMaxs(Instances data, double [][] minsAndMaxs,
@@ -433,8 +433,8 @@ public class C45SplitTS
 
     return newMinsAndMaxs;
   }
-  
-  /**
+	
+	/*
    * Sets distribution associated with model.
    */
   public void resetDistribution(Instances data) throws Exception {
@@ -449,8 +449,8 @@ public class C45SplitTS
     newD.addInstWithUnknown(data, m_attIndex);
     m_distribution = newD;
   }
-
-  /**
+	
+	/*
    * Returns weights if instance is assigned to more than one subset.
    * Returns null if instance is only assigned to one subset.
    */
@@ -468,8 +468,8 @@ public class C45SplitTS
       return null;
     }
   }
-  
-  /**
+	
+	/*
    * Returns index of subset instance is assigned to.
    * Returns -1 if instance is assigned to more than one subset.
    *
@@ -490,8 +490,8 @@ public class C45SplitTS
 	  return 1;
     }
   }
-  
-  /**
+	
+	/*
    * Returns the revision string.
    * 
    * @return		the revision

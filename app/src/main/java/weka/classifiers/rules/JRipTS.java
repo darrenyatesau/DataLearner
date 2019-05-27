@@ -48,7 +48,7 @@ import java.util.Enumeration;
 import java.util.Random;
 import java.util.Vector;
 
-/**
+/*
  * <!-- globalinfo-start -->
  * This class implements a propositional rule learner, Repeated Incremental Pruning to Produce Error Reduction (RIPPER), which was proposed by William W. Cohen as an optimized version of IREP. <br/>
  * <br/>
@@ -141,87 +141,87 @@ public class JRipTS
 		WeightedInstancesHandler,
 		TechnicalInformationHandler {
 	
-	/**
+	/*
 	 * for serialization
 	 */
 	static final long serialVersionUID = -6589312996832147161L;
 	
-	/**
+	/*
 	 * The limit of description length surplus in ruleset generation
 	 */
 	private static double MAX_DL_SURPLUS = 64.0;
 	
-	/**
+	/*
 	 * The class attribute of the data
 	 */
 	private Attribute m_Class;
 	
-	/**
+	/*
 	 * The ruleset
 	 */
 	private FastVector m_Ruleset;
 	
-	/**
+	/*
 	 * The predicted class distribution
 	 */
 	private FastVector m_Distributions;
 	
-	/**
+	/*
 	 * Runs of optimizations
 	 */
 	private int m_Optimizations = 2;
 	
-	/**
+	/*
 	 * Random object used in this class
 	 */
 	private Random m_Random = null;
 	
-	/**
+	/*
 	 * # of all the possible conditions in a rule
 	 */
 	private double m_Total = 0;
 	
-	/**
+	/*
 	 * The seed to perform randomization
 	 */
 	private long m_Seed = 1;
 	
-	/**
+	/*
 	 * The number of folds to split data into Grow and Prune for IREP
 	 */
 	private int m_Folds = 3;
 	
-	/**
+	/*
 	 * The minimal number of instance weights within a split
 	 */
 	private double m_MinNo = 2.0;
 	
-	/**
+	/*
 	 * Whether in a debug mode
 	 */
 	private boolean m_Debug = false;
 	
-	/**
+	/*
 	 * Whether check the error rate >= 0.5 in stopping criteria
 	 */
 	private boolean m_CheckErr = true;
 	
-	/**
+	/*
 	 * Whether use pruning, i.e. the data is clean or not
 	 */
 	private boolean m_UsePruning = true;
 	
-	/**
+	/*
 	 * The filter used to randomize the class order
 	 */
 	private Filter m_Filter = null;
 	
-	/**
+	/*
 	 * The RuleStats for the ruleset of each class value
 	 */
 	private FastVector m_RulesetStats;
 	
-	/**
+	/*
 	 * Returns a string describing classifier
 	 *
 	 * @return a description suitable for
@@ -284,7 +284,7 @@ public class JRipTS
 				+ "optimization in this implementation.\n\n";
 	}
 	
-	/**
+	/*
 	 * Returns an instance of a TechnicalInformation object, containing
 	 * detailed information about the technical background of this class,
 	 * e.g., paper reference or book this class is based on.
@@ -305,7 +305,7 @@ public class JRipTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Returns an enumeration describing the available options
 	 * Valid options are: <p>
 	 * <p>
@@ -366,7 +366,7 @@ public class JRipTS
 		return newVector.elements();
 	}
 	
-	/**
+	/*
 	 * Parses a given list of options. <p/>
 	 * <p>
 	 * <!-- options-start -->
@@ -437,7 +437,7 @@ public class JRipTS
 		m_UsePruning = !Utils.getFlag('P', options);
 	}
 	
-	/**
+	/*
 	 * Gets the current settings of the Classifier.
 	 *
 	 * @return an array of strings suitable for passing to setOptions
@@ -470,7 +470,7 @@ public class JRipTS
 		return options;
 	}
 	
-	/**
+	/*
 	 * Returns an enumeration of the additional measure names
 	 *
 	 * @return an enumeration of the measure names
@@ -481,7 +481,7 @@ public class JRipTS
 		return newVector.elements();
 	}
 	
-	/**
+	/*
 	 * Returns the value of the named measure
 	 *
 	 * @param additionalMeasureName the name of the measure to query for its value
@@ -495,7 +495,7 @@ public class JRipTS
 			throw new IllegalArgumentException(additionalMeasureName + " not supported (RIPPER)");
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -506,7 +506,7 @@ public class JRipTS
 				+ "pruning, the rest for growing the rules.";
 	}
 	
-	/**
+	/*
 	 * Sets the number of folds to use
 	 *
 	 * @param fold the number of folds
@@ -515,7 +515,7 @@ public class JRipTS
 		m_Folds = fold;
 	}
 	
-	/**
+	/*
 	 * Gets the number of folds
 	 *
 	 * @return the number of folds
@@ -524,7 +524,7 @@ public class JRipTS
 		return m_Folds;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -534,7 +534,7 @@ public class JRipTS
 		return "The minimum total weight of the instances in a rule.";
 	}
 	
-	/**
+	/*
 	 * Sets the minimum total weight of the instances in a rule
 	 *
 	 * @param m the minimum total weight of the instances in a rule
@@ -543,7 +543,7 @@ public class JRipTS
 		m_MinNo = m;
 	}
 	
-	/**
+	/*
 	 * Gets the minimum total weight of the instances in a rule
 	 *
 	 * @return the minimum total weight of the instances in a rule
@@ -552,7 +552,7 @@ public class JRipTS
 		return m_MinNo;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -562,7 +562,7 @@ public class JRipTS
 		return "The seed used for randomizing the data.";
 	}
 	
-	/**
+	/*
 	 * Sets the seed value to use in randomizing the data
 	 *
 	 * @param s the new seed value
@@ -571,7 +571,7 @@ public class JRipTS
 		m_Seed = s;
 	}
 	
-	/**
+	/*
 	 * Gets the current seed value to use in randomizing the data
 	 *
 	 * @return the seed value
@@ -580,7 +580,7 @@ public class JRipTS
 		return m_Seed;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -590,7 +590,7 @@ public class JRipTS
 		return "The number of optimization runs.";
 	}
 	
-	/**
+	/*
 	 * Sets the number of optimization runs
 	 *
 	 * @param run the number of optimization runs
@@ -599,7 +599,7 @@ public class JRipTS
 		m_Optimizations = run;
 	}
 	
-	/**
+	/*
 	 * Gets the the number of optimization runs
 	 *
 	 * @return the number of optimization runs
@@ -608,7 +608,7 @@ public class JRipTS
 		return m_Optimizations;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -618,7 +618,7 @@ public class JRipTS
 		return "Whether debug information is output to the console.";
 	}
 	
-	/**
+	/*
 	 * Sets whether debug information is output to the console
 	 *
 	 * @param d whether debug information is output to the console
@@ -627,7 +627,7 @@ public class JRipTS
 		m_Debug = d;
 	}
 	
-	/**
+	/*
 	 * Gets whether debug information is output to the console
 	 *
 	 * @return whether debug information is output to the console
@@ -636,7 +636,7 @@ public class JRipTS
 		return m_Debug;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -647,7 +647,7 @@ public class JRipTS
 				" in stopping criterion.";
 	}
 	
-	/**
+	/*
 	 * Sets whether to check for error rate is in stopping criterion
 	 *
 	 * @param d whether to check for error rate is in stopping criterion
@@ -656,7 +656,7 @@ public class JRipTS
 		m_CheckErr = d;
 	}
 	
-	/**
+	/*
 	 * Gets whether to check for error rate is in stopping criterion
 	 *
 	 * @return true if checking for error rate is in stopping criterion
@@ -665,7 +665,7 @@ public class JRipTS
 		return m_CheckErr;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -675,7 +675,7 @@ public class JRipTS
 		return "Whether pruning is performed.";
 	}
 	
-	/**
+	/*
 	 * Sets whether pruning is performed
 	 *
 	 * @param d Whether pruning is performed
@@ -684,7 +684,7 @@ public class JRipTS
 		m_UsePruning = d;
 	}
 	
-	/**
+	/*
 	 * Gets whether pruning is performed
 	 *
 	 * @return true if pruning is performed
@@ -693,7 +693,7 @@ public class JRipTS
 		return m_UsePruning;
 	}
 	
-	/**
+	/*
 	 * Get the ruleset generated by Ripper
 	 *
 	 * @return the ruleset
@@ -702,7 +702,7 @@ public class JRipTS
 		return m_Ruleset;
 	}
 	
-	/**
+	/*
 	 * Get the statistics of the ruleset in the given position
 	 *
 	 * @param pos the position of the stats, assuming correct
@@ -712,7 +712,7 @@ public class JRipTS
 		return (RuleStats) m_RulesetStats.elementAt(pos);
 	}
 	
-	/**
+	/*
 	 * The single antecedent in the rule, which is composed of an attribute and
 	 * the corresponding value.  There are two inherited classes, namely NumericAntd
 	 * and NominalAntd in which the attributes are numeric and nominal respectively.
@@ -720,44 +720,44 @@ public class JRipTS
 	public abstract class Antd
 			implements WeightedInstancesHandler, Copyable, Serializable, RevisionHandler {
 		
-		/**
+		/*
 		 * for serialization
 		 */
 		private static final long serialVersionUID = -8929754772994154334L;
 		
-		/**
+		/*
 		 * The attribute of the antecedent
 		 */
 		protected Attribute att;
 		
-		/**
+		/*
 		 * The attribute value of the antecedent.
 		 * For numeric attribute, value is either 0(1st bag) or 1(2nd bag)
 		 */
 		protected double value;
 		
-		/**
+		/*
 		 * The maximum infoGain achieved by this antecedent test
 		 * in the growing data
 		 */
 		protected double maxInfoGain;
 		
-		/**
+		/*
 		 * The accurate rate of this antecedent test on the growing data
 		 */
 		protected double accuRate;
 		
-		/**
+		/*
 		 * The coverage of this antecedent in the growing data
 		 */
 		protected double cover;
 		
-		/**
+		/*
 		 * The accurate data for this antecedent in the growing data
 		 */
 		protected double accu;
 		
-		/**
+		/*
 		 * Constructor
 		 */
 		public Antd(Attribute a) {
@@ -777,7 +777,7 @@ public class JRipTS
 		
 		public abstract String toString();
 		
-		/**
+		/*
 		 * Implements Copyable
 		 *
 		 * @return a copy of this object
@@ -809,7 +809,7 @@ public class JRipTS
 			return cover;
 		}
 		
-		/**
+		/*
 		 * Returns the revision string.
 		 *
 		 * @return the revision
@@ -819,23 +819,23 @@ public class JRipTS
 		}
 	}
 	
-	/**
+	/*
 	 * The antecedent with numeric attribute
 	 */
 	public class
 	NumericAntd extends Antd {
 		
-		/**
+		/*
 		 * for serialization
 		 */
 		static final long serialVersionUID = 5699457269983735442L;
 		
-		/**
+		/*
 		 * The split point for this numeric antecedent
 		 */
 		private double splitPoint;
 		
-		/**
+		/*
 		 * Constructor
 		 */
 		public NumericAntd(Attribute a) {
@@ -843,7 +843,7 @@ public class JRipTS
 			splitPoint = Double.NaN;
 		}
 		
-		/**
+		/*
 		 * Get split point of this numeric antecedent
 		 *
 		 * @return the split point of this numeric antecedent
@@ -852,7 +852,7 @@ public class JRipTS
 			return splitPoint;
 		}
 		
-		/**
+		/*
 		 * Implements Copyable
 		 *
 		 * @return a copy of this object
@@ -864,7 +864,7 @@ public class JRipTS
 			return na;
 		}
 		
-		/**
+		/*
 		 * Implements the splitData function.
 		 * This procedure is to split the data into two bags according
 		 * to the information gain of the numeric attribute value
@@ -981,7 +981,7 @@ public class JRipTS
 			return splitData;
 		}
 		
-		/**
+		/*
 		 * Whether the instance is covered by this antecedent
 		 *
 		 * @param inst the instance in question
@@ -1002,7 +1002,7 @@ public class JRipTS
 			return isCover;
 		}
 		
-		/**
+		/*
 		 * Prints this antecedent
 		 *
 		 * @return a textual description of this antecedent
@@ -1012,7 +1012,7 @@ public class JRipTS
 			return (att.name() + symbol + Utils.doubleToString(splitPoint, 6));
 		}
 		
-		/**
+		/*
 		 * Returns the revision string.
 		 *
 		 * @return the revision
@@ -1023,13 +1023,13 @@ public class JRipTS
 	}
 	
 	
-	/**
+	/*
 	 * The antecedent with nominal attribute
 	 */
 	public class NominalAntd
 			extends Antd {
 		
-		/**
+		/*
 		 * for serialization
 		 */
 		static final long serialVersionUID = -9102297038837585135L;
@@ -1039,7 +1039,7 @@ public class JRipTS
 		private double[] accurate;
 		private double[] coverage;
 		
-		/**
+		/*
 		 * Constructor
 		 */
 		public NominalAntd(Attribute a) {
@@ -1049,7 +1049,7 @@ public class JRipTS
 			coverage = new double[bag];
 		}
 		
-		/**
+		/*
 		 * Implements Copyable
 		 *
 		 * @return a copy of this object
@@ -1060,7 +1060,7 @@ public class JRipTS
 			return antec;
 		}
 		
-		/**
+		/*
 		 * Implements the splitData function.
 		 * This procedure is to split the data into bags according
 		 * to the nominal attribute value
@@ -1113,7 +1113,7 @@ public class JRipTS
 			return splitData;
 		}
 		
-		/**
+		/*
 		 * Whether the instance is covered by this antecedent
 		 *
 		 * @param inst the instance in question
@@ -1129,7 +1129,7 @@ public class JRipTS
 			return isCover;
 		}
 		
-		/**
+		/*
 		 * Prints this antecedent
 		 *
 		 * @return a textual description of this antecedent
@@ -1138,7 +1138,7 @@ public class JRipTS
 			return (att.name() + " = " + att.value((int) value));
 		}
 		
-		/**
+		/*
 		 * Returns the revision string.
 		 *
 		 * @return the revision
@@ -1149,7 +1149,7 @@ public class JRipTS
 	}
 	
 	
-	/**
+	/*
 	 * This class implements a single rule that predicts specified class.
 	 * <p>
 	 * A rule consists of antecedents "AND"ed together and the consequent
@@ -1161,29 +1161,29 @@ public class JRipTS
 	public class RipperRule
 			extends Rule {
 		
-		/**
+		/*
 		 * for serialization
 		 */
 		static final long serialVersionUID = -2410020717305262952L;
 		
-		/**
+		/*
 		 * The internal representation of the class label to be predicted
 		 */
 		private double m_Consequent = -1;
 		
-		/**
+		/*
 		 * The vector of antecedents of this rule
 		 */
 		protected FastVector m_Antds = null;
 		
-		/**
+		/*
 		 * Constructor
 		 */
 		public RipperRule() {
 			m_Antds = new FastVector();
 		}
 		
-		/**
+		/*
 		 * Sets the internal representation of the class label to be predicted
 		 *
 		 * @param cl the internal representation of the class label to be predicted
@@ -1192,7 +1192,7 @@ public class JRipTS
 			m_Consequent = cl;
 		}
 		
-		/**
+		/*
 		 * Gets the internal representation of the class label to be predicted
 		 *
 		 * @return the internal representation of the class label to be predicted
@@ -1201,7 +1201,7 @@ public class JRipTS
 			return m_Consequent;
 		}
 		
-		/**
+		/*
 		 * Get a shallow copy of this rule
 		 *
 		 * @return the copy
@@ -1213,7 +1213,7 @@ public class JRipTS
 			return copy;
 		}
 		
-		/**
+		/*
 		 * Whether the instance covered by this rule
 		 *
 		 * @param datum the instance in question
@@ -1234,7 +1234,7 @@ public class JRipTS
 			return isCover;
 		}
 		
-		/**
+		/*
 		 * Whether this rule has antecedents, i.e. whether it is a default rule
 		 *
 		 * @return the boolean value indicating whether the rule has antecedents
@@ -1246,7 +1246,7 @@ public class JRipTS
 				return (m_Antds.size() > 0);
 		}
 		
-		/**
+		/*
 		 * Return the antecedents
 		 *
 		 * @return the vector of antecedents
@@ -1255,7 +1255,7 @@ public class JRipTS
 			return m_Antds;
 		}
 		
-		/**
+		/*
 		 * the number of antecedents of the rule
 		 *
 		 * @return the size of this rule
@@ -1265,7 +1265,7 @@ public class JRipTS
 		}
 		
 		
-		/**
+		/*
 		 * Private function to compute default number of accurate instances
 		 * in the specified data for the consequent of the rule
 		 *
@@ -1283,7 +1283,7 @@ public class JRipTS
 		}
 		
 		
-		/**
+		/*
 		 * Build one rule using the growing data
 		 *
 		 * @param data the growing data used to build the rule
@@ -1395,7 +1395,7 @@ public class JRipTS
 		}
 		
 		
-		/**
+		/*
 		 * Compute the best information gain for the specified antecedent
 		 *
 		 * @param instances the data based on which the infoGain is computed
@@ -1419,7 +1419,7 @@ public class JRipTS
 			else return null;
 		}
 		
-		/**
+		/*
 		 * Prune all the possible final sequences of the rule using the
 		 * pruning data.  The measure used to prune the rule is based on
 		 * flag given.
@@ -1505,7 +1505,7 @@ public class JRipTS
 				m_Antds.removeElementAt(z);
 		}
 		
-		/**
+		/*
 		 * Prints this rule
 		 *
 		 * @param classAttr the class attribute in the data
@@ -1515,8 +1515,8 @@ public class JRipTS
 			StringBuffer text = new StringBuffer();
 			if (m_Antds.size() > 0) {
 				for (int j = 0; j < (m_Antds.size() - 1); j++)
-					text.append("(" + ((Antd) (m_Antds.elementAt(j))).toString() + ") and ");
-				text.append("(" + ((Antd) (m_Antds.lastElement())).toString() + ")");
+					text.append("(" + m_Antds.elementAt(j).toString() + ") and ");
+				text.append("(" + m_Antds.lastElement().toString() + ")");
 			}
 			text.append(" => " + classAttr.name() +
 					"=" + classAttr.value((int) m_Consequent));
@@ -1524,7 +1524,7 @@ public class JRipTS
 			return text.toString();
 		}
 		
-		/**
+		/*
 		 * Returns the revision string.
 		 *
 		 * @return the revision
@@ -1534,7 +1534,7 @@ public class JRipTS
 		}
 	}
 	
-	/**
+	/*
 	 * Returns default capabilities of the classifier.
 	 *
 	 * @return the capabilities of this classifier
@@ -1559,7 +1559,7 @@ public class JRipTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Builds Ripper in the order of class frequencies.  For each class
 	 * it's built in two stages: building and optimization
 	 *
@@ -1688,7 +1688,7 @@ public class JRipTS
 			((RuleStats) m_RulesetStats.elementAt(i)).cleanUp();
 	}
 	
-	/**
+	/*
 	 * Classify the test instance with the rule learner and provide
 	 * the class distributions
 	 *
@@ -1711,7 +1711,7 @@ public class JRipTS
 		return new double[datum.classAttribute().numValues()];
 	}
 	
-	/**
+	/*
 	 * Build a ruleset for the given class according to the given data
 	 *
 	 * @param expFPRate  the expected FP/(FP+FN) used in DL calculation
@@ -1738,7 +1738,7 @@ public class JRipTS
 		boolean defHasPositive = true; // No longer used
 		boolean hasPositive = defHasPositive;
 		
-		/********************** Building stage ***********************/
+		/********************* Building stage ***********************/
 		if (m_Debug)
 			System.err.println("\n*** Building stage ***");
 		
@@ -1834,7 +1834,7 @@ public class JRipTS
 			}
 		}// while !stop
 		
-		/******************** Optimization stage *******************/
+		/******************* Optimization stage *******************/
 		RuleStats finalRulesetStat = null;
 		if (m_UsePruning) {
 			for (int z = 0; z < m_Optimizations; z++) {
@@ -2090,7 +2090,7 @@ public class JRipTS
 			return data;
 	}
 	
-	/**
+	/*
 	 * Check whether the stopping criterion meets
 	 *
 	 * @param rst   the statistic of the ruleset
@@ -2123,7 +2123,7 @@ public class JRipTS
 		}
 	}
 	
-	/**
+	/*
 	 * Prints the all the rules of the rule learner.
 	 *
 	 * @return a textual description of the classifier
@@ -2153,7 +2153,7 @@ public class JRipTS
 		return sb.toString();
 	}
 	
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision
@@ -2162,7 +2162,7 @@ public class JRipTS
 		return RevisionUtils.extract("$Revision: 8119 $");
 	}
 	
-	/**
+	/*
 	 * Main method.
 	 *
 	 * @param args the options for the classifier

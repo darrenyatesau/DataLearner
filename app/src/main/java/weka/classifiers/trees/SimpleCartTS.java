@@ -45,7 +45,7 @@ import java.util.Enumeration;
 import java.util.Random;
 import java.util.Vector;
 
-/**
+/*
  * <!-- globalinfo-start -->
  * Class implementing minimal cost-complexity pruning.<br/>
  * Note when dealing with missing values, use "fractional instances" method instead of surrogate split method.<br/>
@@ -114,117 +114,117 @@ public class SimpleCartTS
 		extends RandomizableClassifier
 		implements AdditionalMeasureProducer, TechnicalInformationHandler {
 	
-	/**
+	/*
 	 * For serialization.
 	 */
 	private static final long serialVersionUID = 4154189200352566053L;
 	
-	/**
+	/*
 	 * Training data.
 	 */
 	protected Instances m_train;
 	
-	/**
+	/*
 	 * Successor nodes.
 	 */
 	protected SimpleCartTS[] m_Successors;
 	
-	/**
+	/*
 	 * Attribute used to split data.
 	 */
 	protected Attribute m_Attribute;
 	
-	/**
+	/*
 	 * Split point for a numeric attribute.
 	 */
 	protected double m_SplitValue;
 	
-	/**
+	/*
 	 * Split subset used to split data for nominal attributes.
 	 */
 	protected String m_SplitString;
 	
-	/**
+	/*
 	 * Class value if the node is leaf.
 	 */
 	protected double m_ClassValue;
 	
-	/**
+	/*
 	 * Class attriubte of data.
 	 */
 	protected Attribute m_ClassAttribute;
 	
-	/**
+	/*
 	 * Minimum number of instances in at the terminal nodes.
 	 */
 	protected double m_minNumObj = 2;
 	
-	/**
+	/*
 	 * Number of folds for minimal cost-complexity pruning.
 	 */
 	protected int m_numFoldsPruning = 5;
 	
-	/**
+	/*
 	 * Alpha-value (for pruning) at the node.
 	 */
 	protected double m_Alpha;
 	
-	/**
+	/*
 	 * Number of training examples misclassified by the model (subtree rooted).
 	 */
 	protected double m_numIncorrectModel;
 	
-	/**
+	/*
 	 * Number of training examples misclassified by the model (subtree not rooted).
 	 */
 	protected double m_numIncorrectTree;
 	
-	/**
+	/*
 	 * Indicate if the node is a leaf node.
 	 */
 	protected boolean m_isLeaf;
 	
-	/**
+	/*
 	 * If use minimal cost-compexity pruning.
 	 */
 	protected boolean m_Prune = true;
 	
-	/**
+	/*
 	 * Total number of instances used to build the classifier.
 	 */
 	protected int m_totalTrainInstances;
 	
-	/**
+	/*
 	 * Proportion for each branch.
 	 */
 	protected double[] m_Props;
 	
-	/**
+	/*
 	 * Class probabilities.
 	 */
 	protected double[] m_ClassProbs = null;
 	
-	/**
+	/*
 	 * Distributions of leaf node (or temporary leaf node in minimal cost-complexity pruning)
 	 */
 	protected double[] m_Distribution;
 	
-	/**
+	/*
 	 * If use huristic search for nominal attributes in multi-class problems (default true).
 	 */
 	protected boolean m_Heuristic = true;
 	
-	/**
+	/*
 	 * If use the 1SE rule to make final decision tree.
 	 */
 	protected boolean m_UseOneSE = false;
 	
-	/**
+	/*
 	 * Training data size.
 	 */
 	protected double m_SizePer = 1;
 	
-	/**
+	/*
 	 * Return a description suitable for displaying in the explorer/experimenter.
 	 *
 	 * @return a description suitable for displaying in the
@@ -239,7 +239,7 @@ public class SimpleCartTS
 						+ getTechnicalInformation().toString();
 	}
 	
-	/**
+	/*
 	 * Returns an instance of a TechnicalInformation object, containing
 	 * detailed information about the technical background of this class,
 	 * e.g., paper reference or book this class is based on.
@@ -259,7 +259,7 @@ public class SimpleCartTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Returns default capabilities of the classifier.
 	 *
 	 * @return the capabilities of this classifier
@@ -279,7 +279,7 @@ public class SimpleCartTS
 		return result;
 	}
 	
-	/**
+	/*
 	 * Build the classifier.
 	 *
 	 * @param data the training instances
@@ -404,7 +404,7 @@ public class SimpleCartTS
 		prune(bestAlpha);
 	}
 	
-	/**
+	/*
 	 * Make binary decision tree recursively.
 	 *
 	 * @param data           the training instances
@@ -517,7 +517,7 @@ public class SimpleCartTS
 		}
 	}
 	
-	/**
+	/*
 	 * Prunes the original tree using the CART pruning scheme, given a
 	 * cost-complexity parameter alpha.
 	 *
@@ -571,7 +571,7 @@ public class SimpleCartTS
 		}
 	}
 	
-	/**
+	/*
 	 * Method for performing one fold in the cross-validation of minimal
 	 * cost-complexity pruning. Generates a sequence of alpha-values with error
 	 * estimates for the corresponding (partially pruned) trees, given the test
@@ -657,7 +657,7 @@ public class SimpleCartTS
 		return iteration;
 	}
 	
-	/**
+	/*
 	 * Method to "unprune" the CART tree. Sets all leaf-fields to false.
 	 * Faster than re-growing the tree because CART do not have to be fit again.
 	 */
@@ -668,7 +668,7 @@ public class SimpleCartTS
 		}
 	}
 	
-	/**
+	/*
 	 * Compute distributions, proportions and total weights of two successor
 	 * nodes for a given numeric attribute.
 	 *
@@ -786,7 +786,7 @@ public class SimpleCartTS
 		return splitPoint;
 	}
 	
-	/**
+	/*
 	 * Compute distributions, proportions and total weights of two successor
 	 * nodes for a given nominal attribute.
 	 *
@@ -1042,7 +1042,7 @@ public class SimpleCartTS
 			for (int j = 0; j < meanClass.length; j++) meanClass[j] = 0;
 			
 			for (int j = 0; j < numInstances; j++) {
-				Instance inst = (Instance) data.instance(j);
+				Instance inst = data.instance(j);
 				int valueIndex = 0; // attribute value index in nonEmptyValues
 				for (int i = 0; i < nonEmpty; i++) {
 					if (att.value((int) inst.value(att)).compareToIgnoreCase(nonEmptyValues[i]) == 0) {
@@ -1220,7 +1220,7 @@ public class SimpleCartTS
 	}
 	
 	
-	/**
+	/*
 	 * Split data into two subsets and store sorted indices and weights for two
 	 * successor nodes.
 	 *
@@ -1289,7 +1289,7 @@ public class SimpleCartTS
 		}
 	}
 	
-	/**
+	/*
 	 * Updates the numIncorrectModel field for all nodes when subtree (to be
 	 * pruned) is rooted. This is needed for calculating the alpha-values.
 	 *
@@ -1316,7 +1316,7 @@ public class SimpleCartTS
 		}
 	}
 	
-	/**
+	/*
 	 * Updates the numIncorrectTree field for all nodes. This is needed for
 	 * calculating the alpha-values.
 	 *
@@ -1334,7 +1334,7 @@ public class SimpleCartTS
 		}
 	}
 	
-	/**
+	/*
 	 * Updates the alpha field for all nodes.
 	 *
 	 * @throws Exception if something goes wrong
@@ -1364,7 +1364,7 @@ public class SimpleCartTS
 		}
 	}
 	
-	/**
+	/*
 	 * Find the node with minimal alpha value. If two nodes have the same alpha,
 	 * choose the one with more leave nodes.
 	 *
@@ -1390,7 +1390,7 @@ public class SimpleCartTS
 		return returnNode;
 	}
 	
-	/**
+	/*
 	 * Compute sorted indices, weights and class probabilities for a given
 	 * dataset. Return total weights of the data at the node.
 	 *
@@ -1458,7 +1458,7 @@ public class SimpleCartTS
 		return totalWeight;
 	}
 	
-	/**
+	/*
 	 * Compute and return gini gain for given distributions of a node and its
 	 * successor nodes.
 	 *
@@ -1481,7 +1481,7 @@ public class SimpleCartTS
 				rightWeight / totalWeight * rightGini;
 	}
 	
-	/**
+	/*
 	 * Compute and return gini index for a given distribution of a node.
 	 *
 	 * @param dist  class distributions
@@ -1497,7 +1497,7 @@ public class SimpleCartTS
 		return 1 - val;
 	}
 	
-	/**
+	/*
 	 * Computes class probabilities for instance using the decision tree.
 	 *
 	 * @param instance the instance for which class probabilities is to be computed
@@ -1544,7 +1544,7 @@ public class SimpleCartTS
 		else return m_ClassProbs;
 	}
 	
-	/**
+	/*
 	 * Make the node leaf node.
 	 *
 	 * @param data trainging data
@@ -1556,7 +1556,7 @@ public class SimpleCartTS
 		m_ClassAttribute = data.classAttribute();
 	}
 	
-	/**
+	/*
 	 * Prints the decision tree using the protected toString method from below.
 	 *
 	 * @return a textual description of the classifier
@@ -1571,7 +1571,7 @@ public class SimpleCartTS
 				"Size of the Tree: " + numNodes();
 	}
 	
-	/**
+	/*
 	 * Outputs a tree at a certain level.
 	 *
 	 * @param level the level at which the tree is to be printed
@@ -1615,7 +1615,7 @@ public class SimpleCartTS
 		return text.toString();
 	}
 	
-	/**
+	/*
 	 * Compute size of the tree.
 	 *
 	 * @return size of the tree
@@ -1632,7 +1632,7 @@ public class SimpleCartTS
 		}
 	}
 	
-	/**
+	/*
 	 * Method to count the number of inner nodes in the tree.
 	 *
 	 * @return the number of inner nodes
@@ -1645,7 +1645,7 @@ public class SimpleCartTS
 		return numNodes;
 	}
 	
-	/**
+	/*
 	 * Return a list of all inner nodes in the tree.
 	 *
 	 * @return the list of all inner nodes
@@ -1656,7 +1656,7 @@ public class SimpleCartTS
 		return nodeList;
 	}
 	
-	/**
+	/*
 	 * Fills a list with all inner nodes in the tree.
 	 *
 	 * @param nodeList the list to be filled
@@ -1669,7 +1669,7 @@ public class SimpleCartTS
 		}
 	}
 	
-	/**
+	/*
 	 * Compute number of leaf nodes.
 	 *
 	 * @return number of leaf nodes
@@ -1685,7 +1685,7 @@ public class SimpleCartTS
 		}
 	}
 	
-	/**
+	/*
 	 * Returns an enumeration describing the available options.
 	 *
 	 * @return an enumeration of all the available options.
@@ -1733,7 +1733,7 @@ public class SimpleCartTS
 		return result.elements();
 	}
 	
-	/**
+	/*
 	 * Parses a given list of options. <p/>
 	 * <p>
 	 * <!-- options-start -->
@@ -1806,7 +1806,7 @@ public class SimpleCartTS
 		Utils.checkForRemainingOptions(options);
 	}
 	
-	/**
+	/*
 	 * Gets the current settings of the classifier.
 	 *
 	 * @return the current setting of the classifier
@@ -1843,7 +1843,7 @@ public class SimpleCartTS
 		return (String[]) result.toArray(new String[result.size()]);
 	}
 	
-	/**
+	/*
 	 * Return an enumeration of the measure names.
 	 *
 	 * @return an enumeration of the measure names
@@ -1856,7 +1856,7 @@ public class SimpleCartTS
 		return result.elements();
 	}
 	
-	/**
+	/*
 	 * Return number of tree size.
 	 *
 	 * @return number of tree size
@@ -1865,7 +1865,7 @@ public class SimpleCartTS
 		return numNodes();
 	}
 	
-	/**
+	/*
 	 * Returns the value of the named measure.
 	 *
 	 * @param additionalMeasureName the name of the measure to query for its value
@@ -1881,7 +1881,7 @@ public class SimpleCartTS
 		}
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -1891,7 +1891,7 @@ public class SimpleCartTS
 		return "The minimal number of observations at the terminal nodes (default 2).";
 	}
 	
-	/**
+	/*
 	 * Set minimal number of instances at the terminal nodes.
 	 *
 	 * @param value minimal number of instances at the terminal nodes
@@ -1900,7 +1900,7 @@ public class SimpleCartTS
 		m_minNumObj = value;
 	}
 	
-	/**
+	/*
 	 * Get minimal number of instances at the terminal nodes.
 	 *
 	 * @return minimal number of instances at the terminal nodes
@@ -1909,7 +1909,7 @@ public class SimpleCartTS
 		return m_minNumObj;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -1919,7 +1919,7 @@ public class SimpleCartTS
 		return "The number of folds in the internal cross-validation (default 5).";
 	}
 	
-	/**
+	/*
 	 * Set number of folds in internal cross-validation.
 	 *
 	 * @param value number of folds in internal cross-validation.
@@ -1928,7 +1928,7 @@ public class SimpleCartTS
 		m_numFoldsPruning = value;
 	}
 	
-	/**
+	/*
 	 * Set number of folds in internal cross-validation.
 	 *
 	 * @return number of folds in internal cross-validation.
@@ -1937,7 +1937,7 @@ public class SimpleCartTS
 		return m_numFoldsPruning;
 	}
 	
-	/**
+	/*
 	 * Return the tip text for this property
 	 *
 	 * @return tip text for this property suitable for displaying in
@@ -1947,7 +1947,7 @@ public class SimpleCartTS
 		return "Use minimal cost-complexity pruning (default yes).";
 	}
 	
-	/**
+	/*
 	 * Set if use minimal cost-complexity pruning.
 	 *
 	 * @param value if use minimal cost-complexity pruning
@@ -1956,7 +1956,7 @@ public class SimpleCartTS
 		m_Prune = value;
 	}
 	
-	/**
+	/*
 	 * Get if use minimal cost-complexity pruning.
 	 *
 	 * @return if use minimal cost-complexity pruning
@@ -1965,7 +1965,7 @@ public class SimpleCartTS
 		return m_Prune;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -1977,7 +1977,7 @@ public class SimpleCartTS
 						+ "in multi-class problems (default yes).";
 	}
 	
-	/**
+	/*
 	 * Set if use heuristic search for nominal attributes in multi-class problems.
 	 *
 	 * @param value if use heuristic search for nominal attributes in
@@ -1987,7 +1987,7 @@ public class SimpleCartTS
 		m_Heuristic = value;
 	}
 	
-	/**
+	/*
 	 * Get if use heuristic search for nominal attributes in multi-class problems.
 	 *
 	 * @return if use heuristic search for nominal attributes in
@@ -1997,7 +1997,7 @@ public class SimpleCartTS
 		return m_Heuristic;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -2007,7 +2007,7 @@ public class SimpleCartTS
 		return "Use the 1SE rule to make pruning decisoin.";
 	}
 	
-	/**
+	/*
 	 * Set if use the 1SE rule to choose final model.
 	 *
 	 * @param value if use the 1SE rule to choose final model
@@ -2016,7 +2016,7 @@ public class SimpleCartTS
 		m_UseOneSE = value;
 	}
 	
-	/**
+	/*
 	 * Get if use the 1SE rule to choose final model.
 	 *
 	 * @return if use the 1SE rule to choose final model
@@ -2025,7 +2025,7 @@ public class SimpleCartTS
 		return m_UseOneSE;
 	}
 	
-	/**
+	/*
 	 * Returns the tip text for this property
 	 *
 	 * @return tip text for this property suitable for
@@ -2035,7 +2035,7 @@ public class SimpleCartTS
 		return "The percentage of the training set size (0-1, 0 not included).";
 	}
 	
-	/**
+	/*
 	 * Set training set size.
 	 *
 	 * @param value training set size
@@ -2049,7 +2049,7 @@ public class SimpleCartTS
 			m_SizePer = value;
 	}
 	
-	/**
+	/*
 	 * Get training set size.
 	 *
 	 * @return training set size
@@ -2058,7 +2058,7 @@ public class SimpleCartTS
 		return m_SizePer;
 	}
 	
-	/**
+	/*
 	 * Returns the revision string.
 	 *
 	 * @return the revision
@@ -2067,7 +2067,7 @@ public class SimpleCartTS
 		return RevisionUtils.extract("$Revision: 10491 $");
 	}
 	
-	/**
+	/*
 	 * Main method.
 	 *
 	 * @param args the options for the classifier

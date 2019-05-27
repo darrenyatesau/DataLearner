@@ -54,7 +54,7 @@ import weka.core.TechnicalInformation.Field;
 import weka.core.TechnicalInformation.Type;
 import weka.core.converters.ConverterUtils;
 
-/**
+/*
  * <!-- globalinfo-start -->
  * Implementation of the decision forest algorithm SysFor, which was published
  * in:<br>
@@ -80,70 +80,70 @@ import weka.core.converters.ConverterUtils;
  * @version $Revision: 1.0$
  */
 public class SysFor extends Classifier {
-
-    /**
+    
+    /*
      * For serialization.
      */
     private static final long serialVersionUID = -5891220800957072995L;
-
-    /**
+    
+    /*
      * The trees that comprise the SysFor forest.
      */
     private ArrayList<Classifier> forest;
-
-    /**
+    
+    /*
      * Dataset the forest is built on.
      */
     private Instances dataset;
-
-    /**
+    
+    /*
      * The minimum number of records in a leaf for the C4.5 trees. (default 10)
      */
     private int minRecLeaf = 10;
-
-    /**
+    
+    /*
      * The number of trees that the user has requested. In most cases, this
      * number of trees will be created. However, in rare cases, a smaller number
      * is created.
      */
     private int numberTrees = 60;
-
-    /**
+    
+    /*
      * Used to control the minimum gain ratio for an attribute to be considered
      * for the set of "good attributes". (default 0.3)
      */
     private float goodness = 0.3f;
-
-    /**
+    
+    /*
      * Used to control whether or not a split point may be added to the set of
      * "good attributes" if the split point's attribute is already used in the
      * set of "good attributes". The smaller this value is, the more split
      * points may be used on the same attribute. (default 0.3)
      */
     private float separation = 0.3f;
-
-    /**
+    
+    /*
      * The confidence factor that will be used in the C4.5 trees. (default 0.25)
      */
     private float confidence = 0.25f;
-
-    /**
+    
+    /*
      * The number of classes in dataset.
      */
     private int numClasses = -1;
-
-    /**
+    
+    /*
      * The class names which are used in the string output.
      */
     private String[] classNames;
-
-    /**
+    
+    /*
      * A variable that is used to store the attribute domains of the passed
      * dataset.
      */
     private double[] attDomains;
-
-    /**
+    
+    /*
      * Parses a given list of options. <br>
      *
      * <!-- options-start -->
@@ -221,8 +221,8 @@ public class SysFor extends Classifier {
 
         super.setOptions(options);
     }
-
-    /**
+    
+    /*
      * Gets the current settings of the classifier.
      *
      * @return the current setting of the classifier
@@ -251,8 +251,8 @@ public class SysFor extends Classifier {
 
         return result.toArray(new String[result.size()]);
     }
-
-    /**
+    
+    /*
      * Setter for numberTrees
      *
      * @param numberTrees value to set to
@@ -260,8 +260,8 @@ public class SysFor extends Classifier {
     public void setNumberTrees(int numberTrees) {
         this.numberTrees = numberTrees;
     }
-
-    /**
+    
+    /*
      * Getter for numberTrees
      *
      * @return number trees
@@ -269,8 +269,8 @@ public class SysFor extends Classifier {
     public int getNumberTrees() {
         return this.numberTrees;
     }
-
-    /**
+    
+    /*
      * Setter for goodness
      *
      * @param goodness value to set to
@@ -278,8 +278,8 @@ public class SysFor extends Classifier {
     public void setGoodness(float goodness) {
         this.goodness = goodness;
     }
-
-    /**
+    
+    /*
      * Getter for goodness
      *
      * @return goodness value
@@ -287,8 +287,8 @@ public class SysFor extends Classifier {
     public float getGoodness() {
         return this.goodness;
     }
-
-    /**
+    
+    /*
      * Setter for separation
      *
      * @param separation value to set to
@@ -296,8 +296,8 @@ public class SysFor extends Classifier {
     public void setSeparation(float separation) {
         this.separation = separation;
     }
-
-    /**
+    
+    /*
      * Getter for separation
      *
      * @return separation
@@ -305,8 +305,8 @@ public class SysFor extends Classifier {
     public float getSeparation() {
         return this.separation;
     }
-
-    /**
+    
+    /*
      * Setter for confidence
      *
      * @param confidence value to set to
@@ -314,8 +314,8 @@ public class SysFor extends Classifier {
     public void setConfidence(float confidence) {
         this.confidence = confidence;
     }
-
-    /**
+    
+    /*
      * Getter for confidence
      *
      * @return confidence
@@ -323,8 +323,8 @@ public class SysFor extends Classifier {
     public float getConfidence() {
         return this.confidence;
     }
-
-    /**
+    
+    /*
      * Setter for minRecLeaf
      *
      * @param minRecLeaf value to set to
@@ -332,8 +332,8 @@ public class SysFor extends Classifier {
     public void setMinRecLeaf(int minRecLeaf) {
         this.minRecLeaf = minRecLeaf;
     }
-
-    /**
+    
+    /*
      * Getter for minimum leaf records
      *
      * @return minRecLeaf
@@ -341,8 +341,8 @@ public class SysFor extends Classifier {
     public int getMinRecLeaf() {
         return this.minRecLeaf;
     }
-
-    /**
+    
+    /*
      * Returns tool tip for numberOfTrees
      *
      * @return Tool tip for numberOfTrees
@@ -350,8 +350,8 @@ public class SysFor extends Classifier {
     public String numberTreesTipText() {
         return "Number of trees built in the forest";
     }
-
-    /**
+    
+    /*
      * Returns tool tip for goodness
      *
      * @return Tool tip for goodness
@@ -360,8 +360,8 @@ public class SysFor extends Classifier {
         return "Used to control the minimum gain ratio for an attribute to be "
                 + "considered for the set of \"good attributes\"";
     }
-
-    /**
+    
+    /*
      * Returns tool tip for separation
      *
      * @return Tool tip for separation
@@ -372,8 +372,8 @@ public class SysFor extends Classifier {
                 + "used in the set of \"good attributes\". The smaller this value is, the more split points "
                 + "may be used on the same attribute. (default 0.3)";
     }
-
-    /**
+    
+    /*
      * Returns tool tip for confidence
      *
      * @return Tool tip for confidence
@@ -381,8 +381,8 @@ public class SysFor extends Classifier {
     public String confidenceTipText() {
         return "The confidence factor that will be used in the J48";
     }
-
-    /**
+    
+    /*
      * Returns tool tip for minimumLeafRecord
      *
      * @return Tool tip for minimumLeafRecord
@@ -390,8 +390,8 @@ public class SysFor extends Classifier {
     public String minRecLeafTipText() {
         return "The minimum number of records in a leaf for the J48";
     }
-
-    /**
+    
+    /*
      * This method corresponds to Algorithm 1 in the SysFor paper.
      *
      * @param data - data with which to build the classifier
@@ -514,7 +514,7 @@ public class SysFor extends Classifier {
                         levelTwoTrees.add(newSubTree);
                     }
                 }
-                SysForTree levelTwoTreesArray[] = new SysForTree[levelTwoTrees.size()];
+                SysForTree[] levelTwoTreesArray = new SysForTree[levelTwoTrees.size()];
                 for (int j = 0; j < levelTwoTreesArray.length; j++) {
                     levelTwoTreesArray[j] = levelTwoTrees.get(j);
                 }
@@ -527,8 +527,8 @@ public class SysFor extends Classifier {
             i++;
         }
     }
-
-    /**
+    
+    /*
      * This method corresponds to Algorithm 2 in the SysFor paper.
      *
      * @param dataset - subsection of the dataset on which to find good
@@ -592,8 +592,8 @@ public class SysFor extends Classifier {
                 // Calculate the information before splitting.
                 double infoBefore = 0.0;
                 for (int j = 0; j < dataset.numClasses(); j++) {
-                    infoBefore += ((double) noSplitDist.perClass(j) / dataset.numInstances())
-                            * logFunc((double) noSplitDist.perClass(j) / dataset.numInstances());
+                    infoBefore += (noSplitDist.perClass(j) / dataset.numInstances())
+                            * logFunc(noSplitDist.perClass(j) / dataset.numInstances());
                 }
                 infoBefore = -1 * infoBefore;
                 double gain = calculateGainNominal(perSplitClassCount, dataset.numClasses(), infoBefore);
@@ -702,8 +702,8 @@ public class SysFor extends Classifier {
 
         return goodAttributesWithGainRatios.getGoodAttributes();
     }
-
-    /**
+    
+    /*
      * Returns the distribution of tree votes for the available classes,
      * classifying using majority voting.
      *
@@ -748,8 +748,8 @@ public class SysFor extends Classifier {
         return returnValue;
 
     }
-
-    /**
+    
+    /*
      * Calculate the domain of the attribute (highest value minus lowest value
      * for numerical. Number of distinct values for nominal attributes).
      *
@@ -765,7 +765,7 @@ public class SysFor extends Classifier {
             double[] values = dataset.attributeToDoubleArray(attributeIndex);
             Double[] objectValues = new Double[values.length];
             for (int i = 0; i < objectValues.length; i++) {
-                objectValues[i] = (Double) values[i];
+                objectValues[i] = values[i];
             }
             Arrays.sort(objectValues);
             ArrayList<Double> lValues = new ArrayList<Double>();
@@ -778,7 +778,7 @@ public class SysFor extends Classifier {
             double maxValue = Double.NEGATIVE_INFINITY;
 
             while (iValues.hasNext()) {
-                double currentValue = (Double) iValues.next();
+                double currentValue = iValues.next();
                 if (currentValue < minValue) {
                     minValue = currentValue;
                 }
@@ -793,8 +793,8 @@ public class SysFor extends Classifier {
         }
 
     }
-
-    /**
+    
+    /*
      * Main method for testing this class.
      *
      * @param argv should contain the following arguments: -t training file [-T
@@ -803,8 +803,8 @@ public class SysFor extends Classifier {
     public static void main(String[] argv) throws Exception {
         runClassifier(new SysFor(), argv);
     }
-
-    /**
+    
+    /*
      * Returns capabilities of algorithm
      *
      * @return Weka capabilities of SysFor
@@ -832,8 +832,8 @@ public class SysFor extends Classifier {
         return result;
 
     }
-
-    /**
+    
+    /*
      * Return a description suitable for displaying in the
      * explorer/experimenter.
      *
@@ -847,8 +847,8 @@ public class SysFor extends Classifier {
                 + "Australasian Data Mining Conference, 195-204, 2011.\n"
                 + "For more information, see:\n\n" + getTechnicalInformation().toString();
     }
-
-    /**
+    
+    /*
      * Inner class for GoodAttributes. A GoodAttribute object is comprised of an
      * attribute, and a split point on that attribute.
      */
@@ -876,8 +876,8 @@ public class SysFor extends Classifier {
             return splitPoint;
         }
     }
-
-    /**
+    
+    /*
      * This class is used specifically to store attribute, splitPoint, and
      * corresponding gain ratio information in one object. It is used in the
      * GoodAttributesWithGainRatios class which can sort a collection of
@@ -905,8 +905,8 @@ public class SysFor extends Classifier {
             return Double.compare(this.gainRatio, ((GoodAttributeWithGainRatio) a).gainRatio);
         }
     }
-
-    /**
+    
+    /*
      * This class is used specifically to sort attribute, splitPoint, and
      * gainRatio arrays simultaneously based on gain ratio.
      *
@@ -926,8 +926,8 @@ public class SysFor extends Classifier {
                 elements.add(new GoodAttributeWithGainRatio(attributes.get(i), splitPoints.get(i), gainRatios.get(i)));
             }
         }
-
-        /**
+        
+        /*
          * Sorts the elements into descending order of gain ratio
          */
         public void sort() {
@@ -956,8 +956,8 @@ public class SysFor extends Classifier {
             elements.remove(index);
         }
     }
-
-    /**
+    
+    /*
      *
      */
     private ArrayList<Double> findAvailableSplitPoints(Instances dataset, int attributeIndex) {
@@ -971,7 +971,7 @@ public class SysFor extends Classifier {
         double[] values = dataset.attributeToDoubleArray(attributeIndex);
         Double[] objectValues = new Double[values.length];
         for (int i = 0; i < objectValues.length; i++) {
-            objectValues[i] = (Double) values[i];
+            objectValues[i] = values[i];
         }
         Arrays.sort(objectValues);
         ArrayList<Double> lValues = new ArrayList<Double>();
@@ -987,7 +987,7 @@ public class SysFor extends Classifier {
         // Now add the midpoints between each adjacent value to the return value.
         do {
             double valueOne = previousElement;
-            double valueTwo = (Double) iValues.next();
+            double valueTwo = iValues.next();
 
             if (valueOne != valueTwo) {
                 double midPointValue = (valueOne + valueTwo) / 2;
@@ -1003,8 +1003,8 @@ public class SysFor extends Classifier {
 
         return splitPoints;
     }
-
-    /**
+    
+    /*
      * This method removes split points from the passed array which do not
      * satisfy the separation threshold equation.
      *
@@ -1036,8 +1036,8 @@ public class SysFor extends Classifier {
 
         return returnValue;
     }
-
-    /**
+    
+    /*
      * A method for finding the gain ratios of a numeric attribute, given an
      * array of all possible split points. The method returns the available gain
      * ratios list
@@ -1072,8 +1072,8 @@ public class SysFor extends Classifier {
         }
         return availableGainRatios;
     }
-
-    /**
+    
+    /*
      * Calculates the split info given number of class instances each side of
      * split for a numeric split
      *
@@ -1105,8 +1105,8 @@ public class SysFor extends Classifier {
 
         return -splitInfo;
     }
-
-    /**
+    
+    /*
      * Calculates the split info given number of class instances each part of a
      * nominal split
      *
@@ -1136,8 +1136,8 @@ public class SysFor extends Classifier {
 
         return -splitInfo;
     }
-
-    /**
+    
+    /*
      * Calculates the information gain for a split on a numerical attribute
      *
      * @param leftClassCount - class instances on left of split
@@ -1173,8 +1173,8 @@ public class SysFor extends Classifier {
 
         return infoBeforeSplit - infoAfterSplit;
     }
-
-    /**
+    
+    /*
      * Calculates the information gain for a split on a nominal attribute
      *
      * @param dataSplitsClassCounts - class counts for the subsets from the
@@ -1222,13 +1222,13 @@ public class SysFor extends Classifier {
 
         return infoBeforeSplit - infoAfterSplit;
     }
-
-    /**
+    
+    /*
      * The log of 2, taken from EntropyBasedSplitCrit.java.
      */
     protected static double log2 = Math.log(2);
-
-    /**
+    
+    /*
      * Help method for computing entropy, taken from EntropyBasedSplitCrit.java.
      *
      * @param num - number to find log2 of
@@ -1243,8 +1243,8 @@ public class SysFor extends Classifier {
             return Math.log(num) / log2;
         }
     }
-
-    /**
+    
+    /*
      * This class can keep track of how many records of each class are in each
      * side of a numeric SysFor split.
      *
@@ -1260,8 +1260,8 @@ public class SysFor extends Classifier {
         private int[] leftClassCount;
         private int[] rightClassCount;
         private int attrIndex;
-
-        /**
+        
+        /*
          * Constructor
          *
          * @param instances all of the instances
@@ -1282,8 +1282,8 @@ public class SysFor extends Classifier {
                 rightClassCount[(int) currentInstance.classValue()]++;
             }
         }
-
-        /**
+        
+        /*
          * Provides total number of instances at this split point
          *
          * @return number of instances at split point
@@ -1291,8 +1291,8 @@ public class SysFor extends Classifier {
         public int getNumberInstances() {
             return leftSideInstances.numInstances() + rightSideInstances.numInstances();
         }
-
-        /**
+        
+        /*
          * Provides number of instances on the right of this split
          *
          * @return number of instances at right of split
@@ -1300,8 +1300,8 @@ public class SysFor extends Classifier {
         public int getNumberRightSideInstances() {
             return rightSideInstances.numInstances();
         }
-
-        /**
+        
+        /*
          * Provides number of instances on the left of this split
          *
          * @return number of instances at left of split
@@ -1309,8 +1309,8 @@ public class SysFor extends Classifier {
         public int getNumberLeftSideInstances() {
             return leftSideInstances.numInstances();
         }
-
-        /**
+        
+        /*
          * Shifts the records based on the passed split point. Also returns the
          * number of records that have been shifted.
          *
@@ -1337,8 +1337,8 @@ public class SysFor extends Classifier {
             return shiftCount;
         }
     }
-
-    /**
+    
+    /*
      * An inner class for representing a single tree within a SysFor forest.
      * This is a C4.5 tree with a specified root attribute. The split point is
      * also specified if the attribute is numeric. There is another class:
@@ -1369,8 +1369,8 @@ public class SysFor extends Classifier {
         public SysForTree(GoodAttribute rootSplit) {
             this.rootSplit = rootSplit;
         }
-
-        /**
+        
+        /*
          * Creates a SysForTree object which will not split
          */
         public SysForTree() {
@@ -1440,7 +1440,7 @@ public class SysFor extends Classifier {
                 } else {
                     splitsClassDist[0][(int) data.firstInstance().classValue()]++;
                     splitsMajorityIndexes = new int[1];
-                    splitsMajorityIndexes[0] = (int) data.firstInstance().classValue();;
+                    splitsMajorityIndexes[0] = (int) data.firstInstance().classValue();
                 }
 
                 splitsMajorityValueNames = new String[dataSplits.length];
@@ -1514,8 +1514,8 @@ public class SysFor extends Classifier {
                 numberLeaves += currentSubTree.measureNumLeaves();
             }
         }
-
-        /**
+        
+        /*
          * Returns string representation of forest.
          *
          * @return string representation of forest,
@@ -1896,8 +1896,8 @@ public class SysFor extends Classifier {
         }
 
     }
-
-    /**
+    
+    /*
      * Splits a given set of instances into multiple instance based on a split
      * attribute. A split value is also used if the split attribute is
      * numerical.
@@ -1947,8 +1947,8 @@ public class SysFor extends Classifier {
 
         return dataSplits;
     }
-
-    /**
+    
+    /*
      * Given an enumeration e, return a sorted enumeration from lowest to
      * highest
      *
@@ -1964,8 +1964,8 @@ public class SysFor extends Classifier {
         Enumeration<Double> returnValue = new Vector(values).elements();
         return returnValue;
     }
-
-    /**
+    
+    /*
      * Returns an instance of a TechnicalInformation object, containing detailed
      * information about the technical background of this class, e.g., paper
      * reference or book this class is based on.
@@ -2012,8 +2012,8 @@ public class SysFor extends Classifier {
 
         return forestString;
     }
-
-    /**
+    
+    /*
      * Returns an enumeration describing the available options.
      *
      * Valid options are:

@@ -49,7 +49,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
-/**
+/*
  <!-- globalinfo-start -->
  * Basic implementation of DBSCAN clustering algorithm that should *not* be used as a reference for runtime benchmarks: more sophisticated implementations exist! Clustering of new instances is not supported. More info:<br/>
  * <br/>
@@ -98,63 +98,63 @@ import java.util.Vector;
 public class DBSCANTS
     extends AbstractClusterer
     implements OptionHandler, TechnicalInformationHandler {
-
-    /** for serialization */
+    
+    /* for serialization */
     static final long serialVersionUID = -1666498248451219728L;
-  
-    /**
+    
+    /*
      * Specifies the radius for a range-query
      */
     private double epsilon = 0.9;
-
-    /**
+    
+    /*
      * Specifies the density (the range-query must contain at least minPoints DataObjects)
      */
     private int minPoints = 6;
-
-    /**
+    
+    /*
      * Replace missing values in training instances
      */
     private ReplaceMissingValues replaceMissingValues_Filter;
-
-    /**
+    
+    /*
      * Holds the number of clusters generated
      */
     private int numberOfGeneratedClusters;
-
-    /**
+    
+    /*
      * Holds the distance-type that is used
      * (default = weka.clusterers.forOPTICSAndDBScan.DataObjects.EuclideanDataObject)
      */
     private String database_distanceType = "weka.clusterers.forOPTICSAndDBScan.DataObjects.EuclideanDataObject";
-
-    /**
+    
+    /*
      * Holds the type of the used database
      * (default = weka.clusterers.forOPTICSAndDBScan.Databases.SequentialDatabase)
      */
     private String database_Type = "weka.clusterers.forOPTICSAndDBScan.Databases.SequentialDatabase";
-
-    /**
+    
+    /*
      * The database that is used for DBSCAN
      */
     private Database database;
-
-    /**
+    
+    /*
      * Holds the current clusterID
      */
     private int clusterID;
-
-    /**
+    
+    /*
      * Counter for the processed instances
      */
     private int processed_InstanceID;
-
-    /**
+    
+    /*
      * Holds the time-value (seconds) for the duration of the clustering-process
      */
     private double elapsedTime;
-
-    /**
+    
+    /*
      * Returns default capabilities of the clusterer.
      *
      * @return      the capabilities of this clusterer
@@ -180,8 +180,8 @@ public class DBSCANTS
     // *****************************************************************************************************************
     // methods
     // *****************************************************************************************************************
-
-    /**
+    
+    /*
      * Generate Clustering via DBSCAN
      * @param instances The instances that need to be clustered
      * @throws Exception If clustering was not successful
@@ -230,37 +230,37 @@ public class DBSCANTS
         long time_2 = System.currentTimeMillis();
         elapsedTime = (double) (time_2 - time_1) / 1000.0;
     }
-
-    /**
+    
+    /*
      * Assigns this dataObject to a cluster or remains it as NOISE
      * @param dataObject The DataObject that needs to be assigned
      * @return true, if the DataObject could be assigned, else false
      */
     private boolean expandCluster(DataObject dataObject) {
         List seedList = database.epsilonRangeQuery(getEpsilon(), dataObject);
-        /** dataObject is NO coreObject */
+        /* dataObject is NO coreObject */
         if (seedList.size() < getMinPoints()) {
             dataObject.setClusterLabel(DataObject.NOISE);
             return false;
         }
-
-        /** dataObject is coreObject */
+    
+        /* dataObject is coreObject */
         for (int i = 0; i < seedList.size(); i++) {
             DataObject seedListDataObject = (DataObject) seedList.get(i);
-            /** label this seedListDataObject with the current clusterID, because it is in epsilon-range */
+            /* label this seedListDataObject with the current clusterID, because it is in epsilon-range */
             seedListDataObject.setClusterLabel(clusterID);
             if (seedListDataObject.equals(dataObject)) {
                 seedList.remove(i);
                 i--;
             }
         }
-
-        /** Iterate the seedList of the startDataObject */
+    
+        /* Iterate the seedList of the startDataObject */
         for (int j = 0; j < seedList.size(); j++) {
             DataObject seedListDataObject = (DataObject) seedList.get(j);
             List seedListDataObject_Neighbourhood = database.epsilonRangeQuery(getEpsilon(), seedListDataObject);
-
-            /** seedListDataObject is coreObject */
+    
+            /* seedListDataObject is coreObject */
             if (seedListDataObject_Neighbourhood.size() >= getMinPoints()) {
                 for (int i = 0; i < seedListDataObject_Neighbourhood.size(); i++) {
                     DataObject p = (DataObject) seedListDataObject_Neighbourhood.get(i);
@@ -278,8 +278,8 @@ public class DBSCANTS
 
         return true;
     }
-
-    /**
+    
+    /*
      * Classifies a given instance.
      *
      * @param instance The instance to be assigned to a cluster
@@ -295,8 +295,8 @@ public class DBSCANTS
         else
             return cnum;
     }
-
-    /**
+    
+    /*
      * Returns the number of clusters.
      *
      * @return int The number of clusters generated for a training dataset.
@@ -306,8 +306,8 @@ public class DBSCANTS
     public int numberOfClusters() throws Exception {
         return numberOfGeneratedClusters;
     }
-
-    /**
+    
+    /*
      * Returns an enumeration of all the available options..
      *
      * @return Enumeration An enumeration of all available options.
@@ -337,8 +337,8 @@ public class DBSCANTS
                         "-D <String>"));
         return vector.elements();
     }
-
-    /**
+    
+    /*
      * Sets the OptionHandler's options using the given list. All options
      * will be set (or reset) during this call (i.e. incremental setting
      * of options is not possible). <p/>
@@ -384,8 +384,8 @@ public class DBSCANTS
             setDatabase_distanceType(optionString);
         }
     }
-
-    /**
+    
+    /*
      * Gets the current option settings for the OptionHandler.
      *
      * @return String[] The list of current option settings as an array of strings
@@ -405,8 +405,8 @@ public class DBSCANTS
 
         return options;
     }
-
-    /**
+    
+    /*
      * Returns a new Class-Instance of the specified database
      * @param database_Type String of the specified database
      * @param instances Instances that were delivered from WEKA
@@ -417,8 +417,8 @@ public class DBSCANTS
 
         Constructor co = null;
         try {
-            co = (Class.forName(database_Type)).getConstructor(new Class[]{Instances.class});
-            o = co.newInstance(new Object[]{instances});
+            co = (Class.forName(database_Type)).getConstructor(Instances.class);
+            o = co.newInstance(instances);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (SecurityException e) {
@@ -435,8 +435,8 @@ public class DBSCANTS
 
         return (Database) o;
     }
-
-    /**
+    
+    /*
      * Returns a new Class-Instance of the specified database
      * @param database_distanceType String of the specified distance-type
      * @param instance The original instance that needs to hold by this DataObject
@@ -450,8 +450,8 @@ public class DBSCANTS
         Constructor co = null;
         try {
             co = (Class.forName(database_distanceType)).
-                    getConstructor(new Class[]{Instance.class, String.class, Database.class});
-            o = co.newInstance(new Object[]{instance, key, database});
+                    getConstructor(Instance.class, String.class, Database.class);
+            o = co.newInstance(instance, key, database);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (SecurityException e) {
@@ -468,72 +468,72 @@ public class DBSCANTS
 
         return (DataObject) o;
     }
-
-    /**
+    
+    /*
      * Sets a new value for minPoints
      * @param minPoints MinPoints
      */
     public void setMinPoints(int minPoints) {
         this.minPoints = minPoints;
     }
-
-    /**
+    
+    /*
      * Sets a new value for epsilon
      * @param epsilon Epsilon
      */
     public void setEpsilon(double epsilon) {
         this.epsilon = epsilon;
     }
-
-    /**
+    
+    /*
      * Returns the value of epsilon
      * @return double Epsilon
      */
     public double getEpsilon() {
         return epsilon;
     }
-
-    /**
+    
+    /*
      * Returns the value of minPoints
      * @return int MinPoints
      */
     public int getMinPoints() {
         return minPoints;
     }
-
-    /**
+    
+    /*
      * Returns the distance-type
      * @return String Distance-type
      */
     public String getDatabase_distanceType() {
         return database_distanceType;
     }
-
-    /**
+    
+    /*
      * Returns the type of the used index (database)
      * @return String Index-type
      */
     public String getDatabase_Type() {
         return database_Type;
     }
-
-    /**
+    
+    /*
      * Sets a new distance-type
      * @param database_distanceType The new distance-type
      */
     public void setDatabase_distanceType(String database_distanceType) {
         this.database_distanceType = database_distanceType;
     }
-
-    /**
+    
+    /*
      * Sets a new database-type
      * @param database_Type The new database-type
      */
     public void setDatabase_Type(String database_Type) {
         this.database_Type = database_Type;
     }
-
-    /**
+    
+    /*
      * Returns the tip text for this property
      * @return tip text for this property suitable for
      * displaying in the explorer/experimenter gui
@@ -541,8 +541,8 @@ public class DBSCANTS
     public String epsilonTipText() {
         return "radius of the epsilon-range-queries";
     }
-
-    /**
+    
+    /*
      * Returns the tip text for this property
      * @return tip text for this property suitable for
      * displaying in the explorer/experimenter gui
@@ -550,8 +550,8 @@ public class DBSCANTS
     public String minPointsTipText() {
         return "minimun number of DataObjects required in an epsilon-range-query";
     }
-
-    /**
+    
+    /*
      * Returns the tip text for this property
      * @return tip text for this property suitable for
      * displaying in the explorer/experimenter gui
@@ -559,8 +559,8 @@ public class DBSCANTS
     public String database_TypeTipText() {
         return "used database";
     }
-
-    /**
+    
+    /*
      * Returns the tip text for this property
      * @return tip text for this property suitable for
      * displaying in the explorer/experimenter gui
@@ -568,8 +568,8 @@ public class DBSCANTS
     public String database_distanceTypeTipText() {
         return "used distance-type";
     }
-
-    /**
+    
+    /*
      * Returns a string describing this DataMining-Algorithm
      * @return String Information for the gui-explorer
      */
@@ -579,8 +579,8 @@ public class DBSCANTS
           + "implementations exist! Clustering of new instances is not supported. More info:\n\n "
           + getTechnicalInformation().toString();
     }
-
-    /**
+    
+    /*
      * Returns an instance of a TechnicalInformation object, containing 
      * detailed information about the technical background of this class,
      * e.g., paper reference or book this class is based on.
@@ -601,8 +601,8 @@ public class DBSCANTS
       
       return result;
     }
-
-    /**
+    
+    /*
      * Returns a description of the clusterer
      * 
      * @return a string representation of the clusterer
@@ -631,7 +631,7 @@ public class DBSCANTS
         return stringBuffer.toString() + "\n";
     }
     
-    /**
+    /*
      * Returns the revision string.
      * 
      * @return		the revision
@@ -639,8 +639,8 @@ public class DBSCANTS
     public String getRevision() {
       return RevisionUtils.extract("$Revision: 9434 $");
     }
-
-    /**
+    
+    /*
      * Main Method for testing DBSCAN
      * @param args Valid parameters are: 'E' epsilon (default = 0.9); 'M' minPoints (default = 6);
      *                                   'I' index-type (default = weka.clusterers.forOPTICSAndDBScan.Databases.SequentialDatabase);

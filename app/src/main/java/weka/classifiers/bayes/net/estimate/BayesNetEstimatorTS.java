@@ -54,16 +54,16 @@ import java.util.Vector;
  */
 public class BayesNetEstimatorTS
     implements OptionHandler, Serializable, RevisionHandler {
-  
-    /** for serialization */
+	
+	/* for serialization */
     static final long serialVersionUID = 2184330197666253884L;
-    
-    /**
+	
+	/*
      * Holds prior on count
      */
     protected double m_fAlpha = 0.5;
-
-    /**
+	
+	/*
      * estimateCPTs estimates the conditional probability tables for the Bayes
      * Net using the network structure.
      * 
@@ -73,8 +73,8 @@ public class BayesNetEstimatorTS
     public void estimateCPTs(BayesNetTS bayesNet) throws Exception {
         throw new Exception("Incorrect BayesNetEstimator: use subclass instead.");
     }
-
-    /**
+	
+	/*
      * Updates the classifier with the given instance.
      * 
      * @param bayesNet the bayes net to use
@@ -84,8 +84,8 @@ public class BayesNetEstimatorTS
     public void updateClassifier(BayesNetTS bayesNet, Instance instance) throws Exception {
         throw new Exception("Incorrect BayesNetEstimator: use subclass instead.");
     }
-
-    /**
+	
+	/*
      * Calculates the class membership probabilities for the given test
      * instance.
      * 
@@ -97,8 +97,8 @@ public class BayesNetEstimatorTS
     public double[] distributionForInstance(BayesNetTS bayesNet, Instance instance) throws Exception {
         throw new Exception("Incorrect BayesNetEstimator: use subclass instead.");
     }
-
-    /** 
+	
+	/*
      * initCPTs reserves space for CPTs and set all counts to zero
      * 
      * @param bayesNet the bayes net to use
@@ -107,8 +107,8 @@ public class BayesNetEstimatorTS
     public void initCPTs(BayesNetTS bayesNet) throws Exception {
         throw new Exception("Incorrect BayesNetEstimator: use subclass instead.");
     } // initCPTs
-
-    /**
+	
+	/*
      * Returns an enumeration describing the available options
      * 
      * @return an enumeration of all the available options
@@ -120,35 +120,35 @@ public class BayesNetEstimatorTS
 
         return newVector.elements();
     } // listOptions
-
-    /**
-     * Parses a given list of options. <p/>
-     *
-     <!-- options-start -->
-     * Valid options are: <p/>
-     * 
-     * <pre> -A &lt;alpha&gt;
-     *  Initial count (alpha)
-     * </pre>
-     * 
-     <!-- options-end -->
-     * 
-     * @param options the list of options as an array of strings
-     * @throws Exception if an option is not supported
-     */
+	
+	/*
+	 * Parses a given list of options. <p/>
+	 *
+	 <!-- options-start -->
+	 * Valid options are: <p/>
+	 *
+	 * <pre> -A &lt;alpha&gt;
+	 *  Initial count (alpha)
+	 * </pre>
+	 *
+	 <!-- options-end -->
+	 *
+	 * @param options the list of options as an array of strings
+	 * @throws Exception if an option is not supported
+	 */
     public void setOptions(String[] options) throws Exception {
         String sAlpha = Utils.getOption('A', options);
 
         if (sAlpha.length() != 0) {
-            m_fAlpha = (new Float(sAlpha)).floatValue();
+			m_fAlpha = (Float.valueOf(sAlpha)).floatValue();
         } else {
             m_fAlpha = 0.5f;
         }
 
         Utils.checkForRemainingOptions(options);
     } // setOptions
-
-    /**
+	
+	/*
      * Gets the current settings of the classifier.
      * 
      * @return an array of strings suitable for passing to setOptions
@@ -162,33 +162,33 @@ public class BayesNetEstimatorTS
 
         return options;
     } // getOptions
-
-    /**
+	
+	/*
      * Set prior used in probability table estimation
      * @param fAlpha representing prior
      */
     public void setAlpha(double fAlpha) {
         m_fAlpha = fAlpha;
     }
-
-    /**
+	
+	/*
      * Get prior used in probability table estimation
      * @return prior
      */
     public double getAlpha() {
         return m_fAlpha;
     }
-
-
-    /**
+	
+	
+	/*
      * @return a string to describe the Alpha option.
      */
     public String alphaTipText() {
         return "Alpha is used for estimating the probability tables and can be interpreted"
             + " as the initial count on each value.";
     }
-
-    /**
+	
+	/*
      * This will return a string describing the class.
      * @return The string.
      */
@@ -198,8 +198,8 @@ public class BayesNetEstimatorTS
           + "conditional probability tables of a Bayes network once the "
           + "structure has been learned.";
     }
-    
-    /**
+	
+	/*
      * Returns the revision string.
      * 
      * @return		the revision
