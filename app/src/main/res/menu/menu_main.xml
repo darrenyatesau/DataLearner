@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="au.com.darrenyates.datalearner.MainActivity">
+    <item
+        android:id="@+id/clear"
+        android:orderInCategory="100"
+        android:title="Clear status area"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/about"
+        android:orderInCategory="100"
+        android:title="About DataLearner"
+        app:showAsAction="never" />
+</menu>

@@ -1,0 +1,74 @@
+<resources>
+    <string name="app_name">DataLearner</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="intro_text">DataLearner is data-mining app powered by the Weka data-mining core (version 3.6.15) and includes algorithms sourced from Weka and Charles Sturt University.
+    </string>
+    <string-array name="arrayBayes">
+        <item>-- none selected --</item>
+        <item>BayesNet</item>
+        <item>NaiveBayes</item>
+    </string-array>
+    <string-array name="arrayRules">
+        <item>-- none selected --</item>
+        <item>Conjunctive Rule</item>
+        <item>Decision Table</item>
+        <item>DTNB</item>
+        <item>JRip</item>
+        <item>OneR</item>
+        <item>PART</item>
+        <item>Ridor</item>
+        <item>ZeroR</item>
+    </string-array>
+    <string-array name="arrayTrees">
+        <item>-- none selected --</item>
+        <item>ADTree</item>
+        <item>BFTree</item>
+        <item>DecisionStump</item>
+        <item>ForestPA</item>
+        <item>J48 (C4.5)</item>
+        <item>LADTree</item>
+        <item>RandomForest</item>
+        <item>RandomTree</item>
+        <item>REPTree</item>
+        <item>SimpleCART</item>
+        <item>SysFor</item>
+        <item>SPAARC</item>
+    </string-array>
+    <string-array name="arrayMeta">
+        <item>-- none selected --</item>
+        <item>AdaBoostM1</item>
+        <item>Bagging</item>
+        <item>LogitBoost</item>
+        <item>MultiBoostAB</item>
+        <item>Random Committee</item>
+        <item>Rotation Forest</item>
+    </string-array>
+    <string-array name="arrayLazy">
+        <item>-- none selected --</item>
+        <item>IBk (KNN)</item>
+        <item>KStar</item>
+    </string-array>
+    <string-array name="arrayFunctions">
+        <item>-- none selected --</item>
+        <item>Logistic</item>
+        <item>SimpleLogistic</item>
+    </string-array>
+    <string-array name="arrayCluster">
+        <item>-- none selected --</item>
+        <item>DBSCAN</item>
+        <item>EM</item>
+        <item>FarthestFirst</item>
+        <item>FilteredClusterer</item>
+        <item>SimpleKMeans</item>
+    </string-array>
+    <string-array name="arrayAssociate">
+        <item>-- none selected --</item>
+        <item>Apriori</item>
+        <item>FilteredAssociator</item>
+        <item>FPGrowth</item>
+    </string-array>
+    <string-array name="arrayNumbers">
+        <item> --- </item>
+    </string-array>
+</resources>
