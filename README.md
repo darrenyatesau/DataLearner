@@ -5,7 +5,7 @@ DataLearner features classification, association and clustering algorithms from 
 
 DataMiner collects no information – it requires access to your device storage simply to load your datasets and build your requested models.
 
-DataMiner is open-source, with the source code for this project available at github.com/darrenyatesau/DataLearner. This application is part of the lead developer’s PhD program at Charles Sturt University, Australia.
+DataMiner is open-source, with the source code for this project available at github.com/darrenyatesau/DataLearner. This application is part of my PhD program at Charles Sturt University, Australia.
 
 Use of this app in research applications, please cite the research paper:
 Yates, D., Islam, M.Z, Gao, J. DataMiner: A Data-Mining and Knowledge Discovery Tool for Android Smartphones and Tablets. ArXiv, 2019
