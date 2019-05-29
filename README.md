@@ -8,7 +8,7 @@ DataLearner collects no information – it requires access to your device storag
 DataLearner is open-source, with the source code for this project available at github.com/darrenyatesau/DataLearner.
 
 Use of this app in research applications, please cite the research paper:
-Yates, D., Islam, M.Z, Gao, J. DataMiner: A Data-Mining and Knowledge Discovery Tool for Android Smartphones and Tablets. ArXiv, 2019
+Yates, D., Islam, M.Z, Gao, J. DataLearner: A Data-Mining and Knowledge Discovery Tool for Android Smartphones and Tablets. ArXiv, 2019
 
 Algorithms include:
 •	Bayes – BayesNet, NaiveBayes

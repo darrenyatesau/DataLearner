@@ -542,7 +542,7 @@ public class SimpleCartTS
 		while (prune) {
 			
 			// select node with minimum alpha
-			SimpleCart nodeToPrune = nodeToPrune(nodeList);
+			SimpleCartTS nodeToPrune = nodeToPrune(nodeList);
 			
 			// want to prune if its alpha is smaller than alpha
 			if (nodeToPrune.m_Alpha > alpha) {
@@ -618,7 +618,7 @@ public class SimpleCartTS
 			iteration++;
 			
 			// get node with minimum alpha
-			SimpleCart nodeToPrune = nodeToPrune(nodeList);
+			SimpleCartTS nodeToPrune = nodeToPrune(nodeList);
 			
 			// do not set m_sons null, want to unprune
 			nodeToPrune.m_isLeaf = true;
@@ -1371,13 +1371,13 @@ public class SimpleCartTS
 	 * @param nodeList list of inner nodes
 	 * @return the node to be pruned
 	 */
-	private SimpleCart nodeToPrune(Vector nodeList) {
+	private SimpleCartTS nodeToPrune(Vector nodeList) {
 		if (nodeList.size() == 0) return null;
-		if (nodeList.size() == 1) return (SimpleCart) nodeList.elementAt(0);
-		SimpleCart returnNode = (SimpleCart) nodeList.elementAt(0);
+		if (nodeList.size() == 1) return (SimpleCartTS) nodeList.elementAt(0);
+		SimpleCartTS returnNode = (SimpleCartTS) nodeList.elementAt(0);
 		double baseAlpha = returnNode.m_Alpha;
 		for (int i = 1; i < nodeList.size(); i++) {
-			SimpleCart node = (SimpleCart) nodeList.elementAt(i);
+			SimpleCartTS node = (SimpleCartTS) nodeList.elementAt(i);
 			if (node.m_Alpha < baseAlpha) {
 				baseAlpha = node.m_Alpha;
 				returnNode = node;

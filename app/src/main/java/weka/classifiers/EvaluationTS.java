@@ -560,7 +560,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 		for (int i = 0; i < numFolds; i++) {
 
 //---------------------------------------------------------------------------------------------------
-			System.out.println(Thread.currentThread().isInterrupted());
+//			System.out.println(Thread.currentThread().isInterrupted());
 			if (Thread.currentThread().isInterrupted()) break;
 			if (MainActivity.killThread == true) break;
 //---------------------------------------------------------------------------------------------------
