@@ -62,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
 	 */
 	private SectionsPagerAdapter mSectionsPagerAdapter;
 	private static Button btnCM;
-	private static TextView tvStatus;
+	private static TextView tvStatus, cci, ici, kappa, mae, rmse, rae, rrse, tni;
+	
 	private static String nameClassifier;
 	private static int validate;
 	private static Uri uriDataset;
@@ -197,27 +198,34 @@ public class MainActivity extends AppCompatActivity {
 
 		@Override
 		public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
-			String fileCut;
 			if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
 				uriDataset = null;
 				if (resultData != null) {
 					uriDataset = resultData.getData();
 					System.out.println("FILE: " + uriDataset.toString());
-					fileCut = uriDataset.getPath();
+					String fileCut = uriDataset.getPath();
 					int split = fileCut.lastIndexOf('/');
 					fileCut = fileCut.substring(split + 1);
 					split = fileCut.lastIndexOf(':');
-					tvFileName = fileCut.substring(split + 1);
-					tvFile.setText(tvFileName);
-					tvStats.setText("");
-					data = getData(fileCut);
-					tvStats.append(data.toSummaryString());
-					tvIntro.setText("");
-					ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) tvIntro.getLayoutParams();
-					params.topMargin = 16;
-					params.height = 0;
-					tvIntro.setLayoutParams(params);
-					tvTest.setLayoutParams(params);
+					if (fileCut.endsWith("arff")) {
+						tvFileName = fileCut.substring(split + 1);
+						tvFile.setText(tvFileName);
+						tvStats.setText("");
+						data = getData(fileCut);
+						tvStats.append(data.toSummaryString());
+						tvIntro.setText("");
+						ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) tvIntro.getLayoutParams();
+						params.topMargin = 16;
+						params.height = 0;
+						tvIntro.setLayoutParams(params);
+						tvTest.setLayoutParams(params);
+					} else {
+						AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+						alertDialog.setTitle("Warning");
+						alertDialog.setMessage("DataLearner only accepts Weka-style ARFF files for now (we're working on a .CSV reader).");
+						alertDialog.show();
+						
+					}
 					//					tvIntro.getLayoutParams().height = 0;
 
 				}
@@ -239,7 +247,6 @@ public class MainActivity extends AppCompatActivity {
 
 				newdata = dataSource.getDataSet();
 				if (newdata == null)
-					System.out.println("PROBLEM------------------------------------------------->>>>>>>");
 				inputStream.close();
 				spinClassAtt.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 					@Override
@@ -415,7 +422,6 @@ public class MainActivity extends AppCompatActivity {
 					RunFragment.changeFragment();
 					btnCM.setEnabled(false);
 //---------------------------------------------------------------------------------------------------------------
-//					tvStatus.setText("Ready.");
 					tvClassifier.setText(adapterView.getItemAtPosition(pos).toString());
 					nameClassifier = adapterView.getItemAtPosition(pos).toString();
 					if (nameClassifier.trim().equals("Rotation Forest")) {
@@ -473,7 +479,7 @@ public class MainActivity extends AppCompatActivity {
 		}
 		
 		//		TextView cci, ici, kappa, mae, rmse, rae, rrse, tni, tvStatus, tvsl3;
-		TextView cci, ici, kappa, mae, rmse, rae, rrse, tni, tvsl3;
+		TextView tvsl3;
 		Button btnRun;
 		CheckBox checkBox;
 
@@ -486,7 +492,6 @@ public class MainActivity extends AppCompatActivity {
 								 Bundle savedInstanceState) {
 			
 			View rootView = inflater.inflate(R.layout.fragment_main_tab3, container, false);
-			System.out.println("================= THIRD FRAGMENT BUILD ======================================");
 			tvStatus = rootView.findViewById(R.id.tvStatus);
 			checkBox = rootView.findViewById(R.id.checkBox);
 			btnRun = rootView.findViewById(R.id.btnRun);
@@ -580,17 +585,17 @@ public class MainActivity extends AppCompatActivity {
 			isThreadRunning = true;
 		}
 		
+		
 		static void cleanDisplay() {
-//			cci.setText("---");
-//			ici.setText("---");
-//			kappa.setText("---");
-//			mae.setText("---");
-//			rmse.setText("---");
-//			rae.setText("---");
-//			rrse.setText("---");
-//			tni.setText("---");
 			tvStatus.setText("Ready.");
-			
+			cci.setText("---");
+			ici.setText("---");
+			kappa.setText("---");
+			mae.setText("---");
+			rmse.setText("---");
+			rae.setText("---");
+			rrse.setText("---");
+			tni.setText("---");
 		}
 
 	}
