@@ -285,7 +285,6 @@ public class MainActivity extends AppCompatActivity {
 		public SelectFragment() {
 		}
 
-
 		View rootView;
 		TextView textView, tvClassifier;
 		
@@ -295,6 +294,7 @@ public class MainActivity extends AppCompatActivity {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 								 Bundle savedInstanceState) {
+			
 			
 			rootView = inflater.inflate(R.layout.fragment_main_tab2, container, false);
 			tvStatus = rootView.findViewById(R.id.tvStatus);
@@ -427,6 +427,8 @@ public class MainActivity extends AppCompatActivity {
 				}
 				
 				void changeFragment() {
+					
+					
 					ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) tvStatus.getLayoutParams();
 					if (alType == 2) {
 						params.topMargin = 3;
@@ -471,6 +473,8 @@ public class MainActivity extends AppCompatActivity {
 
 		public RunFragment() {
 		}
+		
+		TextView tvStatus;
 		
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
