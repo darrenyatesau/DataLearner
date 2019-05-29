@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -58,23 +59,6 @@ public class MainActivity extends AppCompatActivity {
 	 * {@link android.support.v4.app.FragmentStatePagerAdapter}.
 	 */
 	private SectionsPagerAdapter mSectionsPagerAdapter;
-	//	TextView textView;
-	private static TextView cci;
-	private static TextView ici;
-	private static TextView kappa;
-	private static TextView mae;
-	private static TextView rmse;
-	private static TextView rae;
-	private static TextView rrse;
-	private static TextView tni;
-	private static TextView tvsl3;
-	private static TextView tvStats;
-	private static TextView tvStatus;
-	//	TextView tvStatus;
-	static HorizontalScrollView idHS;
-	private static Button btnRun;
-	private static Button btnCM;
-	private static CheckBox checkBox;
 	private static String nameClassifier;
 	private static int validate;
 	private static Uri uriDataset;
@@ -87,7 +71,8 @@ public class MainActivity extends AppCompatActivity {
 	private static Thread thread;
 	private static ThreadGroup threadGroup;
 	static int alType = 1;
-
+	
+	
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
@@ -95,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
@@ -143,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
 			return true;
 		}
 		if (id == R.id.clear) {
-			tvStatus.setText("");
+//			tvStatus.setText("");
 			return true;
 		}
 
@@ -163,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
 //        private final String ARG_SECTION_NUMBER = "section_number";
 
 		private static final int READ_REQUEST_CODE = 42;
-		TextView tvFile, tvIntro, tvTest;
+		TextView tvFile, tvIntro, tvTest, tvStats;
 		Spinner spinClassAtt;
 		String tvFileName;
 
@@ -251,6 +237,8 @@ public class MainActivity extends AppCompatActivity {
 					@Override
 					public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 						data.setClassIndex(i);
+//						RunFragment.cleanDisplay();
+						
 					}
 
 					@Override
@@ -297,7 +285,7 @@ public class MainActivity extends AppCompatActivity {
 			
 			
 			rootView = inflater.inflate(R.layout.fragment_main_tab2, container, false);
-			tvStatus = rootView.findViewById(R.id.tvStatus);
+//			tvStatus = rootView.findViewById(R.id.tvStatus);
 			textView = rootView.findViewById(R.id.section_label2);
 			tvClassifier = rootView.findViewById(R.id.tvClass);
 			spinBayes = rootView.findViewById(R.id.spinner1);
@@ -394,10 +382,10 @@ public class MainActivity extends AppCompatActivity {
 						alType = 2;
 					}
 //---------------------------------------------------------------------------------------------------------------
-					changeFragment();
-					btnCM.setEnabled(false);
+//					RunFragment.changeFragment();
+//					btnCM.setEnabled(false);
 //---------------------------------------------------------------------------------------------------------------
-					tvStatus.setText("Ready.");
+//					tvStatus.setText("Ready.");
 					tvClassifier.setText(adapterView.getItemAtPosition(pos).toString());
 					nameClassifier = adapterView.getItemAtPosition(pos).toString();
 					if (nameClassifier.trim().equals("Rotation Forest")) {
@@ -426,28 +414,6 @@ public class MainActivity extends AppCompatActivity {
 					stf.setOnItemSelectedListener(this);
 				}
 				
-				void changeFragment() {
-					
-					
-					ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) tvStatus.getLayoutParams();
-					if (alType == 2) {
-						params.topMargin = 3;
-						params.bottomToTop = ConstraintLayout.LayoutParams.UNSET;
-						params.topToBottom = R.id.btnRun;
-//						params.topToTop = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT;
-						params.bottomToBottom = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT;
-						params.bottomMargin = 16;
-					} else if (alType == 1) {
-						params.topMargin = 16;
-						params.bottomToBottom = ConstraintLayout.LayoutParams.UNSET;
-						params.bottomToTop = R.id.btnCM;
-						params.topToBottom = R.id.textView14;
-						params.bottomMargin = 8;
-					}
-					tvStatus.setLayoutParams(params);
-					RunFragment.cleanDisplay();
-
-				}
 
 
 			};
@@ -474,14 +440,18 @@ public class MainActivity extends AppCompatActivity {
 		public RunFragment() {
 		}
 		
-		TextView tvStatus;
-		
+		TextView cci, ici, kappa, mae, rmse, rae, rrse, tni, tvStatus, btnRun, btnCM, tvsl3;
+		CheckBox checkBox;
+
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 								 Bundle savedInstanceState) {
-
-			View rootView = inflater.inflate(R.layout.fragment_main_tab3, container, false);
-
+			
+			View rootView;
+			if (alType == 1)
+				rootView = inflater.inflate(R.layout.fragment_main_tab3, container, false);
+			else rootView = inflater.inflate(R.layout.fragment_main_tab3a, container, false);
+			System.out.println("================= THIRD FRAGMENT BUILD ======================================");
 			tvStatus = rootView.findViewById(R.id.tvStatus);
 			checkBox = rootView.findViewById(R.id.checkBox);
 			btnRun = rootView.findViewById(R.id.btnRun);
@@ -539,6 +509,28 @@ public class MainActivity extends AppCompatActivity {
 			return rootView;
 		}
 		
+		void changeFragment() {
+			
+			ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) tvStatus.getLayoutParams();
+			if (alType == 2) {
+				params.topMargin = 3;
+				params.bottomToTop = ConstraintLayout.LayoutParams.UNSET;
+				params.topToBottom = R.id.btnRun;
+//						params.topToTop = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT;
+				params.bottomToBottom = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT;
+				params.bottomMargin = 16;
+			} else if (alType == 1) {
+				params.topMargin = 16;
+				params.bottomToBottom = ConstraintLayout.LayoutParams.UNSET;
+				params.bottomToTop = R.id.btnCM;
+				params.topToBottom = R.id.textView14;
+				params.bottomMargin = 8;
+			}
+			tvStatus.setLayoutParams(params);
+			cleanDisplay();
+			
+		}
+		
 		void launchTask(CheckBox checkBox) {
 			btnCM.setEnabled(false);
 			cleanDisplay();
@@ -554,7 +546,7 @@ public class MainActivity extends AppCompatActivity {
 			isThreadRunning = true;
 		}
 		
-		static void cleanDisplay() {
+		void cleanDisplay() {
 			cci.setText("---");
 			ici.setText("---");
 			kappa.setText("---");
@@ -563,6 +555,8 @@ public class MainActivity extends AppCompatActivity {
 			rae.setText("---");
 			rrse.setText("---");
 			tni.setText("---");
+			tvStatus.setText("Ready.");
+			
 		}
 
 	}
@@ -576,6 +570,7 @@ public class MainActivity extends AppCompatActivity {
 	 */
 	class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 		
+		
 		SectionsPagerAdapter(FragmentManager fm) {
 			super(fm);
 		}
@@ -584,10 +579,13 @@ public class MainActivity extends AppCompatActivity {
 		public Fragment getItem(int position) {
 			switch (position) {
 				case 0:
+//					return fragL;
 					return new LoadFragment();
 				case 1:
+//					return fragS;
 					return new SelectFragment();
 				case 2:
+//					return fragR;
 					return new RunFragment();
 			}
 			// getItem is called to instantiate the fragment for the given page.
