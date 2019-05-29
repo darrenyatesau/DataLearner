@@ -1,4 +1,4 @@
-package au.com.darrenyates.dataminer;
+package au.com.darrenyates.datalearner;
 
 import org.junit.Test;
 

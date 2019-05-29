@@ -1,4 +1,4 @@
-package au.com.darrenyates.dataminer;
+package au.com.darrenyates.datalearner;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -20,7 +20,7 @@ public class ExampleInstrumentedTest {
     public void useAppContext() throws Exception {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
-
-        assertEquals("au.com.darrenyates.wekadroid", appContext.getPackageName());
+    
+        assertEquals("au.com.darrenyates.datalearner", appContext.getPackageName());
     }
 }

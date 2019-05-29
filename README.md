@@ -3,9 +3,9 @@ DataLearner is an easy-to-use tool for machine-learning and knowledge discovery 
 
 DataLearner features classification, association and clustering algorithms from the open-source Weka (Waikato Environment for Knowledge Analysis) package, plus new algorithms developed by the Data Science Research Unit (DSRU) at Charles Sturt University. Combined, the app provides over 30 machine-learning/data-mining algorithms, including RandomForest, C4.5 (J48) and NaiveBayes.
 
-DataMiner collects no information – it requires access to your device storage simply to load your datasets and build your requested models.
+DataLearner collects no information – it requires access to your device storage simply to load your datasets and build your requested models.
 
-DataMiner is open-source, with the source code for this project available at github.com/darrenyatesau/DataLearner. 
+DataLearner is open-source, with the source code for this project available at github.com/darrenyatesau/DataLearner.
 
 Use of this app in research applications, please cite the research paper:
 Yates, D., Islam, M.Z, Gao, J. DataMiner: A Data-Mining and Knowledge Discovery Tool for Android Smartphones and Tablets. ArXiv, 2019

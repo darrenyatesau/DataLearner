@@ -9,6 +9,7 @@
 package au.com.darrenyates.datalearner;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.constraint.ConstraintLayout;
@@ -43,6 +44,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import weka.classifiers.trees.adtreets.PredictionNodeTS;
 import weka.core.Instances;
 import weka.core.converters.CSVLoader;
 import weka.core.converters.ConverterUtils;
@@ -72,6 +74,9 @@ public class MainActivity extends AppCompatActivity {
 	private static ThreadGroup threadGroup;
 	static int alType = 1;
 	
+	LoadFragment fragL = new LoadFragment();
+	SelectFragment fragS = new SelectFragment();
+	RunFragment fragR = new RunFragment();
 	
 	/**
 	 * The {@link ViewPager} that will host the section contents.
@@ -100,10 +105,17 @@ public class MainActivity extends AppCompatActivity {
 		mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 		tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-
+//		new SelectFragment.OnSelectionUpdateListener() {
+//
+//			public void changeInterface(int alType) {
+////				fragR.setInterface(alType);
+//			}
+//
+//		};
+		
 	}
-
-
+	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -129,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
 			return true;
 		}
 		if (id == R.id.clear) {
-//			tvStatus.setText("");
+			fragR.tvStatus.setText("Ready.");
 			return true;
 		}
 
@@ -142,11 +154,6 @@ public class MainActivity extends AppCompatActivity {
 	 * A placeholder fragment containing a simple view.
 	 */
 	public static class LoadFragment extends Fragment {
-		/**
-		 * The fragment argument representing the section number for this
-		 * fragment.
-		 */
-//        private final String ARG_SECTION_NUMBER = "section_number";
 
 		private static final int READ_REQUEST_CODE = 42;
 		TextView tvFile, tvIntro, tvTest, tvStats;
@@ -155,7 +162,6 @@ public class MainActivity extends AppCompatActivity {
 
 		public LoadFragment() {
 		}
-
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -273,19 +279,41 @@ public class MainActivity extends AppCompatActivity {
 		public SelectFragment() {
 		}
 
+//		private OnSelectionUpdateListener mCallback;
+//
+//		public interface OnSelectionUpdateListener {
+//			void changeInterface(int intType);
+//		}
+//
+//		@Override
+//		public void onAttach(Context context) {
+//			super.onAttach(context);
+//			if (context instanceof OnSelectionUpdateListener) {
+//				mCallback = (OnSelectionUpdateListener) context;
+//			}
+//
+//		}
+//
+//		@Override
+//		public void onDetach() {
+//			super.onDetach();
+//			mCallback = null;
+//		}
+		
+		
 		View rootView;
 		TextView textView, tvClassifier;
 		
 		Spinner spinBayes, spinRules, spinTrees, spinMeta, spinLazy, spinFunctions, spinCluster, spinAssociate;
 		Integer idBayes, idRules, idTrees, idMeta, idLazy, idFunctions, idCluster, idAssociate;
-
+		
+		
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 								 Bundle savedInstanceState) {
 			
 			
 			rootView = inflater.inflate(R.layout.fragment_main_tab2, container, false);
-//			tvStatus = rootView.findViewById(R.id.tvStatus);
 			textView = rootView.findViewById(R.id.section_label2);
 			tvClassifier = rootView.findViewById(R.id.tvClass);
 			spinBayes = rootView.findViewById(R.id.spinner1);
@@ -382,6 +410,8 @@ public class MainActivity extends AppCompatActivity {
 						alType = 2;
 					}
 //---------------------------------------------------------------------------------------------------------------
+//					if (mCallback != null) mCallback.changeInterface(alType);
+//					System.out.println(mCallback);
 //					RunFragment.changeFragment();
 //					btnCM.setEnabled(false);
 //---------------------------------------------------------------------------------------------------------------
@@ -402,7 +432,8 @@ public class MainActivity extends AppCompatActivity {
 						alertDialog.show();
 					}
 				}
-
+				
+				
 				@Override
 				public void onNothingSelected(AdapterView<?> adapterView) {
 
@@ -417,7 +448,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 			};
-
+			
 			spinBayes.setOnItemSelectedListener(spinListener);
 			spinRules.setOnItemSelectedListener(spinListener);
 			spinTrees.setOnItemSelectedListener(spinListener);
@@ -443,14 +474,15 @@ public class MainActivity extends AppCompatActivity {
 		TextView cci, ici, kappa, mae, rmse, rae, rrse, tni, tvStatus, btnRun, btnCM, tvsl3;
 		CheckBox checkBox;
 
+//		public void setInterface(int uitype) {
+//			changeFragment();
+//		}
+		
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 								 Bundle savedInstanceState) {
 			
-			View rootView;
-			if (alType == 1)
-				rootView = inflater.inflate(R.layout.fragment_main_tab3, container, false);
-			else rootView = inflater.inflate(R.layout.fragment_main_tab3a, container, false);
+			View rootView = inflater.inflate(R.layout.fragment_main_tab3, container, false);
 			System.out.println("================= THIRD FRAGMENT BUILD ======================================");
 			tvStatus = rootView.findViewById(R.id.tvStatus);
 			checkBox = rootView.findViewById(R.id.checkBox);
@@ -468,7 +500,6 @@ public class MainActivity extends AppCompatActivity {
 			tvsl3 = rootView.findViewById(R.id.section_label3);
 			tvStatus.setMovementMethod(new ScrollingMovementMethod());
 			tvStatus.setHorizontallyScrolling(true);
-			
 			
 			btnRun.setOnClickListener(new Button.OnClickListener() {
 				@Override
@@ -512,6 +543,7 @@ public class MainActivity extends AppCompatActivity {
 		void changeFragment() {
 			
 			ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) tvStatus.getLayoutParams();
+			System.out.println("YEP, WE'RE HERE!!!!!!!!!!!");
 			if (alType == 2) {
 				params.topMargin = 3;
 				params.bottomToTop = ConstraintLayout.LayoutParams.UNSET;
@@ -561,7 +593,8 @@ public class MainActivity extends AppCompatActivity {
 
 	}
 	//------------------------------------------------------------------------------------------------
-
+	
+	
 	//------------------------------------------------------------------------------------------------
 
 	/**
