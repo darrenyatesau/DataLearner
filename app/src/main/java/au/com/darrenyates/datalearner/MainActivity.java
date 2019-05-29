@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
 	 * {@link android.support.v4.app.FragmentStatePagerAdapter}.
 	 */
 	private SectionsPagerAdapter mSectionsPagerAdapter;
+	private static Button btnCM;
+	private static TextView tvStatus;
 	private static String nameClassifier;
 	private static int validate;
 	private static Uri uriDataset;
@@ -108,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
 //		new SelectFragment.OnSelectionUpdateListener() {
 //
 //			public void changeInterface(int alType) {
-////				fragR.setInterface(alType);
+//				fragR.setInterface(alType);
 //			}
 //
 //		};
@@ -141,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
 			return true;
 		}
 		if (id == R.id.clear) {
-			fragR.tvStatus.setText("Ready.");
+			tvStatus.setText("Ready.");
 			return true;
 		}
 
@@ -306,7 +308,7 @@ public class MainActivity extends AppCompatActivity {
 		
 		Spinner spinBayes, spinRules, spinTrees, spinMeta, spinLazy, spinFunctions, spinCluster, spinAssociate;
 		Integer idBayes, idRules, idTrees, idMeta, idLazy, idFunctions, idCluster, idAssociate;
-		
+
 		
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -410,10 +412,8 @@ public class MainActivity extends AppCompatActivity {
 						alType = 2;
 					}
 //---------------------------------------------------------------------------------------------------------------
-//					if (mCallback != null) mCallback.changeInterface(alType);
-//					System.out.println(mCallback);
-//					RunFragment.changeFragment();
-//					btnCM.setEnabled(false);
+					RunFragment.changeFragment();
+					btnCM.setEnabled(false);
 //---------------------------------------------------------------------------------------------------------------
 //					tvStatus.setText("Ready.");
 					tvClassifier.setText(adapterView.getItemAtPosition(pos).toString());
@@ -449,6 +449,7 @@ public class MainActivity extends AppCompatActivity {
 
 			};
 			
+
 			spinBayes.setOnItemSelectedListener(spinListener);
 			spinRules.setOnItemSelectedListener(spinListener);
 			spinTrees.setOnItemSelectedListener(spinListener);
@@ -471,7 +472,9 @@ public class MainActivity extends AppCompatActivity {
 		public RunFragment() {
 		}
 		
-		TextView cci, ici, kappa, mae, rmse, rae, rrse, tni, tvStatus, btnRun, btnCM, tvsl3;
+		//		TextView cci, ici, kappa, mae, rmse, rae, rrse, tni, tvStatus, tvsl3;
+		TextView cci, ici, kappa, mae, rmse, rae, rrse, tni, tvsl3;
+		Button btnRun;
 		CheckBox checkBox;
 
 //		public void setInterface(int uitype) {
@@ -540,10 +543,9 @@ public class MainActivity extends AppCompatActivity {
 			return rootView;
 		}
 		
-		void changeFragment() {
+		static void changeFragment() {
 			
 			ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) tvStatus.getLayoutParams();
-			System.out.println("YEP, WE'RE HERE!!!!!!!!!!!");
 			if (alType == 2) {
 				params.topMargin = 3;
 				params.bottomToTop = ConstraintLayout.LayoutParams.UNSET;
@@ -578,21 +580,22 @@ public class MainActivity extends AppCompatActivity {
 			isThreadRunning = true;
 		}
 		
-		void cleanDisplay() {
-			cci.setText("---");
-			ici.setText("---");
-			kappa.setText("---");
-			mae.setText("---");
-			rmse.setText("---");
-			rae.setText("---");
-			rrse.setText("---");
-			tni.setText("---");
+		static void cleanDisplay() {
+//			cci.setText("---");
+//			ici.setText("---");
+//			kappa.setText("---");
+//			mae.setText("---");
+//			rmse.setText("---");
+//			rae.setText("---");
+//			rrse.setText("---");
+//			tni.setText("---");
 			tvStatus.setText("Ready.");
 			
 		}
 
 	}
 	//------------------------------------------------------------------------------------------------
+
 	
 	
 	//------------------------------------------------------------------------------------------------
@@ -612,14 +615,14 @@ public class MainActivity extends AppCompatActivity {
 		public Fragment getItem(int position) {
 			switch (position) {
 				case 0:
-//					return fragL;
-					return new LoadFragment();
+					return fragL;
+//					return new LoadFragment();
 				case 1:
-//					return fragS;
-					return new SelectFragment();
+					return fragS;
+//					return new SelectFragment();
 				case 2:
-//					return fragR;
-					return new RunFragment();
+					return fragR;
+//					return new RunFragment();
 			}
 			// getItem is called to instantiate the fragment for the given page.
 			// Return a PlaceholderFragment (defined as a static inner class below).
