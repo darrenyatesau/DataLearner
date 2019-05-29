@@ -114,17 +114,17 @@ public class ConjunctiveRuleTS
 	/*
 	 * The vector of antecedents of this rule
 	 */
-	protected FastVector m_Antds = null;
+	private FastVector m_Antds = null;
 	
 	/*
 	 * The default rule distribution of the data not covered
 	 */
-	protected double[] m_DefDstr = null;
+	private double[] m_DefDstr = null;
 	
 	/*
 	 * The consequent of this rule
 	 */
-	protected double[] m_Cnsqt = null;
+	private double[] m_Cnsqt = null;
 	
 	/*
 	 * Number of classes in the training data
@@ -205,40 +205,42 @@ public class ConjunctiveRuleTS
 		/*
 		 * The attribute of the antecedent
 		 */
-		protected Attribute att;
+		Attribute att;
 		
 		/*
 		 * The attribute value of the antecedent.
 		 * For numeric attribute, value is either 0(1st bag) or 1(2nd bag)
 		 */
-		protected double value;
+		double value;
 		
 		/*
 		 * The maximum infoGain achieved by this antecedent test
 		 */
-		protected double maxInfoGain;
+		double maxInfoGain;
 		
 		/*
 		 * The information of this antecedent test on the growing data
 		 */
-		protected double inform;
+		double inform;
 		
 		/*
 		 * The parameter related to the meanSquaredError of the data not covered
 		 * by the previous antecedents when the class is numeric
 		 */
-		protected double uncoverWtSq, uncoverWtVl, uncoverSum;
+		double uncoverWtSq;
+		double uncoverWtVl;
+		double uncoverSum;
 		
 		/*
 		 * The parameters related to the data not covered by the previous
 		 * antecedents when the class is nominal
 		 */
-		protected double[] uncover;
+		double[] uncover;
 		
 		/*
 		 * Constructor for nominal class
 		 */
-		public Antd(Attribute a, double[] unc) {
+		Antd(Attribute a, double[] unc) {
 			att = a;
 			value = Double.NaN;
 			maxInfoGain = 0;
@@ -249,8 +251,8 @@ public class ConjunctiveRuleTS
 		/*
 		 * Constructor for numeric class
 		 */
-		public Antd(Attribute a, double uncoveredWtSq,
-					double uncoveredWtVl, double uncoveredWts) {
+		Antd(Attribute a, double uncoveredWtSq,
+			 double uncoveredWtVl, double uncoveredWts) {
 			att = a;
 			value = Double.NaN;
 			maxInfoGain = 0;
@@ -261,26 +263,26 @@ public class ConjunctiveRuleTS
 		}
 		
 		/* The abstract members for inheritance */
-		public abstract Instances[] splitData(Instances data, double defInfo);
+		protected abstract Instances[] splitData(Instances data, double defInfo);
 		
-		public abstract boolean isCover(Instance inst);
+		protected abstract boolean isCover(Instance inst);
 		
 		public abstract String toString();
 		
 		/* Get functions of this antecedent */
-		public Attribute getAttr() {
+		Attribute getAttr() {
 			return att;
 		}
 		
-		public double getAttrValue() {
+		double getAttrValue() {
 			return value;
 		}
 		
-		public double getMaxInfoGain() {
+		double getMaxInfoGain() {
 			return maxInfoGain;
 		}
 		
-		public double getInfo() {
+		double getInfo() {
 			return inform;
 		}
 		
@@ -294,7 +296,7 @@ public class ConjunctiveRuleTS
 		 * @param sum           sum of weights
 		 * @return the weighted mean-squared error
 		 */
-		protected double wtMeanSqErr(double weightedSq, double weightedValue, double sum) {
+		double wtMeanSqErr(double weightedSq, double weightedValue, double sum) {
 			if (Utils.smOrEq(sum, 1.0E-6))
 				return 0;
 			return (weightedSq - (weightedValue * weightedValue) / sum);
@@ -309,7 +311,7 @@ public class ConjunctiveRuleTS
 		 * @param sum   the sum of the given values.  It's provided just for efficiency.
 		 * @return the entropy
 		 */
-		protected double entropy(double[] value, double sum) {
+		double entropy(double[] value, double sum) {
 			if (Utils.smOrEq(sum, 1.0E-6))
 				return 0;
 			
@@ -352,7 +354,7 @@ public class ConjunctiveRuleTS
 		/*
 		 * Constructor for nominal class
 		 */
-		public NumericAntd(Attribute a, double[] unc) {
+		NumericAntd(Attribute a, double[] unc) {
 			super(a, unc);
 			splitPoint = Double.NaN;
 		}
@@ -360,7 +362,7 @@ public class ConjunctiveRuleTS
 		/*
 		 * Constructor for numeric class
 		 */
-		public NumericAntd(Attribute a, double sq, double vl, double wts) {
+		NumericAntd(Attribute a, double sq, double vl, double wts) {
 			super(a, sq, vl, wts);
 			splitPoint = Double.NaN;
 		}
@@ -632,7 +634,7 @@ public class ConjunctiveRuleTS
 		/*
 		 * Constructor for nominal class
 		 */
-		public NominalAntd(Attribute a, double[] unc) {
+		NominalAntd(Attribute a, double[] unc) {
 			super(a, unc);
 			int bag = att.numValues();
 			stats = new double[bag][m_NumClasses];
@@ -643,7 +645,7 @@ public class ConjunctiveRuleTS
 		/*
 		 * Constructor for numeric class
 		 */
-		public NominalAntd(Attribute a, double sq, double vl, double wts) {
+		NominalAntd(Attribute a, double sq, double vl, double wts) {
 			super(a, sq, vl, wts);
 			int bag = att.numValues();
 			stats = null;
@@ -850,7 +852,7 @@ public class ConjunctiveRuleTS
 		 *
 		 * @return the boolean value
 		 */
-		public boolean isIn() {
+		boolean isIn() {
 			return isIn;
 		}
 		
@@ -1290,7 +1292,7 @@ public class ConjunctiveRuleTS
 	 * @param datum the instance in question
 	 * @return the boolean value indicating whether the instance is covered by this rule
 	 */
-	public boolean isCover(Instance datum) {
+	private boolean isCover(Instance datum) {
 		boolean isCover = true;
 		
 		for (int i = 0; i < m_Antds.size(); i++) {
@@ -1720,7 +1722,7 @@ public class ConjunctiveRuleTS
 	 * @param cl  the string standing for value in the consequent of this rule
 	 * @return a textual description of this rule with the specified class label
 	 */
-	public String toString(String att, String cl) {
+	private String toString(String att, String cl) {
 		StringBuffer text = new StringBuffer();
 		if (m_Antds.size() > 0) {
 			for (int j = 0; j < (m_Antds.size() - 1); j++)

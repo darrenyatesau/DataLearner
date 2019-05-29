@@ -105,47 +105,47 @@ public class NaiveBayesTS extends Classifier
 	/*
 	 * The attribute estimators.
 	 */
-	protected Estimator[][] m_Distributions;
+	private Estimator[][] m_Distributions;
 	
 	/*
 	 * The class estimator.
 	 */
-	protected Estimator m_ClassDistribution;
+	private Estimator m_ClassDistribution;
 	
 	/*
 	 * Whether to use kernel density estimator rather than normal distribution
 	 * for numeric attributes
 	 */
-	protected boolean m_UseKernelEstimator = false;
+	private boolean m_UseKernelEstimator = false;
 	
 	/*
 	 * Whether to use discretization than normal distribution
 	 * for numeric attributes
 	 */
-	protected boolean m_UseDiscretization = false;
+	private boolean m_UseDiscretization = false;
 	
 	/*
 	 * The number of classes (or 1 for numeric class)
 	 */
-	protected int m_NumClasses;
+	private int m_NumClasses;
 	
 	/*
 	 * The dataset header for the purposes of printing out a semi-intelligible
 	 * model
 	 */
-	protected Instances m_Instances;
+	private Instances m_Instances;
 	
 	/**
 	 * The precision parameter used for numeric attributes
 	 */
-	protected static final double DEFAULT_NUM_PRECISION = 0.01;
+	private static final double DEFAULT_NUM_PRECISION = 0.01;
 	
 	/*
 	 * The discretization filter.
 	 */
-	protected weka.filters.supervised.attribute.Discretize m_Disc = null;
+	private weka.filters.supervised.attribute.Discretize m_Disc = null;
 	
-	protected boolean m_displayModelInOldFormat = false;
+	private boolean m_displayModelInOldFormat = false;
 	
 	/*
 	 * Returns a string describing this classifier
@@ -799,7 +799,7 @@ public class NaiveBayesTS extends Classifier
 	 *
 	 * @return a description of the classifier as a string.
 	 */
-	protected String toStringOriginal() {
+	private String toStringOriginal() {
 		
 		StringBuffer text = new StringBuffer();
 		
@@ -876,7 +876,7 @@ public class NaiveBayesTS extends Classifier
 	 *
 	 * @param v Value to assign to m_UseKernelEstimatory.
 	 */
-	public void setUseKernelEstimator(boolean v) {
+	private void setUseKernelEstimator(boolean v) {
 		
 		m_UseKernelEstimator = v;
 		if (v) {
@@ -910,7 +910,7 @@ public class NaiveBayesTS extends Classifier
 	 *
 	 * @param newblah true if supervised discretization is to be used.
 	 */
-	public void setUseSupervisedDiscretization(boolean newblah) {
+	private void setUseSupervisedDiscretization(boolean newblah) {
 		
 		m_UseDiscretization = newblah;
 		if (newblah) {
@@ -936,7 +936,7 @@ public class NaiveBayesTS extends Classifier
 	 *
 	 * @param d true if model ouput is to be shown in the old format
 	 */
-	public void setDisplayModelInOldFormat(boolean d) {
+	private void setDisplayModelInOldFormat(boolean d) {
 		m_displayModelInOldFormat = d;
 	}
 	

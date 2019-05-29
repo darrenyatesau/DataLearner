@@ -9,6 +9,7 @@
 
 package au.com.darrenyates.datalearner;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.text.method.ScrollingMovementMethod;
@@ -70,33 +71,51 @@ import static au.com.darrenyates.datalearner.MainActivity.killThread;
 import static au.com.darrenyates.datalearner.MainActivity.isThreadRunning;
 import static au.com.darrenyates.datalearner.MainActivity.statusUpdateStore;
 
-public class DataAnalysis implements Runnable {
+class DataAnalysis implements Runnable {
 	
 	private Context context;
-	TextView tv, tvsl3, cci, ici, kappa, mae, rmse, rae, rrse, tni;
-	Button btnRun, btnCM;
-	String algorithm;
-	int validate;
+	private TextView tv;
+	private TextView tvsl3;
+	private TextView cci;
+	private TextView ici;
+	private TextView kappa;
+	private TextView mae;
+	private TextView rmse;
+	private TextView rae;
+	private TextView rrse;
+	private TextView tni;
+	private Button btnRun;
+	private Button btnCM;
+	private String algorithm;
+	private int validate;
 	//    Uri dataset;
-	Instances data;
-	boolean isRunning;
-	long timeBuildStart, timeBuildEnd, timeEvalStart, timeEvalEnd, timeBuild, timeEval;
+	private Instances data;
+	private boolean isRunning;
+	private long timeBuildStart;
+	private long timeBuildEnd;
+	private long timeEvalStart;
+	private long timeEvalEnd;
+	private long timeBuild;
+	private long timeEval;
 	static EvaluationTS returnEval;
 	static String classifierTree;
-	Handler handler = new Handler();
-	Instances clusterdata;
-	int dotCount = 0;
+	private Handler handler = new Handler();
+	private Instances clusterdata;
+	private int dotCount = 0;
 	
 	//    DataAnalysis(Context context, TextView v, TextView sl3, Button btnRun, Button btnCM, String algorithm, int validate, Uri dataset,
 //                 TextView cci, TextView ici, TextView kappa, TextView mae, TextView rmse, TextView rae, TextView rrse, TextView tni) {
-	DataAnalysis(Context context, TextView v, TextView sl3, Button btnRun, Button btnCM, String algorithm, int validate, Instances dataset,
+//	DataAnalysis(Context context, TextView v, TextView sl3, Button btnRun, Button btnCM, String algorithm, int validate, Instances dataset,
+//				 TextView cci, TextView ici, TextView kappa, TextView mae, TextView rmse, TextView rae, TextView rrse, TextView tni) {
+	DataAnalysis(Context context, String algorithm, int validate, Instances dataset,
 				 TextView cci, TextView ici, TextView kappa, TextView mae, TextView rmse, TextView rae, TextView rrse, TextView tni) {
+//		DataAnalysis(Context context) {
 		
 		this.context = context;
-		this.tv = v;
-		this.tvsl3 = sl3;
-		this.btnRun = btnRun;
-		this.btnCM = btnCM;
+		this.tv = ((Activity) context).findViewById(R.id.tvStatus);
+		this.tvsl3 = ((Activity) context).findViewById(R.id.section_label3);
+		this.btnRun = ((Activity) context).findViewById(R.id.btnRun);
+		this.btnCM = ((Activity) context).findViewById(R.id.btnCM);
 		this.algorithm = algorithm;
 		this.validate = validate;
 		this.data = dataset;
@@ -111,7 +130,7 @@ public class DataAnalysis implements Runnable {
 		
 	}
 	
-	public class Classifiers {
+	class Classifiers {
 		
 		BayesNetTS bayesNet = new BayesNetTS();
 		NaiveBayesTS naiveBayes = new NaiveBayesTS();
@@ -156,7 +175,7 @@ public class DataAnalysis implements Runnable {
 		FPGrowthTS fpGrowth = new FPGrowthTS();
 		FilteredAssociatorTS filteredAssociator = new FilteredAssociatorTS();
 		
-		public Classifiers() {
+		Classifiers() {
 		}
 		
 	}
@@ -179,7 +198,7 @@ public class DataAnalysis implements Runnable {
 		}
 	};
 	
-	public void runAlgorithm() {
+	private void runAlgorithm() {
 		Classifiers cl = new Classifiers();
 		
 		try {
@@ -317,7 +336,7 @@ public class DataAnalysis implements Runnable {
 		}
 	}
 	
-	public void restoreCode() {
+	private void restoreCode() {
 		resetRunBtn();
 		handler.removeCallbacks(progressRun);
 		isRunning = false;
@@ -344,7 +363,7 @@ public class DataAnalysis implements Runnable {
 	}
 	
 	
-	public void runEvaluation(String algorithm, Classifiers cl, Instances data) {
+	private void runEvaluation(String algorithm, Classifiers cl, Instances data) {
 //        int correct, incorrect, totalInst;
 //		if (killThread == false) {
 		try {
@@ -559,7 +578,7 @@ public class DataAnalysis implements Runnable {
 	}
 //	}
 	
-	public void restoreSettings() {
+	private void restoreSettings() {
 		if (killThread == false) {
 			DecimalFormat df2 = new DecimalFormat("#.#####");
 			statusUpdateStore += "\r\n[" + algorithm + "] build: " + (df2.format(timeBuild / 1000000000.0) + "s");
@@ -594,7 +613,7 @@ public class DataAnalysis implements Runnable {
 //        return data;
 //    }
 	
-	public void statusUpdate(String status) {
+	private void statusUpdate(String status) {
 		final String newStatus;
 		newStatus = status;
 		tv.post(new Runnable() {
@@ -607,7 +626,7 @@ public class DataAnalysis implements Runnable {
 		});
 	}
 	
-	public void updateResults(TextView tvui, String text) {
+	private void updateResults(TextView tvui, String text) {
 		final String displayText = text;
 		final TextView tvGUI = tvui;
 		tvui.post(new Runnable() {
@@ -618,7 +637,7 @@ public class DataAnalysis implements Runnable {
 		});
 	}
 	
-	public void resetRunBtn() {
+	private void resetRunBtn() {
 		btnRun.post(new Runnable() {
 			@Override
 			public void run() {
@@ -628,7 +647,7 @@ public class DataAnalysis implements Runnable {
 		});
 	}
 	
-	public void enableBtnCM() {
+	private void enableBtnCM() {
 		btnCM.post(new Runnable() {
 			@Override
 			public void run() {

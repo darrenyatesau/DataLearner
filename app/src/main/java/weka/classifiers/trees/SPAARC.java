@@ -171,117 +171,117 @@ public class SPAARC extends RandomizableClassifier implements
     /*
      * Training data.
      */
-    protected Instances m_train;
+    private Instances m_train;
     
     /*
      * Successor nodes.
      */
-    protected SPAARC[] m_Successors;
+    private SPAARC[] m_Successors;
     
     /*
      * Attribute used to split data.
      */
-    protected Attribute m_Attribute;
+    private Attribute m_Attribute;
     
     /*
      * Split point for a numeric attribute.
      */
-    protected double m_SplitValue;
+    private double m_SplitValue;
     
     /*
      * Split subset used to split data for nominal attributes.
      */
-    protected String m_SplitString;
+    private String m_SplitString;
     
     /*
      * Class value if the node is leaf.
      */
-    protected double m_ClassValue;
+    private double m_ClassValue;
     
     /*
      * Class attriubte of data.
      */
-    protected Attribute m_ClassAttribute;
+    private Attribute m_ClassAttribute;
     
     /*
      * Minimum number of instances in at the terminal nodes.
      */
-    protected double m_minNumObj = 2;
+    private double m_minNumObj = 2;
     
     /*
      * Number of folds for minimal cost-complexity pruning.
      */
-    protected int m_numFoldsPruning = 5;
+    private int m_numFoldsPruning = 5;
     
     /*
      * Alpha-value (for pruning) at the node.
      */
-    protected double m_Alpha;
+    private double m_Alpha;
     
     /*
      * Number of training examples misclassified by the model (subtree rooted).
      */
-    protected double m_numIncorrectModel;
+    private double m_numIncorrectModel;
     
     /*
      * Number of training examples misclassified by the model (subtree not
      * rooted).
      */
-    protected double m_numIncorrectTree;
+    private double m_numIncorrectTree;
     
     /*
      * Indicate if the node is a leaf node.
      */
-    protected boolean m_isLeaf;
+    private boolean m_isLeaf;
     
     /*
      * If use minimal cost-compexity pruning.
      */
-    protected boolean m_Prune = true;
+    private boolean m_Prune = true;
     
     /*
      * Total number of instances used to build the classifier.
      */
-    protected int m_totalTrainInstances;
+    private int m_totalTrainInstances;
     
     /*
      * Proportion for each branch.
      */
-    protected double[] m_Props;
+    private double[] m_Props;
     
     /*
      * Class probabilities.
      */
-    protected double[] m_ClassProbs = null;
+    private double[] m_ClassProbs = null;
     
     /*
      * Distributions of leaf node (or temporary leaf node in minimal
      * cost-complexity pruning)
      */
-    protected double[] m_Distribution;
+    private double[] m_Distribution;
     
     /*
      * If use huristic search for nominal attributes in multi-class problems
      * (default true).
      */
-    protected boolean m_Heuristic = true;
+    private boolean m_Heuristic = true;
     
     /*
      * If use the 1SE rule to make final decision tree.
      */
-    protected boolean m_UseOneSE = false;
+    private boolean m_UseOneSE = false;
     
     /*
      * Training data size.
      */
-    protected double m_SizePer = 1;
+    private double m_SizePer = 1;
 
     //---------------------------------------------------------------------------------------
-    static double[] attEntropy;
-    static int treeDepth = 0;
+    private static double[] attEntropy;
+    private static int treeDepth = 0;
    //---------------------------------------------------------------------------------------
-    static int treeDepthMod = 2;
-    static int numberOfHops = 20;
+   private static int treeDepthMod = 2;
+    private static int numberOfHops = 20;
    //---------------------------------------------------------------------------------------
     
     /*
@@ -488,10 +488,10 @@ public class SPAARC extends RandomizableClassifier implements
      * multi-class problem
      * @throws Exception if something goes wrong
      */
-    protected void makeTree(Instances data, int totalInstances,
-            int[][] sortedIndices, double[][] weights, double[] classProbs,
-            double totalWeight, double minNumObj, boolean useHeuristic, int treeDepth,
-            ArrayList<Integer> sortedAtts)
+    private void makeTree(Instances data, int totalInstances,
+                          int[][] sortedIndices, double[][] weights, double[] classProbs,
+                          double totalWeight, double minNumObj, boolean useHeuristic, int treeDepth,
+                          ArrayList<Integer> sortedAtts)
             throws Exception {
         
         // if no instances have reached this node (normally won't happen)
@@ -651,7 +651,7 @@ public class SPAARC extends RandomizableClassifier implements
      * @param alpha the cost-complexity parameter
      * @throws Exception if something goes wrong
      */
-    public void prune(double alpha) throws Exception {
+    private void prune(double alpha) throws Exception {
 
         Vector<SPAARC> nodeList;
 
@@ -711,7 +711,7 @@ public class SPAARC extends RandomizableClassifier implements
      * @return the iteration of the pruning
      * @throws Exception if something goes wrong
      */
-    public int prune(double[] alphas, double[] errors, Instances test)
+    private int prune(double[] alphas, double[] errors, Instances test)
             throws Exception {
 
         Vector<SPAARC> nodeList;
@@ -789,7 +789,7 @@ public class SPAARC extends RandomizableClassifier implements
      * Method to "unprune" the CART tree. Sets all leaf-fields to false. Faster
      * than re-growing the tree because CART do not have to be fit again.
      */
-    protected void unprune() {
+    private void unprune() {
         if (m_Successors != null) {
             m_isLeaf = false;
             for (SPAARC m_Successor : m_Successors) {
@@ -814,9 +814,9 @@ public class SPAARC extends RandomizableClassifier implements
      * @return Gini gain the given numeric attribute
      * @throws Exception if something goes wrong
      */
-    protected double numericDistribution(double[][] props, double[][][] dists,
-            Attribute att, int[] sortedIndices, double[] weights,
-            double[][] subsetWeights, double[] giniGains, Instances data)
+    private double numericDistribution(double[][] props, double[][][] dists,
+                                       Attribute att, int[] sortedIndices, double[] weights,
+                                       double[][] subsetWeights, double[] giniGains, Instances data)
             throws Exception {
 
         double splitPoint = Double.NaN;
@@ -954,10 +954,10 @@ public class SPAARC extends RandomizableClassifier implements
      * @return Gini gain for the given nominal attribute
      * @throws Exception if something goes wrong
      */
-    protected String nominalDistribution(double[][] props, double[][][] dists,
-            Attribute att, int[] sortedIndices, double[] weights,
-            double[][] subsetWeights, double[] giniGains, Instances data,
-            boolean useHeuristic) throws Exception {
+    private String nominalDistribution(double[][] props, double[][][] dists,
+                                       Attribute att, int[] sortedIndices, double[] weights,
+                                       double[][] subsetWeights, double[] giniGains, Instances data,
+                                       boolean useHeuristic) throws Exception {
 
         String[] values = new String[att.numValues()];
         int numCat = values.length; // number of values of the attribute
@@ -1417,9 +1417,9 @@ public class SPAARC extends RandomizableClassifier implements
      * @param data training data
      * @throws Exception if something goes wrong
      */
-    protected void splitData(int[][][] subsetIndices, double[][][] subsetWeights,
-            Attribute att, double splitPoint, String splitStr, int[][] sortedIndices,
-            double[][] weights, Instances data) throws Exception {
+    private void splitData(int[][][] subsetIndices, double[][][] subsetWeights,
+                           Attribute att, double splitPoint, String splitStr, int[][] sortedIndices,
+                           double[][] weights, Instances data) throws Exception {
 
         int j;
         // For each attribute
@@ -1480,7 +1480,7 @@ public class SPAARC extends RandomizableClassifier implements
      *
      * @throws Exception if something goes wrong
      */
-    public void modelErrors() throws Exception {
+    private void modelErrors() throws Exception {
         Evaluation eval = new Evaluation(m_train);
 
         if (!m_isLeaf) {
@@ -1508,7 +1508,7 @@ public class SPAARC extends RandomizableClassifier implements
      *
      * @throws Exception if something goes wrong
      */
-    public void treeErrors() throws Exception {
+    private void treeErrors() throws Exception {
         if (m_isLeaf) {
             m_numIncorrectTree = m_numIncorrectModel;
         } else {
@@ -1525,7 +1525,7 @@ public class SPAARC extends RandomizableClassifier implements
      *
      * @throws Exception if something goes wrong
      */
-    public void calculateAlphas() throws Exception {
+    private void calculateAlphas() throws Exception {
 
         if (!m_isLeaf) {
             double errorDiff = m_numIncorrectModel - m_numIncorrectTree;
@@ -1557,7 +1557,7 @@ public class SPAARC extends RandomizableClassifier implements
      * @param nodeList list of inner nodes
      * @return the node to be pruned
      */
-    protected SPAARC nodeToPrune(Vector<SPAARC> nodeList) {
+    private SPAARC nodeToPrune(Vector<SPAARC> nodeList) {
         if (nodeList.size() == 0) {
             return null;
         }
@@ -1591,8 +1591,8 @@ public class SPAARC extends RandomizableClassifier implements
      * @return total weights of instances at the node
      * @throws Exception if something goes wrong
      */
-    protected double computeSortedInfo(Instances data, int[][] sortedIndices,
-            double[][] weights, double[] classProbs) throws Exception {
+    private double computeSortedInfo(Instances data, int[][] sortedIndices,
+                                     double[][] weights, double[] classProbs) throws Exception {
 
         // Create array of sorted indices and weights
         double[] vals = new double[data.numInstances()];
@@ -1658,7 +1658,7 @@ public class SPAARC extends RandomizableClassifier implements
      * @param childDist class distributions of successor nodes
      * @return Gini gain computed
      */
-    protected double computeGiniGain(double[] parentDist, double[][] childDist) {
+    private double computeGiniGain(double[] parentDist, double[][] childDist) {
         double totalWeight = Utils.sum(parentDist);
         if (totalWeight == 0) {
             return 0;
@@ -1682,7 +1682,7 @@ public class SPAARC extends RandomizableClassifier implements
      * @param total class distributions
      * @return Gini index of the class distributions
      */
-    protected double computeGini(double[] dist, double total) {
+    private double computeGini(double[] dist, double total) {
         if (total == 0) {
             return 0;
         }
@@ -1743,7 +1743,7 @@ public class SPAARC extends RandomizableClassifier implements
      *
      * @param data trainging data
      */
-    protected void makeLeaf(Instances data) {
+    private void makeLeaf(Instances data) {
         m_Attribute = null;
         m_isLeaf = true;
         m_ClassValue = Utils.maxIndex(m_ClassProbs);
@@ -1772,7 +1772,7 @@ public class SPAARC extends RandomizableClassifier implements
      * @param level the level at which the tree is to be printed
      * @return a tree at a certain level
      */
-    protected String toString(int level) {
+    private String toString(int level) {
 
         StringBuffer text = new StringBuffer();
         // if leaf nodes
@@ -1818,7 +1818,7 @@ public class SPAARC extends RandomizableClassifier implements
      *
      * @return size of the tree
      */
-    public int numNodes() {
+    private int numNodes() {
         if (m_isLeaf) {
             return 1;
         } else {
@@ -1835,7 +1835,7 @@ public class SPAARC extends RandomizableClassifier implements
      *
      * @return the number of inner nodes
      */
-    public int numInnerNodes() {
+    private int numInnerNodes() {
         if (m_Attribute == null) {
             return 0;
         }
@@ -1851,7 +1851,7 @@ public class SPAARC extends RandomizableClassifier implements
      *
      * @return the list of all inner nodes
      */
-    protected Vector<SPAARC> getInnerNodes() {
+    private Vector<SPAARC> getInnerNodes() {
         Vector<SPAARC> nodeList = new Vector<SPAARC>();
         fillInnerNodes(nodeList);
         return nodeList;
@@ -1863,7 +1863,7 @@ public class SPAARC extends RandomizableClassifier implements
      *
      * @param nodeList the list to be filled
      */
-    protected void fillInnerNodes(Vector<SPAARC> nodeList) {
+    private void fillInnerNodes(Vector<SPAARC> nodeList) {
         if (!m_isLeaf) {
             nodeList.add(this);
             for (SPAARC m_Successor : m_Successors) {
@@ -1877,7 +1877,7 @@ public class SPAARC extends RandomizableClassifier implements
      *
      * @return number of leaf nodes
      */
-    public int numLeaves() {
+    private int numLeaves() {
         if (m_isLeaf) {
             return 1;
         } else {
@@ -2070,7 +2070,7 @@ public class SPAARC extends RandomizableClassifier implements
      *
      * @return number of tree size
      */
-    public double measureTreeSize() {
+    private double measureTreeSize() {
         return numNodes();
     }
     
@@ -2107,7 +2107,7 @@ public class SPAARC extends RandomizableClassifier implements
      *
      * @param value minimal number of instances at the terminal nodes
      */
-    public void setMinNumObj(double value) {
+    private void setMinNumObj(double value) {
         m_minNumObj = value;
     }
     
@@ -2116,7 +2116,7 @@ public class SPAARC extends RandomizableClassifier implements
      *
      * @return minimal number of instances at the terminal nodes
      */
-    public double getMinNumObj() {
+    private double getMinNumObj() {
         return m_minNumObj;
     }
     
@@ -2135,7 +2135,7 @@ public class SPAARC extends RandomizableClassifier implements
      *
      * @param value number of folds in internal cross-validation.
      */
-    public void setNumFoldsPruning(int value) {
+    private void setNumFoldsPruning(int value) {
         m_numFoldsPruning = value;
     }
     
@@ -2144,7 +2144,7 @@ public class SPAARC extends RandomizableClassifier implements
      *
      * @return number of folds in internal cross-validation.
      */
-    public int getNumFoldsPruning() {
+    private int getNumFoldsPruning() {
         return m_numFoldsPruning;
     }
     
@@ -2163,7 +2163,7 @@ public class SPAARC extends RandomizableClassifier implements
      *
      * @param value if use minimal cost-complexity pruning
      */
-    public void setUsePrune(boolean value) {
+    private void setUsePrune(boolean value) {
         m_Prune = value;
     }
     
@@ -2172,7 +2172,7 @@ public class SPAARC extends RandomizableClassifier implements
      *
      * @return if use minimal cost-complexity pruning
      */
-    public boolean getUsePrune() {
+    private boolean getUsePrune() {
         return m_Prune;
     }
     
@@ -2194,7 +2194,7 @@ public class SPAARC extends RandomizableClassifier implements
      * @param value if use heuristic search for nominal attributes in
      * multi-class problems
      */
-    public void setHeuristic(boolean value) {
+    private void setHeuristic(boolean value) {
         m_Heuristic = value;
     }
     
@@ -2205,7 +2205,7 @@ public class SPAARC extends RandomizableClassifier implements
      * @return if use heuristic search for nominal attributes in multi-class
      * problems
      */
-    public boolean getHeuristic() {
+    private boolean getHeuristic() {
         return m_Heuristic;
     }
     
@@ -2224,7 +2224,7 @@ public class SPAARC extends RandomizableClassifier implements
      *
      * @param value if use the 1SE rule to choose final model
      */
-    public void setUseOneSE(boolean value) {
+    private void setUseOneSE(boolean value) {
         m_UseOneSE = value;
     }
     
@@ -2233,7 +2233,7 @@ public class SPAARC extends RandomizableClassifier implements
      *
      * @return if use the 1SE rule to choose final model
      */
-    public boolean getUseOneSE() {
+    private boolean getUseOneSE() {
         return m_UseOneSE;
     }
     
@@ -2252,7 +2252,7 @@ public class SPAARC extends RandomizableClassifier implements
      *
      * @param value training set size
      */
-    public void setSizePer(double value) {
+    private void setSizePer(double value) {
         if ((value <= 0) || (value > 1)) {
             System.err
                     .println("The percentage of the training set size must be in range 0 to 1 "
@@ -2267,7 +2267,7 @@ public class SPAARC extends RandomizableClassifier implements
      *
      * @return training set size
      */
-    public double getSizePer() {
+    private double getSizePer() {
         return m_SizePer;
     }
     

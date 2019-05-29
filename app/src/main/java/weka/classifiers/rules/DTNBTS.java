@@ -97,7 +97,7 @@ public class DTNBTS extends DecisionTableTS {
 	/*
 	 * The naive Bayes half of the hybrid
 	 */
-	protected NaiveBayesTS m_NB;
+	private NaiveBayesTS m_NB;
 	
 	/*
 	 * The features used by naive Bayes
@@ -378,7 +378,7 @@ public class DTNBTS extends DecisionTableTS {
 		m_evaluator.buildEvaluator(m_theInstances);
 	}
 	
-	protected class EvalWithDelete extends ASEvaluation implements SubsetEvaluator {
+	class EvalWithDelete extends ASEvaluation implements SubsetEvaluator {
 		
 		// holds the list of attributes that are no longer in the model at all
 		private BitSet m_deletedFromDTNB;
@@ -432,7 +432,7 @@ public class DTNBTS extends DecisionTableTS {
 			return estimatePerformance(subset, fc);
 		}
 		
-		public double evaluateSubsetDelete(BitSet subset, int potentialDelete) throws Exception {
+		double evaluateSubsetDelete(BitSet subset, int potentialDelete) throws Exception {
 			
 			int fc = setUpForEval(subset);
 			
@@ -443,7 +443,7 @@ public class DTNBTS extends DecisionTableTS {
 			return estimatePerformance(subset, fc);
 		}
 		
-		public BitSet getDeletedList() {
+		BitSet getDeletedList() {
 			return m_deletedFromDTNB;
 		}
 		
@@ -457,14 +457,14 @@ public class DTNBTS extends DecisionTableTS {
 		}
 	}
 	
-	protected ASSearch m_backwardWithDelete;
+	private ASSearch m_backwardWithDelete;
 	
 	/*
 	 * Inner class implementing a special forwards search that looks for a good
 	 * split of attributes between naive Bayes and the decision table. It also
 	 * considers dropping attributes entirely from the model.
 	 */
-	protected class BackwardsWithDelete extends ASSearch {
+	class BackwardsWithDelete extends ASSearch {
 		
 		public String globalInfo() {
 			return "Specialized search that performs a forward selection (naive Bayes)/"
@@ -572,7 +572,7 @@ public class DTNBTS extends DecisionTableTS {
 		 * @param group the BitSet to convert
 		 * @return an array of attribute indexes
 		 **/
-		protected int[] attributeList(BitSet group) {
+		int[] attributeList(BitSet group) {
 			int count = 0;
 			BitSet copy = (BitSet) group.clone();
 	
@@ -752,7 +752,7 @@ public class DTNBTS extends DecisionTableTS {
 	 *
 	 * @return the number of rules
 	 */
-	public double measurePercentAttsUsedByDT() {
+	private double measurePercentAttsUsedByDT() {
 		return m_percentUsedByDT;
 	}
 	

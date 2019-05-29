@@ -170,121 +170,121 @@ public class AprioriTS extends AbstractAssociator implements OptionHandler,
 	/**
 	 * The minimum support.
 	 */
-	protected double m_minSupport;
+	private double m_minSupport;
 	
 	/**
 	 * The upper bound on the support
 	 */
-	protected double m_upperBoundMinSupport;
+	private double m_upperBoundMinSupport;
 	
 	/**
 	 * The lower bound for the minimum support.
 	 */
-	protected double m_lowerBoundMinSupport;
+	private double m_lowerBoundMinSupport;
 	
 	/**
 	 * Metric type: Confidence
 	 */
-	protected static final int CONFIDENCE = 0;
+	private static final int CONFIDENCE = 0;
 	/**
 	 * Metric type: Lift
 	 */
-	protected static final int LIFT = 1;
+	private static final int LIFT = 1;
 	/**
 	 * Metric type: Leverage
 	 */
-	protected static final int LEVERAGE = 2;
+	private static final int LEVERAGE = 2;
 	/**
 	 * Metric type: Conviction
 	 */
-	protected static final int CONVICTION = 3;
+	private static final int CONVICTION = 3;
 	/**
 	 * Metric types.
 	 */
-	public static final Tag[] TAGS_SELECTION = {
+	private static final Tag[] TAGS_SELECTION = {
 			new Tag(CONFIDENCE, "Confidence"), new Tag(LIFT, "Lift"),
 			new Tag(LEVERAGE, "Leverage"), new Tag(CONVICTION, "Conviction")};
 	
 	/**
 	 * The selected metric type.
 	 */
-	protected int m_metricType = CONFIDENCE;
+	private int m_metricType = CONFIDENCE;
 	
 	/**
 	 * The minimum metric score.
 	 */
-	protected double m_minMetric;
+	private double m_minMetric;
 	
 	/**
 	 * The maximum number of rules that are output.
 	 */
-	protected int m_numRules;
+	private int m_numRules;
 	
 	/**
 	 * Delta by which m_minSupport is decreased in each iteration.
 	 */
-	protected double m_delta;
+	private double m_delta;
 	
 	/**
 	 * Significance level for optional significance test.
 	 */
-	protected double m_significanceLevel;
+	private double m_significanceLevel;
 	
 	/**
 	 * Number of cycles used before required number of rules was one.
 	 */
-	protected int m_cycles;
+	private int m_cycles;
 	
 	/**
 	 * The set of all sets of itemsets L.
 	 */
-	protected FastVector m_Ls;
+	private FastVector m_Ls;
 	
 	/**
 	 * The same information stored in hash tables.
 	 */
-	protected FastVector m_hashtables;
+	private FastVector m_hashtables;
 	
 	/**
 	 * The list of all generated rules.
 	 */
-	protected FastVector[] m_allTheRules;
+	private FastVector[] m_allTheRules;
 	
 	/**
 	 * The instances (transactions) to be used for generating the association
 	 * rules.
 	 */
-	protected Instances m_instances;
+	private Instances m_instances;
 	
 	/**
 	 * Output itemsets found?
 	 */
-	protected boolean m_outputItemSets;
+	private boolean m_outputItemSets;
 	
 	/**
 	 * Remove columns with all missing values
 	 */
-	protected boolean m_removeMissingCols;
+	private boolean m_removeMissingCols;
 	
 	/**
 	 * Report progress iteratively
 	 */
-	protected boolean m_verbose;
+	private boolean m_verbose;
 	
 	/**
 	 * Only the class attribute of all Instances.
 	 */
-	protected Instances m_onlyClass;
+	private Instances m_onlyClass;
 	
 	/**
 	 * The class index.
 	 */
-	protected int m_classIndex;
+	private int m_classIndex;
 	
 	/**
 	 * Flag indicating whether class association rules are mined.
 	 */
-	protected boolean m_car;
+	private boolean m_car;
 	
 	/**
 	 * Returns a string describing this associator
@@ -350,7 +350,7 @@ public class AprioriTS extends AbstractAssociator implements OptionHandler,
 	/**
 	 * Resets the options to the default values.
 	 */
-	public void resetOptions() {
+	private void resetOptions() {
 		
 		m_removeMissingCols = false;
 		m_verbose = false;
@@ -372,7 +372,7 @@ public class AprioriTS extends AbstractAssociator implements OptionHandler,
 	 * @return a new set of instances with all missing columns removed
 	 * @throws Exception if something goes wrong
 	 */
-	protected Instances removeMissingColumns(Instances instances)
+	private Instances removeMissingColumns(Instances instances)
 			throws Exception {
 		
 		int numInstances = instances.numInstances();
@@ -1068,7 +1068,7 @@ public class AprioriTS extends AbstractAssociator implements OptionHandler,
 	 *
 	 * @param r true if cols are to be removed.
 	 */
-	public void setRemoveAllMissingCols(boolean r) {
+	private void setRemoveAllMissingCols(boolean r) {
 		m_removeMissingCols = r;
 	}
 	
@@ -1077,7 +1077,7 @@ public class AprioriTS extends AbstractAssociator implements OptionHandler,
 	 *
 	 * @return true if columns are to be removed.
 	 */
-	public boolean getRemoveAllMissingCols() {
+	private boolean getRemoveAllMissingCols() {
 		return m_removeMissingCols;
 	}
 	
@@ -1107,7 +1107,7 @@ public class AprioriTS extends AbstractAssociator implements OptionHandler,
 	 *
 	 * @param v Value to assign to upperBoundMinSupport.
 	 */
-	public void setUpperBoundMinSupport(double v) {
+	private void setUpperBoundMinSupport(double v) {
 		
 		m_upperBoundMinSupport = v;
 	}
@@ -1236,7 +1236,7 @@ public class AprioriTS extends AbstractAssociator implements OptionHandler,
 	 *
 	 * @param d the type of metric
 	 */
-	public void setMetricType(SelectedTag d) {
+	private void setMetricType(SelectedTag d) {
 		
 		if (d.getTags() == TAGS_SELECTION) {
 			m_metricType = d.getSelectedTag().getID();
@@ -1281,7 +1281,7 @@ public class AprioriTS extends AbstractAssociator implements OptionHandler,
 	 *
 	 * @param v Value to assign to minConfidence.
 	 */
-	public void setMinMetric(double v) {
+	private void setMinMetric(double v) {
 		
 		m_minMetric = v;
 	}

@@ -58,23 +58,34 @@ public class MainActivity extends AppCompatActivity {
 	 * {@link android.support.v4.app.FragmentStatePagerAdapter}.
 	 */
 	private SectionsPagerAdapter mSectionsPagerAdapter;
-	static TextView textView, cci, ici, kappa, mae, rmse, rae, rrse, tni, tvsl3, tvStats;
-	static public TextView tvStatus;
+	//	TextView textView;
+	private static TextView cci;
+	private static TextView ici;
+	private static TextView kappa;
+	private static TextView mae;
+	private static TextView rmse;
+	private static TextView rae;
+	private static TextView rrse;
+	private static TextView tni;
+	private static TextView tvsl3;
+	private static TextView tvStats;
+	private static TextView tvStatus;
+	//	TextView tvStatus;
 	static HorizontalScrollView idHS;
-	static Button btnRun;
-	static Button btnCM;
-	static CheckBox checkBox;
-	static String nameClassifier;
-	static int validate;
-	static Uri uriDataset;
-	static Instances data;
+	private static Button btnRun;
+	private static Button btnCM;
+	private static CheckBox checkBox;
+	private static String nameClassifier;
+	private static int validate;
+	private static Uri uriDataset;
+	private static Instances data;
 	public static boolean killThread = false;
 	static boolean isThreadRunning = false;
 	static String statusUpdateStore = "Ready.";
 	
 	//DataAnalysis task = null;
-	static Thread thread;
-	static ThreadGroup threadGroup;
+	private static Thread thread;
+	private static ThreadGroup threadGroup;
 	static int alType = 1;
 
 	/**
@@ -99,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
 		mViewPager.setOffscreenPageLimit(2);
 		
 		TabLayout tabLayout = findViewById(R.id.tabs);
-
+		
 		mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 		tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
@@ -163,19 +174,19 @@ public class MainActivity extends AppCompatActivity {
 		 * Returns a new instance of this fragment for the given section
 		 * number.
 		 */
-		public static LoadFragment newInstance() {
-			LoadFragment fragment = new LoadFragment();
-			Bundle args = new Bundle();
-			//        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-			fragment.setArguments(args);
-			return fragment;
-		}
+//		public static LoadFragment newInstance() {
+//			LoadFragment fragment = new LoadFragment();
+//			Bundle args = new Bundle();
+//			//        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+//			fragment.setArguments(args);
+//			return fragment;
+//		}
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 								 Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_main_tab1, container, false);
-			TextView textView = rootView.findViewById(R.id.section_label1);
+//			TextView textView = rootView.findViewById(R.id.section_label1);
 			tvStats = rootView.findViewById(R.id.tvStats);
 			tvFile = rootView.findViewById(R.id.textViewFile);
 			tvIntro = rootView.findViewById(R.id.tvIntro);
@@ -193,8 +204,8 @@ public class MainActivity extends AppCompatActivity {
 
 			return rootView;
 		}
-
-		public void performFileSearch() {
+		
+		void performFileSearch() {
 			Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
 			intent.addCategory(Intent.CATEGORY_OPENABLE);
 			intent.setType("*/*");
@@ -231,8 +242,8 @@ public class MainActivity extends AppCompatActivity {
 				System.out.println("ERROR: Problem with file read.");
 			}
 		}
-
-		public Instances getData(String filePath) {
+		
+		Instances getData(String filePath) {
 			Instances newdata = null;
 			File file = new File(uriDataset.getPath());
 			try {
@@ -266,8 +277,8 @@ public class MainActivity extends AppCompatActivity {
 			}
 			return newdata;
 		}
-
-		public void setSpinClass(int number) {
+		
+		void setSpinClass(int number) {
 			ArrayList<String> arraySpin = new ArrayList<>();
 			for (int i = 0; i < number; i++) {
 				arraySpin.add(Integer.toString(i + 1));
@@ -289,24 +300,28 @@ public class MainActivity extends AppCompatActivity {
 		 * Returns a new instance of this fragment for the given section
 		 * number.
 		 */
-
+		
+		View rootView;
 		TextView textView, tvClassifier;
+//		TextView tvStatus;
+		
 		Spinner spinBayes, spinRules, spinTrees, spinMeta, spinLazy, spinFunctions, spinCluster, spinAssociate;
 		Integer idBayes, idRules, idTrees, idMeta, idLazy, idFunctions, idCluster, idAssociate;
 
-		public static SelectFragment newInstance() {
-			SelectFragment fragment = new SelectFragment();
-			Bundle args = new Bundle();
-			//        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-			fragment.setArguments(args);
-			return fragment;
-		}
+//		public static SelectFragment newInstance() {
+//			SelectFragment fragment = new SelectFragment();
+//			Bundle args = new Bundle();
+//			//        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+//			fragment.setArguments(args);
+//			return fragment;
+//		}
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 								 Bundle savedInstanceState) {
-
-			View rootView = inflater.inflate(R.layout.fragment_main_tab2, container, false);
+			
+			rootView = inflater.inflate(R.layout.fragment_main_tab2, container, false);
+			tvStatus = rootView.findViewById(R.id.tvStatus);
 			textView = rootView.findViewById(R.id.section_label2);
 			tvClassifier = rootView.findViewById(R.id.tvClass);
 			spinBayes = rootView.findViewById(R.id.spinner1);
@@ -428,15 +443,14 @@ public class MainActivity extends AppCompatActivity {
 				public void onNothingSelected(AdapterView<?> adapterView) {
 
 				}
-
-				public void resetSpinner(Spinner stf) {
+				
+				void resetSpinner(Spinner stf) {
 					stf.setOnItemSelectedListener(null);
 					stf.setSelection(0, false);
 					stf.setOnItemSelectedListener(this);
 				}
-
-				public void changeFragment() {
-
+				
+				void changeFragment() {
 					ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) tvStatus.getLayoutParams();
 					if (alType == 2) {
 						params.topMargin = 3;
@@ -471,7 +485,8 @@ public class MainActivity extends AppCompatActivity {
 
 			return rootView;
 		}
-
+		
+		
 	}
 
 	//-----------------------------------------------------------------------------------------------------
@@ -492,7 +507,8 @@ public class MainActivity extends AppCompatActivity {
 //            fragment.setArguments(args);
 //            return fragment;
 //        }
-
+//		TextView tvStatus;
+		
 		//@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 								 Bundle savedInstanceState) {
@@ -500,7 +516,6 @@ public class MainActivity extends AppCompatActivity {
 			View rootView = inflater.inflate(R.layout.fragment_main_tab3, container, false);
 
 			tvStatus = rootView.findViewById(R.id.tvStatus);
-			//TextView textView = rootView.findViewById(R.id.section_label3);
 			checkBox = rootView.findViewById(R.id.checkBox);
 			btnRun = rootView.findViewById(R.id.btnRun);
 			btnCM = rootView.findViewById(R.id.btnCM);
@@ -516,7 +531,8 @@ public class MainActivity extends AppCompatActivity {
 			tvsl3 = rootView.findViewById(R.id.section_label3);
 			tvStatus.setMovementMethod(new ScrollingMovementMethod());
 			tvStatus.setHorizontallyScrolling(true);
-
+			
+			
 			btnRun.setOnClickListener(new Button.OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -531,8 +547,8 @@ public class MainActivity extends AppCompatActivity {
 						System.out.println("Pressed for STOP");
 						statusUpdateStore += "\r\n[" + nameClassifier + "] Stopping - please wait.";
 						tvStatus.append("\r\n[" + nameClassifier + "] Stopping - please wait.");
-						killThread = true;
 						thread.interrupt();
+						killThread = true;
 					}
 
 				} else {
@@ -556,21 +572,23 @@ public class MainActivity extends AppCompatActivity {
 			return rootView;
 		}
 		
-		
-		public void launchTask(CheckBox checkBox) {
+		void launchTask(CheckBox checkBox) {
 			btnCM.setEnabled(false);
 			cleanDisplay();
 			if (checkBox.isChecked()) validate = 1;
 			else validate = 0;
-			DataAnalysis task = new DataAnalysis(getContext(), tvStatus, tvsl3, btnRun, btnCM, nameClassifier, validate, data,
+//			DataAnalysis task = new DataAnalysis(getContext());
+//			DataAnalysis task = new DataAnalysis(getContext(), tvStatus, tvsl3, btnRun, btnCM, nameClassifier, validate, data,
+//					cci, ici, kappa, mae, rmse, rae, rrse, tni);
+			DataAnalysis task = new DataAnalysis(getContext(), nameClassifier, validate, data,
 					cci, ici, kappa, mae, rmse, rae, rrse, tni);
 			threadGroup = new ThreadGroup("null");
 			thread = new Thread(threadGroup, task, "dataRunnable", 64000);
 			thread.start();
 			isThreadRunning = true;
 		}
-
-		public static void cleanDisplay() {
+		
+		static void cleanDisplay() {
 			cci.setText("---");
 			ici.setText("---");
 			kappa.setText("---");
@@ -590,9 +608,9 @@ public class MainActivity extends AppCompatActivity {
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
 	 * one of the sections/tabs/pages.
 	 */
-	public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
-
-		public SectionsPagerAdapter(FragmentManager fm) {
+	class SectionsPagerAdapter extends FragmentStatePagerAdapter {
+		
+		SectionsPagerAdapter(FragmentManager fm) {
 			super(fm);
 		}
 

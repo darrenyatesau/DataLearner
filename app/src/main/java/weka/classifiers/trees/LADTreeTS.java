@@ -88,38 +88,38 @@ public class LADTreeTS
 	private static final long serialVersionUID = -4940716114518300302L;
 	
 	// Constant from LogitBoost
-	protected double Z_MAX = 4;
+	private double Z_MAX = 4;
 	
 	// Number of classes
-	protected int m_numOfClasses;
+	private int m_numOfClasses;
 	
 	// Instances as reference instances
-	protected ReferenceInstances m_trainInstances;
+	private ReferenceInstances m_trainInstances;
 	
 	// Root of the tree
-	protected PredictionNode m_root = null;
+	private PredictionNode m_root = null;
 	
 	// To keep track of the order in which splits are added
-	protected int m_lastAddedSplitNum = 0;
+	private int m_lastAddedSplitNum = 0;
 	
 	// Indices for numeric attributes
-	protected int[] m_numericAttIndices;
+	private int[] m_numericAttIndices;
 	
 	// Variables to keep track of best options
-	protected double m_search_smallestLeastSquares;
-	protected PredictionNode m_search_bestInsertionNode;
-	protected Splitter m_search_bestSplitter;
-	protected Instances m_search_bestPathInstances;
+	private double m_search_smallestLeastSquares;
+	private PredictionNode m_search_bestInsertionNode;
+	private Splitter m_search_bestSplitter;
+	private Instances m_search_bestPathInstances;
 	
 	// A collection of splitter nodes
-	protected FastVector m_staticPotentialSplitters2way;
+	private FastVector m_staticPotentialSplitters2way;
 	
 	// statistics
-	protected int m_nodesExpanded = 0;
-	protected int m_examplesCounted = 0;
+	private int m_nodesExpanded = 0;
+	private int m_examplesCounted = 0;
 	
 	// options
-	protected int m_boostingIterations = 10;
+	private int m_boostingIterations = 10;
 	
 	/*
 	 * Returns a string describing classifier
@@ -159,13 +159,13 @@ public class LADTreeTS
 	 * helper classes
 	 ********************************************************************/
 	
-	protected class LADInstance extends Instance {
-		public double[] fVector;
-		public double[] wVector;
-		public double[] pVector;
-		public double[] zVector;
+	class LADInstance extends Instance {
+		double[] fVector;
+		double[] wVector;
+		double[] pVector;
+		double[] zVector;
 		
-		public LADInstance(Instance instance) {
+		LADInstance(Instance instance) {
 			super(instance); // copy the instance
 			
 			setDataset(instance.dataset()); // preserve dataset
@@ -185,20 +185,20 @@ public class LADTreeTS
 			updateWVector();
 		}
 		
-		public void updateWeights(double[] fVectorIncrement) {
+		void updateWeights(double[] fVectorIncrement) {
 			for (int i = 0; i < fVector.length; i++) {
 				fVector[i] += fVectorIncrement[i];
 			}
 			updateVectors(fVector);
 		}
 		
-		public void updateVectors(double[] newFVector) {
+		void updateVectors(double[] newFVector) {
 			updatePVector(newFVector);
 			updateZVector();
 			updateWVector();
 		}
 		
-		public void updatePVector(double[] newFVector) {
+		void updatePVector(double[] newFVector) {
 			double max = newFVector[Utils.maxIndex(newFVector)];
 			for (int i = 0; i < pVector.length; i++) {
 				pVector[i] = Math.exp(newFVector[i] - max);
@@ -206,13 +206,13 @@ public class LADTreeTS
 			Utils.normalize(pVector);
 		}
 		
-		public void updateWVector() {
+		void updateWVector() {
 			for (int i = 0; i < wVector.length; i++) {
 				wVector[i] = (yVector(i) - pVector[i]) / zVector[i];
 			}
 		}
 		
-		public void updateZVector() {
+		void updateZVector() {
 			
 			for (int i = 0; i < zVector.length; i++) {
 				if (yVector(i) == 1) {
@@ -229,7 +229,7 @@ public class LADTreeTS
 			}
 		}
 		
-		public double yVector(int index) {
+		double yVector(int index) {
 			return (index == (int) classValue() ? 1.0 : 0.0);
 		}
 		
@@ -270,29 +270,29 @@ public class LADTreeTS
 		private double[] values;
 		private FastVector children; // any number of splitter nodes
 		
-		public PredictionNode(double[] newValues) {
+		PredictionNode(double[] newValues) {
 			values = new double[m_numOfClasses];
 			setValues(newValues);
 			children = new FastVector();
 		}
 		
-		public void setValues(double[] newValues) {
+		void setValues(double[] newValues) {
 			System.arraycopy(newValues, 0, values, 0, m_numOfClasses);
 		}
 		
-		public double[] getValues() {
+		double[] getValues() {
 			return values;
 		}
 		
-		public FastVector getChildren() {
+		FastVector getChildren() {
 			return children;
 		}
 		
-		public Enumeration children() {
+		Enumeration children() {
 			return children.elements();
 		}
 		
-		public void addChild(Splitter newChild) { // merges, adds a clone (deep copy)
+		void addChild(Splitter newChild) { // merges, adds a clone (deep copy)
 			Splitter oldEqual = null;
 			for (Enumeration e = children(); e.hasMoreElements(); ) {
 				Splitter split = (Splitter) e.nextElement();
@@ -323,7 +323,7 @@ public class LADTreeTS
 			return clone;
 		}
 		
-		public void merge(PredictionNode merger) {
+		void merge(PredictionNode merger) {
 			// need to merge linear models here somehow
 			for (int i = 0; i < m_numOfClasses; i++) values[i] += merger.values[i];
 			for (Enumeration e = merger.children(); e.hasMoreElements(); ) {
@@ -337,24 +337,24 @@ public class LADTreeTS
 	 ******************************************************************/
 	
 	protected abstract class Splitter implements Serializable, Cloneable {
-		protected int attIndex;
-		public int orderAdded;
+		int attIndex;
+		int orderAdded;
 		
-		public abstract int getNumOfBranches();
+		protected abstract int getNumOfBranches();
 		
-		public abstract int branchInstanceGoesDown(Instance i);
+		protected abstract int branchInstanceGoesDown(Instance i);
 		
-		public abstract Instances instancesDownBranch(int branch, Instances sourceInstances);
+		protected abstract Instances instancesDownBranch(int branch, Instances sourceInstances);
 		
-		public abstract String attributeString();
+		protected abstract String attributeString();
 		
-		public abstract String comparisonString(int branchNum);
+		protected abstract String comparisonString(int branchNum);
 		
-		public abstract boolean equalTo(Splitter compare);
+		protected abstract boolean equalTo(Splitter compare);
 		
-		public abstract void setChildForBranch(int branchNum, PredictionNode childPredictor);
+		protected abstract void setChildForBranch(int branchNum, PredictionNode childPredictor);
 		
-		public abstract PredictionNode getChildForBranch(int branchNum);
+		protected abstract PredictionNode getChildForBranch(int branchNum);
 		
 		public abstract Object clone();
 	}
@@ -364,7 +364,7 @@ public class LADTreeTS
 		private int trueSplitValue;
 		private PredictionNode[] children;
 		
-		public TwoWayNominalSplit(int _attIndex, int _trueSplitValue) {
+		TwoWayNominalSplit(int _attIndex, int _trueSplitValue) {
 			attIndex = _attIndex;
 			trueSplitValue = _trueSplitValue;
 			children = new PredictionNode[2];
@@ -447,7 +447,7 @@ public class LADTreeTS
 		private double splitPoint;
 		private PredictionNode[] children;
 		
-		public TwoWayNumericSplit(int _attIndex, double _splitPoint) {
+		TwoWayNumericSplit(int _attIndex, double _splitPoint) {
 			attIndex = _attIndex;
 			splitPoint = _splitPoint;
 			children = new PredictionNode[2];
@@ -571,7 +571,7 @@ public class LADTreeTS
 	 * @param instances the instances to train the tree with
 	 * @throws Exception if training data is unsuitable
 	 */
-	public void initClassifier(Instances instances) throws Exception {
+	private void initClassifier(Instances instances) throws Exception {
 		
 		// clear stats
 		m_nodesExpanded = 0;
@@ -1158,8 +1158,8 @@ public class LADTreeTS
 	 * @param predOrder   the order this predictor was added to the split
 	 * @throws Exception if something goes wrong
 	 */
-	protected void graphTraverse(PredictionNode currentNode, StringBuffer text,
-								 int splitOrder, int predOrder)
+	private void graphTraverse(PredictionNode currentNode, StringBuffer text,
+							   int splitOrder, int predOrder)
 			throws Exception {
 		
 		text.append("S" + splitOrder + "P" + predOrder + " [label=\"");
@@ -1194,7 +1194,7 @@ public class LADTreeTS
 	 *
 	 * @return a string containing the legend of the classifier
 	 */
-	public String legend() {
+	private String legend() {
 		
 		Attribute classAttribute = null;
 		if (m_trainInstances == null) return "";
@@ -1232,7 +1232,7 @@ public class LADTreeTS
 	 *
 	 * @return the number of boosting iterations
 	 */
-	public int getNumOfBoostingIterations() {
+	private int getNumOfBoostingIterations() {
 		
 		return m_boostingIterations;
 	}
@@ -1242,7 +1242,7 @@ public class LADTreeTS
 	 *
 	 * @param b the number of boosting iterations to use
 	 */
-	public void setNumOfBoostingIterations(int b) {
+	private void setNumOfBoostingIterations(int b) {
 		
 		m_boostingIterations = b;
 	}
@@ -1315,7 +1315,7 @@ public class LADTreeTS
 	 *
 	 * @return the tree size
 	 */
-	public double measureTreeSize() {
+	private double measureTreeSize() {
 		
 		return numOfAllNodes(m_root);
 	}
@@ -1325,7 +1325,7 @@ public class LADTreeTS
 	 *
 	 * @return the leaf size
 	 */
-	public double measureNumLeaves() {
+	private double measureNumLeaves() {
 		
 		return numOfPredictionNodes(m_root);
 	}
@@ -1335,7 +1335,7 @@ public class LADTreeTS
 	 *
 	 * @return the leaf size
 	 */
-	public double measureNumPredictionLeaves() {
+	private double measureNumPredictionLeaves() {
 		
 		return numOfLeafNodes(m_root);
 	}
@@ -1345,7 +1345,7 @@ public class LADTreeTS
 	 *
 	 * @return the number of nodes expanded during search
 	 */
-	public double measureNodesExpanded() {
+	private double measureNodesExpanded() {
 		
 		return m_nodesExpanded;
 	}
@@ -1355,7 +1355,7 @@ public class LADTreeTS
 	 *
 	 * @return the number of nodes processed during search
 	 */
-	public double measureExamplesCounted() {
+	private double measureExamplesCounted() {
 		
 		return m_examplesCounted;
 	}
@@ -1407,7 +1407,7 @@ public class LADTreeTS
 	 * @param root the root of the tree being measured
 	 * @return tree size in number of prediction nodes
 	 */
-	protected int numOfPredictionNodes(PredictionNode root) {
+	private int numOfPredictionNodes(PredictionNode root) {
 		
 		int numSoFar = 0;
 		if (root != null) {
@@ -1427,7 +1427,7 @@ public class LADTreeTS
 	 * @param root the root of the tree being measured
 	 * @return tree leaf size in number of prediction nodes
 	 */
-	protected int numOfLeafNodes(PredictionNode root) {
+	private int numOfLeafNodes(PredictionNode root) {
 		
 		int numSoFar = 0;
 		if (root.getChildren().size() > 0) {
@@ -1446,7 +1446,7 @@ public class LADTreeTS
 	 * @param root the root of the tree being measured
 	 * @return tree size in number of splitter + prediction nodes
 	 */
-	protected int numOfAllNodes(PredictionNode root) {
+	private int numOfAllNodes(PredictionNode root) {
 		
 		int numSoFar = 0;
 		if (root != null) {

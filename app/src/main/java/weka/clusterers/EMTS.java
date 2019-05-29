@@ -340,7 +340,7 @@ public class EMTS
 	 *
 	 * @param d true if model ouput is to be shown in the old format
 	 */
-	public void setDisplayModelInOldFormat(boolean d) {
+	private void setDisplayModelInOldFormat(boolean d) {
 		m_displayModelInOldFormat = d;
 	}
 	
@@ -373,7 +373,7 @@ public class EMTS
 	 *
 	 * @param m minimum value for standard deviation
 	 */
-	public void setMinStdDev(double m) {
+	private void setMinStdDev(double m) {
 		m_minStdDev = m;
 	}
 	
@@ -386,7 +386,7 @@ public class EMTS
 	 *
 	 * @return the minumum allowable standard deviation
 	 */
-	public double getMinStdDev() {
+	private double getMinStdDev() {
 		return m_minStdDev;
 	}
 	
@@ -430,7 +430,7 @@ public class EMTS
 	 *
 	 * @return the number of clusters.
 	 */
-	public int getNumClusters() {
+	private int getNumClusters() {
 		return m_initialNumClusters;
 	}
 	
@@ -450,7 +450,7 @@ public class EMTS
 	 * @param i the number of iterations
 	 * @throws Exception if i is less than 1
 	 */
-	public void setMaxIterations(int i)
+	private void setMaxIterations(int i)
 			throws Exception {
 		if (i < 1) {
 			throw new Exception("Maximum number of iterations must be > 0!");
@@ -487,7 +487,7 @@ public class EMTS
 	 *
 	 * @param v true for verbose output
 	 */
-	public void setDebug(boolean v) {
+	private void setDebug(boolean v) {
 		m_verbose = v;
 	}
 	
@@ -821,7 +821,7 @@ public class EMTS
 	/*
 	 * Reset to default options
 	 */
-	protected void resetOptions() {
+	private void resetOptions() {
 		m_minStdDev = 1e-6;
 		m_max_iterations = 100;
 		m_Seed = m_SeedDefault;
@@ -1036,7 +1036,7 @@ public class EMTS
 	 *
 	 * @return the clusterer in string representation
 	 */
-	protected String toStringOriginal() {
+	private String toStringOriginal() {
 		if (m_priors == null) {
 			return "No clusterer built yet!";
 		}

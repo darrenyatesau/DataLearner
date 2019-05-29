@@ -95,9 +95,9 @@ import org.w3c.dom.NodeList;
 public class BIFReaderTS
     extends BayesNetTS
     implements TechnicalInformationHandler {
-  
-    protected int [] m_nPositionX;
-    protected int [] m_nPositionY;
+	
+	private int[] m_nPositionX;
+	private int[] m_nPositionY;
     private int [] m_order;
 	
 	/* for serialization */
@@ -144,7 +144,7 @@ public class BIFReaderTS
 	
 	
 	/* the current filename */
-	String m_sFile;
+	private String m_sFile;
 	
 	/*
 	 * returns the current filename
@@ -182,7 +182,7 @@ public class BIFReaderTS
 	 * @param doc DOM document containing BIF document in DOM tree
 	 * @throws Exception if building of structure fails
 	 */
-    void buildStructure(Document doc)  throws Exception {
+	private void buildStructure(Document doc) throws Exception {
         // Get the name of the network
 		// initialize conditional distribution tables
 		m_Distributions = new Estimator[m_Instances.numAttributes()][];
@@ -244,7 +244,7 @@ public class BIFReaderTS
      * @param other Bayes network to synchronize with
      * @throws Exception if nr of attributes differs or not all of the variables have the same name.
      */
-    public void Sync(BayesNetTS other) throws Exception {
+	private void Sync(BayesNetTS other) throws Exception {
     	int nAtts = m_Instances.numAttributes();
     	if (nAtts != other.m_Instances.numAttributes()) {
     		throw new Exception ("Cannot synchronize networks: different number of attributes.");
@@ -264,7 +264,7 @@ public class BIFReaderTS
      * @param node the node to return the content for
      * @return the content of the node
      */
-    public String getContent(Element node) {
+	private String getContent(Element node) {
       NodeList       list;
       Node           item;
       int            i;
@@ -289,7 +289,7 @@ public class BIFReaderTS
 	 * @param sName default name to give to the Bayes Net. Will be overridden if specified in the BIF document.
 	 * @throws Exception if building fails
 	 */
-	void buildInstances(Document doc, String sName) throws Exception {
+	private void buildInstances(Document doc, String sName) throws Exception {
 		NodeList nodelist;
         // Get the name of the network
         nodelist = selectAllNames(doc);
@@ -378,20 +378,20 @@ public class BIFReaderTS
 //		NodeList nodelist = org.apache.xpath.XPathAPI.selectNodeList(doc, sXPath);
 //		return nodelist;
 //	} // selectNodeList
-
-	NodeList selectAllNames(Document doc) throws Exception {
+	
+	private NodeList selectAllNames(Document doc) throws Exception {
 		//NodeList nodelist = selectNodeList(doc, "//NAME");
 		NodeList nodelist = doc.getElementsByTagName("NAME");
 		return nodelist;
 	} // selectAllNames
-
-	NodeList selectAllVariables(Document doc) throws Exception {
+	
+	private NodeList selectAllVariables(Document doc) throws Exception {
 		//NodeList nodelist = selectNodeList(doc, "//VARIABLE");
 		NodeList nodelist = doc.getElementsByTagName("VARIABLE");
 		return nodelist;
 	} // selectAllVariables
-
-	Element getDefinition(Document doc, String sName) throws Exception {
+	
+	private Element getDefinition(Document doc, String sName) throws Exception {
 		//NodeList nodelist = selectNodeList(doc, "//DEFINITION[normalize-space(FOR/text())=\"" + sName + "\"]");
 
 		NodeList nodelist = doc.getElementsByTagName("DEFINITION");
@@ -407,40 +407,40 @@ public class BIFReaderTS
 		}
 		throw new Exception("Could not find definition for ((" + sName + "))");
 	} // getDefinition
-
-	FastVector getParentNodes(Node definition) throws Exception {
+	
+	private FastVector getParentNodes(Node definition) throws Exception {
 		//NodeList nodelist = selectNodeList(definition, "GIVEN");
 		FastVector nodelist = selectElements(definition, "GIVEN");
 		return nodelist;
 	} // getParentNodes
-
-	String getTable(Node definition) throws Exception {
+	
+	private String getTable(Node definition) throws Exception {
 		//NodeList nodelist = selectNodeList(definition, "TABLE/text()");
 		FastVector nodelist = selectElements(definition, "TABLE");
 		String sTable = getContent((Element) nodelist.elementAt(0));
 		sTable = sTable.replaceAll("\\n"," ");
 		return sTable;
 	} // getTable
-
-	FastVector selectOutCome(Node item) throws Exception {
+	
+	private FastVector selectOutCome(Node item) throws Exception {
 		//NodeList nodelist = selectNodeList(item, "OUTCOME");
 		FastVector nodelist = selectElements(item, "OUTCOME");
 		return nodelist;
 	} // selectOutCome
-
-	FastVector selectName(Node item) throws Exception {
+	
+	private FastVector selectName(Node item) throws Exception {
 	   //NodeList nodelist = selectNodeList(item, "NAME");
 	   FastVector nodelist = selectElements(item, "NAME");
 	   return nodelist;
    } // selectName
-
-   FastVector selectProperty(Node item) throws Exception {
+	
+	private FastVector selectProperty(Node item) throws Exception {
 	  // NodeList nodelist = selectNodeList(item, "PROPERTY");
 	  FastVector nodelist = selectElements(item, "PROPERTY");
 	  return nodelist;
    } // selectProperty
-
-	FastVector selectElements(Node item, String sElement) throws Exception {
+	
+	private FastVector selectElements(Node item, String sElement) throws Exception {
 	  NodeList children = item.getChildNodes();
 	  FastVector nodelist = new FastVector();
 	  for (int iNode = 0; iNode < children.getLength(); iNode++) {
@@ -599,7 +599,7 @@ public class BIFReaderTS
 	 * @return index of the node with name sNodeName
 	 * @throws Exception if node cannot be found
 	 */
-    public int getNode(String sNodeName) throws Exception {
+	private int getNode(String sNodeName) throws Exception {
 		int iNode = 0;
 		while (iNode < m_Instances.numAttributes()) {
 			if (m_Instances.attribute(iNode).name().equals(sNodeName)) {

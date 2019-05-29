@@ -68,22 +68,22 @@ public class ADNodeTS
   
   	/** for serialization */
   	static final long serialVersionUID = 397409728366910204L;
-  
-        final static int MIN_RECORD_SIZE = 0;
+	
+	private final static int MIN_RECORD_SIZE = 0;
 	
 	/** list of VaryNode children **/
-	public VaryNodeTS [] m_VaryNodes;
+	private VaryNodeTS[] m_VaryNodes;
 	/** list of Instance children (either m_Instances or m_VaryNodes is instantiated) **/
-	public Instance [] m_Instances;
+	private Instance[] m_Instances;
 
         /** count **/
-	public int m_nCount;
+		private int m_nCount;
 
         /** first node in VaryNode array **/
-        public int m_nStartNode;
+		private int m_nStartNode;
 
         /** Creates new ADNode */
-        public ADNodeTS() {
+		private ADNodeTS() {
         }
 
         /**
@@ -113,7 +113,7 @@ public class ADNodeTS
 	 * @param instances data set
          * @return VaryNode representing part of an ADTree
  	 **/
-	public static VaryNodeTS makeVaryNode(int iNode, FastVector nRecords, Instances instances) {
+	private static VaryNodeTS makeVaryNode(int iNode, FastVector nRecords, Instances instances) {
 		VaryNodeTS _VaryNode = new VaryNodeTS(iNode);
 		int nValues = instances.attribute(iNode).numValues();
                 
@@ -160,7 +160,7 @@ public class ADNodeTS
 	 * @param instances data set
          * @return ADNode representing an ADTree
 	 */
-	public static ADNodeTS makeADTree(int iNode, FastVector nRecords, Instances instances) {
+	private static ADNodeTS makeADTree(int iNode, FastVector nRecords, Instances instances) {
 		ADNodeTS _ADNode = new ADNodeTS();
                 _ADNode.m_nCount = nRecords.size();
                 _ADNode.m_nStartNode = iNode;

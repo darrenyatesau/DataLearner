@@ -112,22 +112,22 @@ public class BayesNetTS
 	/*
 	 * filter used to quantize continuous variables, if any
 	 **/
-	protected Discretize m_DiscretizeFilter = null;
+	private Discretize m_DiscretizeFilter = null;
 	
 	/*
 	 * attribute index of a non-nominal attribute
 	 */
-	int m_nNonDiscreteAttribute = -1;
+	private int m_nNonDiscreteAttribute = -1;
 	
 	/*
 	 * filter used to fill in missing values, if any
 	 **/
-	protected ReplaceMissingValues m_MissingValuesFilter = null;
+	private ReplaceMissingValues m_MissingValuesFilter = null;
 	
 	/*
 	 * The number of classes
 	 */
-	protected int m_NumClasses;
+	private int m_NumClasses;
 	
 	/*
 	 * The dataset header for the purposes of printing out a semi-intelligible
@@ -139,27 +139,27 @@ public class BayesNetTS
 	 * Datastructure containing ADTree representation of the database.
 	 * This may result in more efficient access to the data.
 	 */
-	ADNodeTS m_ADTree;
+	private ADNodeTS m_ADTree;
 	
 	/*
 	 * Bayes network to compare the structure with.
 	 */
-	protected BIFReaderTS m_otherBayesNet = null;
+	private BIFReaderTS m_otherBayesNet = null;
 	
 	/*
 	 * Use the experimental ADTree datastructure for calculating contingency tables
 	 */
-	boolean m_bUseADTree = false;
+	private boolean m_bUseADTree = false;
 	
 	/*
 	 * Search algorithm used for learning the structure of a network.
 	 */
-	SearchAlgorithmTS m_SearchAlgorithm = new K2TS();
+	private SearchAlgorithmTS m_SearchAlgorithm = new K2TS();
 	
 	/*
 	 * Search algorithm used for learning the structure of a network.
 	 */
-	BayesNetEstimatorTS m_BayesNetEstimator = new SimpleEstimatorTS();
+	private BayesNetEstimatorTS m_BayesNetEstimator = new SimpleEstimatorTS();
 	
 	/*
 	 * Returns default capabilities of the classifier.
@@ -237,7 +237,7 @@ public class BayesNetTS
 	 * @return filtered instances
 	 * @throws Exception if a filter (Discretize, ReplaceMissingValues) fails
 	 */
-	protected Instances normalizeDataSet(Instances instances) throws Exception {
+	private Instances normalizeDataSet(Instances instances) throws Exception {
 		m_DiscretizeFilter = null;
 		m_MissingValuesFilter = null;
 		
@@ -284,7 +284,7 @@ public class BayesNetTS
 	 * @return filtered instance
 	 * @throws Exception if a filter (Discretize, ReplaceMissingValues) fails
 	 */
-	protected Instance normalizeInstance(Instance instance) throws Exception {
+	private Instance normalizeInstance(Instance instance) throws Exception {
 		if ((m_DiscretizeFilter != null) &&
 				(instance.attribute(m_nNonDiscreteAttribute).type() != Attribute.NOMINAL)) {
 			m_DiscretizeFilter.input(instance);
@@ -317,7 +317,7 @@ public class BayesNetTS
 	 *
 	 * @throws Exception in case of an error
 	 */
-	public void initStructure() throws Exception {
+	protected void initStructure() throws Exception {
 		
 		// initialize topological ordering
 		//    m_nOrder = new int[m_Instances.numAttributes()];
@@ -350,7 +350,7 @@ public class BayesNetTS
 	 *
 	 * @throws Exception in case of an error
 	 */
-	public void buildStructure() throws Exception {
+	private void buildStructure() throws Exception {
 		m_SearchAlgorithm.buildStructure(this, m_Instances);
 	} // buildStructure
 	
@@ -529,7 +529,7 @@ public class BayesNetTS
 	 * @param options the input array of options
 	 * @return the array of secondary options
 	 */
-	public static String[] partitionOptions(String[] options) {
+	private static String[] partitionOptions(String[] options) {
 		
 		for (int i = 0; i < options.length; i++) {
 			if (options[i].equals("--")) {
@@ -607,7 +607,7 @@ public class BayesNetTS
 	 *
 	 * @param newSearchAlgorithm the SearchAlgorithm to use.
 	 */
-	public void setSearchAlgorithm(SearchAlgorithmTS newSearchAlgorithm) {
+	private void setSearchAlgorithm(SearchAlgorithmTS newSearchAlgorithm) {
 		m_SearchAlgorithm = newSearchAlgorithm;
 	}
 	
@@ -616,7 +616,7 @@ public class BayesNetTS
 	 *
 	 * @return the SearchAlgorithm used as the search algorithm
 	 */
-	public SearchAlgorithmTS getSearchAlgorithm() {
+	private SearchAlgorithmTS getSearchAlgorithm() {
 		return m_SearchAlgorithm;
 	}
 	
@@ -625,7 +625,7 @@ public class BayesNetTS
 	 *
 	 * @param newBayesNetEstimator the Estimator to use.
 	 */
-	public void setEstimator(BayesNetEstimatorTS newBayesNetEstimator) {
+	private void setEstimator(BayesNetEstimatorTS newBayesNetEstimator) {
 		m_BayesNetEstimator = newBayesNetEstimator;
 	}
 	
@@ -634,7 +634,7 @@ public class BayesNetTS
 	 *
 	 * @return the BayesNetEstimator used.
 	 */
-	public BayesNetEstimatorTS getEstimator() {
+	private BayesNetEstimatorTS getEstimator() {
 		return m_BayesNetEstimator;
 	}
 	
@@ -643,7 +643,7 @@ public class BayesNetTS
 	 *
 	 * @param bUseADTree true if an ADTree structure is used
 	 */
-	public void setUseADTree(boolean bUseADTree) {
+	protected void setUseADTree(boolean bUseADTree) {
 		m_bUseADTree = bUseADTree;
 	}
 	
@@ -661,7 +661,7 @@ public class BayesNetTS
 	 *
 	 * @param sBIFFile the name of the BIF file
 	 */
-	public void setBIFFile(String sBIFFile) {
+	private void setBIFFile(String sBIFFile) {
 		try {
 			m_otherBayesNet = new BIFReaderTS().processFile(sBIFFile);
 		} catch (Throwable t) {
@@ -767,7 +767,7 @@ public class BayesNetTS
 		return toXMLBIF03();
 	}
 	
-	public String getBIFHeader() {
+	private String getBIFHeader() {
 		StringBuffer text = new StringBuffer();
 		text.append("<?xml version=\"1.0\"?>\n");
 		text.append("<!-- DTD for the XMLBIF 0.3 format -->\n");
@@ -795,7 +795,7 @@ public class BayesNetTS
 	 *
 	 * @return an XML BIF 0.3 description of the classifier as a string.
 	 */
-	public String toXMLBIF03() {
+	private String toXMLBIF03() {
 		if (m_Instances == null) {
 			return ("<!--No model built yet-->");
 		}
@@ -848,7 +848,7 @@ public class BayesNetTS
 	 * @param sStr string to normalize
 	 * @return normalized string
 	 */
-	protected String XMLNormalize(String sStr) {
+	private String XMLNormalize(String sStr) {
 		StringBuffer sStr2 = new StringBuffer();
 		for (int iStr = 0; iStr < sStr.length(); iStr++) {
 			char c = sStr.charAt(iStr);
@@ -1093,55 +1093,55 @@ public class BayesNetTS
 		return newVector.elements();
 	} // enumerateMeasures
 	
-	public double measureExtraArcs() {
+	private double measureExtraArcs() {
 		if (m_otherBayesNet != null) {
 			return m_otherBayesNet.extraArcs(this);
 		}
 		return 0;
 	} // measureExtraArcs
 	
-	public double measureMissingArcs() {
+	private double measureMissingArcs() {
 		if (m_otherBayesNet != null) {
 			return m_otherBayesNet.missingArcs(this);
 		}
 		return 0;
 	} // measureMissingArcs
 	
-	public double measureReversedArcs() {
+	private double measureReversedArcs() {
 		if (m_otherBayesNet != null) {
 			return m_otherBayesNet.reversedArcs(this);
 		}
 		return 0;
 	} // measureReversedArcs
 	
-	public double measureDivergence() {
+	private double measureDivergence() {
 		if (m_otherBayesNet != null) {
 			return m_otherBayesNet.divergence(this);
 		}
 		return 0;
 	} // measureDivergence
 	
-	public double measureBayesScore() {
+	private double measureBayesScore() {
 		LocalScoreSearchAlgorithmTS s = new LocalScoreSearchAlgorithmTS(this, m_Instances);
 		return s.logScore(Scoreable.BAYES);
 	} // measureBayesScore
 	
-	public double measureBDeuScore() {
+	private double measureBDeuScore() {
 		LocalScoreSearchAlgorithmTS s = new LocalScoreSearchAlgorithmTS(this, m_Instances);
 		return s.logScore(Scoreable.BDeu);
 	} // measureBDeuScore
 	
-	public double measureMDLScore() {
+	private double measureMDLScore() {
 		LocalScoreSearchAlgorithmTS s = new LocalScoreSearchAlgorithmTS(this, m_Instances);
 		return s.logScore(Scoreable.MDL);
 	} // measureMDLScore
 	
-	public double measureAICScore() {
+	private double measureAICScore() {
 		LocalScoreSearchAlgorithmTS s = new LocalScoreSearchAlgorithmTS(this, m_Instances);
 		return s.logScore(Scoreable.AIC);
 	} // measureAICScore
 	
-	public double measureEntropyScore() {
+	private double measureEntropyScore() {
 		LocalScoreSearchAlgorithmTS s = new LocalScoreSearchAlgorithmTS(this, m_Instances);
 		return s.logScore(Scoreable.ENTROPY);
 	} // measureEntropyScore

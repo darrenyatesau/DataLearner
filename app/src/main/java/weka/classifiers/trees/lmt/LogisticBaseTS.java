@@ -59,58 +59,58 @@ public class LogisticBaseTS
     static final long serialVersionUID = 168765678097825064L;
 	
 	/* Header-only version of the numeric version of the training data*/
-    protected Instances m_numericDataHeader;
+	private Instances m_numericDataHeader;
 	/*
 	 * Numeric version of the training data. Original class is replaced by a numeric pseudo-class.
      */
-    protected Instances m_numericData;
+	private Instances m_numericData;
 	
 	/* Training data */
-    protected Instances m_train;
+	private Instances m_train;
 	
 	/* Use cross-validation to determine best number of LogitBoost iterations ?*/
-    protected boolean m_useCrossValidation;
+	private boolean m_useCrossValidation;
 	
 	/*Use error on probabilities for stopping criterion of LogitBoost? */
-    protected boolean m_errorOnProbabilities;
+	private boolean m_errorOnProbabilities;
 	
 	/*Use fixed number of iterations for LogitBoost? (if negative, cross-validate number of iterations)*/
-    protected int m_fixedNumIterations;
+	private int m_fixedNumIterations;
 	
 	/*Use heuristic to stop performing LogitBoost iterations earlier?
      * If enabled, LogitBoost is stopped if the current (local) minimum of the error on a test set as 
      * a function of the number of iterations has not changed for m_heuristicStop iterations.
      */
-    protected int m_heuristicStop = 50;
+	private int m_heuristicStop = 50;
 	
 	/*The number of LogitBoost iterations performed.*/
-    protected int m_numRegressions = 0;
+	private int m_numRegressions = 0;
 	
 	/*The maximum number of LogitBoost iterations*/
-    protected int m_maxIterations;
+	private int m_maxIterations;
 	
 	/*The number of different classes*/
-    protected int m_numClasses;
+	private int m_numClasses;
 	
 	/*Array holding the simple regression functions fit by LogitBoost*/
-    protected SimpleLinearRegression[][] m_regressions;
+	private SimpleLinearRegression[][] m_regressions;
 	
 	/*Number of folds for cross-validating number of LogitBoost iterations*/
-    protected static int m_numFoldsBoosting = 5;
+	private static int m_numFoldsBoosting = 5;
 	
 	/*Threshold on the Z-value for LogitBoost*/
-    protected static final double Z_MAX = 3;
+	private static final double Z_MAX = 3;
 	
 	/* If true, the AIC is used to choose the best iteration*/
     private boolean m_useAIC = false;
 	
 	/* Effective number of parameters used for AIC / BIC automatic stopping */
-    protected double m_numParameters = 0;
+	private double m_numParameters = 0;
 	
 	/*Threshold for trimming weights. Instances with a weight lower than this (as a percentage
      * of total weights) are not included in the regression fit.
      **/
-    protected double m_weightTrimBeta = 0;
+	private double m_weightTrimBeta = 0;
 	
 	/*
      * Constructor that creates LogisticBase object with standard options.
@@ -188,7 +188,7 @@ public class LogisticBaseTS
      * 
      * @throws Exception if something goes wrong
      */
-    protected void performBoostingCV() throws Exception{			
+	private void performBoostingCV() throws Exception {
 	
 	//completed iteration keeps track of the number of iterations that have been
 	//performed in every fold (some might stop earlier than others). 
@@ -226,7 +226,7 @@ public class LogisticBaseTS
 	/*
      * Runs LogitBoost, determining the best number of iterations by an information criterion (currently AIC).
      */
-    protected void performBoostingInfCriterion() throws Exception{
+	private void performBoostingInfCriterion() throws Exception {
         
         double criterion = 0.0;
         double bestCriterion = Double.MAX_VALUE;
@@ -290,8 +290,8 @@ public class LogisticBaseTS
      * in LogitBoost).
      * @throws Exception if something goes wrong
      */
-    protected int performBoosting(Instances train, Instances test, 
-				  double[] error, int maxIterations) throws Exception{
+	private int performBoosting(Instances train, Instances test,
+								double[] error, int maxIterations) throws Exception {
 	
 	//get numeric version of the (sub)set of training instances
 	Instances numericTrain = getNumericData(train);		
@@ -345,7 +345,7 @@ public class LogisticBaseTS
      * @param numIterations the number of iterations to run
      * @throws Exception if something goes wrong
      */
-    protected void performBoosting(int numIterations) throws Exception{
+	private void performBoosting(int numIterations) throws Exception {
 
 	//initialize Ys/Fs/ps 
 	double[][] trainYs = getYs(m_train);
@@ -373,7 +373,7 @@ public class LogisticBaseTS
      * or error on probabilities (depending on the errorOnProbabilities option).
      * @throws Exception if something goes wrong
      */
-    protected void performBoosting() throws Exception{
+	private void performBoosting() throws Exception {
 	
 	//initialize Ys/Fs/ps
 	double[][] trainYs = getYs(m_train);
@@ -423,7 +423,7 @@ public class LogisticBaseTS
      * @return the error rate
      * @throws Exception if something goes wrong
      */
-    protected double getErrorRate(Instances data) throws Exception {
+	private double getErrorRate(Instances data) throws Exception {
 	Evaluation eval = new Evaluation(data);
 	eval.evaluateModel(this,data);
 	return eval.errorRate();
@@ -435,7 +435,7 @@ public class LogisticBaseTS
      * @return the error
      * @throws Exception if something goes wrong
      */
-    protected double getMeanAbsoluteError(Instances data) throws Exception {
+	private double getMeanAbsoluteError(Instances data) throws Exception {
 	Evaluation eval = new Evaluation(data);
 	eval.evaluateModel(this,data);
 	return eval.meanAbsoluteError();
@@ -448,7 +448,7 @@ public class LogisticBaseTS
      * @param maxIteration the maximum of iterations
      * @return the minimum
      */
-    protected int getBestIteration(double[] errors, int maxIteration) {
+	private int getBestIteration(double[] errors, int maxIteration) {
 	double bestError = errors[0];
 	int bestIteration = 0;
 	for (int i = 1; i <= maxIteration; i++) {	    
@@ -472,11 +472,11 @@ public class LogisticBaseTS
      * could be fitted.
      * @throws Exception if something goes wrong
      */
-    protected boolean performIteration(int iteration, 
-				       double[][] trainYs,
-				       double[][] trainFs,
-				       double[][] probs,
-				       Instances trainNumeric) throws Exception {
+	private boolean performIteration(int iteration,
+									 double[][] trainYs,
+									 double[][] trainFs,
+									 double[][] probs,
+									 Instances trainNumeric) throws Exception {
 	
 	for (int j = 0; j < m_numClasses; j++) {
             // Keep track of sum of weights
@@ -568,7 +568,7 @@ public class LogisticBaseTS
      * 
      * @return the generated classifiers
      */
-    protected SimpleLinearRegression[][] initRegressions(){
+	private SimpleLinearRegression[][] initRegressions() {
 	SimpleLinearRegression[][] classifiers =   
 	    new SimpleLinearRegression[m_numClasses][m_maxIterations];
 	for (int j = 0; j < m_numClasses; j++) {
@@ -588,7 +588,7 @@ public class LogisticBaseTS
      * @return the converted data
      * @throws Exception if something goes wrong
      */
-    protected Instances getNumericData(Instances data) throws Exception{
+	private Instances getNumericData(Instances data) throws Exception {
 	Instances numericData = new Instances(data);
 	
 	int classIndex = numericData.classIndex();
@@ -607,7 +607,7 @@ public class LogisticBaseTS
      * @param classifiers the original set of classifiers
      * @return the cut back set of classifiers
      */
-    protected SimpleLinearRegression[][] selectRegressions(SimpleLinearRegression[][] classifiers){
+	private SimpleLinearRegression[][] selectRegressions(SimpleLinearRegression[][] classifiers) {
 	SimpleLinearRegression[][] goodClassifiers = 
 	    new SimpleLinearRegression[m_numClasses][m_numRegressions];
 	
@@ -627,7 +627,7 @@ public class LogisticBaseTS
      * @param p the estimated class probability
      * @return the LogitBoost response
      */
-    protected double getZ(double actual, double p) {
+	private double getZ(double actual, double p) {
 	double z;
 	if (actual == 1) {
 	    z = 1.0 / p;
@@ -685,7 +685,7 @@ public class LogisticBaseTS
      * @param Fs the F-values
      * @return the p-values
      */
-    protected double[] probs(double[] Fs) {
+	private double[] probs(double[] Fs) {
 	
 	double maxF = -Double.MAX_VALUE;
 	for (int i = 0; i < Fs.length; i++) {
@@ -710,7 +710,7 @@ public class LogisticBaseTS
      * @param data the data to compute the Y-values from
      * @return the Y-values
      */
-    protected double[][] getYs(Instances data){
+	private double[][] getYs(Instances data) {
 	
 	double [][] dataYs = new double [data.numInstances()][m_numClasses];
 	for (int j = 0; j < m_numClasses; j++) {
@@ -729,7 +729,7 @@ public class LogisticBaseTS
      * @return the F-values
      * @throws Exception if something goes wrong
      */
-    protected double[] getFs(Instance instance) throws Exception{
+	private double[] getFs(Instance instance) throws Exception {
 	
 	double [] pred = new double [m_numClasses];
 	double [] instanceFs = new double [m_numClasses]; 
@@ -758,7 +758,7 @@ public class LogisticBaseTS
      * @return the F-values
      * @throws Exception if something goes wrong
      */
-    protected double[][] getFs(Instances data) throws Exception{
+	private double[][] getFs(Instances data) throws Exception {
 	
 	double[][] dataFs = new double[data.numInstances()][];
        
@@ -776,7 +776,7 @@ public class LogisticBaseTS
      * @param dataFs the F-values
      * @return the p-values
      */
-    protected double[][] getProbs(double[][] dataFs){
+	private double[][] getProbs(double[][] dataFs) {
 	
 	int numInstances = dataFs.length;
 	double[][] probs = new double[numInstances][];
@@ -795,7 +795,7 @@ public class LogisticBaseTS
      * @param probs the p-values
      * @return the likelihood
      */
-    protected double negativeLogLikelihood(double[][] dataYs, double[][] probs) {
+	private double negativeLogLikelihood(double[][] dataYs, double[][] probs) {
 	
 	double logLikelihood = 0;
 	for (int i = 0; i < dataYs.length; i++) {
@@ -814,7 +814,7 @@ public class LogisticBaseTS
      * Attribute indices start at zero.
      * @return the array of attribute indices
      */
-    public int[][] getUsedAttributes(){
+	private int[][] getUsedAttributes() {
 	
 	int[][] usedAttributes = new int[m_numClasses][];
 	
@@ -927,7 +927,7 @@ public class LogisticBaseTS
      * the attributes in ascending order.
      * @return the array of coefficients
      */
-    protected double[][] getCoefficients(){
+	private double[][] getCoefficients() {
 	double[][] coefficients = new double[m_numClasses][m_numericDataHeader.numAttributes() + 1];
 	for (int j = 0; j < m_numClasses; j++) {
 	    //go through simple regression functions and add their coefficient to the coefficient of

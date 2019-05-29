@@ -105,32 +105,32 @@ public class KStarTS
 	/*
 	 * The training instances used for classification.
 	 */
-	protected Instances m_Train;
+	private Instances m_Train;
 	
 	/*
 	 * The number of instances in the dataset
 	 */
-	protected int m_NumInstances;
+	private int m_NumInstances;
 	
 	/*
 	 * The number of class values
 	 */
-	protected int m_NumClasses;
+	private int m_NumClasses;
 	
 	/*
 	 * The number of attributes
 	 */
-	protected int m_NumAttributes;
+	private int m_NumAttributes;
 	
 	/*
 	 * The class attribute type
 	 */
-	protected int m_ClassType;
+	private int m_ClassType;
 	
 	/*
 	 * Table of random class value colomns
 	 */
-	protected int[][] m_RandClassCols;
+	private int[][] m_RandClassCols;
 	
 	/*
 	 * Flag turning on and off the computation of random class colomns
@@ -140,33 +140,33 @@ public class KStarTS
 	/*
 	 * Flag turning on and off the initialisation of config variables
 	 */
-	protected int m_InitFlag = ON;
+	private int m_InitFlag = ON;
 	
 	/*
 	 * A custom data structure for caching distinct attribute values
 	 * and their scale factor or stop parameter.
 	 */
-	protected KStarCache[] m_Cache;
+	private KStarCache[] m_Cache;
 	
 	/*
 	 * missing value treatment
 	 */
-	protected int m_MissingMode = M_AVERAGE;
+	private int m_MissingMode = M_AVERAGE;
 	
 	/*
 	 * 0 = use specified blend, 1 = entropic blend setting
 	 */
-	protected int m_BlendMethod = B_SPHERE;
+	private int m_BlendMethod = B_SPHERE;
 	
 	/*
 	 * default sphere of influence blend setting
 	 */
-	protected int m_GlobalBlend = 20;
+	private int m_GlobalBlend = 20;
 	
 	/*
 	 * Define possible missing value handling methods
 	 */
-	public static final Tag[] TAGS_MISSING = {
+	private static final Tag[] TAGS_MISSING = {
 			new Tag(M_DELETE, "Ignore the instances with missing values"),
 			new Tag(M_MAXDIFF, "Treat missing values as maximally different"),
 			new Tag(M_NORMAL, "Normalize over the attributes"),
@@ -437,7 +437,7 @@ public class KStarTS
 	 *
 	 * @param newMode the method to use for handling missing values.
 	 */
-	public void setMissingMode(SelectedTag newMode) {
+	private void setMissingMode(SelectedTag newMode) {
 		
 		if (newMode.getTags() == TAGS_MISSING) {
 			m_MissingMode = newMode.getSelectedTag().getID();
@@ -480,7 +480,7 @@ public class KStarTS
 	 *
 	 * @param b the value for global blending
 	 */
-	public void setGlobalBlend(int b) {
+	private void setGlobalBlend(int b) {
 		m_GlobalBlend = b;
 		if (m_GlobalBlend > 100) {
 			m_GlobalBlend = 100;
@@ -514,7 +514,7 @@ public class KStarTS
 	 *
 	 * @param e true if entropic blending is to be used
 	 */
-	public void setEntropicAutoBlend(boolean e) {
+	private void setEntropicAutoBlend(boolean e) {
 		if (e) {
 			m_BlendMethod = B_ENTROPY;
 		} else {
@@ -527,7 +527,7 @@ public class KStarTS
 	 *
 	 * @return true if entropic blending is used
 	 */
-	public boolean getEntropicAutoBlend() {
+	private boolean getEntropicAutoBlend() {
 		return m_BlendMethod == B_ENTROPY;
 		
 	}

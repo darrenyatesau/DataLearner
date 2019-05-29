@@ -485,7 +485,7 @@ public class PARTTS
 	 *
 	 * @return the number of rules
 	 */
-	public double measureNumRules() {
+	private double measureNumRules() {
 		return m_root.numRules();
 	}
 	

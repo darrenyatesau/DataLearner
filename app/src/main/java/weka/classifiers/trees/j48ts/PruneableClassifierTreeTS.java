@@ -152,7 +152,7 @@ public class PruneableClassifierTreeTS
 	 *
 	 * @throws Exception if tree can't be pruned successfully
 	 */
-	public void prune() throws Exception {
+	private void prune() throws Exception {
 
 		if (!m_isLeaf) {
 			

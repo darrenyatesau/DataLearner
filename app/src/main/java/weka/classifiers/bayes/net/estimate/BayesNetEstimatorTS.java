@@ -61,7 +61,7 @@ public class BayesNetEstimatorTS
 	/*
      * Holds prior on count
      */
-    protected double m_fAlpha = 0.5;
+	double m_fAlpha = 0.5;
 	
 	/*
      * estimateCPTs estimates the conditional probability tables for the Bayes

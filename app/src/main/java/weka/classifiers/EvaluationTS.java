@@ -212,174 +212,174 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	/*
 	 * The number of classes.
 	 */
-	protected int m_NumClasses;
+	private int m_NumClasses;
 	
 	/*
 	 * The number of folds for a cross-validation.
 	 */
-	protected int m_NumFolds;
+	private int m_NumFolds;
 	
 	/*
 	 * The weight of all incorrectly classified instances.
 	 */
-	protected double m_Incorrect;
+	private double m_Incorrect;
 	
 	/*
 	 * The weight of all correctly classified instances.
 	 */
-	protected double m_Correct;
+	private double m_Correct;
 	
 	/*
 	 * The weight of all unclassified instances.
 	 */
-	protected double m_Unclassified;
+	private double m_Unclassified;
 	
 	/**
 	 * The weight of all instances that had no class assigned to them.
 	 */
-	protected double m_MissingClass;
+	private double m_MissingClass;
 
 	/*
 	 * The weight of all instances that had a class assigned to them.
 	 */
-	protected double m_WithClass;
+	private double m_WithClass;
 
 	/*
 	 * Array for storing the confusion matrix.
 	 */
-	protected double[][] m_ConfusionMatrix;
+	private double[][] m_ConfusionMatrix;
 
 	/*
 	 * The names of the classes.
 	 */
-	protected String[] m_ClassNames;
+	private String[] m_ClassNames;
 
 	/*
 	 * Is the class nominal or numeric?
 	 */
-	protected boolean m_ClassIsNominal;
+	private boolean m_ClassIsNominal;
 
 	/*
 	 * The prior probabilities of the classes
 	 */
-	protected double[] m_ClassPriors;
+	private double[] m_ClassPriors;
 
 	/*
 	 * The sum of counts for priors
 	 */
-	protected double m_ClassPriorsSum;
+	private double m_ClassPriorsSum;
 
 	/*
 	 * The cost matrix (if given).
 	 */
-	protected CostMatrix m_CostMatrix;
+	private CostMatrix m_CostMatrix;
 
 	/*
 	 * The total cost of predictions (includes instance weights)
 	 */
-	protected double m_TotalCost;
+	private double m_TotalCost;
 
 	/*
 	 * Sum of errors.
 	 */
-	protected double m_SumErr;
+	private double m_SumErr;
 
 	/*
 	 * Sum of absolute errors.
 	 */
-	protected double m_SumAbsErr;
+	private double m_SumAbsErr;
 
 	/*
 	 * Sum of squared errors.
 	 */
-	protected double m_SumSqrErr;
+	private double m_SumSqrErr;
 
 	/*
 	 * Sum of class values.
 	 */
-	protected double m_SumClass;
+	private double m_SumClass;
 
 	/*
 	 * Sum of squared class values.
 	 */
-	protected double m_SumSqrClass;
+	private double m_SumSqrClass;
 	
 	/** Sum of predicted values. */
-	protected double m_SumPredicted;
+	private double m_SumPredicted;
 
 	/*
 	 * Sum of squared predicted values.
 	 */
-	protected double m_SumSqrPredicted;
+	private double m_SumSqrPredicted;
 
 	/*
 	 * Sum of predicted * class values.
 	 */
-	protected double m_SumClassPredicted;
+	private double m_SumClassPredicted;
 
 	/*
 	 * Sum of absolute errors of the prior
 	 */
-	protected double m_SumPriorAbsErr;
+	private double m_SumPriorAbsErr;
 
 	/*
 	 * Sum of absolute errors of the prior
 	 */
-	protected double m_SumPriorSqrErr;
+	private double m_SumPriorSqrErr;
 
 	/*
 	 * Total Kononenko & Bratko Information
 	 */
-	protected double m_SumKBInfo;
+	private double m_SumKBInfo;
 	
 	/** Resolution of the margin histogram */
-	protected static int k_MarginResolution = 500;
+	private static int k_MarginResolution = 500;
 	
 	/*
 	 * Cumulative margin distribution
 	 */
-	protected double[] m_MarginCounts;
+	private double[] m_MarginCounts;
 
 	/*
 	 * Number of non-missing class training instances seen
 	 */
-	protected int m_NumTrainClassVals;
+	private int m_NumTrainClassVals;
 
 	/*
 	 * Array containing all numeric training class values seen
 	 */
-	protected double[] m_TrainClassVals;
+	private double[] m_TrainClassVals;
 
 	/*
 	 * Array containing all numeric training class weights
 	 */
-	protected double[] m_TrainClassWeights;
+	private double[] m_TrainClassWeights;
 
 	/*
 	 * Numeric class error estimator for prior
 	 */
-	protected Estimator m_PriorErrorEstimator;
+	private Estimator m_PriorErrorEstimator;
 
 	/*
 	 * Numeric class error estimator for scheme
 	 */
-	protected Estimator m_ErrorEstimator;
+	private Estimator m_ErrorEstimator;
 
 	/*
 	 * The minimum probablility accepted from an estimator to avoid taking log(0)
 	 * in Sf calculations.
 	 */
-	protected static final double MIN_SF_PROB = Double.MIN_VALUE;
+	private static final double MIN_SF_PROB = Double.MIN_VALUE;
 
 	/*
 	 * Total entropy of prior predictions
 	 */
-	protected double m_SumPriorEntropy;
+	private double m_SumPriorEntropy;
 
 	/*
 	 * Total entropy of scheme predictions
 	 */
-	protected double m_SumSchemeEntropy;
+	private double m_SumSchemeEntropy;
 
 	/*
 	 * The list of predictions that have been generated (for computing AUC)
@@ -390,7 +390,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * enables/disables the use of priors, e.g., if no training set is present in
 	 * case of de-serialized schemes
 	 */
-	protected boolean m_NoPriors = false;
+	private boolean m_NoPriors = false;
 	
 	//	/*
 //	 * Initializes all the counters for the evaluation. Use
@@ -423,7 +423,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 //	 * @see #useNoPriors()
 //	 * @see #setPriors(Instances)
 //	 */
-	public EvaluationTS(Instances data, CostMatrix costMatrix) throws Exception {
+	private EvaluationTS(Instances data, CostMatrix costMatrix) throws Exception {
 
 		m_NumClasses = data.numClasses();
 		m_NumFolds = 1;
@@ -476,7 +476,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 *
 	 * @return the weighted AUC.
 	 */
-	public double weightedAreaUnderROC() {
+	private double weightedAreaUnderROC() {
 		double[] classCounts = new double[m_NumClasses];
 		double classCountSum = 0;
 
@@ -709,7 +709,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @return a string describing the results
 	 * @throws Exception if model could not be evaluated successfully
 	 */
-	public static String evaluateModel(String classifierString, String[] options)
+	private static String evaluateModel(String classifierString, String[] options)
 			throws Exception {
 
 		Classifier classifier;
@@ -850,7 +850,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @return a string describing the results
 	 * @throws Exception if model could not be evaluated successfully
 	 */
-	public static String evaluateModel(Classifier classifier, String[] options)
+	private static String evaluateModel(Classifier classifier, String[] options)
 			throws Exception {
 
 		Instances train = null, tempTrain, test = null, template = null;
@@ -1471,8 +1471,8 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @return a <code>CostMatrix</code> value, or null if costFileName is empty
 	 * @throws Exception if an error occurs.
 	 */
-	protected static CostMatrix handleCostOption(String costFileName,
-												 int numClasses) throws Exception {
+	private static CostMatrix handleCostOption(String costFileName,
+											   int numClasses) throws Exception {
 
 		if ((costFileName != null) && (costFileName.length() != 0)) {
 			System.out
@@ -1575,8 +1575,8 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @throws Exception if model could not be evaluated successfully or the data
 	 *                   contains string attributes
 	 */
-	public double evaluateModelOnceAndRecordPrediction(Classifier classifier,
-													   Instance instance) throws Exception {
+	private double evaluateModelOnceAndRecordPrediction(Classifier classifier,
+														Instance instance) throws Exception {
 
 		Instance classMissing = (Instance) instance.copy();
 		double pred = 0;
@@ -1610,7 +1610,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @throws Exception if model could not be evaluated successfully or the data
 	 *                   contains string attributes
 	 */
-	public double evaluateModelOnce(Classifier classifier, Instance instance)
+	private double evaluateModelOnce(Classifier classifier, Instance instance)
 			throws Exception {
 
 		Instance classMissing = (Instance) instance.copy();
@@ -1708,7 +1708,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * been collected. This should be null if no predictions have been
 	 * collected (e.g. if the class is numeric).
 	 */
-	public FastVector predictions() {
+	private FastVector predictions() {
 
 		return m_Predictions;
 	}
@@ -1723,7 +1723,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * libraries.
 	 * @throws Exception if code-generation fails
 	 */
-	public static String wekaStaticWrapper(Sourcable classifier, String className)
+	private static String wekaStaticWrapper(Sourcable classifier, String className)
 			throws Exception {
 
 		StringBuffer result = new StringBuffer();
@@ -1898,7 +1898,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 *
 	 * @return the total cost
 	 */
-	public final double totalCost() {
+	private double totalCost() {
 
 		return m_TotalCost;
 	}
@@ -1909,7 +1909,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 *
 	 * @return the average cost.
 	 */
-	public final double avgCost() {
+	private double avgCost() {
 
 		return m_TotalCost / m_WithClass;
 	}
@@ -1944,7 +1944,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 *
 	 * @return the number of unclassified instances
 	 */
-	public final double unclassified() {
+	private double unclassified() {
 
 		return m_Unclassified;
 	}
@@ -1955,7 +1955,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 *
 	 * @return the percent of unclassified instances (between 0 and 100)
 	 */
-	public final double pctUnclassified() {
+	private double pctUnclassified() {
 
 		return 100 * m_Unclassified / m_WithClass;
 	}
@@ -2018,7 +2018,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @return the correlation coefficient
 	 * @throws Exception if class is not numeric
 	 */
-	public final double correlationCoefficient() throws Exception {
+	private double correlationCoefficient() throws Exception {
 
 		if (m_ClassIsNominal) {
 			throw new Exception("Can't compute correlation coefficient: "
@@ -2061,7 +2061,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 *
 	 * @return the mean absolute error
 	 */
-	public final double meanPriorAbsoluteError() {
+	private double meanPriorAbsoluteError() {
 
 		if (m_NoPriors) {
 			return Double.NaN;
@@ -2100,7 +2100,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 *
 	 * @return the root mean prior squared error
 	 */
-	public final double rootMeanPriorSquaredError() {
+	private double rootMeanPriorSquaredError() {
 
 		if (m_NoPriors) {
 			return Double.NaN;
@@ -2129,7 +2129,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @return the entropy of the prior distribution
 	 * @throws Exception if the class is not nominal
 	 */
-	public final double priorEntropy() throws Exception {
+	private double priorEntropy() throws Exception {
 
 		if (!m_ClassIsNominal) {
 			throw new Exception("Can't compute entropy of class prior: "
@@ -2155,7 +2155,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @return the K&B information score
 	 * @throws Exception if the class is not nominal
 	 */
-	public final double KBInformation() throws Exception {
+	private double KBInformation() throws Exception {
 
 		if (!m_ClassIsNominal) {
 			throw new Exception("Can't compute K&B Info score: " + "class numeric!");
@@ -2174,7 +2174,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @return the K&B information score
 	 * @throws Exception if the class is not nominal
 	 */
-	public final double KBMeanInformation() throws Exception {
+	private double KBMeanInformation() throws Exception {
 
 		if (!m_ClassIsNominal) {
 			throw new Exception("Can't compute K&B Info score: " + "class numeric!");
@@ -2193,7 +2193,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @return the K&B relative information score
 	 * @throws Exception if the class is not nominal
 	 */
-	public final double KBRelativeInformation() throws Exception {
+	private double KBRelativeInformation() throws Exception {
 
 		if (!m_ClassIsNominal) {
 			throw new Exception("Can't compute K&B Info score: " + "class numeric!");
@@ -2211,7 +2211,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 *
 	 * @return the total null model entropy
 	 */
-	public final double SFPriorEntropy() {
+	private double SFPriorEntropy() {
 
 		if (m_NoPriors) {
 			return Double.NaN;
@@ -2225,7 +2225,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 *
 	 * @return the null model entropy per instance
 	 */
-	public final double SFMeanPriorEntropy() {
+	private double SFMeanPriorEntropy() {
 
 		if (m_NoPriors) {
 			return Double.NaN;
@@ -2239,7 +2239,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 *
 	 * @return the total scheme entropy
 	 */
-	public final double SFSchemeEntropy() {
+	private double SFSchemeEntropy() {
 
 		if (m_NoPriors) {
 			return Double.NaN;
@@ -2253,7 +2253,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 *
 	 * @return the scheme entropy per instance
 	 */
-	public final double SFMeanSchemeEntropy() {
+	private double SFMeanSchemeEntropy() {
 
 		if (m_NoPriors) {
 			return Double.NaN;
@@ -2268,7 +2268,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 *
 	 * @return the total SF
 	 */
-	public final double SFEntropyGain() {
+	private double SFEntropyGain() {
 
 		if (m_NoPriors) {
 			return Double.NaN;
@@ -2283,7 +2283,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 *
 	 * @return the SF per instance
 	 */
-	public final double SFMeanEntropyGain() {
+	private double SFMeanEntropyGain() {
 
 		if (m_NoPriors) {
 			return Double.NaN;
@@ -2300,7 +2300,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @return the cumulative margin distribution
 	 * @throws Exception if the class attribute is nominal
 	 */
-	public String toCumulativeMarginDistributionString() throws Exception {
+	private String toCumulativeMarginDistributionString() throws Exception {
 
 		if (!m_ClassIsNominal) {
 			throw new Exception("Class must be nominal for margin distributions");
@@ -2359,7 +2359,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 *                                  returned as well
 	 * @return the summary as a String
 	 */
-	public String toSummaryString(String title, boolean printComplexityStatistics) {
+	private String toSummaryString(String title, boolean printComplexityStatistics) {
 
 		StringBuffer text = new StringBuffer();
 
@@ -2457,7 +2457,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @return the confusion matrix as a string
 	 * @throws Exception if the class is numeric
 	 */
-	public String toMatrixString() throws Exception {
+	private String toMatrixString() throws Exception {
 
 		return toMatrixString("=== Confusion Matrix ===\n");
 	}
@@ -2537,7 +2537,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @return the statistics presented as a string
 	 * @throws Exception if class is not nominal
 	 */
-	public String toClassDetailsString() throws Exception {
+	private String toClassDetailsString() throws Exception {
 
 		return toClassDetailsString("=== Detailed Accuracy By Class ===\n");
 	}
@@ -2630,7 +2630,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @param classIndex the index of the class to consider as "positive"
 	 * @return the true positive rate
 	 */
-	public double truePositiveRate(int classIndex) {
+	private double truePositiveRate(int classIndex) {
 
 		double correct = 0, total = 0;
 		for (int j = 0; j < m_NumClasses; j++) {
@@ -2650,7 +2650,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 *
 	 * @return the weighted true positive rate.
 	 */
-	public double weightedTruePositiveRate() {
+	private double weightedTruePositiveRate() {
 		double[] classCounts = new double[m_NumClasses];
 		double classCountSum = 0;
 
@@ -2711,7 +2711,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @param classIndex the index of the class to consider as "positive"
 	 * @return the true positive rate
 	 */
-	public double trueNegativeRate(int classIndex) {
+	private double trueNegativeRate(int classIndex) {
 
 		double correct = 0, total = 0;
 		for (int i = 0; i < m_NumClasses; i++) {
@@ -2796,7 +2796,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @param classIndex the index of the class to consider as "positive"
 	 * @return the false positive rate
 	 */
-	public double falsePositiveRate(int classIndex) {
+	private double falsePositiveRate(int classIndex) {
 
 		double incorrect = 0, total = 0;
 		for (int i = 0; i < m_NumClasses; i++) {
@@ -2820,7 +2820,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 *
 	 * @return the weighted false positive rate.
 	 */
-	public double weightedFalsePositiveRate() {
+	private double weightedFalsePositiveRate() {
 		double[] classCounts = new double[m_NumClasses];
 		double classCountSum = 0;
 
@@ -2881,7 +2881,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @param classIndex the index of the class to consider as "positive"
 	 * @return the false positive rate
 	 */
-	public double falseNegativeRate(int classIndex) {
+	private double falseNegativeRate(int classIndex) {
 
 		double incorrect = 0, total = 0;
 		for (int i = 0; i < m_NumClasses; i++) {
@@ -2940,7 +2940,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @param classIndex the index of the class to consider as "positive"
 	 * @return the recall
 	 */
-	public double recall(int classIndex) {
+	private double recall(int classIndex) {
 
 		return truePositiveRate(classIndex);
 	}
@@ -2950,7 +2950,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 *
 	 * @return the weighted recall.
 	 */
-	public double weightedRecall() {
+	private double weightedRecall() {
 		return weightedTruePositiveRate();
 	}
 
@@ -2968,7 +2968,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @param classIndex the index of the class to consider as "positive"
 	 * @return the precision
 	 */
-	public double precision(int classIndex) {
+	private double precision(int classIndex) {
 
 		double correct = 0, total = 0;
 		for (int i = 0; i < m_NumClasses; i++) {
@@ -2988,7 +2988,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 *
 	 * @return the weighted precision.
 	 */
-	public double weightedPrecision() {
+	private double weightedPrecision() {
 		double[] classCounts = new double[m_NumClasses];
 		double classCountSum = 0;
 
@@ -3022,7 +3022,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @param classIndex the index of the class to consider as "positive"
 	 * @return the F-Measure
 	 */
-	public double fMeasure(int classIndex) {
+	private double fMeasure(int classIndex) {
 
 		double precision = precision(classIndex);
 		double recall = recall(classIndex);
@@ -3037,7 +3037,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 *
 	 * @return the weighted F-Measure.
 	 */
-	public double weightedFMeasure() {
+	private double weightedFMeasure() {
 		double[] classCounts = new double[m_NumClasses];
 		double classCountSum = 0;
 
@@ -3064,7 +3064,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 *              probabilities
 	 * @throws Exception if the class attribute of the instances is not set
 	 */
-	public void setPriors(Instances train) throws Exception {
+	private void setPriors(Instances train) throws Exception {
 		m_NoPriors = false;
 
 		if (!m_ClassIsNominal) {
@@ -3112,7 +3112,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @param instance the new training instance seen
 	 * @throws Exception if the class of the instance is not set
 	 */
-	public void updatePriors(Instance instance) throws Exception {
+	private void updatePriors(Instance instance) throws Exception {
 		if (!instance.classIsMissing()) {
 			if (!m_ClassIsNominal) {
 				if (!instance.classIsMissing()) {
@@ -3130,7 +3130,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * have no access to the original training set, but are evaluated on a set
 	 * set.
 	 */
-	public void useNoPriors() {
+	private void useNoPriors() {
 		m_NoPriors = true;
 	}
 
@@ -3239,8 +3239,8 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 *                           attributes, not just the predicted value
 	 * @param text               the StringBuffer to print to
 	 */
-	protected static void printClassificationsHeader(Instances test,
-													 Range attributesToOutput, boolean printDistribution, StringBuffer text) {
+	private static void printClassificationsHeader(Instances test,
+												   Range attributesToOutput, boolean printDistribution, StringBuffer text) {
 		// print header
 		if (test.classAttribute().isNominal()) {
 			if (printDistribution) {
@@ -3288,9 +3288,9 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @param text               StringBuffer to hold the printed predictions
 	 * @throws Exception if test file cannot be opened
 	 */
-	public static void printClassifications(Classifier classifier,
-											Instances train, DataSource testSource, int classIndex,
-											Range attributesToOutput, boolean printDistribution, StringBuffer text)
+	private static void printClassifications(Classifier classifier,
+											 Instances train, DataSource testSource, int classIndex,
+											 Range attributesToOutput, boolean printDistribution, StringBuffer text)
 			throws Exception {
 
 		if (testSource != null) {
@@ -3335,8 +3335,8 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 //   * @see #printClassifications(Classifier, Instances, String, int, Range,
 //   *      boolean)
 //   */
-	protected static String predictionText(Classifier classifier, Instance inst,
-										   int instNum, Range attributesToOutput, boolean printDistribution)
+	private static String predictionText(Classifier classifier, Instance inst,
+										 int instNum, Range attributesToOutput, boolean printDistribution)
 
 			throws Exception {
 
@@ -3438,8 +3438,8 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @param attRange the range of the attributes to list
 	 * @return a string listing values of the attributes in the range
 	 */
-	protected static String attributeValuesString(Instance instance,
-												  Range attRange) {
+	private static String attributeValuesString(Instance instance,
+												Range attRange) {
 		StringBuffer text = new StringBuffer();
 		if (attRange != null) {
 			boolean firstOutput = true;
@@ -3470,8 +3470,8 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 *                   (if available).
 	 * @return a string detailing the valid command line options
 	 */
-	protected static String makeOptionString(Classifier classifier,
-											 boolean globalInfo) {
+	private static String makeOptionString(Classifier classifier,
+										   boolean globalInfo) {
 		
 		StringBuffer optionsText = new StringBuffer();
 
@@ -3593,7 +3593,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @return the global info (synopsis) for the classifier
 	 * @throws Exception if there is a problem reflecting on the classifier
 	 */
-	protected static String getGlobalInfo(Classifier classifier) throws Exception {
+	private static String getGlobalInfo(Classifier classifier) throws Exception {
 //    BeanInfo bi = Introspector.getBeanInfo(classifier.getClass());
 //    MethodDescriptor[] methods;
 //    methods = bi.getMethodDescriptors();
@@ -3622,7 +3622,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @param IDWidth the width of the entry
 	 * @return the formatted integer as a string
 	 */
-	protected String num2ShortID(int num, char[] IDChars, int IDWidth) {
+	private String num2ShortID(int num, char[] IDChars, int IDWidth) {
 		
 		char[] ID = new char[IDWidth];
 		int i;
@@ -3648,7 +3648,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @param predictedClass the index of the predicted class
 	 * @return the probability distribution
 	 */
-	protected double[] makeDistribution(double predictedClass) {
+	private double[] makeDistribution(double predictedClass) {
 
 		double[] result = new double[m_NumClasses];
 		if (Instance.isMissingValue(predictedClass)) {
@@ -3670,8 +3670,8 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @param instance              the instance to be classified
 	 * @throws Exception if the class of the instance is not set
 	 */
-	protected void updateStatsForClassifier(double[] predictedDistribution,
-											Instance instance) throws Exception {
+	private void updateStatsForClassifier(double[] predictedDistribution,
+										  Instance instance) throws Exception {
 
 		int actualClass = (int) instance.classValue();
 
@@ -3754,8 +3754,8 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @param instance       the instance to be classified
 	 * @throws Exception if the class of the instance is not set
 	 */
-	protected void updateStatsForPredictor(double predictedValue,
-										   Instance instance) throws Exception {
+	private void updateStatsForPredictor(double predictedValue,
+										 Instance instance) throws Exception {
 
 		if (!instance.classIsMissing()) {
 
@@ -3805,8 +3805,8 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @param actualClass           the index of the actual instance class
 	 * @param weight                the weight assigned to the instance
 	 */
-	protected void updateMargins(double[] predictedDistribution, int actualClass,
-								 double weight) {
+	private void updateMargins(double[] predictedDistribution, int actualClass,
+							   double weight) {
 
 		double probActual = predictedDistribution[actualClass];
 		double probNext = 0;
@@ -3831,8 +3831,8 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @param actual    the actual value
 	 * @param weight    the weight associated with this prediction
 	 */
-	protected void updateNumericScores(double[] predicted, double[] actual,
-									   double weight) {
+	private void updateNumericScores(double[] predicted, double[] actual,
+									 double weight) {
 
 		double diff;
 		double sumErr = 0, sumAbsErr = 0, sumSqrErr = 0;
@@ -3860,7 +3860,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * @param classValue the class value
 	 * @param weight     the instance weight
 	 */
-	protected void addNumericTrainClass(double classValue, double weight) {
+	private void addNumericTrainClass(double classValue, double weight) {
 
 		if (m_TrainClassVals == null) {
 			m_TrainClassVals = new double[100];
@@ -3885,7 +3885,7 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 	 * Sets up the priors for numeric class attributes from the training class
 	 * values that have been seen so far.
 	 */
-	protected void setNumericPriorsFromBuffer() {
+	private void setNumericPriorsFromBuffer() {
 
 		double numPrecision = 0.01; // Default value
 		if (m_NumTrainClassVals > 1) {

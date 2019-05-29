@@ -130,32 +130,32 @@ public class AdaBoostM1TS
 	/**
 	 * Array for storing the weights for the votes.
 	 */
-	protected double[] m_Betas;
+	double[] m_Betas;
 	
 	/**
 	 * The number of successfully generated base classifiers.
 	 */
-	protected int m_NumIterationsPerformed;
+	int m_NumIterationsPerformed;
 	
 	/**
 	 * Weight Threshold. The percentage of weight mass used in training
 	 */
-	protected int m_WeightThreshold = 100;
+	private int m_WeightThreshold = 100;
 	
 	/**
 	 * Use boosting with reweighting?
 	 */
-	protected boolean m_UseResampling;
+	private boolean m_UseResampling;
 	
 	/**
 	 * The number of classes
 	 */
-	protected int m_NumClasses;
+	private int m_NumClasses;
 	
 	/**
 	 * a ZeroR model in case no model can be built from the data
 	 */
-	protected Classifier m_ZeroR;
+	Classifier m_ZeroR;
 	
 	/**
 	 * Constructor.
@@ -221,7 +221,7 @@ public class AdaBoostM1TS
 	 *                 90% of the weight mass
 	 * @return the selected instances
 	 */
-	protected Instances selectWeightQuantile(Instances data, double quantile) {
+	private Instances selectWeightQuantile(Instances data, double quantile) {
 		
 		int numInstances = data.numInstances();
 		Instances trainData = new Instances(data, numInstances);
@@ -379,7 +379,7 @@ public class AdaBoostM1TS
 	 *
 	 * @param threshold the percentage of weight mass used for training
 	 */
-	public void setWeightThreshold(int threshold) {
+	private void setWeightThreshold(int threshold) {
 		
 		m_WeightThreshold = threshold;
 	}
@@ -389,7 +389,7 @@ public class AdaBoostM1TS
 	 *
 	 * @return the percentage of weight mass used for training
 	 */
-	public int getWeightThreshold() {
+	private int getWeightThreshold() {
 		
 		return m_WeightThreshold;
 	}
@@ -409,7 +409,7 @@ public class AdaBoostM1TS
 	 *
 	 * @param r true if resampling should be done
 	 */
-	public void setUseResampling(boolean r) {
+	private void setUseResampling(boolean r) {
 		
 		m_UseResampling = r;
 	}
@@ -419,7 +419,7 @@ public class AdaBoostM1TS
 	 *
 	 * @return true if resampling output is on
 	 */
-	public boolean getUseResampling() {
+	private boolean getUseResampling() {
 		
 		return m_UseResampling;
 	}
@@ -490,7 +490,7 @@ public class AdaBoostM1TS
 	 *             boosted classifier.
 	 * @throws Exception if the classifier could not be built successfully
 	 */
-	protected void buildClassifierUsingResampling(Instances data)
+	private void buildClassifierUsingResampling(Instances data)
 			throws Exception {
 		
 		Instances trainData, sample, training;
@@ -583,7 +583,7 @@ public class AdaBoostM1TS
 	 * @param reweight the reweighting factor
 	 * @throws Exception if something goes wrong
 	 */
-	protected void setWeights(Instances training, double reweight)
+	void setWeights(Instances training, double reweight)
 			throws Exception {
 		
 		double oldSumOfWeights, newSumOfWeights;
@@ -621,7 +621,7 @@ public class AdaBoostM1TS
 	 *             boosted classifier.
 	 * @throws Exception if the classifier could not be built successfully
 	 */
-	protected void buildClassifierWithWeights(Instances data)
+	private void buildClassifierWithWeights(Instances data)
 			throws Exception {
 		
 		Instances trainData, training;

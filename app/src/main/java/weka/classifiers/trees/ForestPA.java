@@ -100,27 +100,27 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 	/*
 	 * Number of trees to be built in the forest.
 	 */
-	protected int numberOfTrees = 10;
+	private int numberOfTrees = 10;
 	
 	/*
 	 * Minimum number of objects in a terminal node for SimpleCart.
 	 */
-	protected int scMinimumRecordsLeaf = 2;
+	private int scMinimumRecordsLeaf = 2;
 	
 	/*
 	 * Number of pruning folds for SimpleCart.
 	 */
-	protected int scPruningFolds = 2;
+	private int scPruningFolds = 2;
 	
 	/*
 	 * Weights for each of the attributes based on previous selections.
 	 */
-	protected double[] weightSet;
+	private double[] weightSet;
 	
 	/*
 	 * Increment rate for each unpicked attribute with a weight &lt; 1.
 	 */
-	protected double[] weightIncrements;
+	private double[] weightIncrements;
 	
 	/*
 	 * Ensures random distributions in weightRange are non-overlapping.
@@ -130,17 +130,17 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 	/*
 	 * Reference to the training data
 	 */
-	protected Instances dataSet;
+	private Instances dataSet;
 	
 	/*
 	 * Random number generator for weight operations.
 	 */
-	protected Random randomNum;
+	private Random randomNum;
 	
 	/*
 	 * The decision forest, a forest of SimpleCart trees.
 	 */
-	protected SimpleCartPA[] trees;
+	private SimpleCartPA[] trees;
 //    protected SimpleCart trees[];
 	
 	/*
@@ -164,7 +164,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 	 * @param lambda the level in the tree this attribute appeared at
 	 * @return random double value within appropriate range
 	 */
-	public double weightRange(int lambda) {
+	private double weightRange(int lambda) {
 
 		double returnVal = 0;
 		double min = 0;
@@ -190,7 +190,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 	 * @param height overall height of the tree
 	 * @return updated attribute weight
 	 */
-	public double weightIncrementValueUpdate(double weight, int lambda, int height) {
+	private double weightIncrementValueUpdate(double weight, int lambda, int height) {
 		double omega = (1.0 - weight) / ((height + 1) - lambda);
 		return omega;
 	}
@@ -202,7 +202,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 	 * @param needle   substring to search for
 	 * @return level this appears on
 	 */
-	public int levelCount(String haystack, String needle) {
+	private int levelCount(String haystack, String needle) {
 
 		int lastIndex = 0;
 		int count = 0;
@@ -398,7 +398,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 	 *
 	 * @return number of trees requested
 	 */
-	public int getNumberOfTrees() {
+	private int getNumberOfTrees() {
 		return numberOfTrees;
 	}
 	
@@ -407,7 +407,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 	 *
 	 * @param num new number of trees requested
 	 */
-	public void setNumberOfTrees(int num) {
+	private void setNumberOfTrees(int num) {
 		numberOfTrees = num;
 	}
 	
@@ -416,7 +416,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 	 *
 	 * @return minimum instances for SimpleCart terminal nodes.
 	 */
-	public int getSimpleCartMinimumRecords() {
+	private int getSimpleCartMinimumRecords() {
 		return scMinimumRecordsLeaf;
 	}
 	
@@ -425,7 +425,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 	 *
 	 * @param num new minimum instances in SimpleCart terminal nodes.
 	 */
-	public void setSimpleCartMinimumRecords(int num) {
+	private void setSimpleCartMinimumRecords(int num) {
 		scMinimumRecordsLeaf = num;
 	}
 	
@@ -434,7 +434,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 	 *
 	 * @return number of pruning iterations for SimpleCart trees.
 	 */
-	public int getSimpleCartPruningFolds() {
+	private int getSimpleCartPruningFolds() {
 		return scPruningFolds;
 	}
 	
@@ -443,7 +443,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 	 *
 	 * @param num new number of pruning iterations for SimpleCart trees.
 	 */
-	public void setSimpleCartPruningFolds(int num) {
+	private void setSimpleCartPruningFolds(int num) {
 		scPruningFolds = num;
 	}
 	
@@ -646,110 +646,110 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		/*
 		 * Training data.
 		 */
-		protected Instances m_train;
+		Instances m_train;
 		
 		/*
 		 * Successor nodes.
 		 */
-		protected SimpleCartPA[] m_Successors;
+		SimpleCartPA[] m_Successors;
 		
 		/*
 		 * Attribute used to split data.
 		 */
-		protected Attribute m_Attribute;
+		Attribute m_Attribute;
 		
 		/*
 		 * Split point for a numeric attribute.
 		 */
-		protected double m_SplitValue;
+		double m_SplitValue;
 		
 		/*
 		 * Split subset used to split data for nominal attributes.
 		 */
-		protected String m_SplitString;
+		String m_SplitString;
 		
 		/*
 		 * Class value if the node is leaf.
 		 */
-		protected double m_ClassValue;
+		double m_ClassValue;
 		
 		/*
 		 * Class attriubte of data.
 		 */
-		protected Attribute m_ClassAttribute;
+		Attribute m_ClassAttribute;
 		
 		/*
 		 * Minimum number of instances in at the terminal nodes.
 		 */
-		protected double m_minNumObj = 2;
+		double m_minNumObj = 2;
 		
 		/*
 		 * Number of folds for minimal cost-complexity pruning.
 		 */
-		protected int m_numFoldsPruning = 5;
+		int m_numFoldsPruning = 5;
 		
 		/*
 		 * Alpha-value (for pruning) at the node.
 		 */
-		protected double m_Alpha;
+		double m_Alpha;
 		
 		/*
 		 * Number of training examples misclassified by the model (subtree rooted).
 		 */
-		protected double m_numIncorrectModel;
+		double m_numIncorrectModel;
 		
 		/*
 		 * Number of training examples misclassified by the model (subtree not
 		 * rooted).
 		 */
-		protected double m_numIncorrectTree;
+		double m_numIncorrectTree;
 		
 		/*
 		 * Indicate if the node is a leaf node.
 		 */
-		protected boolean m_isLeaf;
+		boolean m_isLeaf;
 		
 		/*
 		 * If use minimal cost-compexity pruning.
 		 */
-		protected boolean m_Prune = true;
+		boolean m_Prune = true;
 		
 		/*
 		 * Total number of instances used to build the classifier.
 		 */
-		protected int m_totalTrainInstances;
+		int m_totalTrainInstances;
 		
 		/*
 		 * Proportion for each branch.
 		 */
-		protected double[] m_Props;
+		double[] m_Props;
 		
 		/*
 		 * Class probabilities.
 		 */
-		protected double[] m_ClassProbs = null;
+		double[] m_ClassProbs = null;
 		
 		/*
 		 * Distributions of leaf node (or temporary leaf node in minimal
 		 * cost-complexity pruning)
 		 */
-		protected double[] m_Distribution;
+		double[] m_Distribution;
 		
 		/*
 		 * If use huristic search for nominal attributes in multi-class problems
 		 * (default true).
 		 */
-		protected boolean m_Heuristic = true;
+		boolean m_Heuristic = true;
 		
 		/*
 		 * If use the 1SE rule to make final decision tree.
 		 */
-		protected boolean m_UseOneSE = false;
+		boolean m_UseOneSE = false;
 		
 		/*
 		 * Training data size.
 		 */
-		protected double m_SizePer = 1;
+		double m_SizePer = 1;
 		
 		/*
 		 * Return a description suitable for displaying in the explorer/experimenter.
@@ -935,10 +935,10 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 			unprune();
 			prune(bestAlpha);
 		}
-
-		protected void makeTree(Instances data, int totalInstances,
-								int[][] sortedIndices, double[][] weights, double[] classProbs,
-								double totalWeight, double minNumObj, boolean useHeuristic)
+		
+		void makeTree(Instances data, int totalInstances,
+					  int[][] sortedIndices, double[][] weights, double[] classProbs,
+					  double totalWeight, double minNumObj, boolean useHeuristic)
 				throws Exception {
 
 			// if no instances have reached this node (normally won't happen)
@@ -1059,7 +1059,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 * @param alpha the cost-complexity parameter
 		 * @throws Exception if something goes wrong
 		 */
-		public void prune(double alpha) throws Exception {
+		void prune(double alpha) throws Exception {
 
 			Vector<SimpleCartPA> nodeList;
 
@@ -1119,7 +1119,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 * @return the iteration of the pruning
 		 * @throws Exception if something goes wrong
 		 */
-		public int prune(double[] alphas, double[] errors, Instances test)
+		int prune(double[] alphas, double[] errors, Instances test)
 				throws Exception {
 
 			Vector<SimpleCartPA> nodeList;
@@ -1198,7 +1198,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 * Method to "unprune" the CART tree. Sets all leaf-fields to false. Faster
 		 * than re-growing the tree because CART do not have to be fit again.
 		 */
-		protected void unprune() {
+		void unprune() {
 			if (m_Successors != null) {
 				m_isLeaf = false;
 				for (SimpleCartPA m_Successor : m_Successors) {
@@ -1223,9 +1223,9 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 * @return Gini gain the given numeric attribute
 		 * @throws Exception if something goes wrong
 		 */
-		protected double numericDistribution(double[][] props, double[][][] dists,
-											 Attribute att, int[] sortedIndices, double[] weights,
-											 double[][] subsetWeights, double[] giniGains, Instances data)
+		double numericDistribution(double[][] props, double[][][] dists,
+								   Attribute att, int[] sortedIndices, double[] weights,
+								   double[][] subsetWeights, double[] giniGains, Instances data)
 				throws Exception {
 
 			double splitPoint = Double.NaN;
@@ -1348,10 +1348,10 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 * @return Gini gain for the given nominal attribute
 		 * @throws Exception if something goes wrong
 		 */
-		protected String nominalDistribution(double[][] props, double[][][] dists,
-											 Attribute att, int[] sortedIndices, double[] weights,
-											 double[][] subsetWeights, double[] giniGains, Instances data,
-											 boolean useHeuristic) throws Exception {
+		String nominalDistribution(double[][] props, double[][][] dists,
+								   Attribute att, int[] sortedIndices, double[] weights,
+								   double[][] subsetWeights, double[] giniGains, Instances data,
+								   boolean useHeuristic) throws Exception {
 
 			String[] values = new String[att.numValues()];
 			int numCat = values.length; // number of values of the attribute
@@ -1817,9 +1817,9 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 * @param data          training data
 		 * @throws Exception if something goes wrong
 		 */
-		protected void splitData(int[][][] subsetIndices, double[][][] subsetWeights,
-								 Attribute att, double splitPoint, String splitStr, int[][] sortedIndices,
-								 double[][] weights, Instances data) throws Exception {
+		void splitData(int[][][] subsetIndices, double[][][] subsetWeights,
+					   Attribute att, double splitPoint, String splitStr, int[][] sortedIndices,
+					   double[][] weights, Instances data) throws Exception {
 
 			int j;
 			// For each attribute
@@ -1880,7 +1880,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 *
 		 * @throws Exception if something goes wrong
 		 */
-		public void modelErrors() throws Exception {
+		void modelErrors() throws Exception {
 			EvaluationTS eval = new EvaluationTS(m_train);
 
 			if (!m_isLeaf) {
@@ -1908,7 +1908,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 *
 		 * @throws Exception if something goes wrong
 		 */
-		public void treeErrors() throws Exception {
+		void treeErrors() throws Exception {
 			if (m_isLeaf) {
 				m_numIncorrectTree = m_numIncorrectModel;
 			} else {
@@ -1925,7 +1925,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 *
 		 * @throws Exception if something goes wrong
 		 */
-		public void calculateAlphas() throws Exception {
+		void calculateAlphas() throws Exception {
 
 			if (!m_isLeaf) {
 				double errorDiff = m_numIncorrectModel - m_numIncorrectTree;
@@ -1957,7 +1957,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 * @param nodeList list of inner nodes
 		 * @return the node to be pruned
 		 */
-		protected SimpleCartPA nodeToPrune(Vector<SimpleCartPA> nodeList) {
+		SimpleCartPA nodeToPrune(Vector<SimpleCartPA> nodeList) {
 			if (nodeList.size() == 0) {
 				return null;
 			}
@@ -1991,8 +1991,8 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 * @return total weights of instances at the node
 		 * @throws Exception if something goes wrong
 		 */
-		protected double computeSortedInfo(Instances data, int[][] sortedIndices,
-										   double[][] weights, double[] classProbs) throws Exception {
+		double computeSortedInfo(Instances data, int[][] sortedIndices,
+								 double[][] weights, double[] classProbs) throws Exception {
 
 			// Create array of sorted indices and weights
 			double[] vals = new double[data.numInstances()];
@@ -2058,7 +2058,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 * @param childDist  class distributions of successor nodes
 		 * @return Gini gain computed
 		 */
-		protected double computeGiniGain(double[] parentDist, double[][] childDist) {
+		double computeGiniGain(double[] parentDist, double[][] childDist) {
 			double totalWeight = Utils.sum(parentDist);
 			if (totalWeight == 0) {
 				return 0;
@@ -2082,7 +2082,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 * @param total class distributions
 		 * @return Gini index of the class distributions
 		 */
-		protected double computeGini(double[] dist, double total) {
+		double computeGini(double[] dist, double total) {
 			if (total == 0) {
 				return 0;
 			}
@@ -2147,7 +2147,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 *
 		 * @param data trainging data
 		 */
-		protected void makeLeaf(Instances data) {
+		void makeLeaf(Instances data) {
 			m_Attribute = null;
 			m_isLeaf = true;
 			m_ClassValue = Utils.maxIndex(m_ClassProbs);
@@ -2175,7 +2175,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 * @param level the level at which the tree is to be printed
 		 * @return a tree at a certain level
 		 */
-		protected String toString(int level) {
+		String toString(int level) {
 
 			StringBuffer text = new StringBuffer();
 			// if leaf nodes
@@ -2223,7 +2223,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 *
 		 * @return size of the tree
 		 */
-		public int numNodes() {
+		int numNodes() {
 			if (m_isLeaf) {
 				return 1;
 			} else {
@@ -2240,7 +2240,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 *
 		 * @return the number of inner nodes
 		 */
-		public int numInnerNodes() {
+		int numInnerNodes() {
 			if (m_Attribute == null) {
 				return 0;
 			}
@@ -2256,7 +2256,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 *
 		 * @return the list of all inner nodes
 		 */
-		protected Vector<SimpleCartPA> getInnerNodes() {
+		Vector<SimpleCartPA> getInnerNodes() {
 			Vector<SimpleCartPA> nodeList = new Vector<SimpleCartPA>();
 			fillInnerNodes(nodeList);
 			return nodeList;
@@ -2267,7 +2267,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 *
 		 * @param nodeList the list to be filled
 		 */
-		protected void fillInnerNodes(Vector<SimpleCartPA> nodeList) {
+		void fillInnerNodes(Vector<SimpleCartPA> nodeList) {
 			if (!m_isLeaf) {
 				nodeList.add(this);
 				for (SimpleCartPA m_Successor : m_Successors) {
@@ -2281,7 +2281,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 *
 		 * @return number of leaf nodes
 		 */
-		public int numLeaves() {
+		int numLeaves() {
 			if (m_isLeaf) {
 				return 1;
 			} else {
@@ -2426,7 +2426,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 *
 		 * @return number of tree size
 		 */
-		public double measureTreeSize() {
+		double measureTreeSize() {
 			return numNodes();
 		}
 		
@@ -2462,7 +2462,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 *
 		 * @param value minimal number of instances at the terminal nodes
 		 */
-		public void setMinNumObj(double value) {
+		void setMinNumObj(double value) {
 			m_minNumObj = value;
 		}
 		
@@ -2471,7 +2471,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 *
 		 * @return minimal number of instances at the terminal nodes
 		 */
-		public double getMinNumObj() {
+		double getMinNumObj() {
 			return m_minNumObj;
 		}
 		
@@ -2490,7 +2490,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 *
 		 * @param value number of folds in internal cross-validation.
 		 */
-		public void setNumFoldsPruning(int value) {
+		void setNumFoldsPruning(int value) {
 			m_numFoldsPruning = value;
 		}
 		
@@ -2499,7 +2499,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 *
 		 * @return number of folds in internal cross-validation.
 		 */
-		public int getNumFoldsPruning() {
+		int getNumFoldsPruning() {
 			return m_numFoldsPruning;
 		}
 		
@@ -2518,7 +2518,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 *
 		 * @param value if use minimal cost-complexity pruning
 		 */
-		public void setUsePrune(boolean value) {
+		void setUsePrune(boolean value) {
 			m_Prune = value;
 		}
 		
@@ -2527,7 +2527,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 *
 		 * @return if use minimal cost-complexity pruning
 		 */
-		public boolean getUsePrune() {
+		boolean getUsePrune() {
 			return m_Prune;
 		}
 		
@@ -2548,7 +2548,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 * @param value if use heuristic search for nominal attributes in multi-class
 		 *              problems
 		 */
-		public void setHeuristic(boolean value) {
+		void setHeuristic(boolean value) {
 			m_Heuristic = value;
 		}
 		
@@ -2558,7 +2558,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 * @return if use heuristic search for nominal attributes in multi-class
 		 * problems
 		 */
-		public boolean getHeuristic() {
+		boolean getHeuristic() {
 			return m_Heuristic;
 		}
 		
@@ -2577,7 +2577,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 *
 		 * @param value if use the 1SE rule to choose final model
 		 */
-		public void setUseOneSE(boolean value) {
+		void setUseOneSE(boolean value) {
 			m_UseOneSE = value;
 		}
 		
@@ -2586,7 +2586,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 *
 		 * @return if use the 1SE rule to choose final model
 		 */
-		public boolean getUseOneSE() {
+		boolean getUseOneSE() {
 			return m_UseOneSE;
 		}
 		
@@ -2605,7 +2605,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 *
 		 * @param value training set size
 		 */
-		public void setSizePer(double value) {
+		void setSizePer(double value) {
 			if ((value <= 0) || (value > 1)) {
 				System.err
 						.println("The percentage of the training set size must be in range 0 to 1 "
@@ -2620,7 +2620,7 @@ public class ForestPA extends RandomizableClassifier implements OptionHandler,
 		 *
 		 * @return training set size
 		 */
-		public double getSizePer() {
+		double getSizePer() {
 			return m_SizePer;
 		}
 		

@@ -148,19 +148,19 @@ public class FPGrowthTS extends AbstractAssociator
 		/*
 		 * The frequency of the item
 		 */
-		protected int m_frequency;
+		int m_frequency;
 		
 		/*
 		 * The attribute that the item corresponds to
 		 */
-		protected Attribute m_attribute;
+		Attribute m_attribute;
 		
 		/*
 		 * The index of the value considered to be positive
 		 */
-		protected int m_valueIndex;
+		int m_valueIndex;
 		
-		public BinaryItem(Attribute att, int valueIndex) throws Exception {
+		BinaryItem(Attribute att, int valueIndex) throws Exception {
 			if (att.isNumeric() || (att.isNominal() && att.numValues() > 2)) {
 				throw new Exception("BinaryItem must be constructed using a nominal attribute" +
 						" with at most 2 values!");
@@ -194,7 +194,7 @@ public class FPGrowthTS extends AbstractAssociator
 		/*
 		 * Increment the frequency of this item.
 		 */
-		public void increaseFrequency() {
+		void increaseFrequency() {
 			m_frequency++;
 		}
 		
@@ -210,7 +210,7 @@ public class FPGrowthTS extends AbstractAssociator
 		 *
 		 * @return the frequency.
 		 */
-		public int getFrequency() {
+		int getFrequency() {
 			return m_frequency;
 		}
 		
@@ -219,7 +219,7 @@ public class FPGrowthTS extends AbstractAssociator
 		 *
 		 * @return the corresponding attribute.
 		 */
-		public Attribute getAttribute() {
+		Attribute getAttribute() {
 			return m_attribute;
 		}
 		
@@ -247,7 +247,7 @@ public class FPGrowthTS extends AbstractAssociator
 		 * @param freq true if the frequency should be included.
 		 * @return a string representation of this item.
 		 */
-		public String toString(boolean freq) {
+		String toString(boolean freq) {
 			String result = m_attribute.name() + "=" + m_attribute.value(m_valueIndex);
 			if (freq) {
 				result += ":" + m_frequency;
@@ -255,7 +255,7 @@ public class FPGrowthTS extends AbstractAssociator
 			return result;
 		}
 		
-		public String toXML() {
+		String toXML() {
 			String result = "<ITEM name=\"" + m_attribute.name() + "\" value=\"="
 					+ m_attribute.value(m_valueIndex) + "\"/>";
 			
@@ -309,12 +309,12 @@ public class FPGrowthTS extends AbstractAssociator
 		/*
 		 * The list of items in the item set
 		 */
-		protected ArrayList<BinaryItem> m_items = new ArrayList<BinaryItem>();
+		ArrayList<BinaryItem> m_items = new ArrayList<BinaryItem>();
 		
 		/*
 		 * the support of this item set
 		 **/
-		protected int m_support;
+		int m_support;
 		
 		/*
 		 * Constructor
@@ -322,7 +322,7 @@ public class FPGrowthTS extends AbstractAssociator
 		 * @param items   the items that make up the frequent item set.
 		 * @param support the support of this item set.
 		 */
-		public FrequentBinaryItemSet(ArrayList<BinaryItem> items, int support) {
+		FrequentBinaryItemSet(ArrayList<BinaryItem> items, int support) {
 			m_items = items;
 			m_support = support;
 			Collections.sort(m_items);
@@ -333,7 +333,7 @@ public class FPGrowthTS extends AbstractAssociator
 		 *
 		 * @param i the item to add.
 		 */
-		public void addItem(BinaryItem i) {
+		void addItem(BinaryItem i) {
 			m_items.add(i);
 			Collections.sort(m_items);
 		}
@@ -343,7 +343,7 @@ public class FPGrowthTS extends AbstractAssociator
 		 *
 		 * @param support the support for this item set.
 		 */
-		public void setSupport(int support) {
+		void setSupport(int support) {
 			m_support = support;
 		}
 		
@@ -352,7 +352,7 @@ public class FPGrowthTS extends AbstractAssociator
 		 *
 		 * @return the support of this item set.
 		 */
-		public int getSupport() {
+		int getSupport() {
 			return m_support;
 		}
 		
@@ -361,7 +361,7 @@ public class FPGrowthTS extends AbstractAssociator
 		 *
 		 * @return the items in this item set.
 		 */
-		public Collection<BinaryItem> getItems() {
+		Collection<BinaryItem> getItems() {
 			return m_items;
 		}
 		
@@ -424,20 +424,20 @@ public class FPGrowthTS extends AbstractAssociator
 		/*
 		 * The list of frequent item sets
 		 */
-		protected ArrayList<FrequentBinaryItemSet> m_sets =
+		ArrayList<FrequentBinaryItemSet> m_sets =
 				new ArrayList<FrequentBinaryItemSet>();
 		
 		/*
 		 * The total number of transactions in the data
 		 */
-		protected int m_numberOfTransactions;
+		int m_numberOfTransactions;
 		
 		/*
 		 * Constructor.
 		 *
 		 * @param numTransactions the total number of transactions in the data.
 		 */
-		public FrequentItemSets(int numTransactions) {
+		FrequentItemSets(int numTransactions) {
 			m_numberOfTransactions = numTransactions;
 		}
 		
@@ -456,7 +456,7 @@ public class FPGrowthTS extends AbstractAssociator
 		 *
 		 * @return an iterator.
 		 */
-		public Iterator<FrequentBinaryItemSet> iterator() {
+		Iterator<FrequentBinaryItemSet> iterator() {
 			return m_sets.iterator();
 		}
 		
@@ -475,7 +475,7 @@ public class FPGrowthTS extends AbstractAssociator
 		 *
 		 * @param setToAdd the item set to add.
 		 */
-		public void addItemSet(FrequentBinaryItemSet setToAdd) {
+		void addItemSet(FrequentBinaryItemSet setToAdd) {
 			m_sets.add(setToAdd);
 		}
 		
@@ -484,7 +484,7 @@ public class FPGrowthTS extends AbstractAssociator
 		 *
 		 * @param comp the comparator to use.
 		 */
-		public void sort(Comparator<FrequentBinaryItemSet> comp) {
+		void sort(Comparator<FrequentBinaryItemSet> comp) {
 			Collections.sort(m_sets, comp);
 		}
 		
@@ -501,7 +501,7 @@ public class FPGrowthTS extends AbstractAssociator
 		 * Sort the item sets. Sorts by item set length. Ties are broken by comparing
 		 * the items in the two item sets.
 		 */
-		public void sort() {
+		void sort() {
 			Comparator<FrequentBinaryItemSet> compF = new Comparator<FrequentBinaryItemSet>() {
 				public int compare(FrequentBinaryItemSet one, FrequentBinaryItemSet two) {
 					Collection<BinaryItem> compOne = one.getItems();
@@ -592,7 +592,7 @@ public class FPGrowthTS extends AbstractAssociator
 		 * @param recursionLevel the depth of the recursion.
 		 * @return the count.
 		 */
-		public int getCount(int recursionLevel) {
+		int getCount(int recursionLevel) {
 			if (recursionLevel >= m_counts.size()) {
 				return 0;
 			} else {
@@ -606,7 +606,7 @@ public class FPGrowthTS extends AbstractAssociator
 		 * @param recursionLevel the level at which to increase the count.
 		 * @param incr           the amount by which to increase the count.
 		 */
-		public void increaseCount(int recursionLevel, int incr) {
+		void increaseCount(int recursionLevel, int incr) {
 			// basically treat the list like a stack where we
 			// can add a new element, or increment the element
 			// at the top
@@ -626,7 +626,7 @@ public class FPGrowthTS extends AbstractAssociator
 		 *
 		 * @param recursionLevel the level at which to remove the count.
 		 */
-		public void removeCount(int recursionLevel) {
+		void removeCount(int recursionLevel) {
 			if (recursionLevel < m_counts.size()) {
 				m_counts.remove(recursionLevel);
 			}
@@ -651,28 +651,28 @@ public class FPGrowthTS extends AbstractAssociator
 		/*
 		 * link to the parent node
 		 */
-		protected FPTreeNode m_parent;
+		FPTreeNode m_parent;
 		
 		/*
 		 * item at this node
 		 */
-		protected BinaryItem m_item;
+		BinaryItem m_item;
 		
 		/*
 		 * ID (for graphing the tree)
 		 */
-		protected int m_ID;
+		int m_ID;
 		
 		/*
 		 * the children of this node
 		 */
-		protected Map<BinaryItem, FPTreeNode> m_children =
+		Map<BinaryItem, FPTreeNode> m_children =
 				new HashMap<BinaryItem, FPTreeNode>();
 		
 		/*
 		 * counts associated with projected versions of this node
 		 */
-		protected ShadowCounts m_projectedCounts = new ShadowCounts();
+		ShadowCounts m_projectedCounts = new ShadowCounts();
 		
 		/*
 		 * Construct a new node with the given parent link and item.
@@ -680,7 +680,7 @@ public class FPGrowthTS extends AbstractAssociator
 		 * @param parent a pointer to the parent of this node.
 		 * @param item   the item at this node.
 		 */
-		public FPTreeNode(FPTreeNode parent, BinaryItem item) {
+		FPTreeNode(FPTreeNode parent, BinaryItem item) {
 			m_parent = parent;
 			m_item = item;
 		}
@@ -694,8 +694,8 @@ public class FPGrowthTS extends AbstractAssociator
 		 * @param headerTable the header table for the tree.
 		 * @param incr        the amount by which to increase counts.
 		 */
-		public void addItemSet(Collection<BinaryItem> itemSet,
-							   Map<BinaryItem, FPTreeRoot.Header> headerTable, int incr) {
+		void addItemSet(Collection<BinaryItem> itemSet,
+						Map<BinaryItem, FPTreeRoot.Header> headerTable, int incr) {
 			
 			Iterator<BinaryItem> i = itemSet.iterator();
 			
@@ -740,7 +740,7 @@ public class FPGrowthTS extends AbstractAssociator
 		 *                       at.
 		 * @param incr           the amount by which to increase the count.
 		 */
-		public void increaseProjectedCount(int recursionLevel, int incr) {
+		void increaseProjectedCount(int recursionLevel, int incr) {
 			m_projectedCounts.increaseCount(recursionLevel, incr);
 		}
 		
@@ -750,7 +750,7 @@ public class FPGrowthTS extends AbstractAssociator
 		 *
 		 * @param recursionLevel the recursion level at which to remove the count.
 		 */
-		public void removeProjectedCount(int recursionLevel) {
+		void removeProjectedCount(int recursionLevel) {
 			m_projectedCounts.removeCount(recursionLevel);
 		}
 		
@@ -760,7 +760,7 @@ public class FPGrowthTS extends AbstractAssociator
 		 * @param recursionLevel the recursion level at which to get the count.
 		 * @return the count.
 		 */
-		public int getProjectedCount(int recursionLevel) {
+		int getProjectedCount(int recursionLevel) {
 			return m_projectedCounts.getCount(recursionLevel);
 		}
 		
@@ -769,7 +769,7 @@ public class FPGrowthTS extends AbstractAssociator
 		 *
 		 * @return the parent node.
 		 */
-		public FPTreeNode getParent() {
+		FPTreeNode getParent() {
 			return m_parent;
 		}
 		
@@ -778,7 +778,7 @@ public class FPGrowthTS extends AbstractAssociator
 		 *
 		 * @return the item at this node.
 		 */
-		public BinaryItem getItem() {
+		BinaryItem getItem() {
 			return m_item;
 		}
 		
@@ -801,7 +801,7 @@ public class FPGrowthTS extends AbstractAssociator
 		 * @param recursionLevel the recursion level to use.
 		 * @return a textual description of this node.
 		 */
-		public String toString(String prefix, int recursionLevel) {
+		String toString(String prefix, int recursionLevel) {
 			StringBuffer buffer = new StringBuffer();
 			buffer.append(prefix);
 			buffer.append("|  ");
@@ -816,7 +816,7 @@ public class FPGrowthTS extends AbstractAssociator
 			return buffer.toString();
 		}
 		
-		protected int assignIDs(int lastID) {
+		int assignIDs(int lastID) {
 			int currentLastID = lastID + 1;
 			m_ID = currentLastID;
 			if (m_children != null) {
@@ -834,7 +834,7 @@ public class FPGrowthTS extends AbstractAssociator
 		 * @param text a StringBuffer to store the graph description
 		 *             in.
 		 */
-		public void graphFPTree(StringBuffer text) {
+		void graphFPTree(StringBuffer text) {
 			if (m_children != null) {
 				Collection<FPTreeNode> kids = m_children.values();
 				for (FPTreeNode n : kids) {
@@ -872,19 +872,19 @@ public class FPGrowthTS extends AbstractAssociator
 			/*
 			 * The list of pointers into the tree structure
 			 */
-			protected List<FPTreeNode> m_headerList = new LinkedList<FPTreeNode>();
+			List<FPTreeNode> m_headerList = new LinkedList<FPTreeNode>();
 			
 			/*
 			 * Projected header counts for this entry
 			 */
-			protected ShadowCounts m_projectedHeaderCounts = new ShadowCounts();
+			ShadowCounts m_projectedHeaderCounts = new ShadowCounts();
 			
 			/*
 			 * Add a tree node into the list for this header entry.
 			 *
 			 * @param toAdd the node to add.
 			 */
-			public void addToList(FPTreeNode toAdd) {
+			void addToList(FPTreeNode toAdd) {
 				m_headerList.add(toAdd);
 			}
 			
@@ -893,7 +893,7 @@ public class FPGrowthTS extends AbstractAssociator
 			 *
 			 * @return the list of nodes for this header entry.
 			 */
-			public List<FPTreeNode> getHeaderList() {
+			List<FPTreeNode> getHeaderList() {
 				return m_headerList;
 			}
 			
@@ -902,7 +902,7 @@ public class FPGrowthTS extends AbstractAssociator
 			 *
 			 * @return the projected counts for this header entry.
 			 */
-			public ShadowCounts getProjectedCounts() {
+			ShadowCounts getProjectedCounts() {
 				return m_projectedHeaderCounts;
 			}
 		}
@@ -910,13 +910,13 @@ public class FPGrowthTS extends AbstractAssociator
 		/*
 		 * Stores the header table as mapped Header entries
 		 */
-		protected Map<BinaryItem, Header> m_headerTable =
+		Map<BinaryItem, Header> m_headerTable =
 				new HashMap<BinaryItem, Header>();
 		
 		/*
 		 * Create a new FPTreeRoot.
 		 */
-		public FPTreeRoot() {
+		FPTreeRoot() {
 			super(null, null);
 		}
 		
@@ -926,7 +926,7 @@ public class FPGrowthTS extends AbstractAssociator
 		 * @param itemSet the item set to insert into the tree.
 		 * @param incr    the increment by which to increase counters.
 		 */
-		public void addItemSet(Collection<BinaryItem> itemSet, int incr) {
+		void addItemSet(Collection<BinaryItem> itemSet, int incr) {
 			super.addItemSet(itemSet, m_headerTable, incr);
 		}
 		
@@ -935,11 +935,11 @@ public class FPGrowthTS extends AbstractAssociator
 		 *
 		 * @return the header table for this tree.
 		 */
-		public Map<BinaryItem, Header> getHeaderTable() {
+		Map<BinaryItem, Header> getHeaderTable() {
 			return m_headerTable;
 		}
 		
-		public boolean isEmpty(int recursionLevel) {
+		boolean isEmpty(int recursionLevel) {
 			for (FPTreeNode c : m_children.values()) {
 				if (c.getProjectedCount(recursionLevel) > 0) {
 					return false;
@@ -1081,14 +1081,14 @@ public class FPGrowthTS extends AbstractAssociator
 				return m_stringVal;
 			}
 			
-			public String toStringMetric(int premiseSupport, int consequenceSupport,
-										 int totalSupport, int totalTransactions) {
+			String toStringMetric(int premiseSupport, int consequenceSupport,
+								  int totalSupport, int totalTransactions) {
 				return m_stringVal + ":(" + Utils.doubleToString(compute(premiseSupport, consequenceSupport,
 						totalSupport, totalTransactions), 2) + ")";
 			}
 			
-			public String toXML(int premiseSupport, int consequenceSupport,
-								int totalSupport, int totalTransactions) {
+			String toXML(int premiseSupport, int consequenceSupport,
+						 int totalSupport, int totalTransactions) {
 				String result = "<CRITERE name=\"" + m_stringVal + "\" value=\" " +
 						Utils.doubleToString(compute(premiseSupport, consequenceSupport,
 								totalSupport, totalTransactions), 2) + "\"/>";
@@ -1100,7 +1100,7 @@ public class FPGrowthTS extends AbstractAssociator
 		/*
 		 * Tags for display in the GUI
 		 */
-		public static final Tag[] TAGS_SELECTION = {
+		static final Tag[] TAGS_SELECTION = {
 				new Tag(METRIC_TYPE.CONFIDENCE.ordinal(), "Confidence"),
 				new Tag(METRIC_TYPE.LIFT.ordinal(), "Lift"),
 				new Tag(METRIC_TYPE.LEVERAGE.ordinal(), "Leverage"),
@@ -1110,37 +1110,37 @@ public class FPGrowthTS extends AbstractAssociator
 		/*
 		 * The metric type for this rule
 		 */
-		protected METRIC_TYPE m_metricType = METRIC_TYPE.CONFIDENCE;
+		METRIC_TYPE m_metricType = METRIC_TYPE.CONFIDENCE;
 		
 		/*
 		 * The premise of the rule
 		 */
-		protected Collection<BinaryItem> m_premise;
+		Collection<BinaryItem> m_premise;
 		
 		/*
 		 * The consequence of the rule
 		 */
-		protected Collection<BinaryItem> m_consequence;
+		Collection<BinaryItem> m_consequence;
 		
 		/*
 		 * The support for the premise
 		 */
-		protected int m_premiseSupport;
+		int m_premiseSupport;
 		
 		/*
 		 * The support for the consequence
 		 */
-		protected int m_consequenceSupport;
+		int m_consequenceSupport;
 		
 		/*
 		 * The total support for the item set (premise + consequence)
 		 */
-		protected int m_totalSupport;
+		int m_totalSupport;
 		
 		/*
 		 * The total number of transactions in the data
 		 */
-		protected int m_totalTransactions;
+		int m_totalTransactions;
 		
 		/*
 		 * Construct a new association rule.
@@ -1153,10 +1153,10 @@ public class FPGrowthTS extends AbstractAssociator
 		 * @param totalSupport       the total support of the rule
 		 * @param totalTransactions  the number of transactions in the data
 		 */
-		public AssociationRule(Collection<BinaryItem> premise,
-							   Collection<BinaryItem> consequence, METRIC_TYPE metric,
-							   int premiseSupport, int consequenceSupport,
-							   int totalSupport, int totalTransactions) {
+		AssociationRule(Collection<BinaryItem> premise,
+						Collection<BinaryItem> consequence, METRIC_TYPE metric,
+						int premiseSupport, int consequenceSupport,
+						int totalSupport, int totalTransactions) {
 			m_premise = premise;
 			m_consequence = consequence;
 			m_metricType = metric;
@@ -1171,7 +1171,7 @@ public class FPGrowthTS extends AbstractAssociator
 		 *
 		 * @return the premise of this rule.
 		 */
-		public Collection<BinaryItem> getPremise() {
+		Collection<BinaryItem> getPremise() {
 			return m_premise;
 		}
 		
@@ -1180,7 +1180,7 @@ public class FPGrowthTS extends AbstractAssociator
 		 *
 		 * @return the consequence of this rule.
 		 */
-		public Collection<BinaryItem> getConsequence() {
+		Collection<BinaryItem> getConsequence() {
 			return m_consequence;
 		}
 		
@@ -1198,7 +1198,7 @@ public class FPGrowthTS extends AbstractAssociator
 		 *
 		 * @return the value of the metric for this rule.
 		 */
-		public double getMetricValue() {
+		double getMetricValue() {
 			return m_metricType.compute(m_premiseSupport, m_consequenceSupport,
 					m_totalSupport, m_totalTransactions);
 		}
@@ -1226,7 +1226,7 @@ public class FPGrowthTS extends AbstractAssociator
 		 *
 		 * @return the total support for this rule.
 		 */
-		public int getTotalSupport() {
+		int getTotalSupport() {
 			return m_totalSupport;
 		}
 		
@@ -1267,7 +1267,7 @@ public class FPGrowthTS extends AbstractAssociator
 			return result;
 		}
 		
-		public boolean containsItems(ArrayList<Attribute> items, boolean useOr) {
+		boolean containsItems(ArrayList<Attribute> items, boolean useOr) {
 			int numItems = items.size();
 			int count = 0;
 			
@@ -1323,7 +1323,7 @@ public class FPGrowthTS extends AbstractAssociator
 			return result.toString();
 		}
 		
-		public String toXML() {
+		String toXML() {
 			StringBuffer result = new StringBuffer();
 			result.append("  <RULE>\n    <LHS>");
 			
@@ -1417,7 +1417,7 @@ public class FPGrowthTS extends AbstractAssociator
 		 * @param totalTransactions            the total number of transactions in the data
 		 * @return a list of association rules
 		 */
-		public static List<AssociationRule>
+		static List<AssociationRule>
 		generateRulesBruteForce(FrequentItemSets largeItemSets, METRIC_TYPE metricToUse,
 								double metricThreshold, int upperBoundMinSuppAsInstances,
 								int lowerBoundMinSuppAsInstances, int totalTransactions) {
@@ -1462,8 +1462,8 @@ public class FPGrowthTS extends AbstractAssociator
 			return rules;
 		}
 		
-		public static List<AssociationRule> pruneRules(List<AssociationRule> rulesToPrune,
-													   ArrayList<Attribute> itemsToConsider, boolean useOr) {
+		static List<AssociationRule> pruneRules(List<AssociationRule> rulesToPrune,
+												ArrayList<Attribute> itemsToConsider, boolean useOr) {
 			ArrayList<AssociationRule> result = new ArrayList<AssociationRule>();
 			
 			for (AssociationRule r : rulesToPrune) {
@@ -1479,23 +1479,23 @@ public class FPGrowthTS extends AbstractAssociator
 	/*
 	 * The number of rules to find
 	 */
-	protected int m_numRulesToFind = 10;
+	private int m_numRulesToFind = 10;
 	//protected double m_upperBoundMinSupport = 0.36;
 	
 	/*
 	 * The upper bound on the minimum support
 	 */
-	protected double m_upperBoundMinSupport = 1.0;
+	private double m_upperBoundMinSupport = 1.0;
 	
 	/*
 	 * The lower bound on minimum support
 	 */
-	protected double m_lowerBoundMinSupport = 0.1;
+	private double m_lowerBoundMinSupport = 0.1;
 	
 	/*
 	 * The amount by which to decrease the support in each iteration
 	 */
-	protected double m_delta = 0.05;
+	private double m_delta = 0.05;
 	
 	/*
 	 * If true, just all rules meeting the lower bound on the minimum
@@ -1503,48 +1503,48 @@ public class FPGrowthTS extends AbstractAssociator
 	 * ignored and the iterative reduction of support will not
 	 * be done.
 	 */
-	protected boolean m_findAllRulesForSupportLevel = false;
+	private boolean m_findAllRulesForSupportLevel = false;
 	
 	//protected double m_lowerBoundMinSupport = 0.0;
 	
 	/*
 	 * The index (1 based) of binary attributes to treat as the positive value
 	 */
-	protected int m_positiveIndex = 2;
+	private int m_positiveIndex = 2;
 	
-	protected AssociationRule.METRIC_TYPE m_metric =
+	private AssociationRule.METRIC_TYPE m_metric =
 			AssociationRule.METRIC_TYPE.CONFIDENCE;
 	
-	protected double m_metricThreshold = 0.9;
+	private double m_metricThreshold = 0.9;
 	
 	/*
 	 * Holds the large item sets found
 	 */
-	protected FrequentItemSets m_largeItemSets;
+	private FrequentItemSets m_largeItemSets;
 	
 	/*
 	 * Holds the rules
 	 */
-	protected List<AssociationRule> m_rules;
+	private List<AssociationRule> m_rules;
 	
 	// maximum number of items in a large item set (zero means no limit)
-	protected int m_maxItems = -1;
+	private int m_maxItems = -1;
 	
 	/*
 	 * If set, limit the transactions (instances) input to the
 	 * algorithm to those that contain these items
 	 */
-	protected String m_transactionsMustContain = "";
+	private String m_transactionsMustContain = "";
 	
 	/*
 	 * Use OR rather than AND when considering must contain lists
 	 */
-	protected boolean m_mustContainOR = false;
+	private boolean m_mustContainOR = false;
 	
 	/*
 	 * If set, then only output rules containing these itmes
 	 */
-	protected String m_rulesMustContain = "";
+	private String m_rulesMustContain = "";
 	
 	/*
 	 * Returns default capabilities of the classifier.
@@ -1667,7 +1667,7 @@ public class FPGrowthTS extends AbstractAssociator
 	 * @return a list of singleton item sets
 	 * @throws Exception if the singletons can't be found for some reason
 	 */
-	protected ArrayList<BinaryItem> getSingletons(Instances data) throws Exception {
+	private ArrayList<BinaryItem> getSingletons(Instances data) throws Exception {
 		ArrayList<BinaryItem> singletons = new ArrayList<BinaryItem>();
 		
 		for (int i = 0; i < data.numAttributes(); i++) {
@@ -1719,8 +1719,8 @@ public class FPGrowthTS extends AbstractAssociator
 	 * @param minSupport the minimum support
 	 * @return the root of the tree
 	 */
-	protected FPTreeRoot buildFPTree(ArrayList<BinaryItem> singletons,
-									 Instances data, int minSupport) {
+	private FPTreeRoot buildFPTree(ArrayList<BinaryItem> singletons,
+								   Instances data, int minSupport) {
 		
 		FPTreeRoot tree = new FPTreeRoot();
 		
@@ -1769,8 +1769,8 @@ public class FPGrowthTS extends AbstractAssociator
 	 *                         (projected) tree is conditional on
 	 * @param minSupport       the minimum acceptable support
 	 */
-	protected void mineTree(FPTreeRoot tree, FrequentItemSets largeItemSets,
-							int recursionLevel, FrequentBinaryItemSet conditionalItems, int minSupport) {
+	private void mineTree(FPTreeRoot tree, FrequentItemSets largeItemSets,
+						  int recursionLevel, FrequentBinaryItemSet conditionalItems, int minSupport) {
 		
 		if (!tree.isEmpty(recursionLevel)) {
 			if (m_maxItems > 0 && recursionLevel >= m_maxItems) {
@@ -1851,7 +1851,7 @@ public class FPGrowthTS extends AbstractAssociator
 	/*
 	 * Reset all options to their default values.
 	 */
-	public void resetOptions() {
+	private void resetOptions() {
 		m_delta = 0.05;
 		m_metricThreshold = 0.9;
 		m_numRulesToFind = 10;
@@ -1887,7 +1887,7 @@ public class FPGrowthTS extends AbstractAssociator
 	 *
 	 * @param index the index to use for positive values in binary attributes.
 	 */
-	public void setPositiveIndex(int index) {
+	private void setPositiveIndex(int index) {
 		m_positiveIndex = index;
 	}
 	
@@ -1898,7 +1898,7 @@ public class FPGrowthTS extends AbstractAssociator
 	 *
 	 * @return the index to use for positive values in binary attributes.
 	 */
-	public int getPositiveIndex() {
+	private int getPositiveIndex() {
 		return m_positiveIndex;
 	}
 	
@@ -1907,7 +1907,7 @@ public class FPGrowthTS extends AbstractAssociator
 	 *
 	 * @param numR the number of rules to find.
 	 */
-	public void setNumRulesToFind(int numR) {
+	private void setNumRulesToFind(int numR) {
 		m_numRulesToFind = numR;
 	}
 	
@@ -1916,7 +1916,7 @@ public class FPGrowthTS extends AbstractAssociator
 	 *
 	 * @return the number of rules to find.
 	 */
-	public int getNumRulesToFind() {
+	private int getNumRulesToFind() {
 		return m_numRulesToFind;
 	}
 	
@@ -1935,7 +1935,7 @@ public class FPGrowthTS extends AbstractAssociator
 	 *
 	 * @param d the metric type
 	 */
-	public void setMetricType(SelectedTag d) {
+	private void setMetricType(SelectedTag d) {
 		int ordinal = d.getSelectedTag().getID();
 		for (AssociationRule.METRIC_TYPE m : AssociationRule.METRIC_TYPE.values()) {
 			if (m.ordinal() == ordinal) {
@@ -1950,7 +1950,7 @@ public class FPGrowthTS extends AbstractAssociator
 	 *
 	 * @param max the maxim number of items to include in large item sets.
 	 */
-	public void setMaxNumberOfItems(int max) {
+	private void setMaxNumberOfItems(int max) {
 		m_maxItems = max;
 	}
 	
@@ -1959,7 +1959,7 @@ public class FPGrowthTS extends AbstractAssociator
 	 *
 	 * @return the maximum number of items to be included in large items sets.
 	 */
-	public int getMaxNumberOfItems() {
+	private int getMaxNumberOfItems() {
 		return m_maxItems;
 	}
 	
@@ -1979,7 +1979,7 @@ public class FPGrowthTS extends AbstractAssociator
 	 *
 	 * @return the metric type to use.
 	 */
-	public SelectedTag getMetricType() {
+	private SelectedTag getMetricType() {
 		return new SelectedTag(m_metric.ordinal(), AssociationRule.TAGS_SELECTION);
 	}
 	
@@ -2019,7 +2019,7 @@ public class FPGrowthTS extends AbstractAssociator
 	 *
 	 * @return Value of minConfidence.
 	 */
-	public double getMinMetric() {
+	private double getMinMetric() {
 		
 		return m_metricThreshold;
 	}
@@ -2029,7 +2029,7 @@ public class FPGrowthTS extends AbstractAssociator
 	 *
 	 * @param v Value to assign to minConfidence.
 	 */
-	public void setMinMetric(double v) {
+	private void setMinMetric(double v) {
 		
 		m_metricThreshold = v;
 	}
@@ -2054,7 +2054,7 @@ public class FPGrowthTS extends AbstractAssociator
 	 * @param list a comma separated list of items (empty
 	 *             string indicates no restriction on the transactions).
 	 */
-	public void setTransactionsMustContain(String list) {
+	private void setTransactionsMustContain(String list) {
 		m_transactionsMustContain = list;
 	}
 	
@@ -2066,7 +2066,7 @@ public class FPGrowthTS extends AbstractAssociator
 	 * @return return the comma separated list of
 	 * items that transactions must contain.
 	 */
-	public String getTransactionsMustContain() {
+	private String getTransactionsMustContain() {
 		return m_transactionsMustContain;
 	}
 	
@@ -2088,7 +2088,7 @@ public class FPGrowthTS extends AbstractAssociator
 	 * @param list a comma separated list of items (empty
 	 *             string indicates no restriction on the rules).
 	 */
-	public void setRulesMustContain(String list) {
+	private void setRulesMustContain(String list) {
 		m_rulesMustContain = list;
 	}
 	
@@ -2099,7 +2099,7 @@ public class FPGrowthTS extends AbstractAssociator
 	 * @return the comma separated list of items
 	 * that rules must contain in order to be output.
 	 */
-	public String getRulesMustContain() {
+	private String getRulesMustContain() {
 		return m_rulesMustContain;
 	}
 	
@@ -2120,7 +2120,7 @@ public class FPGrowthTS extends AbstractAssociator
 	 * @param b true if OR should be used instead of AND when
 	 *          considering transaction and rules must contain lists.
 	 */
-	public void setUseORForMustContainList(boolean b) {
+	private void setUseORForMustContainList(boolean b) {
 		m_mustContainOR = b;
 	}
 	
@@ -2130,7 +2130,7 @@ public class FPGrowthTS extends AbstractAssociator
 	 *
 	 * @return true if OR is used instead of AND.
 	 */
-	public boolean getUseORForMustContainList() {
+	private boolean getUseORForMustContainList() {
 		return m_mustContainOR;
 	}
 	
@@ -2151,7 +2151,7 @@ public class FPGrowthTS extends AbstractAssociator
 	 *
 	 * @return Value of delta.
 	 */
-	public double getDelta() {
+	private double getDelta() {
 		
 		return m_delta;
 	}
@@ -2161,7 +2161,7 @@ public class FPGrowthTS extends AbstractAssociator
 	 *
 	 * @param v Value to assign to delta.
 	 */
-	public void setDelta(double v) {
+	private void setDelta(double v) {
 		
 		m_delta = v;
 	}
@@ -2181,7 +2181,7 @@ public class FPGrowthTS extends AbstractAssociator
 	 *
 	 * @return Value of lowerBoundMinSupport.
 	 */
-	public double getLowerBoundMinSupport() {
+	private double getLowerBoundMinSupport() {
 		
 		return m_lowerBoundMinSupport;
 	}
@@ -2191,7 +2191,7 @@ public class FPGrowthTS extends AbstractAssociator
 	 *
 	 * @param v Value to assign to lowerBoundMinSupport.
 	 */
-	public void setLowerBoundMinSupport(double v) {
+	private void setLowerBoundMinSupport(double v) {
 		
 		m_lowerBoundMinSupport = v;
 	}
@@ -2213,7 +2213,7 @@ public class FPGrowthTS extends AbstractAssociator
 	 *
 	 * @return Value of upperBoundMinSupport.
 	 */
-	public double getUpperBoundMinSupport() {
+	private double getUpperBoundMinSupport() {
 		
 		return m_upperBoundMinSupport;
 	}
@@ -2223,7 +2223,7 @@ public class FPGrowthTS extends AbstractAssociator
 	 *
 	 * @param v Value to assign to upperBoundMinSupport.
 	 */
-	public void setUpperBoundMinSupport(double v) {
+	private void setUpperBoundMinSupport(double v) {
 		
 		m_upperBoundMinSupport = v;
 	}
@@ -2250,7 +2250,7 @@ public class FPGrowthTS extends AbstractAssociator
 	 * @param s true if all rules meeting the lower bound on the support
 	 *          and minimum metric thresholds are to be found.
 	 */
-	public void setFindAllRulesForSupportLevel(boolean s) {
+	private void setFindAllRulesForSupportLevel(boolean s) {
 		m_findAllRulesForSupportLevel = s;
 	}
 	
@@ -2261,7 +2261,7 @@ public class FPGrowthTS extends AbstractAssociator
 	 * @return true if all rules meeting the lower bound on min
 	 * support and the min metric threshold are to be found.
 	 */
-	public boolean getFindAllRulesForSupportLevel() {
+	private boolean getFindAllRulesForSupportLevel() {
 		return m_findAllRulesForSupportLevel;
 	}
   

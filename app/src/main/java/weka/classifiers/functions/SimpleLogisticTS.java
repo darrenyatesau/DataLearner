@@ -131,48 +131,48 @@ public class SimpleLogisticTS
 	/*
 	 * The actual logistic regression model
 	 */
-	protected LogisticBaseTS m_boostedModel;
+	private LogisticBaseTS m_boostedModel;
 	
 	/*
 	 * Filter for converting nominal attributes to binary ones
 	 */
-	protected NominalToBinary m_NominalToBinary = null;
+	private NominalToBinary m_NominalToBinary = null;
 	
 	/*
 	 * Filter for replacing missing values
 	 */
-	protected ReplaceMissingValues m_ReplaceMissingValues = null;
+	private ReplaceMissingValues m_ReplaceMissingValues = null;
 	
 	/*
 	 * If non-negative, use this as fixed number of LogitBoost iterations
 	 */
-	protected int m_numBoostingIterations;
+	private int m_numBoostingIterations;
 	
 	/*
 	 * Maximum number of iterations for LogitBoost
 	 */
-	protected int m_maxBoostingIterations = 500;
+	private int m_maxBoostingIterations = 500;
 	
 	/*
 	 * Parameter for the heuristic for early stopping of LogitBoost
 	 */
-	protected int m_heuristicStop = 50;
+	private int m_heuristicStop = 50;
 	
 	/*
 	 * If true, cross-validate number of LogitBoost iterations
 	 */
-	protected boolean m_useCrossValidation;
+	private boolean m_useCrossValidation;
 	
 	/*
 	 * If true, use minimize error on probabilities instead of misclassification error
 	 */
-	protected boolean m_errorOnProbabilities;
+	private boolean m_errorOnProbabilities;
 	
 	/*
 	 * Threshold for trimming weights. Instances with a weight lower than this (as a percentage
 	 * of total weights) are not included in the regression fit.
 	 */
-	protected double m_weightTrimBeta = 0;
+	private double m_weightTrimBeta = 0;
 	
 	/*
 	 * If true, the AIC is used to choose the best iteration
@@ -444,7 +444,7 @@ public class SimpleLogisticTS
 	 *
 	 * @return the number of boosting iterations
 	 */
-	public int getNumBoostingIterations() {
+	private int getNumBoostingIterations() {
 		return m_numBoostingIterations;
 	}
 	
@@ -453,7 +453,7 @@ public class SimpleLogisticTS
 	 *
 	 * @return true if cross-validation is used
 	 */
-	public boolean getUseCrossValidation() {
+	private boolean getUseCrossValidation() {
 		return m_useCrossValidation;
 	}
 	
@@ -463,7 +463,7 @@ public class SimpleLogisticTS
 	 * @return If true, use minimize error on probabilities instead of
 	 * misclassification error
 	 */
-	public boolean getErrorOnProbabilities() {
+	private boolean getErrorOnProbabilities() {
 		return m_errorOnProbabilities;
 	}
 	
@@ -472,7 +472,7 @@ public class SimpleLogisticTS
 	 *
 	 * @return the maximum number of boosting iterations
 	 */
-	public int getMaxBoostingIterations() {
+	private int getMaxBoostingIterations() {
 		return m_maxBoostingIterations;
 	}
 	
@@ -481,14 +481,14 @@ public class SimpleLogisticTS
 	 *
 	 * @return the value of heuristicStop
 	 */
-	public int getHeuristicStop() {
+	private int getHeuristicStop() {
 		return m_heuristicStop;
 	}
 	
 	/*
 	 * Get the value of weightTrimBeta.
 	 */
-	public double getWeightTrimBeta() {
+	private double getWeightTrimBeta() {
 		return m_weightTrimBeta;
 	}
 	
@@ -497,7 +497,7 @@ public class SimpleLogisticTS
 	 *
 	 * @return Value of useAIC.
 	 */
-	public boolean getUseAIC() {
+	private boolean getUseAIC() {
 		return m_useAIC;
 	}
 	
@@ -506,7 +506,7 @@ public class SimpleLogisticTS
 	 *
 	 * @param n the number of boosting iterations
 	 */
-	public void setNumBoostingIterations(int n) {
+	private void setNumBoostingIterations(int n) {
 		m_numBoostingIterations = n;
 	}
 	
@@ -515,7 +515,7 @@ public class SimpleLogisticTS
 	 *
 	 * @param l whether to use cross-validation
 	 */
-	public void setUseCrossValidation(boolean l) {
+	private void setUseCrossValidation(boolean l) {
 		m_useCrossValidation = l;
 	}
 	
@@ -525,7 +525,7 @@ public class SimpleLogisticTS
 	 * @param l If true, use minimize error on probabilities instead of
 	 *          misclassification error
 	 */
-	public void setErrorOnProbabilities(boolean l) {
+	private void setErrorOnProbabilities(boolean l) {
 		m_errorOnProbabilities = l;
 	}
 	
@@ -534,7 +534,7 @@ public class SimpleLogisticTS
 	 *
 	 * @param n the maximum number of boosting iterations
 	 */
-	public void setMaxBoostingIterations(int n) {
+	private void setMaxBoostingIterations(int n) {
 		m_maxBoostingIterations = n;
 	}
 	
@@ -543,7 +543,7 @@ public class SimpleLogisticTS
 	 *
 	 * @param n the value of heuristicStop
 	 */
-	public void setHeuristicStop(int n) {
+	private void setHeuristicStop(int n) {
 		if (n == 0)
 			m_heuristicStop = m_maxBoostingIterations;
 		else
@@ -553,7 +553,7 @@ public class SimpleLogisticTS
 	/*
 	 * Set the value of weightTrimBeta.
 	 */
-	public void setWeightTrimBeta(double n) {
+	private void setWeightTrimBeta(double n) {
 		m_weightTrimBeta = n;
 	}
 	
@@ -562,7 +562,7 @@ public class SimpleLogisticTS
 	 *
 	 * @param c Value to assign to useAIC.
 	 */
-	public void setUseAIC(boolean c) {
+	private void setUseAIC(boolean c) {
 		m_useAIC = c;
 	}
 	
@@ -572,7 +572,7 @@ public class SimpleLogisticTS
 	 *
 	 * @return the number of LogitBoost iterations performed
 	 */
-	public int getNumRegressions() {
+	private int getNumRegressions() {
 		return m_boostedModel.getNumRegressions();
 	}
 	
@@ -593,7 +593,7 @@ public class SimpleLogisticTS
 	 *
 	 * @return percentage of attributes used in the model
 	 */
-	public double measureAttributesUsed() {
+	private double measureAttributesUsed() {
 		return m_boostedModel.percentAttributesUsed();
 	}
 	

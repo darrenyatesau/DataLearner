@@ -118,17 +118,17 @@ public class FilteredAssociatorTS
 	/*
 	 * The filter
 	 */
-	protected Filter m_Filter;
+	private Filter m_Filter;
 	
 	/*
 	 * The instance structure of the filtered instances
 	 */
-	protected Instances m_FilteredInstances;
+	private Instances m_FilteredInstances;
 	
 	/*
 	 * The class index.
 	 */
-	protected int m_ClassIndex;
+	private int m_ClassIndex;
 	
 	/*
 	 * Default constructor.
@@ -331,7 +331,7 @@ public class FilteredAssociatorTS
 	 *
 	 * @param value the filter with all options set.
 	 */
-	public void setFilter(Filter value) {
+	private void setFilter(Filter value) {
 		m_Filter = value;
 	}
 	
@@ -340,7 +340,7 @@ public class FilteredAssociatorTS
 	 *
 	 * @return the current filter
 	 */
-	public Filter getFilter() {
+	private Filter getFilter() {
 		return m_Filter;
 	}
 	
@@ -359,7 +359,7 @@ public class FilteredAssociatorTS
 	 *
 	 * @param value the class index
 	 */
-	public void setClassIndex(int value) {
+	private void setClassIndex(int value) {
 		m_ClassIndex = value;
 	}
 	
@@ -368,7 +368,7 @@ public class FilteredAssociatorTS
 	 *
 	 * @return the index of the class attribute
 	 */
-	public int getClassIndex() {
+	private int getClassIndex() {
 		return m_ClassIndex;
 	}
 	
@@ -378,7 +378,7 @@ public class FilteredAssociatorTS
 	 *
 	 * @return the filter string.
 	 */
-	protected String getFilterSpec() {
+	private String getFilterSpec() {
 		Filter c = getFilter();
 		
 		if (c instanceof OptionHandler)

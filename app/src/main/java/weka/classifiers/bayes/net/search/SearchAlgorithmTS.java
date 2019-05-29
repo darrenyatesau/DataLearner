@@ -64,7 +64,7 @@ public class SearchAlgorithmTS
      * Determines whether after structure is found a MarkovBlanketClassifier correction should be applied
      * If this is true, m_bInitAsNaiveBayes is overridden and interpreted as false.
      */
-    protected boolean m_bMarkovBlanketClassifier = false;
+	private boolean m_bMarkovBlanketClassifier = false;
     
     /* c'tor **/
     public SearchAlgorithmTS() {
@@ -219,7 +219,7 @@ public class SearchAlgorithmTS
      * @param iAttributeTail index of the attribute that becomes tail of the arrow
      * @return true if the arc from iAttributeTail to iAttributeHead already exists
      */
-    protected boolean isArc(BayesNetTS bayesNet, int iAttributeHead, int iAttributeTail) {
+	private boolean isArc(BayesNetTS bayesNet, int iAttributeHead, int iAttributeTail) {
         for (int iParent = 0; iParent < bayesNet.getParentSet(iAttributeHead).getNrOfParents(); iParent++) {
             if (bayesNet.getParentSet(iAttributeHead).getParent(iParent) == iAttributeTail) {
                 return true;
@@ -301,7 +301,7 @@ public class SearchAlgorithmTS
      * @param bayesNet
      * @param instances
      */
-    protected void search(BayesNetTS bayesNet, Instances instances) throws Exception {
+	private void search(BayesNetTS bayesNet, Instances instances) throws Exception {
         // placeholder with implementation in derived classes
     } // search
     
@@ -315,7 +315,7 @@ public class SearchAlgorithmTS
      * @param bayesNet
      * @param instances
      */
-    protected void doMarkovBlanketCorrection(BayesNetTS bayesNet, Instances instances) {
+	private void doMarkovBlanketCorrection(BayesNetTS bayesNet, Instances instances) {
         // Add class node as parent if it is not in the Markov Boundary
         int iClass = instances.classIndex();
         ParentSet ancestors = new ParentSet();

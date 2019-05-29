@@ -147,19 +147,19 @@ public class BFTreeTS
 	/*
 	 * pruning strategy: un-pruned
 	 */
-	public static final int PRUNING_UNPRUNED = 0;
+	private static final int PRUNING_UNPRUNED = 0;
 	/*
 	 * pruning strategy: post-pruning
 	 */
-	public static final int PRUNING_POSTPRUNING = 1;
+	private static final int PRUNING_POSTPRUNING = 1;
 	/*
 	 * pruning strategy: pre-pruning
 	 */
-	public static final int PRUNING_PREPRUNING = 2;
+	private static final int PRUNING_PREPRUNING = 2;
 	/*
 	 * pruning strategy
 	 */
-	public static final Tag[] TAGS_PRUNING = {
+	private static final Tag[] TAGS_PRUNING = {
 			new Tag(PRUNING_UNPRUNED, "unpruned", "Un-pruned"),
 			new Tag(PRUNING_POSTPRUNING, "postpruned", "Post-pruning"),
 			new Tag(PRUNING_PREPRUNING, "prepruned", "Pre-pruning")
@@ -168,125 +168,125 @@ public class BFTreeTS
 	/*
 	 * the pruning strategy
 	 */
-	protected int m_PruningStrategy = PRUNING_POSTPRUNING;
+	private int m_PruningStrategy = PRUNING_POSTPRUNING;
 	
 	/*
 	 * Successor nodes.
 	 */
-	protected BFTreeTS[] m_Successors;
+	private BFTreeTS[] m_Successors;
 	
 	/*
 	 * Attribute used for splitting.
 	 */
-	protected Attribute m_Attribute;
+	private Attribute m_Attribute;
 	
 	/*
 	 * Split point (for numeric attributes).
 	 */
-	protected double m_SplitValue;
+	private double m_SplitValue;
 	
 	/*
 	 * Split subset (for nominal attributes).
 	 */
-	protected String m_SplitString;
+	private String m_SplitString;
 	
 	/*
 	 * Class value for a node.
 	 */
-	protected double m_ClassValue;
+	private double m_ClassValue;
 	
 	/*
 	 * Class attribute of a dataset.
 	 */
-	protected Attribute m_ClassAttribute;
+	private Attribute m_ClassAttribute;
 	
 	/*
 	 * Minimum number of instances at leaf nodes.
 	 */
-	protected int m_minNumObj = 2;
+	private int m_minNumObj = 2;
 	
 	/*
 	 * Number of folds for the pruning.
 	 */
-	protected int m_numFoldsPruning = 5;
+	private int m_numFoldsPruning = 5;
 	
 	/*
 	 * If the ndoe is leaf node.
 	 */
-	protected boolean m_isLeaf;
+	private boolean m_isLeaf;
 	
 	/*
 	 * Number of expansions.
 	 */
-	protected static int m_Expansion;
+	private static int m_Expansion;
 	
 	/*
 	 * Fixed number of expansions (if no pruning method is used, its value is -1. Otherwise,
 	 * its value is gotten from internal cross-validation).
 	 */
-	protected int m_FixedExpansion = -1;
+	private int m_FixedExpansion = -1;
 	
 	/*
 	 * If use huristic search for binary split (default true). Note even if its value is true, it is only
 	 * used when the number of values of a nominal attribute is larger than 4.
 	 */
-	protected boolean m_Heuristic = true;
+	private boolean m_Heuristic = true;
 	
 	/*
 	 * If use Gini index as the splitting criterion - default (if not, information is used).
 	 */
-	protected boolean m_UseGini = true;
+	private boolean m_UseGini = true;
 	
 	/*
 	 * If use error rate in internal cross-validation to fix the number of expansions - default
 	 * (if not, root mean squared error is used).
 	 */
-	protected boolean m_UseErrorRate = true;
+	private boolean m_UseErrorRate = true;
 	
 	/*
 	 * If use the 1SE rule to make the decision.
 	 */
-	protected boolean m_UseOneSE = false;
+	private boolean m_UseOneSE = false;
 	
 	/*
 	 * Class distributions.
 	 */
-	protected double[] m_Distribution;
+	private double[] m_Distribution;
 	
 	/*
 	 * Branch proportions.
 	 */
-	protected double[] m_Props;
+	private double[] m_Props;
 	
 	/*
 	 * Sorted indices.
 	 */
-	protected int[][] m_SortedIndices;
+	private int[][] m_SortedIndices;
 	
 	/*
 	 * Sorted weights.
 	 */
-	protected double[][] m_Weights;
+	private double[][] m_Weights;
 	
 	/*
 	 * Distributions of each attribute for two successor nodes.
 	 */
-	protected double[][][] m_Dists;
+	private double[][][] m_Dists;
 	
 	/*
 	 * Class probabilities.
 	 */
-	protected double[] m_ClassProbs;
+	private double[] m_ClassProbs;
 	
 	/*
 	 * Total weights.
 	 */
-	protected double m_TotalWeight;
+	private double m_TotalWeight;
 	
 	/*
 	 * The training data size (0-1). Default 1.
 	 */
-	protected double m_SizePer = 1;
+	private double m_SizePer = 1;
 	
 	/*
 	 * Returns a string describing classifier
@@ -704,10 +704,10 @@ public class BFTreeTS
 	 * @param preExpansion      the number of expansions the tree to be expanded
 	 * @throws Exception if something goes wrong
 	 */
-	protected void makeTree(FastVector BestFirstElements, Instances data,
-							int[][] sortedIndices, double[][] weights, double[][][] dists,
-							double[] classProbs, double totalWeight, double[] branchProps,
-							int minNumObj, boolean useHeuristic, boolean useGini, int preExpansion)
+	private void makeTree(FastVector BestFirstElements, Instances data,
+						  int[][] sortedIndices, double[][] weights, double[][][] dists,
+						  double[] classProbs, double totalWeight, double[] branchProps,
+						  int minNumObj, boolean useHeuristic, boolean useGini, int preExpansion)
 			throws Exception {
 		
 		if (BestFirstElements.size() == 0) return;
@@ -877,10 +877,10 @@ public class BFTreeTS
 	 * expanded).
 	 * @throws Exception if something goes wrong
 	 */
-	protected boolean makeTree(FastVector BestFirstElements, BFTreeTS root,
-							   Instances train, int[][] sortedIndices, double[][] weights,
-							   double[][][] dists, double[] classProbs, double totalWeight,
-							   double[] branchProps, int minNumObj, boolean useHeuristic, boolean useGini)
+	private boolean makeTree(FastVector BestFirstElements, BFTreeTS root,
+							 Instances train, int[][] sortedIndices, double[][] weights,
+							 double[][][] dists, double[] classProbs, double totalWeight,
+							 double[] branchProps, int minNumObj, boolean useHeuristic, boolean useGini)
 			throws Exception {
 		
 		if (BestFirstElements.size() == 0) return false;
@@ -1009,10 +1009,10 @@ public class BFTreeTS
 	 * @param useErrorRate      if use error rate in internal cross-validation
 	 * @throws Exception if something goes wrong
 	 */
-	protected void makeTree(FastVector BestFirstElements, BFTreeTS root,
-							Instances train, Instances test, FastVector modelError, int[][] sortedIndices,
-							double[][] weights, double[][][] dists, double[] classProbs, double totalWeight,
-							double[] branchProps, int minNumObj, boolean useHeuristic, boolean useGini, boolean useErrorRate)
+	private void makeTree(FastVector BestFirstElements, BFTreeTS root,
+						  Instances train, Instances test, FastVector modelError, int[][] sortedIndices,
+						  double[][] weights, double[][][] dists, double[] classProbs, double totalWeight,
+						  double[] branchProps, int minNumObj, boolean useHeuristic, boolean useGini, boolean useErrorRate)
 			throws Exception {
 		
 		if (BestFirstElements.size() == 0) return;
@@ -1154,10 +1154,10 @@ public class BFTreeTS
 	 * @param useGini             if use Gini index as splitting criterion
 	 * @throws Exception if something goes wrong
 	 */
-	protected void makeSuccessors(FastVector BestFirstElements, Instances data,
-								  int[][][] subsetSortedIndices, double[][][] subsetWeights,
-								  double[][][] dists,
-								  Attribute att, boolean useHeuristic, boolean useGini) throws Exception {
+	private void makeSuccessors(FastVector BestFirstElements, Instances data,
+								int[][][] subsetSortedIndices, double[][][] subsetWeights,
+								double[][][] dists,
+								Attribute att, boolean useHeuristic, boolean useGini) throws Exception {
 		
 		m_Successors = new BFTreeTS[2];
 		
@@ -1243,8 +1243,8 @@ public class BFTreeTS
 	 * @return total weights of instances at the node
 	 * @throws Exception if something goes wrong
 	 */
-	protected double computeSortedInfo(Instances data, int[][] sortedIndices, double[][] weights,
-									   double[] classProbs) throws Exception {
+	private double computeSortedInfo(Instances data, int[][] sortedIndices, double[][] weights,
+									 double[] classProbs) throws Exception {
 		
 		// Create array of sorted indices and weights
 		double[] vals = new double[data.numInstances()];
@@ -1317,9 +1317,9 @@ public class BFTreeTS
 	 * @return split information about the node
 	 * @throws Exception if something is wrong
 	 */
-	protected FastVector computeSplitInfo(BFTreeTS node, Instances data, int[][] sortedIndices,
-										  double[][] weights, double[][][] dists, double[][] props,
-										  double[][] totalSubsetWeights, boolean useHeuristic, boolean useGini) throws Exception {
+	private FastVector computeSplitInfo(BFTreeTS node, Instances data, int[][] sortedIndices,
+										double[][] weights, double[][][] dists, double[][] props,
+										double[][] totalSubsetWeights, boolean useHeuristic, boolean useGini) throws Exception {
 		
 		double[] splits = new double[data.numAttributes()];
 		String[] splitString = new String[data.numAttributes()];
@@ -1378,9 +1378,9 @@ public class BFTreeTS
 	 * @return Gini gain or information gain for the given attribute
 	 * @throws Exception if something goes wrong
 	 */
-	protected double numericDistribution(double[][] props, double[][][] dists,
-										 Attribute att, int[] sortedIndices, double[] weights, double[][] subsetWeights,
-										 double[] gains, Instances data, boolean useGini)
+	private double numericDistribution(double[][] props, double[][][] dists,
+									   Attribute att, int[] sortedIndices, double[] weights, double[][] subsetWeights,
+									   double[] gains, Instances data, boolean useGini)
 			throws Exception {
 		
 		double splitPoint = Double.NaN;
@@ -1494,9 +1494,9 @@ public class BFTreeTS
 	 * @return Gini gain for the given attribute
 	 * @throws Exception if something goes wrong
 	 */
-	protected String nominalDistribution(double[][] props, double[][][] dists,
-										 Attribute att, int[] sortedIndices, double[] weights, double[][] subsetWeights,
-										 double[] gains, Instances data, boolean useHeuristic, boolean useGini)
+	private String nominalDistribution(double[][] props, double[][][] dists,
+									   Attribute att, int[] sortedIndices, double[] weights, double[][] subsetWeights,
+									   double[] gains, Instances data, boolean useHeuristic, boolean useGini)
 			throws Exception {
 		
 		String[] values = new String[att.numValues()];
@@ -1929,9 +1929,9 @@ public class BFTreeTS
 	 * @param data          training data
 	 * @throws Exception if something goes wrong
 	 */
-	protected void splitData(int[][][] subsetIndices, double[][][] subsetWeights,
-							 Attribute att, double splitPoint, String splitStr, int[][] sortedIndices,
-							 double[][] weights, Instances data) throws Exception {
+	private void splitData(int[][][] subsetIndices, double[][][] subsetWeights,
+						   Attribute att, double splitPoint, String splitStr, int[][] sortedIndices,
+						   double[][] weights, Instances data) throws Exception {
 		
 		int j;
 		// For each attribute
@@ -1991,7 +1991,7 @@ public class BFTreeTS
 	 * @param childDist  class distributions of successor nodes
 	 * @return Gini gain computed
 	 */
-	protected double computeGiniGain(double[] parentDist, double[][] childDist) {
+	private double computeGiniGain(double[] parentDist, double[][] childDist) {
 		double totalWeight = Utils.sum(parentDist);
 		if (totalWeight == 0) return 0;
 		
@@ -2013,7 +2013,7 @@ public class BFTreeTS
 	 * @param total class distributions
 	 * @return Gini index of the class distributions
 	 */
-	protected double computeGini(double[] dist, double total) {
+	private double computeGini(double[] dist, double total) {
 		if (total == 0) return 0;
 		double val = 0;
 		for (int i = 0; i < dist.length; i++) {
@@ -2030,7 +2030,7 @@ public class BFTreeTS
 	 * @param childDist  class distributions of successor nodes
 	 * @return information gain computed
 	 */
-	protected double computeInfoGain(double[] parentDist, double[][] childDist) {
+	private double computeInfoGain(double[] parentDist, double[][] childDist) {
 		double totalWeight = Utils.sum(parentDist);
 		if (totalWeight == 0) return 0;
 		
@@ -2052,7 +2052,7 @@ public class BFTreeTS
 	 * @param total class distributions
 	 * @return entropy of the class distributions
 	 */
-	protected double computeEntropy(double[] dist, double total) {
+	private double computeEntropy(double[] dist, double total) {
 		if (total == 0) return 0;
 		double entropy = 0;
 		for (int i = 0; i < dist.length; i++) {
@@ -2066,7 +2066,7 @@ public class BFTreeTS
 	 *
 	 * @param data training data
 	 */
-	protected void makeLeaf(Instances data) {
+	private void makeLeaf(Instances data) {
 		m_Attribute = null;
 		m_isLeaf = true;
 		m_ClassValue = Utils.maxIndex(m_ClassProbs);
@@ -2140,7 +2140,7 @@ public class BFTreeTS
 	 * @param level the level at which the tree is to be printed
 	 * @return a tree at a certain level.
 	 */
-	protected String toString(int level) {
+	private String toString(int level) {
 		StringBuffer text = new StringBuffer();
 		// if leaf nodes
 		if (m_Attribute == null) {
@@ -2182,7 +2182,7 @@ public class BFTreeTS
 	 *
 	 * @return size of the tree
 	 */
-	public int numNodes() {
+	private int numNodes() {
 		if (m_isLeaf) {
 			return 1;
 		} else {
@@ -2199,7 +2199,7 @@ public class BFTreeTS
 	 *
 	 * @return number of leaf nodes
 	 */
-	public int numLeaves() {
+	private int numLeaves() {
 		if (m_isLeaf) return 1;
 		else {
 			int size = 0;
@@ -2419,7 +2419,7 @@ public class BFTreeTS
 	 *
 	 * @return number of tree size
 	 */
-	public double measureTreeSize() {
+	private double measureTreeSize() {
 		return numNodes();
 	}
 	
@@ -2454,7 +2454,7 @@ public class BFTreeTS
 	 *
 	 * @param value the strategy
 	 */
-	public void setPruningStrategy(SelectedTag value) {
+	private void setPruningStrategy(SelectedTag value) {
 		if (value.getTags() == TAGS_PRUNING) {
 			m_PruningStrategy = value.getSelectedTag().getID();
 		}
@@ -2465,7 +2465,7 @@ public class BFTreeTS
 	 *
 	 * @return the current strategy.
 	 */
-	public SelectedTag getPruningStrategy() {
+	private SelectedTag getPruningStrategy() {
 		return new SelectedTag(m_PruningStrategy, TAGS_PRUNING);
 	}
 	
@@ -2484,7 +2484,7 @@ public class BFTreeTS
 	 *
 	 * @param value minimal number of instances at the terminal nodes
 	 */
-	public void setMinNumObj(int value) {
+	private void setMinNumObj(int value) {
 		m_minNumObj = value;
 	}
 	
@@ -2493,7 +2493,7 @@ public class BFTreeTS
 	 *
 	 * @return minimal number of instances at the terminal nodes
 	 */
-	public int getMinNumObj() {
+	private int getMinNumObj() {
 		return m_minNumObj;
 	}
 	
@@ -2512,7 +2512,7 @@ public class BFTreeTS
 	 *
 	 * @param value the number of folds
 	 */
-	public void setNumFoldsPruning(int value) {
+	private void setNumFoldsPruning(int value) {
 		m_numFoldsPruning = value;
 	}
 	
@@ -2521,7 +2521,7 @@ public class BFTreeTS
 	 *
 	 * @return number of folds in internal cross-validation
 	 */
-	public int getNumFoldsPruning() {
+	private int getNumFoldsPruning() {
 		return m_numFoldsPruning;
 	}
 	
@@ -2541,7 +2541,7 @@ public class BFTreeTS
 	 * @param value if use heuristic search for nominal attributes in
 	 *              multi-class problems
 	 */
-	public void setHeuristic(boolean value) {
+	private void setHeuristic(boolean value) {
 		m_Heuristic = value;
 	}
 	
@@ -2551,7 +2551,7 @@ public class BFTreeTS
 	 * @return if use heuristic search for nominal attributes in
 	 * multi-class problems
 	 */
-	public boolean getHeuristic() {
+	private boolean getHeuristic() {
 		return m_Heuristic;
 	}
 	
@@ -2570,7 +2570,7 @@ public class BFTreeTS
 	 *
 	 * @param value if use Gini index splitting criterion
 	 */
-	public void setUseGini(boolean value) {
+	private void setUseGini(boolean value) {
 		m_UseGini = value;
 	}
 	
@@ -2579,7 +2579,7 @@ public class BFTreeTS
 	 *
 	 * @return if use Gini index as splitting criterion
 	 */
-	public boolean getUseGini() {
+	private boolean getUseGini() {
 		return m_UseGini;
 	}
 	
@@ -2598,7 +2598,7 @@ public class BFTreeTS
 	 *
 	 * @param value if use error rate in internal cross-validation
 	 */
-	public void setUseErrorRate(boolean value) {
+	private void setUseErrorRate(boolean value) {
 		m_UseErrorRate = value;
 	}
 	
@@ -2607,7 +2607,7 @@ public class BFTreeTS
 	 *
 	 * @return if use error rate in internal cross-validation.
 	 */
-	public boolean getUseErrorRate() {
+	private boolean getUseErrorRate() {
 		return m_UseErrorRate;
 	}
 	
@@ -2626,7 +2626,7 @@ public class BFTreeTS
 	 *
 	 * @param value if use the 1SE rule to choose final model
 	 */
-	public void setUseOneSE(boolean value) {
+	private void setUseOneSE(boolean value) {
 		m_UseOneSE = value;
 	}
 	
@@ -2635,7 +2635,7 @@ public class BFTreeTS
 	 *
 	 * @return if use the 1SE rule to choose final model
 	 */
-	public boolean getUseOneSE() {
+	private boolean getUseOneSE() {
 		return m_UseOneSE;
 	}
 	
@@ -2654,7 +2654,7 @@ public class BFTreeTS
 	 *
 	 * @param value training set size
 	 */
-	public void setSizePer(double value) {
+	private void setSizePer(double value) {
 		if ((value <= 0) || (value > 1))
 			System.err.println(
 					"The percentage of the training set size must be in range 0 to 1 "
@@ -2668,7 +2668,7 @@ public class BFTreeTS
 	 *
 	 * @return training set size
 	 */
-	public double getSizePer() {
+	private double getSizePer() {
 		return m_SizePer;
 	}
 	

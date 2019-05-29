@@ -95,12 +95,12 @@ public class FilteredClustererTS
 	/*
 	 * The filter.
 	 */
-	protected Filter m_Filter;
+	private Filter m_Filter;
 	
 	/*
 	 * The instance structure of the filtered instances.
 	 */
-	protected Instances m_FilteredInstances;
+	private Instances m_FilteredInstances;
 	
 	/*
 	 * Default constructor.
@@ -129,7 +129,7 @@ public class FilteredClustererTS
 	 *
 	 * @return the default filter classname
 	 */
-	protected String defaultFilterString() {
+	private String defaultFilterString() {
 		return weka.filters.AllFilter.class.getName();
 	}
 	
@@ -252,7 +252,7 @@ public class FilteredClustererTS
 	 *
 	 * @param filter the filter with all options set.
 	 */
-	public void setFilter(Filter filter) {
+	private void setFilter(Filter filter) {
 		m_Filter = filter;
 		
 		if (m_Filter instanceof SupervisedFilter)
@@ -266,7 +266,7 @@ public class FilteredClustererTS
 	 *
 	 * @return the filter
 	 */
-	public Filter getFilter() {
+	private Filter getFilter() {
 		return m_Filter;
 	}
 	
@@ -276,7 +276,7 @@ public class FilteredClustererTS
 	 *
 	 * @return the filter string.
 	 */
-	protected String getFilterSpec() {
+	private String getFilterSpec() {
 		String result;
 		Filter filter;
 		

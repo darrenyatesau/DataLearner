@@ -217,7 +217,7 @@ public class RidorTS
 		 *
 		 * @return the default class label
 		 */
-		public double getDefClass() {
+		double getDefClass() {
 			return defClass;
 		}
 		
@@ -226,7 +226,7 @@ public class RidorTS
 		 *
 		 * @return the set of exceptions
 		 */
-		public RidorRule[] getRules() {
+		RidorRule[] getRules() {
 			return rules;
 		}
 		
@@ -235,7 +235,7 @@ public class RidorTS
 		 *
 		 * @return the exceptions of the exceptions rules
 		 */
-		public Ridor_node[] getExcepts() {
+		Ridor_node[] getExcepts() {
 			return excepts;
 		}
 		
@@ -247,7 +247,7 @@ public class RidorTS
 		 * @param lvl         the level of the parent node
 		 * @throws Exception if ruleset of this node cannot be built
 		 */
-		public void findRules(Instances[] dataByClass, int lvl) throws Exception {
+		void findRules(Instances[] dataByClass, int lvl) throws Exception {
 			Vector finalRules = null;
 			int clas = -1;
 			double[] isPure = new double[dataByClass.length];
@@ -501,7 +501,7 @@ public class RidorTS
 		 *
 		 * @return the size of this node
 		 */
-		public int size() {
+		int size() {
 			int size = 0;
 			if (rules != null) {
 				for (int i = 0; i < rules.length; i++)
@@ -576,7 +576,7 @@ public class RidorTS
 		/*
 		 * The vector of antecedents of this rule
 		 */
-		protected FastVector m_Antds = null;
+		FastVector m_Antds = null;
 		
 		/*
 		 * The worth rate of this rule, in this case, accuracy rate in the pruning data
@@ -601,7 +601,7 @@ public class RidorTS
 		/*
 		 * The access functions for parameters
 		 */
-		public void setPredictedClass(double cl) {
+		void setPredictedClass(double cl) {
 			m_Class = cl;
 		}
 		
@@ -617,7 +617,7 @@ public class RidorTS
 		 * @param instances the training data
 		 * @throws Exception if classifier can't be built successfully
 		 */
-		public void buildClassifier(Instances instances) throws Exception {
+		void buildClassifier(Instances instances) throws Exception {
 			m_ClassAttribute = instances.classAttribute();
 			if (!m_ClassAttribute.isNominal())
 				throw new UnsupportedClassTypeException(" Only nominal class, please.");
@@ -657,7 +657,7 @@ public class RidorTS
 		 * @param insts the dataset to be covered by this rule.
 		 * @return the instances covered and not covered by this rule
 		 */
-		public Instances[] coveredByRule(Instances insts) {
+		Instances[] coveredByRule(Instances insts) {
 			Instances[] data = new Instances[2];
 			data[0] = new Instances(insts, insts.numInstances());
 			data[1] = new Instances(insts, insts.numInstances());
@@ -679,7 +679,7 @@ public class RidorTS
 		 * @param inst the instance in question
 		 * @return the boolean value indicating whether the instance is covered by this rule
 		 */
-		public boolean isCover(Instance datum) {
+		boolean isCover(Instance datum) {
 			boolean isCover = true;
 			
 			for (int i = 0; i < m_Antds.size(); i++) {
@@ -698,7 +698,7 @@ public class RidorTS
 		 *
 		 * @return the boolean value indicating whether the rule has antecedents
 		 */
-		public boolean hasAntds() {
+		boolean hasAntds() {
 			if (m_Antds == null)
 				return false;
 			else
@@ -907,23 +907,23 @@ public class RidorTS
 		/*
 		 * The following are get functions after prune() has set the value of worthRate and worth
 		 */
-		public double getWorthRate() {
+		double getWorthRate() {
 			return m_WorthRate;
 		}
 		
-		public double getWorth() {
+		double getWorth() {
 			return m_Worth;
 		}
 		
-		public double getCoverP() {
+		double getCoverP() {
 			return m_CoverP;
 		}
 		
-		public double getCoverG() {
+		double getCoverG() {
 			return m_CoverG;
 		}
 		
-		public double getAccuG() {
+		double getAccuG() {
 			return m_AccuG;
 		}
 		
@@ -934,7 +934,7 @@ public class RidorTS
 		 * @param cl  the string standing for value in the consequent of this rule
 		 * @return a textual description of this rule with the specified class label
 		 */
-		public String toString(String att, String cl) {
+		String toString(String att, String cl) {
 			StringBuffer text = new StringBuffer();
 			if (m_Antds.size() > 0) {
 				for (int j = 0; j < (m_Antds.size() - 1); j++)
@@ -983,38 +983,38 @@ public class RidorTS
 		/*
 		 * The attribute of the antecedent
 		 */
-		protected Attribute att;
+		Attribute att;
 		
 		/*
 		 * The attribute value of the antecedent.
 		 * For numeric attribute, value is either 0(1st bag) or 1(2nd bag)
 		 */
-		protected double value;
+		double value;
 		
 		/*
 		 * The maximum infoGain achieved by this antecedent test
 		 */
-		protected double maxInfoGain;
+		double maxInfoGain;
 		
 		/*
 		 * The accurate rate of this antecedent test on the growing data
 		 */
-		protected double accuRate;
+		double accuRate;
 		
 		/*
 		 * The coverage of this antecedent
 		 */
-		protected double cover;
+		double cover;
 		
 		/*
 		 * The accurate data for this antecedent
 		 */
-		protected double accu;
+		double accu;
 		
 		/*
 		 * Constructor
 		 */
-		public Antd(Attribute a) {
+		Antd(Attribute a) {
 			att = a;
 			value = Double.NaN;
 			maxInfoGain = 0;
@@ -1024,34 +1024,34 @@ public class RidorTS
 		}
 		
 		/* The abstract members for inheritance */
-		public abstract Instances[] splitData(Instances data, double defAcRt, double cla);
+		protected abstract Instances[] splitData(Instances data, double defAcRt, double cla);
 		
-		public abstract boolean isCover(Instance inst);
+		protected abstract boolean isCover(Instance inst);
 		
 		public abstract String toString();
 		
 		/* Get functions of this antecedent */
-		public Attribute getAttr() {
+		Attribute getAttr() {
 			return att;
 		}
 		
-		public double getAttrValue() {
+		double getAttrValue() {
 			return value;
 		}
 		
-		public double getMaxInfoGain() {
+		double getMaxInfoGain() {
 			return maxInfoGain;
 		}
 		
-		public double getAccuRate() {
+		double getAccuRate() {
 			return accuRate;
 		}
 		
-		public double getAccu() {
+		double getAccu() {
 			return accu;
 		}
 		
-		public double getCover() {
+		double getCover() {
 			return cover;
 		}
 		
@@ -1084,7 +1084,7 @@ public class RidorTS
 		/*
 		 * Constructor
 		 */
-		public NumericAntd(Attribute a) {
+		NumericAntd(Attribute a) {
 			super(a);
 			splitPoint = Double.NaN;
 		}
@@ -1280,7 +1280,7 @@ public class RidorTS
 		/*
 		 * Constructor
 		 */
-		public NominalAntd(Attribute a) {
+		NominalAntd(Attribute a) {
 			super(a);
 			int bag = att.numValues();
 			accurate = new double[bag];

@@ -181,58 +181,58 @@ public class RotationForestTS
 	/*
 	 * The minimum size of a group
 	 */
-	protected int m_MinGroup = 3;
+	private int m_MinGroup = 3;
 	
 	/*
 	 * The maximum size of a group
 	 */
-	protected int m_MaxGroup = 3;
+	private int m_MaxGroup = 3;
 	
 	/*
 	 * Whether minGroup and maxGroup refer to the number of groups or their
 	 * size
 	 */
-	protected boolean m_NumberOfGroups = false;
+	private boolean m_NumberOfGroups = false;
 	
 	/*
 	 * The percentage of instances to be removed
 	 */
-	protected int m_RemovedPercentage = 50;
+	private int m_RemovedPercentage = 50;
 	
 	/*
 	 * The attributes of each group
 	 */
-	protected int[][][] m_Groups = null;
+	private int[][][] m_Groups = null;
 	
 	/*
 	 * The type of projection filter
 	 */
-	protected Filter m_ProjectionFilter = null;
+	private Filter m_ProjectionFilter = null;
 	
 	/*
 	 * The projection filters
 	 */
-	protected Filter[][] m_ProjectionFilters = null;
+	private Filter[][] m_ProjectionFilters = null;
 	
 	/*
 	 * Headers of the transformed dataset
 	 */
-	protected Instances[] m_Headers = null;
+	private Instances[] m_Headers = null;
 	
 	/*
 	 * Headers of the reduced datasets
 	 */
-	protected Instances[][] m_ReducedHeaders = null;
+	private Instances[][] m_ReducedHeaders = null;
 	
 	/*
 	 * Filter that remove useless attributes
 	 */
-	protected RemoveUseless m_RemoveUseless = null;
+	private RemoveUseless m_RemoveUseless = null;
 	
 	/*
 	 * Filter that normalized the attributes
 	 */
-	protected Normalize m_Normalize = null;
+	private Normalize m_Normalize = null;
 	
 	/*
 	 * Constructor.
@@ -246,7 +246,7 @@ public class RotationForestTS
 	/*
 	 * Default projection method.
 	 */
-	protected Filter defaultFilter() {
+	private Filter defaultFilter() {
 		PrincipalComponents filter = new PrincipalComponents();
 		//filter.setNormalize(false);
 		filter.setVarianceCovered(1.0);
@@ -535,7 +535,7 @@ public class RotationForestTS
 	 * @param numberOfGroups whether minGroup and maxGroup refer to the number
 	 *                       of groups or their size
 	 */
-	public void setNumberOfGroups(boolean numberOfGroups) {
+	private void setNumberOfGroups(boolean numberOfGroups) {
 
 		m_NumberOfGroups = numberOfGroups;
 	}
@@ -547,7 +547,7 @@ public class RotationForestTS
 	 * @return whether minGroup and maxGroup refer to the number of groups or
 	 * their size
 	 */
-	public boolean getNumberOfGroups() {
+	private boolean getNumberOfGroups() {
 
 		return m_NumberOfGroups;
 	}
@@ -568,7 +568,7 @@ public class RotationForestTS
 	 * @param minGroup the minimum value.
 	 *                 of attributes.
 	 */
-	public void setMinGroup(int minGroup) throws IllegalArgumentException {
+	private void setMinGroup(int minGroup) throws IllegalArgumentException {
 
 		if (minGroup <= 0)
 			throw new IllegalArgumentException("MinGroup has to be positive.");
@@ -580,7 +580,7 @@ public class RotationForestTS
 	 *
 	 * @return the minimum value.
 	 */
-	public int getMinGroup() {
+	private int getMinGroup() {
 		return m_MinGroup;
 	}
 	
@@ -600,7 +600,7 @@ public class RotationForestTS
 	 * @param maxGroup the maximum value.
 	 *                 of attributes.
 	 */
-	public void setMaxGroup(int maxGroup) throws IllegalArgumentException {
+	private void setMaxGroup(int maxGroup) throws IllegalArgumentException {
 
 		if (maxGroup <= 0)
 			throw new IllegalArgumentException("MaxGroup has to be positive.");
@@ -612,7 +612,7 @@ public class RotationForestTS
 	 *
 	 * @return the maximum value.
 	 */
-	public int getMaxGroup() {
+	private int getMaxGroup() {
 		return m_MaxGroup;
 	}
 	
@@ -631,7 +631,7 @@ public class RotationForestTS
 	 *
 	 * @param removedPercentage the percentage.
 	 */
-	public void setRemovedPercentage(int removedPercentage) throws IllegalArgumentException {
+	private void setRemovedPercentage(int removedPercentage) throws IllegalArgumentException {
 
 		if (removedPercentage < 0)
 			throw new IllegalArgumentException("RemovedPercentage has to be >=0.");
@@ -646,7 +646,7 @@ public class RotationForestTS
 	 *
 	 * @return the percentage.
 	 */
-	public int getRemovedPercentage() {
+	private int getRemovedPercentage() {
 		return m_RemovedPercentage;
 	}
 	
@@ -665,7 +665,7 @@ public class RotationForestTS
 	 *
 	 * @param projectionFilter the filter.
 	 */
-	public void setProjectionFilter(Filter projectionFilter) {
+	private void setProjectionFilter(Filter projectionFilter) {
 
 		m_ProjectionFilter = projectionFilter;
 	}
@@ -675,7 +675,7 @@ public class RotationForestTS
 	 *
 	 * @return the filter.
 	 */
-	public Filter getProjectionFilter() {
+	private Filter getProjectionFilter() {
 		return m_ProjectionFilter;
 	}
 	
@@ -686,7 +686,7 @@ public class RotationForestTS
 	 * @return the filter string.
 	 */
 	/* Taken from FilteredClassifier */
-	protected String getProjectionFilterSpec() {
+	private String getProjectionFilterSpec() {
 
 		Filter c = getProjectionFilter();
 		if (c instanceof OptionHandler) {
@@ -920,8 +920,8 @@ public class RotationForestTS
 	 * @param numInstances the number of instances
 	 * @param random       a random number generator
 	 */
-	protected void addRandomInstances(Instances dataset, int numInstances,
-									  Random random) {
+	private void addRandomInstances(Instances dataset, int numInstances,
+									Random random) {
 		int n = dataset.numAttributes();
 		double[] v = new double[n];
 		for (int i = 0; i < numInstances; i++) {
@@ -942,7 +942,7 @@ public class RotationForestTS
 	 *
 	 * @param data the dataset
 	 */
-	protected void checkMinMax(Instances data) {
+	private void checkMinMax(Instances data) {
 		if (m_MinGroup > m_MaxGroup) {
 			int tmp = m_MaxGroup;
 			m_MaxGroup = m_MinGroup;
@@ -963,7 +963,7 @@ public class RotationForestTS
 	 * @param random     the random number generator.
 	 * @return a random subset of classes
 	 */
-	protected boolean[] selectClasses(int numClasses, Random random) {
+	private boolean[] selectClasses(int numClasses, Random random) {
 
 		int numSelected = 0;
 		boolean[] selected = new boolean[numClasses];
@@ -988,7 +988,7 @@ public class RotationForestTS
 	 *               groups.
 	 * @param random the random number generator.
 	 */
-	protected void generateGroupsFromSizes(Instances data, Random random) {
+	private void generateGroupsFromSizes(Instances data, Random random) {
 		m_Groups = new int[m_Classifiers.length][][];
 		for (int i = 0; i < m_Classifiers.length; i++) {
 			int[] permutation = attributesPermutation(data.numAttributes(),
@@ -1037,7 +1037,7 @@ public class RotationForestTS
 	 *               groups.
 	 * @param random the random number generator.
 	 */
-	protected void generateGroupsFromNumbers(Instances data, Random random) {
+	private void generateGroupsFromNumbers(Instances data, Random random) {
 		m_Groups = new int[m_Classifiers.length][][];
 		for (int i = 0; i < m_Classifiers.length; i++) {
 			int[] permutation = attributesPermutation(data.numAttributes(),
@@ -1072,8 +1072,8 @@ public class RotationForestTS
 	 * @param random          the random number generator.
 	 * @return a permutation of the attributes
 	 */
-	protected int[] attributesPermutation(int numAttributes, int classAttribute,
-										  Random random) {
+	private int[] attributesPermutation(int numAttributes, int classAttribute,
+										Random random) {
 		int[] permutation = new int[numAttributes - 1];
 		int i = 0;
 		for (; i < classAttribute; i++) {
@@ -1094,7 +1094,7 @@ public class RotationForestTS
 	 * @param v      the array to permute
 	 * @param random the random number generator.
 	 */
-	protected void permute(int[] v, Random random) {
+	private void permute(int[] v, Random random) {
 
 		for (int i = v.length - 1; i > 0; i--) {
 			int j = random.nextInt(i + 1);
@@ -1109,7 +1109,7 @@ public class RotationForestTS
 	/*
 	 * prints the groups.
 	 */
-	protected void printGroups() {
+	private void printGroups() {
 		for (int i = 0; i < m_Groups.length; i++) {
 			for (int j = 0; j < m_Groups[i].length; j++) {
 				System.err.print("( ");
@@ -1131,7 +1131,7 @@ public class RotationForestTS
 	 * @return the transformed instance
 	 * @throws Exception if the instance can't be converted successfully
 	 */
-	protected Instance convertInstance(Instance instance, int i)
+	private Instance convertInstance(Instance instance, int i)
 			throws Exception {
 		Instance newInstance = new Instance(m_Headers[i].numAttributes());
 		newInstance.setWeight(instance.weight());

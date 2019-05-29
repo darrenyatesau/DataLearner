@@ -127,32 +127,32 @@ public class LogisticTS extends Classifier
 	/*
 	 * The coefficients (optimized parameters) of the model
 	 */
-	protected double[][] m_Par;
+	private double[][] m_Par;
 	
 	/*
 	 * The data saved as a matrix
 	 */
-	protected double[][] m_Data;
+	private double[][] m_Data;
 	
 	/*
 	 * The number of attributes in the model
 	 */
-	protected int m_NumPredictors;
+	private int m_NumPredictors;
 	
 	/*
 	 * The index of the class attribute
 	 */
-	protected int m_ClassIndex;
+	private int m_ClassIndex;
 	
 	/*
 	 * The number of the class labels
 	 */
-	protected int m_NumClasses;
+	private int m_NumClasses;
 	
 	/*
 	 * The ridge parameter.
 	 */
-	protected double m_Ridge = 1e-8;
+	private double m_Ridge = 1e-8;
 	
 	/*
 	 * An attribute filter
@@ -172,12 +172,12 @@ public class LogisticTS extends Classifier
 	/*
 	 * Debugging output
 	 */
-	protected boolean m_Debug;
+	private boolean m_Debug;
 	
 	/*
 	 * Log-likelihood of the searched model
 	 */
-	protected double m_LL;
+	private double m_LL;
 	
 	/*
 	 * The maximum number of iterations.
@@ -421,7 +421,7 @@ public class LogisticTS extends Classifier
 		 *
 		 * @param w the weights to be set
 		 */
-		public void setWeights(double[] w) {
+		void setWeights(double[] w) {
 			weights = w;
 		}
 		
@@ -430,7 +430,7 @@ public class LogisticTS extends Classifier
 		 *
 		 * @param c the class labels to be set
 		 */
-		public void setClassLabels(int[] c) {
+		void setClassLabels(int[] c) {
 			cls = c;
 		}
 		

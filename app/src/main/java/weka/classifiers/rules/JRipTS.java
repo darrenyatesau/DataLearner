@@ -728,39 +728,39 @@ public class JRipTS
 		/*
 		 * The attribute of the antecedent
 		 */
-		protected Attribute att;
+		Attribute att;
 		
 		/*
 		 * The attribute value of the antecedent.
 		 * For numeric attribute, value is either 0(1st bag) or 1(2nd bag)
 		 */
-		protected double value;
+		double value;
 		
 		/*
 		 * The maximum infoGain achieved by this antecedent test
 		 * in the growing data
 		 */
-		protected double maxInfoGain;
+		double maxInfoGain;
 		
 		/*
 		 * The accurate rate of this antecedent test on the growing data
 		 */
-		protected double accuRate;
+		double accuRate;
 		
 		/*
 		 * The coverage of this antecedent in the growing data
 		 */
-		protected double cover;
+		double cover;
 		
 		/*
 		 * The accurate data for this antecedent in the growing data
 		 */
-		protected double accu;
+		double accu;
 		
 		/*
 		 * Constructor
 		 */
-		public Antd(Attribute a) {
+		Antd(Attribute a) {
 			att = a;
 			value = Double.NaN;
 			maxInfoGain = 0;
@@ -770,10 +770,10 @@ public class JRipTS
 		}
 		
 		/* The abstract members for inheritance */
-		public abstract Instances[] splitData(Instances data, double defAcRt,
-											  double cla);
+		protected abstract Instances[] splitData(Instances data, double defAcRt,
+												 double cla);
 		
-		public abstract boolean covers(Instance inst);
+		protected abstract boolean covers(Instance inst);
 		
 		public abstract String toString();
 		
@@ -785,27 +785,27 @@ public class JRipTS
 		public abstract Object copy();
 		
 		/* Get functions of this antecedent */
-		public Attribute getAttr() {
+		Attribute getAttr() {
 			return att;
 		}
 		
-		public double getAttrValue() {
+		double getAttrValue() {
 			return value;
 		}
 		
-		public double getMaxInfoGain() {
+		double getMaxInfoGain() {
 			return maxInfoGain;
 		}
 		
-		public double getAccuRate() {
+		double getAccuRate() {
 			return accuRate;
 		}
 		
-		public double getAccu() {
+		double getAccu() {
 			return accu;
 		}
 		
-		public double getCover() {
+		double getCover() {
 			return cover;
 		}
 		
@@ -838,7 +838,7 @@ public class JRipTS
 		/*
 		 * Constructor
 		 */
-		public NumericAntd(Attribute a) {
+		NumericAntd(Attribute a) {
 			super(a);
 			splitPoint = Double.NaN;
 		}
@@ -1042,7 +1042,7 @@ public class JRipTS
 		/*
 		 * Constructor
 		 */
-		public NominalAntd(Attribute a) {
+		NominalAntd(Attribute a) {
 			super(a);
 			int bag = att.numValues();
 			accurate = new double[bag];
@@ -1174,12 +1174,12 @@ public class JRipTS
 		/*
 		 * The vector of antecedents of this rule
 		 */
-		protected FastVector m_Antds = null;
+		FastVector m_Antds = null;
 		
 		/*
 		 * Constructor
 		 */
-		public RipperRule() {
+		RipperRule() {
 			m_Antds = new FastVector();
 		}
 		
@@ -1188,7 +1188,7 @@ public class JRipTS
 		 *
 		 * @param cl the internal representation of the class label to be predicted
 		 */
-		public void setConsequent(double cl) {
+		void setConsequent(double cl) {
 			m_Consequent = cl;
 		}
 		
@@ -1428,7 +1428,7 @@ public class JRipTS
 		 * @param useWhole  flag to indicate whether use the error rate of
 		 *                  the whole pruning data instead of the data covered
 		 */
-		public void prune(Instances pruneData, boolean useWhole) {
+		void prune(Instances pruneData, boolean useWhole) {
 			Instances data = pruneData;
 			
 			double total = data.sumOfWeights();
@@ -1511,7 +1511,7 @@ public class JRipTS
 		 * @param classAttr the class attribute in the data
 		 * @return a textual description of this rule
 		 */
-		public String toString(Attribute classAttr) {
+		String toString(Attribute classAttr) {
 			StringBuffer text = new StringBuffer();
 			if (m_Antds.size() > 0) {
 				for (int j = 0; j < (m_Antds.size() - 1); j++)
@@ -1720,10 +1720,10 @@ public class JRipTS
 	 * @param defDL      the default DL in the data
 	 * @throws Exception if the ruleset can be built properly
 	 */
-	protected Instances rulesetForOneClass(double expFPRate,
-										   Instances data,
-										   double classIndex,
-										   double defDL)
+	private Instances rulesetForOneClass(double expFPRate,
+										 Instances data,
+										 double classIndex,
+										 double defDL)
 			throws Exception {
 		
 		Instances newData = data, growData, pruneData;

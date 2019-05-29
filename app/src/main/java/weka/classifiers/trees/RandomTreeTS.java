@@ -113,47 +113,47 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 	/*
 	 * The Tree object
 	 */
-	protected Tree m_Tree = null;
+	private Tree m_Tree = null;
 	
 	/*
 	 * The header information.
 	 */
-	protected Instances m_Info = null;
+	private Instances m_Info = null;
 	
 	/*
 	 * Minimum number of instances for leaf.
 	 */
-	protected double m_MinNum = 1.0;
+	private double m_MinNum = 1.0;
 	
 	/*
 	 * The number of attributes considered for a split.
 	 */
-	protected int m_KValue = 0;
+	private int m_KValue = 0;
 	
 	/*
 	 * The random seed to use.
 	 */
-	protected int m_randomSeed = 1;
+	private int m_randomSeed = 1;
 	
 	/*
 	 * The maximum depth of the tree (0 = unlimited)
 	 */
-	protected int m_MaxDepth = 0;
+	private int m_MaxDepth = 0;
 	
 	/*
 	 * Determines how much data is used for backfitting
 	 */
-	protected int m_NumFolds = 0;
+	private int m_NumFolds = 0;
 	
 	/*
 	 * Whether unclassified instances are allowed
 	 */
-	protected boolean m_AllowUnclassifiedInstances = false;
+	private boolean m_AllowUnclassifiedInstances = false;
 	
 	/*
 	 * a ZeroR model in case no model can be built from the data
 	 */
-	protected Classifier m_zeroR;
+	private Classifier m_zeroR;
 	
 	/*
 	 * Returns a string describing classifier
@@ -184,7 +184,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 	 *
 	 * @return Value of MinNum.
 	 */
-	public double getMinNum() {
+	private double getMinNum() {
 		
 		return m_MinNum;
 	}
@@ -214,7 +214,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 	 *
 	 * @return Value of K.
 	 */
-	public int getKValue() {
+	private int getKValue() {
 		
 		return m_KValue;
 	}
@@ -274,7 +274,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 	 *
 	 * @return the maximum depth.
 	 */
-	public int getMaxDepth() {
+	private int getMaxDepth() {
 		return m_MaxDepth;
 	}
 	
@@ -294,7 +294,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 	 *
 	 * @return Value of NumFolds.
 	 */
-	public int getNumFolds() {
+	private int getNumFolds() {
 		
 		return m_NumFolds;
 	}
@@ -324,7 +324,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 	 *
 	 * @return Value of NumFolds.
 	 */
-	public boolean getAllowUnclassifiedInstances() {
+	private boolean getAllowUnclassifiedInstances() {
 		
 		return m_AllowUnclassifiedInstances;
 	}
@@ -335,7 +335,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 	 * @param newAllowUnclassifiedInstances Value to assign to
 	 *                                      AllowUnclassifiedInstances.
 	 */
-	public void setAllowUnclassifiedInstances(
+	private void setAllowUnclassifiedInstances(
 			boolean newAllowUnclassifiedInstances) {
 		
 		m_AllowUnclassifiedInstances = newAllowUnclassifiedInstances;
@@ -770,7 +770,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 	/*
 	 * Returns the number of elements in the partition.
 	 */
-	public int numElements() throws Exception {
+	private int numElements() throws Exception {
 		
 		if (m_zeroR != null) {
 			return 1;
@@ -791,32 +791,32 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		/*
 		 * The subtrees appended to this tree.
 		 */
-		protected Tree[] m_Successors;
+		Tree[] m_Successors;
 		
 		/*
 		 * The attribute to split on.
 		 */
-		protected int m_Attribute = -1;
+		int m_Attribute = -1;
 		
 		/*
 		 * The split point.
 		 */
-		protected double m_SplitPoint = Double.NaN;
+		double m_SplitPoint = Double.NaN;
 		
 		/*
 		 * The proportions of training instances going down each branch.
 		 */
-		protected double[] m_Prop = null;
+		double[] m_Prop = null;
 		
 		/*
 		 * Class probabilities from the training data.
 		 */
-		protected double[] m_ClassDistribution = null;
+		double[] m_ClassDistribution = null;
 		
 		/*
 		 * Backfits the given data into the tree.
 		 */
-		public void backfitData(Instances data) throws Exception {
+		void backfitData(Instances data) throws Exception {
 			
 			// Compute initial class counts
 			double[] classProbs = new double[data.numClasses()];
@@ -836,7 +836,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		 * @return the computed class distribution
 		 * @throws Exception if computation fails
 		 */
-		public double[] distributionForInstance(Instance instance) throws Exception {
+		double[] distributionForInstance(Instance instance) throws Exception {
 			
 			double[] returnedDist = null;
 			
@@ -902,7 +902,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		 * @return the next node id
 		 * @throws Exception if generation fails
 		 */
-		public int toGraph(StringBuffer text, int num) throws Exception {
+		int toGraph(StringBuffer text, int num) throws Exception {
 			
 			int maxIndex = Utils.maxIndex(m_ClassDistribution);
 			String classValue = Utils.backQuoteChars(m_Info.classAttribute().value(maxIndex));
@@ -941,7 +941,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		 * @return the leaf as string
 		 * @throws Exception if generation fails
 		 */
-		protected String leafString() throws Exception {
+		String leafString() throws Exception {
 			
 			double sum = 0, maxCount = 0;
 			int maxIndex = 0;
@@ -961,7 +961,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		 * @param level the current level of the tree
 		 * @return the generated subtree
 		 */
-		protected String toString(int level) {
+		String toString(int level) {
 			
 			try {
 				StringBuffer text = new StringBuffer();
@@ -1015,7 +1015,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		 * @param classProbs the class distribution
 		 * @throws Exception if generation fails
 		 */
-		protected void backfitData(Instances data, double[] classProbs)
+		void backfitData(Instances data, double[] classProbs)
 				throws Exception {
 			
 			// Make leaf if there are no training instances
@@ -1122,8 +1122,8 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		 * @param depth            the current depth
 		 * @throws Exception if generation fails
 		 */
-		protected void buildTree(Instances data, double[] classProbs,
-								 int[] attIndicesWindow, Random random, int depth) throws Exception {
+		void buildTree(Instances data, double[] classProbs,
+					   int[] attIndicesWindow, Random random, int depth) throws Exception {
 			
 			// Make leaf if there are no training instances
 			if (data.numInstances() == 0) {
@@ -1233,7 +1233,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		 *
 		 * @return the number of nodes
 		 */
-		public int numNodes() {
+		int numNodes() {
 			
 			if (m_Attribute == -1) {
 				return 1;
@@ -1253,7 +1253,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		 * @return the subsets of instances
 		 * @throws Exception if something goes wrong
 		 */
-		protected Instances[] splitData(Instances data) throws Exception {
+		Instances[] splitData(Instances data) throws Exception {
 			
 			// Allocate array of Instances objects
 			Instances[] subsets = new Instances[m_Prop.length];
@@ -1321,8 +1321,8 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		 * @param data  the data to work with
 		 * @throws Exception if something goes wrong
 		 */
-		protected double distribution(double[][] props, double[][][] dists,
-									  int att, Instances data) throws Exception {
+		double distribution(double[][] props, double[][][] dists,
+							int att, Instances data) throws Exception {
 			
 			double splitPoint = Double.NaN;
 			Attribute attribute = data.attribute(att);
@@ -1458,7 +1458,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		 * @param dist the distributions
 		 * @return the splitting criterion
 		 */
-		protected double priorVal(double[][] dist) {
+		double priorVal(double[][] dist) {
 			
 			return ContingencyTables.entropyOverColumns(dist);
 		}
@@ -1470,7 +1470,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		 * @param priorVal the splitting criterion
 		 * @return the gain after the split
 		 */
-		protected double gain(double[][] dist, double priorVal) {
+		double gain(double[][] dist, double priorVal) {
 			
 			return priorVal - ContingencyTables.entropyConditionedOnRows(dist);
 		}
@@ -1493,7 +1493,7 @@ public class RandomTreeTS extends Classifier implements OptionHandler,
 		 * @return the next node id
 		 * @throws Exception if something goes wrong
 		 */
-		protected int toGraph(StringBuffer text, int num, Tree parent)
+		int toGraph(StringBuffer text, int num, Tree parent)
 				throws Exception {
 			
 			num++;

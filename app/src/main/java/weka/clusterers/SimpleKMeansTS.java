@@ -176,7 +176,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 	/*
 	 * the distance function used.
 	 */
-	protected DistanceFunction m_DistanceFunction = new EuclideanDistance();
+	private DistanceFunction m_DistanceFunction = new EuclideanDistance();
 	
 	/*
 	 * Preserve order of instances
@@ -186,7 +186,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 	/*
 	 * Assignments obtained
 	 */
-	protected int[] m_Assignments = null;
+	private int[] m_Assignments = null;
 	
 	/*
 	 * the default constructor
@@ -438,8 +438,8 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 	 *                          arrays
 	 * @return the centroid coordinates
 	 */
-	protected double[] moveCentroid(int centroidIndex, Instances members,
-									boolean updateClusterInfo) {
+	private double[] moveCentroid(int centroidIndex, Instances members,
+								  boolean updateClusterInfo) {
 		double[] vals = new double[members.numAttributes()];
 		
 		// used only for Manhattan Distance
@@ -623,7 +623,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 	 *
 	 * @return the number of clusters to generate
 	 */
-	public int getNumClusters() {
+	private int getNumClusters() {
 		return m_NumClusters;
 	}
 	
@@ -643,7 +643,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 	 * @param n the maximum number of iterations
 	 * @throws Exception if maximum number of iteration is smaller than 1
 	 */
-	public void setMaxIterations(int n) throws Exception {
+	private void setMaxIterations(int n) throws Exception {
 		if (n <= 0) {
 			throw new Exception("Maximum number of iterations must be > 0");
 		}
@@ -655,7 +655,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 	 *
 	 * @return the number of clusters to generate
 	 */
-	public int getMaxIterations() {
+	private int getMaxIterations() {
 		return m_MaxIterations;
 	}
 	
@@ -744,7 +744,7 @@ public class SimpleKMeansTS extends RandomizableClusterer implements
 	 * @param df the new distance function to use
 	 * @throws Exception if instances cannot be processed
 	 */
-	public void setDistanceFunction(DistanceFunction df) throws Exception {
+	private void setDistanceFunction(DistanceFunction df) throws Exception {
 		if (!(df instanceof EuclideanDistance)
 				&& !(df instanceof ManhattanDistance)) {
 			throw new Exception(

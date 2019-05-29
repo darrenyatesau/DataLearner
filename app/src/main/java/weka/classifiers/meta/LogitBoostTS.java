@@ -141,78 +141,78 @@ public class LogitBoostTS
 	 * Array for storing the generated base classifiers.
 	 * Note: we are hiding the variable from IteratedSingleClassifierEnhancer
 	 */
-	protected Classifier[][] m_Classifiers;
+	private Classifier[][] m_Classifiers;
 	
 	/*
 	 * The number of classes
 	 */
-	protected int m_NumClasses;
+	private int m_NumClasses;
 	
 	/*
 	 * The number of successfully generated base classifiers.
 	 */
-	protected int m_NumGenerated;
+	private int m_NumGenerated;
 	
 	/*
 	 * The number of folds for the internal cross-validation.
 	 */
-	protected int m_NumFolds = 0;
+	private int m_NumFolds = 0;
 	
 	/*
 	 * The number of runs for the internal cross-validation.
 	 */
-	protected int m_NumRuns = 1;
+	private int m_NumRuns = 1;
 	
 	/*
 	 * Weight thresholding. The percentage of weight mass used in training
 	 */
-	protected int m_WeightThreshold = 100;
+	private int m_WeightThreshold = 100;
 	
 	/*
 	 * A threshold for responses (Friedman suggests between 2 and 4)
 	 */
-	protected static final double Z_MAX = 3;
+	private static final double Z_MAX = 3;
 	
 	/*
 	 * Dummy dataset with a numeric class
 	 */
-	protected Instances m_NumericClassData;
+	private Instances m_NumericClassData;
 	
 	/*
 	 * The actual class attribute (for getting class names)
 	 */
-	protected Attribute m_ClassAttribute;
+	private Attribute m_ClassAttribute;
 	
 	/*
 	 * Use boosting with reweighting?
 	 */
-	protected boolean m_UseResampling;
+	private boolean m_UseResampling;
 	
 	/*
 	 * The threshold on the improvement of the likelihood
 	 */
-	protected double m_Precision = -Double.MAX_VALUE;
+	private double m_Precision = -Double.MAX_VALUE;
 	
 	/*
 	 * The value of the shrinkage parameter
 	 */
-	protected double m_Shrinkage = 1;
+	private double m_Shrinkage = 1;
 	
 	/*
 	 * The random number generator used
 	 */
-	protected Random m_RandomInstance = null;
+	private Random m_RandomInstance = null;
 	
 	/*
 	 * The value by which the actual target value for the
 	 * true class is offset.
 	 */
-	protected double m_Offset = 0.0;
+	private double m_Offset = 0.0;
 	
 	/*
 	 * a ZeroR model in case no model can be built from the data
 	 */
-	protected Classifier m_ZeroR;
+	private Classifier m_ZeroR;
 	
 	/*
 	 * Returns a string describing classifier
@@ -278,7 +278,7 @@ public class LogitBoostTS
 	 *                 90% of the weight mass
 	 * @return the selected instances
 	 */
-	protected Instances selectWeightQuantile(Instances data, double quantile) {
+	private Instances selectWeightQuantile(Instances data, double quantile) {
 		
 		int numInstances = data.numInstances();
 		Instances trainData = new Instances(data, numInstances);
@@ -511,7 +511,7 @@ public class LogitBoostTS
 	 *
 	 * @return Value of Shrinkage.
 	 */
-	public double getShrinkage() {
+	private double getShrinkage() {
 		
 		return m_Shrinkage;
 	}
@@ -521,7 +521,7 @@ public class LogitBoostTS
 	 *
 	 * @param newShrinkage Value to assign to Shrinkage.
 	 */
-	public void setShrinkage(double newShrinkage) {
+	private void setShrinkage(double newShrinkage) {
 		
 		m_Shrinkage = newShrinkage;
 	}
@@ -541,7 +541,7 @@ public class LogitBoostTS
 	 *
 	 * @return Value of Precision.
 	 */
-	public double getLikelihoodThreshold() {
+	private double getLikelihoodThreshold() {
 		
 		return m_Precision;
 	}
@@ -551,7 +551,7 @@ public class LogitBoostTS
 	 *
 	 * @param newPrecision Value to assign to Precision.
 	 */
-	public void setLikelihoodThreshold(double newPrecision) {
+	private void setLikelihoodThreshold(double newPrecision) {
 		
 		m_Precision = newPrecision;
 	}
@@ -571,7 +571,7 @@ public class LogitBoostTS
 	 *
 	 * @return Value of NumRuns.
 	 */
-	public int getNumRuns() {
+	private int getNumRuns() {
 		
 		return m_NumRuns;
 	}
@@ -581,7 +581,7 @@ public class LogitBoostTS
 	 *
 	 * @param newNumRuns Value to assign to NumRuns.
 	 */
-	public void setNumRuns(int newNumRuns) {
+	private void setNumRuns(int newNumRuns) {
 		
 		m_NumRuns = newNumRuns;
 	}
@@ -602,7 +602,7 @@ public class LogitBoostTS
 	 *
 	 * @return Value of NumFolds.
 	 */
-	public int getNumFolds() {
+	private int getNumFolds() {
 		
 		return m_NumFolds;
 	}
@@ -612,7 +612,7 @@ public class LogitBoostTS
 	 *
 	 * @param newNumFolds Value to assign to NumFolds.
 	 */
-	public void setNumFolds(int newNumFolds) {
+	private void setNumFolds(int newNumFolds) {
 		
 		m_NumFolds = newNumFolds;
 	}
@@ -632,7 +632,7 @@ public class LogitBoostTS
 	 *
 	 * @param r true if resampling should be done
 	 */
-	public void setUseResampling(boolean r) {
+	private void setUseResampling(boolean r) {
 		
 		m_UseResampling = r;
 	}
@@ -642,7 +642,7 @@ public class LogitBoostTS
 	 *
 	 * @return true if resampling output is on
 	 */
-	public boolean getUseResampling() {
+	private boolean getUseResampling() {
 		
 		return m_UseResampling;
 	}
@@ -663,7 +663,7 @@ public class LogitBoostTS
 	 *
 	 * @param threshold the percentage of weight mass used for training
 	 */
-	public void setWeightThreshold(int threshold) {
+	private void setWeightThreshold(int threshold) {
 		
 		m_WeightThreshold = threshold;
 	}
@@ -673,7 +673,7 @@ public class LogitBoostTS
 	 *
 	 * @return the percentage of weight mass used for training
 	 */
-	public int getWeightThreshold() {
+	private int getWeightThreshold() {
 		
 		return m_WeightThreshold;
 	}

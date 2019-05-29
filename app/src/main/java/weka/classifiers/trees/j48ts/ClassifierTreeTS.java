@@ -55,42 +55,42 @@ public class ClassifierTreeTS
 	/*
 	 * The model selection method.
 	 */
-	protected ModelSelectionTS m_toSelectModel;
+	ModelSelectionTS m_toSelectModel;
 	
 	/*
 	 * Local model at node.
 	 */
-	protected ClassifierSplitModelTS m_localModel;
+	ClassifierSplitModelTS m_localModel;
 	
 	/*
 	 * References to sons.
 	 */
-	protected ClassifierTreeTS[] m_sons;
+	ClassifierTreeTS[] m_sons;
 	
 	/*
 	 * True if node is leaf.
 	 */
-	protected boolean m_isLeaf;
+	boolean m_isLeaf;
 	
 	/*
 	 * True if node is empty.
 	 */
-	protected boolean m_isEmpty;
+	boolean m_isEmpty;
 	
 	/*
 	 * The training instances.
 	 */
-	protected Instances m_train;
+	Instances m_train;
 	
 	/*
 	 * The pruning instances.
 	 */
-	protected DistributionTS m_test;
+	DistributionTS m_test;
 	
 	/*
 	 * The id for the node.
 	 */
-	protected int m_id;
+	private int m_id;
 	
 	/*
 	 * For getting a unique ID when outputting the tree (hashcode isn't
@@ -103,7 +103,7 @@ public class ClassifierTreeTS
 	 *
 	 * @return the next unique node ID.
 	 */
-	protected static long nextID() {
+	private static long nextID() {
 		
 		return PRINTED_NODES++;
 	}
@@ -120,7 +120,7 @@ public class ClassifierTreeTS
 	/*
 	 * Constructor.
 	 */
-	public ClassifierTreeTS(ModelSelectionTS toSelectLocModel) {
+	ClassifierTreeTS(ModelSelectionTS toSelectLocModel) {
 		
 		m_toSelectModel = toSelectLocModel;
 	}
@@ -163,7 +163,7 @@ public class ClassifierTreeTS
 	 * @param keepData is training data to be kept?
 	 * @throws Exception if something goes wrong
 	 */
-	public void buildTree(Instances data, boolean keepData) throws Exception {
+	void buildTree(Instances data, boolean keepData) throws Exception {
 		
 		Instances[] localInstances;
 		
@@ -203,7 +203,7 @@ public class ClassifierTreeTS
 	 * @param keepData is training Data to be kept?
 	 * @throws Exception if something goes wrong
 	 */
-	public void buildTree(Instances train, Instances test, boolean keepData)
+	void buildTree(Instances train, Instances test, boolean keepData)
 			throws Exception {
 		
 		Instances[] localTrain, localTest;
@@ -269,7 +269,7 @@ public class ClassifierTreeTS
 	 *
 	 * @param justHeaderInfo
 	 */
-	public final void cleanup(Instances justHeaderInfo) {
+	final void cleanup(Instances justHeaderInfo) {
 		
 		m_train = justHeaderInfo;
 		m_test = null;
@@ -309,7 +309,7 @@ public class ClassifierTreeTS
 	 * @param lastID the last ID that was assign
 	 * @return the new current ID
 	 */
-	public int assignIDs(int lastID) {
+	private int assignIDs(int lastID) {
 		
 		int currLastID = lastID + 1;
 		
@@ -521,7 +521,7 @@ public class ClassifierTreeTS
 	 * @return the generated tree
 	 * @throws Exception if something goes wrong
 	 */
-	protected ClassifierTreeTS getNewTree(Instances data) throws Exception {
+	ClassifierTreeTS getNewTree(Instances data) throws Exception {
 		
 		ClassifierTreeTS newTree = new ClassifierTreeTS(m_toSelectModel);
 		newTree.buildTree(data, false);
@@ -537,7 +537,7 @@ public class ClassifierTreeTS
 	 * @return the generated tree
 	 * @throws Exception if something goes wrong
 	 */
-	protected ClassifierTreeTS getNewTree(Instances train, Instances test)
+	ClassifierTreeTS getNewTree(Instances train, Instances test)
 			throws Exception {
 		
 		ClassifierTreeTS newTree = new ClassifierTreeTS(m_toSelectModel);

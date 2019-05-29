@@ -257,7 +257,7 @@ public class SysFor extends Classifier {
      *
      * @param numberTrees value to set to
      */
-    public void setNumberTrees(int numberTrees) {
+    private void setNumberTrees(int numberTrees) {
         this.numberTrees = numberTrees;
     }
     
@@ -266,7 +266,7 @@ public class SysFor extends Classifier {
      *
      * @return number trees
      */
-    public int getNumberTrees() {
+    private int getNumberTrees() {
         return this.numberTrees;
     }
     
@@ -275,7 +275,7 @@ public class SysFor extends Classifier {
      *
      * @param goodness value to set to
      */
-    public void setGoodness(float goodness) {
+    private void setGoodness(float goodness) {
         this.goodness = goodness;
     }
     
@@ -284,7 +284,7 @@ public class SysFor extends Classifier {
      *
      * @return goodness value
      */
-    public float getGoodness() {
+    private float getGoodness() {
         return this.goodness;
     }
     
@@ -293,7 +293,7 @@ public class SysFor extends Classifier {
      *
      * @param separation value to set to
      */
-    public void setSeparation(float separation) {
+    private void setSeparation(float separation) {
         this.separation = separation;
     }
     
@@ -302,7 +302,7 @@ public class SysFor extends Classifier {
      *
      * @return separation
      */
-    public float getSeparation() {
+    private float getSeparation() {
         return this.separation;
     }
     
@@ -311,7 +311,7 @@ public class SysFor extends Classifier {
      *
      * @param confidence value to set to
      */
-    public void setConfidence(float confidence) {
+    private void setConfidence(float confidence) {
         this.confidence = confidence;
     }
     
@@ -320,7 +320,7 @@ public class SysFor extends Classifier {
      *
      * @return confidence
      */
-    public float getConfidence() {
+    private float getConfidence() {
         return this.confidence;
     }
     
@@ -329,7 +329,7 @@ public class SysFor extends Classifier {
      *
      * @param minRecLeaf value to set to
      */
-    public void setMinRecLeaf(int minRecLeaf) {
+    private void setMinRecLeaf(int minRecLeaf) {
         this.minRecLeaf = minRecLeaf;
     }
     
@@ -338,7 +338,7 @@ public class SysFor extends Classifier {
      *
      * @return minRecLeaf
      */
-    public int getMinRecLeaf() {
+    private int getMinRecLeaf() {
         return this.minRecLeaf;
     }
     
@@ -855,24 +855,24 @@ public class SysFor extends Classifier {
     private class GoodAttribute implements Serializable {
 
         private static final long serialVersionUID = 5731302547322418250L;
-
-        protected Attribute attribute;
-        protected double splitPoint;
-
-        public GoodAttribute(Attribute a, double split) {
+    
+        Attribute attribute;
+        double splitPoint;
+    
+        GoodAttribute(Attribute a, double split) {
             this.setAttribute(a, split);
         }
-
-        protected void setAttribute(Attribute a, double split) {
+    
+        void setAttribute(Attribute a, double split) {
             attribute = a;
             splitPoint = split;
         }
-
-        protected Attribute getAttribute() {
+    
+        Attribute getAttribute() {
             return this.attribute;
         }
-
-        protected Double getSplitPoint() {
+    
+        Double getSplitPoint() {
             return splitPoint;
         }
     }
@@ -894,8 +894,8 @@ public class SysFor extends Classifier {
         public double getGainRatio() {
             return gainRatio;
         }
-
-        public GoodAttributeWithGainRatio(Attribute a, double split, double gainRatio) {
+    
+        GoodAttributeWithGainRatio(Attribute a, double split, double gainRatio) {
             super(a, split);
             this.gainRatio = gainRatio;
         }
@@ -917,9 +917,9 @@ public class SysFor extends Classifier {
         private static final long serialVersionUID = 2339265760515386479L;
 
         private ArrayList<GoodAttributeWithGainRatio> elements;
-
-        public GoodAttributesWithGainRatios(ArrayList<Attribute> attributes, ArrayList<Double> splitPoints,
-                ArrayList<Double> gainRatios) {
+    
+        GoodAttributesWithGainRatios(ArrayList<Attribute> attributes, ArrayList<Double> splitPoints,
+                                     ArrayList<Double> gainRatios) {
 
             elements = new ArrayList<GoodAttributeWithGainRatio>();
             for (int i = 0; i < attributes.size(); i++) {
@@ -930,11 +930,11 @@ public class SysFor extends Classifier {
         /*
          * Sorts the elements into descending order of gain ratio
          */
-        public void sort() {
+        void sort() {
             Collections.sort(elements, Collections.reverseOrder());
         }
-
-        public ArrayList<GoodAttribute> getGoodAttributes() {
+    
+        ArrayList<GoodAttribute> getGoodAttributes() {
             ArrayList<GoodAttribute> returnValue = new ArrayList<GoodAttribute>();
 
             for (int i = 0; i < elements.size(); i++) {
@@ -943,16 +943,16 @@ public class SysFor extends Classifier {
 
             return returnValue;
         }
-
-        public int size() {
+    
+        int size() {
             return elements.size();
         }
-
-        public double getGainRatio(int index) {
+    
+        double getGainRatio(int index) {
             return elements.get(index).gainRatio;
         }
-
-        public void remove(int index) {
+    
+        void remove(int index) {
             elements.remove(index);
         }
     }
@@ -1047,7 +1047,7 @@ public class SysFor extends Classifier {
      * @param attrIndex
      * @return
      */
-    public ArrayList<Double> calculateNumericSplitsGR(Instances instances, ArrayList<Double> availableSplitPoints, int attrIndex) {
+    private ArrayList<Double> calculateNumericSplitsGR(Instances instances, ArrayList<Double> availableSplitPoints, int attrIndex) {
         ArrayList<Double> availableGainRatios = new ArrayList<Double>();
         for (int i = 0; i < availableSplitPoints.size(); i++) {
             availableGainRatios.add(0.0);
@@ -1082,7 +1082,7 @@ public class SysFor extends Classifier {
      * @param numClasses - amount of classes in dataset
      * @return splitInfo for given numeric split
      */
-    public double calculateNumericSplitInfo(int[] leftClassCount, int[] rightClassCount, int numClasses) {
+    private double calculateNumericSplitInfo(int[] leftClassCount, int[] rightClassCount, int numClasses) {
         double splitInfo = 0.0;
 
         int totalRight = 0;
@@ -1115,7 +1115,7 @@ public class SysFor extends Classifier {
      * @param numClasses - number of classes in the dataset
      * @return
      */
-    public double calculateNominalSplitInfo(int[][] dataSplitsClassCounts, int numClasses) {
+    private double calculateNominalSplitInfo(int[][] dataSplitsClassCounts, int numClasses) {
         double splitInfo = 0.0;
 
         int[] totalSplitCounts = new int[dataSplitsClassCounts.length];
@@ -1146,7 +1146,7 @@ public class SysFor extends Classifier {
      * @param infoBeforeSplit - split info prior to split
      * @return
      */
-    public double calculateGainNumeric(int[] leftClassCount, int[] rightClassCount, int numClasses, double infoBeforeSplit) {
+    private double calculateGainNumeric(int[] leftClassCount, int[] rightClassCount, int numClasses, double infoBeforeSplit) {
         double infoAfterSplit = 0.0;
 
         int totalRight = 0;
@@ -1183,7 +1183,7 @@ public class SysFor extends Classifier {
      * @param infoBeforeSplit - split info prior to split
      * @return
      */
-    public double calculateGainNominal(int[][] dataSplitsClassCounts, int numClasses, double infoBeforeSplit) {
+    private double calculateGainNominal(int[][] dataSplitsClassCounts, int numClasses, double infoBeforeSplit) {
         double infoAfterSplit = 0.0;
 
         int[] totalSplitCounts = new int[dataSplitsClassCounts.length];
@@ -1226,7 +1226,7 @@ public class SysFor extends Classifier {
     /*
      * The log of 2, taken from EntropyBasedSplitCrit.java.
      */
-    protected static double log2 = Math.log(2);
+    private static double log2 = Math.log(2);
     
     /*
      * Help method for computing entropy, taken from EntropyBasedSplitCrit.java.
@@ -1234,7 +1234,7 @@ public class SysFor extends Classifier {
      * @param num - number to find log2 of
      * @return log2 of num
      */
-    public final double logFunc(double num) {
+    private double logFunc(double num) {
 
         // Constant hard coded for efficiency reasons
         if (num < 1e-6) {
@@ -1268,7 +1268,7 @@ public class SysFor extends Classifier {
          * @param attrIndex the index of the attribute that will be tested to
          * create the split
          */
-        public NumericSplitDistribution(Instances instances, int attrIndex) {
+        NumericSplitDistribution(Instances instances, int attrIndex) {
             this.attrIndex = attrIndex;
             this.leftSideInstances = new Instances(instances, 0);
             this.rightSideInstances = new Instances(instances);
@@ -1297,7 +1297,7 @@ public class SysFor extends Classifier {
          *
          * @return number of instances at right of split
          */
-        public int getNumberRightSideInstances() {
+        int getNumberRightSideInstances() {
             return rightSideInstances.numInstances();
         }
         
@@ -1306,7 +1306,7 @@ public class SysFor extends Classifier {
          *
          * @return number of instances at left of split
          */
-        public int getNumberLeftSideInstances() {
+        int getNumberLeftSideInstances() {
             return leftSideInstances.numInstances();
         }
         
@@ -1318,7 +1318,7 @@ public class SysFor extends Classifier {
          * will be shifted from the right side to the left side.
          * @return the number of records that were shifted.
          */
-        public int shiftRecords(double splitPoint) {
+        int shiftRecords(double splitPoint) {
             if (rightSideInstances.numInstances() == 0) {
                 return 0;
             }
@@ -1365,15 +1365,15 @@ public class SysFor extends Classifier {
 
         // The number of leaves in this sysfor tree
         private int numberLeaves = 0;
-
-        public SysForTree(GoodAttribute rootSplit) {
+    
+        SysForTree(GoodAttribute rootSplit) {
             this.rootSplit = rootSplit;
         }
         
         /*
          * Creates a SysForTree object which will not split
          */
-        public SysForTree() {
+        SysForTree() {
             leaf = true;
         }
 
@@ -1407,8 +1407,8 @@ public class SysFor extends Classifier {
                 return returnValue;
             }
         }
-
-        public int measureNumLeaves() {
+    
+        int measureNumLeaves() {
             int numLeaves = 0;
             for (int i = 0; i < c45Trees.size(); i++) {
                 int currentTreeNumLeaves = (int) c45Trees.get(i).measureNumLeaves();
@@ -1683,8 +1683,8 @@ public class SysFor extends Classifier {
         private GoodAttribute rootSplit;
         private int numClasses;
         private int numberLeaves = 0;
-
-        public SysForLevelTwoTree(SysForTree[] subTrees, GoodAttribute rootSplit) {
+    
+        SysForLevelTwoTree(SysForTree[] subTrees, GoodAttribute rootSplit) {
             this.subTrees = subTrees;
             this.rootSplit = rootSplit;
             for (int i = 0; i < subTrees.length; i++) {
@@ -1972,7 +1972,7 @@ public class SysFor extends Classifier {
      *
      * @return the technical information about this class
      */
-    public TechnicalInformation getTechnicalInformation() {
+    private TechnicalInformation getTechnicalInformation() {
         TechnicalInformation result;
 
         result = new TechnicalInformation(Type.CONFERENCE);

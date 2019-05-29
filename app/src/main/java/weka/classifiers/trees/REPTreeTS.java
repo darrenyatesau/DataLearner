@@ -93,7 +93,7 @@ public class REPTreeTS
 	/*
 	 * ZeroR model that is used if no attributes are present.
 	 */
-	protected ZeroR m_zeroR;
+	private ZeroR m_zeroR;
 	
 	/*
 	 * Returns a string describing classifier
@@ -124,54 +124,54 @@ public class REPTreeTS
 		/*
 		 * The header information (for printing the tree).
 		 */
-		protected Instances m_Info = null;
+		Instances m_Info = null;
 		
 		/*
 		 * The subtrees of this tree.
 		 */
-		protected Tree[] m_Successors;
+		Tree[] m_Successors;
 		
 		/*
 		 * The attribute to split on.
 		 */
-		protected int m_Attribute = -1;
+		int m_Attribute = -1;
 		
 		/*
 		 * The split point.
 		 */
-		protected double m_SplitPoint = Double.NaN;
+		double m_SplitPoint = Double.NaN;
 		
 		/*
 		 * The proportions of training instances going down each branch.
 		 */
-		protected double[] m_Prop = null;
+		double[] m_Prop = null;
 		
 		/*
 		 * Class probabilities from the training data in the nominal case.
 		 * Holds the mean in the numeric case.
 		 */
-		protected double[] m_ClassProbs = null;
+		double[] m_ClassProbs = null;
 		
 		/*
 		 * The (unnormalized) class distribution in the nominal
 		 * case. Holds the sum of squared errors and the weight
 		 * in the numeric case.
 		 */
-		protected double[] m_Distribution = null;
+		double[] m_Distribution = null;
 		
 		/*
 		 * Class distribution of hold-out set at node in the nominal
 		 * case.  Straight sum of weights plus sum of weighted targets in
 		 * the numeric case (i.e. array has only two elements).
 		 */
-		protected double[] m_HoldOutDist = null;
+		double[] m_HoldOutDist = null;
 		
 		/*
 		 * The hold-out error of the node. The number of miss-classified
 		 * instances in the nominal case, the sum of squared errors in the
 		 * numeric case.
 		 */
-		protected double m_HoldOutError = 0;
+		double m_HoldOutError = 0;
 		
 		/*
 		 * Computes class distribution of an instance using the tree.
@@ -180,7 +180,7 @@ public class REPTreeTS
 		 * @return the distribution
 		 * @throws Exception if computation fails
 		 */
-		protected double[] distributionForInstance(Instance instance)
+		double[] distributionForInstance(Instance instance)
 				throws Exception {
 			
 			double[] returnedDist = null;
@@ -243,7 +243,7 @@ public class REPTreeTS
 		 * @param index index of the value tested
 		 * @return a value of type 'String'
 		 */
-		public final String sourceExpression(int index) {
+		final String sourceExpression(int index) {
 			
 			StringBuffer expr = null;
 			if (index < 0) {
@@ -285,7 +285,7 @@ public class REPTreeTS
 		 * assignment code, and the second containing source for support code.
 		 * @throws Exception if something goes wrong
 		 */
-		public StringBuffer[] toSource(String className, Tree parent)
+		StringBuffer[] toSource(String className, Tree parent)
 				throws Exception {
 			
 			StringBuffer[] result = new StringBuffer[2];
@@ -372,8 +372,8 @@ public class REPTreeTS
 		 * @return the next node id
 		 * @throws Exception if something goes wrong
 		 */
-		protected int toGraph(StringBuffer text, int num,
-							  Tree parent) throws Exception {
+		int toGraph(StringBuffer text, int num,
+					Tree parent) throws Exception {
 			
 			num++;
 			if (m_Attribute == -1) {
@@ -417,7 +417,7 @@ public class REPTreeTS
 		 * @return the description of the node
 		 * @throws Exception if generation fails
 		 */
-		protected String leafString(Tree parent) throws Exception {
+		String leafString(Tree parent) throws Exception {
 			
 			if (m_Info.classAttribute().isNumeric()) {
 				double classMean;
@@ -470,7 +470,7 @@ public class REPTreeTS
 		 * @param parent the current parent
 		 * @return the generated substree
 		 */
-		protected String toString(int level, Tree parent) {
+		String toString(int level, Tree parent) {
 			
 			try {
 				StringBuffer text = new StringBuffer();
@@ -532,11 +532,11 @@ public class REPTreeTS
 		 * @param maxDepth      the maximum allowed depth of the tree
 		 * @throws Exception if generation fails
 		 */
-		protected void buildTree(int[][][] sortedIndices, double[][][] weights,
-								 Instances data, double totalWeight,
-								 double[] classProbs, Instances header,
-								 double minNum, double minVariance,
-								 int depth, int maxDepth)
+		void buildTree(int[][][] sortedIndices, double[][][] weights,
+					   Instances data, double totalWeight,
+					   double[] classProbs, Instances header,
+					   double minNum, double minVariance,
+					   int depth, int maxDepth)
 				throws Exception {
 			
 			// Store structure of dataset, set minimum number of instances
@@ -739,7 +739,7 @@ public class REPTreeTS
 		 *
 		 * @return the number of nodes
 		 */
-		protected int numNodes() {
+		int numNodes() {
 			
 			if (m_Attribute == -1) {
 				return 1;
@@ -764,11 +764,11 @@ public class REPTreeTS
 		 * @param data          the data to work with
 		 * @throws Exception if something goes wrong
 		 */
-		protected void splitData(int[][][][] subsetIndices,
-								 double[][][][] subsetWeights,
-								 int att, double splitPoint,
-								 int[][] sortedIndices, double[][] weights,
-								 Instances data) throws Exception {
+		void splitData(int[][][][] subsetIndices,
+					   double[][][][] subsetWeights,
+					   int att, double splitPoint,
+					   int[][] sortedIndices, double[][] weights,
+					   Instances data) throws Exception {
 			
 			int j;
 			int[] num;
@@ -863,12 +863,12 @@ public class REPTreeTS
 		 * @return the split point
 		 * @throws Exception if computation fails
 		 */
-		protected double distribution(double[][] props,
-									  double[][][] dists, int att,
-									  int[] sortedIndices,
-									  double[] weights,
-									  double[][] subsetWeights,
-									  Instances data)
+		double distribution(double[][] props,
+							double[][][] dists, int att,
+							int[] sortedIndices,
+							double[] weights,
+							double[][] subsetWeights,
+							Instances data)
 				throws Exception {
 			
 			double splitPoint = Double.NaN;
@@ -982,13 +982,13 @@ public class REPTreeTS
 		 * @return the split point
 		 * @throws Exception if computation fails
 		 */
-		protected double numericDistribution(double[][] props,
-											 double[][][] dists, int att,
-											 int[] sortedIndices,
-											 double[] weights,
-											 double[][] subsetWeights,
-											 Instances data,
-											 double[] vals)
+		double numericDistribution(double[][] props,
+								   double[][][] dists, int att,
+								   int[] sortedIndices,
+								   double[] weights,
+								   double[][] subsetWeights,
+								   Instances data,
+								   double[] vals)
 				throws Exception {
 			
 			double splitPoint = Double.NaN;
@@ -1155,8 +1155,8 @@ public class REPTreeTS
 		 * @param sumOfWeights
 		 * @return the variance
 		 */
-		protected double variance(double[] s, double[] sS,
-								  double[] sumOfWeights) {
+		double variance(double[] s, double[] sS,
+						double[] sumOfWeights) {
 			
 			double var = 0;
 			
@@ -1177,7 +1177,7 @@ public class REPTreeTS
 		 * @param weight the weight
 		 * @return the variance
 		 */
-		protected double singleVariance(double s, double sS, double weight) {
+		double singleVariance(double s, double sS, double weight) {
 			
 			return sS - ((s * s) / weight);
 		}
@@ -1188,7 +1188,7 @@ public class REPTreeTS
 		 * @param dist
 		 * @return the splitting criterion
 		 */
-		protected double priorVal(double[][] dist) {
+		double priorVal(double[][] dist) {
 			
 			return ContingencyTables.entropyOverColumns(dist);
 		}
@@ -1200,7 +1200,7 @@ public class REPTreeTS
 		 * @param priorVal the splitting criterion
 		 * @return the gain after splitting
 		 */
-		protected double gain(double[][] dist, double priorVal) {
+		double gain(double[][] dist, double priorVal) {
 			
 			return priorVal - ContingencyTables.entropyConditionedOnRows(dist);
 		}
@@ -1211,7 +1211,7 @@ public class REPTreeTS
 		 * @return the error
 		 * @throws Exception if pruning fails for some reason
 		 */
-		protected double reducedErrorPrune() throws Exception {
+		double reducedErrorPrune() throws Exception {
 			
 			// Is node leaf ?
 			if (m_Attribute == -1) {
@@ -1240,7 +1240,7 @@ public class REPTreeTS
 		 * @param data the data to insert
 		 * @throws Exception if something goes wrong
 		 */
-		protected void insertHoldOutSet(Instances data) throws Exception {
+		void insertHoldOutSet(Instances data) throws Exception {
 			
 			for (int i = 0; i < data.numInstances(); i++) {
 				insertHoldOutInstance(data.instance(i), data.instance(i).weight(),
@@ -1256,8 +1256,8 @@ public class REPTreeTS
 		 * @param parent the parent of the node
 		 * @throws Exception if insertion fails
 		 */
-		protected void insertHoldOutInstance(Instance inst, double weight,
-											 Tree parent) throws Exception {
+		void insertHoldOutInstance(Instance inst, double weight,
+								   Tree parent) throws Exception {
 			
 			// Insert instance into hold-out class distribution
 			if (inst.classAttribute().isNominal()) {
@@ -1325,7 +1325,7 @@ public class REPTreeTS
 		 *
 		 * @throws Exception if insertion fails
 		 */
-		protected void backfitHoldOutSet() throws Exception {
+		void backfitHoldOutSet() throws Exception {
 			
 			// Insert instance into hold-out class distribution
 			if (m_Info.classAttribute().isNominal()) {
@@ -1380,38 +1380,38 @@ public class REPTreeTS
 	/*
 	 * The Tree object
 	 */
-	protected Tree m_Tree = null;
+	private Tree m_Tree = null;
 	
 	/*
 	 * Number of folds for reduced error pruning.
 	 */
-	protected int m_NumFolds = 3;
+	private int m_NumFolds = 3;
 	
 	/*
 	 * Seed for random data shuffling.
 	 */
-	protected int m_Seed = 1;
+	private int m_Seed = 1;
 	
 	/*
 	 * Don't prune
 	 */
-	protected boolean m_NoPruning = false;
+	private boolean m_NoPruning = false;
 	
 	/*
 	 * The minimum number of instances per leaf.
 	 */
-	protected double m_MinNum = 2;
+	private double m_MinNum = 2;
 	
 	/*
 	 * The minimum proportion of the total variance (over all the data)
 	 * required for split.
 	 */
-	protected double m_MinVarianceProp = 1e-3;
+	private double m_MinVarianceProp = 1e-3;
 	
 	/*
 	 * Upper bound on the tree depth
 	 */
-	protected int m_MaxDepth = -1;
+	private int m_MaxDepth = -1;
 	
 	/*
 	 * Returns the tip text for this property
@@ -1428,7 +1428,7 @@ public class REPTreeTS
 	 *
 	 * @return Value of NoPruning.
 	 */
-	public boolean getNoPruning() {
+	private boolean getNoPruning() {
 		
 		return m_NoPruning;
 	}
@@ -1458,7 +1458,7 @@ public class REPTreeTS
 	 *
 	 * @return Value of MinNum.
 	 */
-	public double getMinNum() {
+	private double getMinNum() {
 		
 		return m_MinNum;
 	}
@@ -1490,7 +1490,7 @@ public class REPTreeTS
 	 *
 	 * @return Value of MinVarianceProp.
 	 */
-	public double getMinVarianceProp() {
+	private double getMinVarianceProp() {
 		
 		return m_MinVarianceProp;
 	}
@@ -1551,7 +1551,7 @@ public class REPTreeTS
 	 *
 	 * @return Value of NumFolds.
 	 */
-	public int getNumFolds() {
+	private int getNumFolds() {
 		
 		return m_NumFolds;
 	}
@@ -1581,7 +1581,7 @@ public class REPTreeTS
 	 *
 	 * @return Value of MaxDepth.
 	 */
-	public int getMaxDepth() {
+	private int getMaxDepth() {
 		
 		return m_MaxDepth;
 	}
@@ -1729,7 +1729,7 @@ public class REPTreeTS
 	 *
 	 * @return the number of nodes
 	 */
-	public int numNodes() {
+	private int numNodes() {
 		
 		return m_Tree.numNodes();
 	}
@@ -1936,7 +1936,7 @@ public class REPTreeTS
 	 *
 	 * @return the next unique node ID.
 	 */
-	protected static long nextID() {
+	private static long nextID() {
 		
 		return PRINTED_NODES++;
 	}

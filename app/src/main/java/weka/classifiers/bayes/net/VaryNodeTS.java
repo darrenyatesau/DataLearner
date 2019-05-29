@@ -40,7 +40,7 @@ public class VaryNodeTS
   private static final long serialVersionUID = -6196294370675872424L;
 
   /** index of the node varied **/
-  public int m_iNode;
+  private int m_iNode;
 
   /** most common value **/
   public int m_nMCV;

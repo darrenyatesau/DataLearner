@@ -53,22 +53,22 @@ public class C45PruneableClassifierTreeTS
 	/*
 	 * True if the tree is to be pruned.
 	 */
-	boolean m_pruneTheTree = false;
+	private boolean m_pruneTheTree = false;
 	
 	/*
 	 * The confidence factor for pruning.
 	 */
-	float m_CF = 0.25f;
+	private float m_CF = 0.25f;
 	
 	/*
 	 * Is subtree raising to be performed?
 	 */
-	boolean m_subtreeRaising = true;
+	private boolean m_subtreeRaising = true;
 	
 	/*
 	 * Cleanup after the tree has been built.
 	 */
-	boolean m_cleanup = true;
+	private boolean m_cleanup = true;
 	
 	/*
 	 * Constructor for pruneable tree structure. Stores reference
@@ -148,7 +148,7 @@ public class C45PruneableClassifierTreeTS
 	/*
 	 * Collapses a tree to a node if training error doesn't increase.
 	 */
-	public final void collapse() {
+	private void collapse() {
 		
 		double errorsOfSubtree;
 		double errorsOfTree;
@@ -176,7 +176,7 @@ public class C45PruneableClassifierTreeTS
 	 *
 	 * @throws Exception if something goes wrong
 	 */
-	public void prune() throws Exception {
+	private void prune() throws Exception {
 		
 		double errorsLargestBranch;
 		double errorsLeaf;

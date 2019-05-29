@@ -142,10 +142,10 @@ public class MultiBoostABTS
   static final long serialVersionUID = -6681619178187935148L;
   
   /* The number of sub-committees to use */
-  protected int m_NumSubCmtys = 3;
+  private int m_NumSubCmtys = 3;
   
   /* Random number generator */
-  protected Random m_Random = null;
+  private Random m_Random = null;
   
   /*
    * Returns a string describing classifier
@@ -299,7 +299,7 @@ public class MultiBoostABTS
    *
    * @param subc the number of sub committees
    */
-  public void setNumSubCmtys(int subc) {
+  private void setNumSubCmtys(int subc) {
 
     m_NumSubCmtys = subc;
   }
@@ -309,7 +309,7 @@ public class MultiBoostABTS
    *
    * @return the seed for resampling
    */
-  public int getNumSubCmtys() {
+  private int getNumSubCmtys() {
 
     return m_NumSubCmtys;
   }

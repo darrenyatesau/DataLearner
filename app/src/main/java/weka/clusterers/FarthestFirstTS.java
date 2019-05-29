@@ -114,22 +114,22 @@ public class FarthestFirstTS
 	 * training instances, not necessary to keep,
 	 * could be replaced by m_ClusterCentroids where needed for header info
 	 */
-	protected Instances m_instances;
+	private Instances m_instances;
 	
 	/*
 	 * replace missing values in training instances
 	 */
-	protected ReplaceMissingValues m_ReplaceMissingFilter;
+	private ReplaceMissingValues m_ReplaceMissingFilter;
 	
 	/*
 	 * number of clusters to generate
 	 */
-	protected int m_NumClusters = 2;
+	private int m_NumClusters = 2;
 	
 	/*
 	 * holds the cluster centroids
 	 */
-	protected Instances m_ClusterCentroids;
+	private Instances m_ClusterCentroids;
 	
 	/*
 	 * attribute min values
@@ -260,8 +260,8 @@ public class FarthestFirstTS
 	}
 	
 	
-	protected void updateMinDistance(double[] minDistance, boolean[] selected,
-									 Instances data, Instance center) {
+	private void updateMinDistance(double[] minDistance, boolean[] selected,
+								   Instances data, Instance center) {
 		for (int i = 0; i < selected.length; i++)
 			if (!selected[i]) {
 				double d = distance(center, data.instance(i));
@@ -270,7 +270,7 @@ public class FarthestFirstTS
 			}
 	}
 	
-	protected int farthestAway(double[] minDistance, boolean[] selected) {
+	private int farthestAway(double[] minDistance, boolean[] selected) {
 		double maxDistance = -1.0;
 		int maxI = -1;
 		for (int i = 0; i < selected.length; i++)
@@ -282,7 +282,7 @@ public class FarthestFirstTS
 		return maxI;
 	}
 	
-	protected void initMinMax(Instances data) {
+	private void initMinMax(Instances data) {
 		m_Min = new double[data.numAttributes()];
 		m_Max = new double[data.numAttributes()];
 		for (int i = 0; i < data.numAttributes(); i++) {
@@ -326,7 +326,7 @@ public class FarthestFirstTS
 	 * @param instance the instance to assign a cluster to
 	 * @return a cluster number
 	 */
-	protected int clusterProcessedInstance(Instance instance) {
+	private int clusterProcessedInstance(Instance instance) {
 		double minDist = Double.MAX_VALUE;
 		int bestCluster = 0;
 		for (int i = 0; i < m_NumClusters; i++) {
@@ -363,7 +363,7 @@ public class FarthestFirstTS
 	 * @param second the second instance
 	 * @return the distance between the two given instances, between 0 and 1
 	 */
-	protected double distance(Instance first, Instance second) {
+	private double distance(Instance first, Instance second) {
 		
 		double distance = 0;
 		int firstI, secondI;
@@ -414,7 +414,7 @@ public class FarthestFirstTS
 	 * Computes the difference between two given attribute
 	 * values.
 	 */
-	protected double difference(int index, double val1, double val2) {
+	private double difference(int index, double val1, double val2) {
 		
 		switch (m_instances.attribute(index).type()) {
 			case Attribute.NOMINAL:
@@ -462,7 +462,7 @@ public class FarthestFirstTS
 	 * @param i the attribute's index
 	 * @return the normalized value
 	 */
-	protected double norm(double x, int i) {
+	private double norm(double x, int i) {
 		
 		if (Double.isNaN(m_Min[i]) || Utils.eq(m_Max[i], m_Min[i])) {
 			return 0;
@@ -517,7 +517,7 @@ public class FarthestFirstTS
 	 * @param n the number of clusters to generate
 	 * @throws Exception if number of clusters is negative
 	 */
-	public void setNumClusters(int n) throws Exception {
+	private void setNumClusters(int n) throws Exception {
 		if (n < 0) {
 			throw new Exception("Number of clusters must be > 0");
 		}
@@ -529,7 +529,7 @@ public class FarthestFirstTS
 	 *
 	 * @return the number of clusters to generate
 	 */
-	public int getNumClusters() {
+	private int getNumClusters() {
 		return m_NumClusters;
 	}
 	

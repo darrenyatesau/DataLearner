@@ -67,12 +67,12 @@ public class LocalScoreSearchAlgorithmTS
   	static final long serialVersionUID = 3325995552474190374L;
 	
 	/* points to Bayes network for which a structure is searched for **/
-	BayesNetTS m_BayesNet;
+	private BayesNetTS m_BayesNet;
 	
 	/*
 	 * default constructor
 	 */
-	public LocalScoreSearchAlgorithmTS() {
+	LocalScoreSearchAlgorithmTS() {
 	} // c'tor
 	
 	/*
@@ -89,10 +89,10 @@ public class LocalScoreSearchAlgorithmTS
 	/*
 	 * Holds prior on count
 	 */
-	double m_fAlpha = 0.5;
+	private double m_fAlpha = 0.5;
 	
 	/* the score types */
-	public static final Tag[] TAGS_SCORE_TYPE = {
+	private static final Tag[] TAGS_SCORE_TYPE = {
 	  new Tag(Scoreable.BAYES, "BAYES"),
 	  new Tag(Scoreable.BDeu, "BDeu"),
 	  new Tag(Scoreable.MDL, "MDL"),
@@ -103,7 +103,7 @@ public class LocalScoreSearchAlgorithmTS
 	/*
 	 * Holds the score type used to measure quality of network
 	 */
-	int m_nScoreType = Scoreable.BAYES;
+	private int m_nScoreType = Scoreable.BAYES;
 	
 	/*
 	 * logScore returns the log of the quality of a network
@@ -170,7 +170,7 @@ public class LocalScoreSearchAlgorithmTS
 	 * @param nNode node for which the score is calculate
 	 * @return log score
 	 */
-	public double calcNodeScore(int nNode) {
+	double calcNodeScore(int nNode) {
 		if (m_BayesNet.getUseADTree() && m_BayesNet.getADTree() != null) {
 			return calcNodeScoreADTree(nNode);
 		} else {
@@ -275,7 +275,7 @@ public class LocalScoreSearchAlgorithmTS
 	 * @param instances to calc score with
 	 * @return log score
 	 */
-	protected double calcScoreOfCounts(int[] nCounts, int nCardinality, int numValues, Instances instances) {
+	private double calcScoreOfCounts(int[] nCounts, int nCardinality, int numValues, Instances instances) {
 
 		// calculate scores using the distributions
 		double fLogScore = 0.0;
@@ -478,7 +478,7 @@ public class LocalScoreSearchAlgorithmTS
 	 * @param nCandidateParent candidate parent to add to the existing parent set
 	 * @return log score
 	 */
-	public double calcScoreWithExtraParent(int nNode, int nCandidateParent) {
+	double calcScoreWithExtraParent(int nNode, int nCandidateParent) {
 		ParentSet oParentSet = m_BayesNet.getParentSet(nNode);
 
 		// sanity check: nCandidateParent should not be in parent set already
@@ -531,7 +531,7 @@ public class LocalScoreSearchAlgorithmTS
 	 * 
 	 * @param newScoreType the new score type
 	 */
-	public void setScoreType(SelectedTag newScoreType) {
+	private void setScoreType(SelectedTag newScoreType) {
 		if (newScoreType.getTags() == TAGS_SCORE_TYPE) {
 			m_nScoreType = newScoreType.getSelectedTag().getID();
 		}
@@ -549,7 +549,7 @@ public class LocalScoreSearchAlgorithmTS
 	 * 
 	 * @param bMarkovBlanketClassifier
 	 */
-	public void setMarkovBlanketClassifier(boolean bMarkovBlanketClassifier) {
+	protected void setMarkovBlanketClassifier(boolean bMarkovBlanketClassifier) {
 	  super.setMarkovBlanketClassifier(bMarkovBlanketClassifier);
 	}
 	
@@ -557,7 +557,7 @@ public class LocalScoreSearchAlgorithmTS
 	 * 
 	 * @return
 	 */
-	public boolean getMarkovBlanketClassifier() {
+	protected boolean getMarkovBlanketClassifier() {
 	  return super.getMarkovBlanketClassifier();
 	}
 	

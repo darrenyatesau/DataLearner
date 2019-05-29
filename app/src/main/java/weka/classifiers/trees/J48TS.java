@@ -638,7 +638,7 @@ public class J48TS
    * Returns the size of the tree
    * @return the size of the tree
    */
-  public double measureTreeSize() {
+  private double measureTreeSize() {
     return m_root.numNodes();
   }
   
@@ -654,7 +654,7 @@ public class J48TS
    * Returns the number of rules (same as number of leaves)
    * @return the number of rules
    */
-  public double measureNumRules() {
+  private double measureNumRules() {
     return m_root.numLeaves();
   }
   

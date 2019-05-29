@@ -125,15 +125,15 @@ public class ADTreeTS
   }
 
   /** search mode: Expand all paths */
-  public static final int SEARCHPATH_ALL = 0;
+  private static final int SEARCHPATH_ALL = 0;
   /** search mode: Expand the heaviest path */
-  public static final int SEARCHPATH_HEAVIEST = 1;
+  private static final int SEARCHPATH_HEAVIEST = 1;
   /** search mode: Expand the best z-pure path */
-  public static final int SEARCHPATH_ZPURE = 2;
+  private static final int SEARCHPATH_ZPURE = 2;
   /** search mode: Expand a random path */
-  public static final int SEARCHPATH_RANDOM = 3;
+  private static final int SEARCHPATH_RANDOM = 3;
   /** The search modes */
-  public static final Tag [] TAGS_SEARCHPATH = {
+  private static final Tag[] TAGS_SEARCHPATH = {
     new Tag(SEARCHPATH_ALL, "Expand all paths"),
     new Tag(SEARCHPATH_HEAVIEST, "Expand the heaviest path"),
     new Tag(SEARCHPATH_ZPURE, "Expand the best z-pure path"),
@@ -141,64 +141,64 @@ public class ADTreeTS
   };
 
   /** The instances used to train the tree */
-  protected Instances m_trainInstances;
+  private Instances m_trainInstances;
 
   /** The root of the tree */
-  protected PredictionNodeTS m_root = null;
+  private PredictionNodeTS m_root = null;
 
   /** The random number generator - used for the random search heuristic */
-  protected Random m_random = null; 
+  private Random m_random = null;
 
   /** The number of the last splitter added to the tree */
-  protected int m_lastAddedSplitNum = 0;
+  private int m_lastAddedSplitNum = 0;
 
   /** An array containing the inidices to the numeric attributes in the data */
-  protected int[] m_numericAttIndices;
+  private int[] m_numericAttIndices;
 
   /** An array containing the inidices to the nominal attributes in the data */
-  protected int[] m_nominalAttIndices;
+  private int[] m_nominalAttIndices;
 
   /** The total weight of the instances - used to speed Z calculations */
-  protected double m_trainTotalWeight;
+  private double m_trainTotalWeight;
 
   /** The training instances with positive class - referencing the training dataset */
-  protected ReferenceInstancesTS m_posTrainInstances;
+  private ReferenceInstancesTS m_posTrainInstances;
 
   /** The training instances with negative class - referencing the training dataset */
-  protected ReferenceInstancesTS m_negTrainInstances;
+  private ReferenceInstancesTS m_negTrainInstances;
 
   /** The best node to insert under, as found so far by the latest search */
-  protected PredictionNodeTS m_search_bestInsertionNode;
+  private PredictionNodeTS m_search_bestInsertionNode;
 
   /** The best splitter to insert, as found so far by the latest search */
-  protected SplitterTS m_search_bestSplitter;
+  private SplitterTS m_search_bestSplitter;
 
   /** The smallest Z value found so far by the latest search */
-  protected double m_search_smallestZ;
+  private double m_search_smallestZ;
 
   /** The positive instances that apply to the best path found so far */
-  protected Instances m_search_bestPathPosInstances;
+  private Instances m_search_bestPathPosInstances;
 
   /** The negative instances that apply to the best path found so far */
-  protected Instances m_search_bestPathNegInstances;
+  private Instances m_search_bestPathNegInstances;
 
   /** Statistics - the number of prediction nodes investigated during search */
-  protected int m_nodesExpanded = 0;
+  private int m_nodesExpanded = 0;
 
   /** Statistics - the number of instances processed during search */
-  protected int m_examplesCounted = 0;
+  private int m_examplesCounted = 0;
 
   /** Option - the number of boosting iterations o perform */
-  protected int m_boostingIterations = 10;
+  private int m_boostingIterations = 10;
 
   /** Option - the search mode */
-  protected int m_searchPath = 0;
+  private int m_searchPath = 0;
 
   /** Option - the seed to use for a random search */
-  protected int m_randomSeed = 0; 
+  private int m_randomSeed = 0;
 
   /** Option - whether the tree should remember the instance data */
-  protected boolean m_saveInstanceData = false; 
+  private boolean m_saveInstanceData = false;
 
   /**
    * Returns an instance of a TechnicalInformation object, containing 
@@ -286,7 +286,7 @@ public class ADTreeTS
    * @exception Exception if try to boost without setting up tree first or there are no 
    * instances to train with
    */
-  public void boost() throws Exception {
+  private void boost() throws Exception {
 
     if (m_trainInstances == null || m_trainInstances.numInstances() == 0)
       throw new Exception("Trying to boost with no training data");
@@ -810,8 +810,8 @@ public class ADTreeTS
    * subtree
    * @return the class prediction value (vote)
    */
-  protected double predictionValueForInstance(Instance inst, PredictionNodeTS currentNode,
-					    double currentValue) {
+  private double predictionValueForInstance(Instance inst, PredictionNodeTS currentNode,
+											double currentValue) {
     
     currentValue += currentNode.getValue();
     for (Enumeration e = currentNode.children(); e.hasMoreElements(); ) {
@@ -848,8 +848,8 @@ public class ADTreeTS
    * @param currentNode the current node under investigation
    * @param level the current level in the tree
    * @return the string describing the subtree
-   */      
-  protected String toString(PredictionNodeTS currentNode, int level) {
+   */
+  private String toString(PredictionNodeTS currentNode, int level) {
     
     StringBuffer text = new StringBuffer();
     
@@ -907,9 +907,9 @@ public class ADTreeTS
    * @param predOrder the order this predictor was added to the split
    * @param instances the data to work on
    * @exception Exception if something goes wrong
-   */       
-  protected void graphTraverse(PredictionNodeTS currentNode, StringBuffer text,
-			       int splitOrder, int predOrder, Instances instances)
+   */
+  private void graphTraverse(PredictionNodeTS currentNode, StringBuffer text,
+							 int splitOrder, int predOrder, Instances instances)
     throws Exception {
     
     text.append("S" + splitOrder + "P" + predOrder + " [label=\"");
@@ -943,7 +943,7 @@ public class ADTreeTS
    *
    * @return a string containing the legend of the classifier
    */
-  public String legend() {
+  private String legend() {
     
     Attribute classAttribute = null;
     if (m_trainInstances == null) return "";
@@ -973,7 +973,7 @@ public class ADTreeTS
    *
    * @return the number of boosting iterations
    */
-  public int getNumOfBoostingIterations() {
+  private int getNumOfBoostingIterations() {
     
     return m_boostingIterations;
   }
@@ -983,7 +983,7 @@ public class ADTreeTS
    *
    * @param b the number of boosting iterations to use
    */
-  public void setNumOfBoostingIterations(int b) {
+  private void setNumOfBoostingIterations(int b) {
     
     m_boostingIterations = b; 
   }
@@ -1020,7 +1020,7 @@ public class ADTreeTS
    *
    * @param newMethod the new tree searching mode
    */
-  public void setSearchPath(SelectedTag newMethod) {
+  private void setSearchPath(SelectedTag newMethod) {
     
     if (newMethod.getTags() == TAGS_SEARCHPATH) {
       m_searchPath = newMethod.getSelectedTag().getID();
@@ -1051,7 +1051,7 @@ public class ADTreeTS
    *
    * @param seed the random seed
    */
-  public void setRandomSeed(int seed) {
+  private void setRandomSeed(int seed) {
     
     // the actual random object is created when the tree is initialized
     m_randomSeed = seed; 
@@ -1073,7 +1073,7 @@ public class ADTreeTS
    *
    * @return the random seed
    */
-  public boolean getSaveInstanceData() {
+  private boolean getSaveInstanceData() {
     
     return m_saveInstanceData;
   }
@@ -1083,7 +1083,7 @@ public class ADTreeTS
    * 
    * @param v true then the tree saves instance data
    */
-  public void setSaveInstanceData(boolean v) {
+  private void setSaveInstanceData(boolean v) {
     
     m_saveInstanceData = v;
   }
@@ -1170,7 +1170,7 @@ public class ADTreeTS
    *
    * @return the tree size
    */
-  public double measureTreeSize() {
+  private double measureTreeSize() {
     
     return numOfAllNodes(m_root);
   }
@@ -1180,7 +1180,7 @@ public class ADTreeTS
    *
    * @return the leaf size
    */
-  public double measureNumLeaves() {
+  private double measureNumLeaves() {
     
     return numOfPredictionNodes(m_root);
   }
@@ -1191,7 +1191,7 @@ public class ADTreeTS
    *
    * @return the leaf size
    */
-  public double measureNumPredictionLeaves() {
+  private double measureNumPredictionLeaves() {
     
     return numOfPredictionLeafNodes(m_root);
   }
@@ -1201,7 +1201,7 @@ public class ADTreeTS
    *
    * @return the number of nodes expanded during search
    */
-  public double measureNodesExpanded() {
+  private double measureNodesExpanded() {
     
     return m_nodesExpanded;
   }
@@ -1212,7 +1212,7 @@ public class ADTreeTS
    * @return the number of nodes processed during search
    */
 
-  public double measureExamplesProcessed() {
+  private double measureExamplesProcessed() {
     
     return m_examplesCounted;
   }
@@ -1267,8 +1267,8 @@ public class ADTreeTS
    *
    * @param root the root of the tree being measured
    * @return tree size in number of splitter + prediction nodes
-   */       
-  protected int numOfAllNodes(PredictionNodeTS root) {
+   */
+  private int numOfAllNodes(PredictionNodeTS root) {
     
     int numSoFar = 0;
     if (root != null) {
@@ -1288,8 +1288,8 @@ public class ADTreeTS
    *
    * @param root the root of the tree being measured
    * @return tree size in number of prediction nodes
-   */       
-  protected int numOfPredictionNodes(PredictionNodeTS root) {
+   */
+  private int numOfPredictionNodes(PredictionNodeTS root) {
     
     int numSoFar = 0;
     if (root != null) {
@@ -1309,8 +1309,8 @@ public class ADTreeTS
    *
    * @param root the root of the tree being measured
    * @return tree leaf size in number of prediction nodes
-   */       
-  protected int numOfPredictionLeafNodes(PredictionNodeTS root) {
+   */
+  private int numOfPredictionLeafNodes(PredictionNodeTS root) {
     
     int numSoFar = 0;
     if (root.getChildren().size() > 0) {
@@ -1329,7 +1329,7 @@ public class ADTreeTS
    * @param max the maximum value (+1) to be returned
    * @return the next random value (between 0 and max-1)
    */
-  protected int getRandom(int max) {
+  private int getRandom(int max) {
     
     return m_random.nextInt(max);
   }

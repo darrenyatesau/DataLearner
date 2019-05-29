@@ -114,25 +114,25 @@ public class RandomForestTS extends Classifier implements OptionHandler,
   private static final long serialVersionUID = -2260823972777004705L;
   
   /* Number of trees in forest. */
-  protected int m_numTrees = 100;
+  private int m_numTrees = 100;
   
   /*
    * Number of features to consider in random feature selection. If less than 1
    * will use int(logM+1) )
    */
-  protected int m_numFeatures = 0;
+  private int m_numFeatures = 0;
   
   /* The random seed. */
-  protected int m_randomSeed = 1;
+  private int m_randomSeed = 1;
   
   /* Final number of features that were considered in last build. */
-  protected int m_KValue = 0;
+  private int m_KValue = 0;
   
   /* The bagger. */
-  protected BaggingTS m_bagger = null;
+  private BaggingTS m_bagger = null;
   
   /* The maximum depth of the trees (0 = unlimited) */
-  protected int m_MaxDepth = 0;
+  private int m_MaxDepth = 0;
   
   /*
    * Returns a string describing classifier
@@ -184,7 +184,7 @@ public class RandomForestTS extends Classifier implements OptionHandler,
    * 
    * @return Value of numTrees.
    */
-  public int getNumTrees() {
+  private int getNumTrees() {
 
     return m_numTrees;
   }
@@ -214,7 +214,7 @@ public class RandomForestTS extends Classifier implements OptionHandler,
    * 
    * @return Value of numFeatures.
    */
-  public int getNumFeatures() {
+  private int getNumFeatures() {
 
     return m_numFeatures;
   }
@@ -274,7 +274,7 @@ public class RandomForestTS extends Classifier implements OptionHandler,
    * 
    * @return the maximum depth.
    */
-  public int getMaxDepth() {
+  private int getMaxDepth() {
     return m_MaxDepth;
   }
   
@@ -283,7 +283,7 @@ public class RandomForestTS extends Classifier implements OptionHandler,
    * 
    * @param value the maximum depth.
    */
-  public void setMaxDepth(int value) {
+  private void setMaxDepth(int value) {
     m_MaxDepth = value;
   }
   
@@ -292,7 +292,7 @@ public class RandomForestTS extends Classifier implements OptionHandler,
    * 
    * @return the out of bag error
    */
-  public double measureOutOfBagError() {
+  private double measureOutOfBagError() {
 
     if (m_bagger != null) {
       return m_bagger.measureOutOfBagError();

@@ -70,23 +70,23 @@ public class GlobalScoreSearchAlgorithmTS
   	static final long serialVersionUID = 7341389867906199781L;
 	
 	/* points to Bayes network for which a structure is searched for **/
-	BayesNetTS m_BayesNet;
+	private BayesNetTS m_BayesNet;
 	
 	/* toggle between scoring using accuracy = 0-1 loss (when false) or class probabilities (when true) **/
-	boolean m_bUseProb = true;
+	private boolean m_bUseProb = true;
 	
 	/* number of folds for k-fold cross validation **/
-	int m_nNrOfFolds = 10;
+	private int m_nNrOfFolds = 10;
 	
 	/* constant for score type: LOO-CV */
-	final static int LOOCV = 0;
+	private final static int LOOCV = 0;
 	/* constant for score type: k-fold-CV */
-	final static int KFOLDCV = 1;
+	private final static int KFOLDCV = 1;
 	/* constant for score type: Cumulative-CV */
-	final static int CUMCV = 2;
+	private final static int CUMCV = 2;
 	
 	/* the score types **/
-	public static final Tag[] TAGS_CV_TYPE =
+	private static final Tag[] TAGS_CV_TYPE =
 		{
 			new Tag(LOOCV, "LOO-CV"),
 			new Tag(KFOLDCV, "k-Fold-CV"),
@@ -95,7 +95,7 @@ public class GlobalScoreSearchAlgorithmTS
 	/*
 	 * Holds the cross validation strategy used to measure quality of network
 	 */
-	int m_nCVType = LOOCV;
+	private int m_nCVType = LOOCV;
 	
 	/*
 	 * performCV returns the accuracy calculated using cross validation.  
@@ -105,7 +105,7 @@ public class GlobalScoreSearchAlgorithmTS
 	 * @return accuracy (in interval 0..1) measured using cv.
 	 * @throws Exception whn m_nCVType is invalided + exceptions passed on by updateClassifier
 	 */
-	public double calcScore(BayesNetTS bayesNet) throws Exception {
+	private double calcScore(BayesNetTS bayesNet) throws Exception {
 		switch (m_nCVType) {
 			case LOOCV: 
 				return leaveOneOutCV(bayesNet);
@@ -219,7 +219,7 @@ public class GlobalScoreSearchAlgorithmTS
 	 * @return accuracy (in interval 0..1) measured using leave one out cv.
 	 * @throws Exception passed on by updateClassifier
 	 */
-	public double leaveOneOutCV(BayesNetTS bayesNet) throws Exception {
+	private double leaveOneOutCV(BayesNetTS bayesNet) throws Exception {
 		m_BayesNet = bayesNet;
 		double fAccuracy = 0.0;
 		double fWeight = 0.0;
@@ -247,7 +247,7 @@ public class GlobalScoreSearchAlgorithmTS
 	 * @return accuracy (in interval 0..1) measured using leave one out cv.
 	 * @throws Exception passed on by updateClassifier
 	 */
-	public double cumulativeCV(BayesNetTS bayesNet) throws Exception {
+	private double cumulativeCV(BayesNetTS bayesNet) throws Exception {
 		m_BayesNet = bayesNet;
 		double fAccuracy = 0.0;
 		double fWeight = 0.0;
@@ -270,7 +270,7 @@ public class GlobalScoreSearchAlgorithmTS
 	 * @return accuracy (in interval 0..1) measured using leave one out cv.
 	 * @throws Exception passed on by updateClassifier
 	 */
-	public double kFoldCV(BayesNetTS bayesNet, int nNrOfFolds) throws Exception {
+	private double kFoldCV(BayesNetTS bayesNet, int nNrOfFolds) throws Exception {
 		m_BayesNet = bayesNet;
 		double fAccuracy = 0.0;
 		double fWeight = 0.0;
@@ -319,7 +319,7 @@ public class GlobalScoreSearchAlgorithmTS
 	 * @return increase in accuracy due to given instance. 
 	 * @throws Exception passed on by distributionForInstance and classifyInstance
 	 */
-	double accuracyIncrease(Instance instance) throws Exception {
+	private double accuracyIncrease(Instance instance) throws Exception {
 		if (m_bUseProb) {
 			double [] fProb = m_BayesNet.distributionForInstance(instance);
 			return fProb[(int) instance.classValue()] * instance.weight();
@@ -334,14 +334,14 @@ public class GlobalScoreSearchAlgorithmTS
 	/*
 	 * @return use probabilities or not in accuracy estimate
 	 */
-	public boolean getUseProb() {
+	private boolean getUseProb() {
 		return m_bUseProb;
 	} // getUseProb
 	
 	/*
 	 * @param useProb : use probabilities or not in accuracy estimate
 	 */
-	public void setUseProb(boolean useProb) {
+	private void setUseProb(boolean useProb) {
 		m_bUseProb = useProb;
 	} // setUseProb
 	
@@ -349,7 +349,7 @@ public class GlobalScoreSearchAlgorithmTS
 	 * set cross validation strategy to be used in searching for networks.
 	 * @param newCVType : cross validation strategy 
 	 */
-	public void setCVType(SelectedTag newCVType) {
+	private void setCVType(SelectedTag newCVType) {
 		if (newCVType.getTags() == TAGS_CV_TYPE) {
 			m_nCVType = newCVType.getSelectedTag().getID();
 		}
@@ -367,7 +367,7 @@ public class GlobalScoreSearchAlgorithmTS
 	 * 
 	 * @param bMarkovBlanketClassifier
 	 */
-	public void setMarkovBlanketClassifier(boolean bMarkovBlanketClassifier) {
+	protected void setMarkovBlanketClassifier(boolean bMarkovBlanketClassifier) {
 	  super.setMarkovBlanketClassifier(bMarkovBlanketClassifier);
 	}
 	
@@ -375,7 +375,7 @@ public class GlobalScoreSearchAlgorithmTS
 	 * 
 	 * @return
 	 */
-	public boolean getMarkovBlanketClassifier() {
+	protected boolean getMarkovBlanketClassifier() {
 	  return super.getMarkovBlanketClassifier();
 	}
 	

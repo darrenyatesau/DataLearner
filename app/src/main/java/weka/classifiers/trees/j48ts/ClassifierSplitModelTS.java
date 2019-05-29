@@ -42,12 +42,12 @@ public abstract class ClassifierSplitModelTS
   
   /* for serialization */
   private static final long serialVersionUID = 4280730118393457457L;
-  
-  /* Distribution of class values. */  
-  protected DistributionTS m_distribution;
+	
+	/* Distribution of class values. */
+	DistributionTS m_distribution;
   
   /* Number of created subsets. */
-  protected int m_numSubsets;
+  int m_numSubsets;
   
   /*
    * Allows to clone a model (shallow copy).

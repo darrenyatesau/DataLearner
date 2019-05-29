@@ -354,8 +354,8 @@ public class DistributionTS
    *
    * @exception Exception if something goes wrong
    */
-  public final void addWeights(Instance instance, 
-			       double [] weights)
+  private void addWeights(Instance instance,
+						  double[] weights)
        throws Exception {
 
     int classIndex;
@@ -568,7 +568,7 @@ public class DistributionTS
   /*
    * Returns perClass(maxClass()).
    */
-  public final double numCorrect() {
+  private double numCorrect() {
 
     return m_perClass[maxClass()];
   }
@@ -576,7 +576,7 @@ public class DistributionTS
   /*
    * Returns perClassPerBag(index,maxClass(index)).
    */
-  public final double numCorrect(int index) {
+  private double numCorrect(int index) {
 
     return m_perClassPerBag[index][maxClass(index)];
   }

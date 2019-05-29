@@ -144,48 +144,48 @@ public class DecisionTableTS
 	/*
 	 * The hashtable used to hold training instances
 	 */
-	protected Hashtable m_entries;
+	Hashtable m_entries;
 	
 	/*
 	 * The class priors to use when there is no match in the table
 	 */
-	protected double[] m_classPriorCounts;
-	protected double[] m_classPriors;
+	double[] m_classPriorCounts;
+	double[] m_classPriors;
 	
 	/*
 	 * Holds the final feature set
 	 */
-	protected int[] m_decisionFeatures;
+	int[] m_decisionFeatures;
 	
 	/*
 	 * Discretization filter
 	 */
-	protected Filter m_disTransform;
+	Filter m_disTransform;
 	
 	/*
 	 * Filter used to remove columns discarded by feature selection
 	 */
-	protected Remove m_delTransform;
+	Remove m_delTransform;
 	
 	/*
 	 * IB1 used to classify non matching instances rather than majority class
 	 */
-	protected IBkTS m_ibk;
+	IBkTS m_ibk;
 	
 	/*
 	 * Holds the original training instances
 	 */
-	protected Instances m_theInstances;
+	Instances m_theInstances;
 	
 	/*
 	 * Holds the final feature selected set of instances
 	 */
-	protected Instances m_dtInstances;
+	Instances m_dtInstances;
 	
 	/*
 	 * The number of attributes in the dataset
 	 */
-	protected int m_numAttributes;
+	int m_numAttributes;
 	
 	/*
 	 * The number of instances in the dataset
@@ -195,17 +195,17 @@ public class DecisionTableTS
 	/*
 	 * Class is nominal
 	 */
-	protected boolean m_classIsNominal;
+	boolean m_classIsNominal;
 	
 	/*
 	 * Use the IBk classifier rather than majority class
 	 */
-	protected boolean m_useIBk;
+	boolean m_useIBk;
 	
 	/*
 	 * Display Rules
 	 */
-	protected boolean m_displayRules;
+	boolean m_displayRules;
 	
 	/*
 	 * Number of folds for cross validating feature sets
@@ -220,33 +220,33 @@ public class DecisionTableTS
 	/*
 	 * Holds the majority class
 	 */
-	protected double m_majority;
+	double m_majority;
 	
 	/*
 	 * The search method to use
 	 */
-	protected ASSearch m_search = new BestFirst();
+	ASSearch m_search = new BestFirst();
 	
 	/*
 	 * Our own internal evaluator
 	 */
-	protected ASEvaluation m_evaluator;
+	ASEvaluation m_evaluator;
 	
 	/*
 	 * The evaluation object used to evaluate subsets
 	 */
-	protected EvaluationTS m_evaluation;
+	EvaluationTS m_evaluation;
 	
 	/*
 	 * default is accuracy for discrete class and RMSE for numeric class
 	 */
-	public static final int EVAL_DEFAULT = 1;
-	public static final int EVAL_ACCURACY = 2;
-	public static final int EVAL_RMSE = 3;
-	public static final int EVAL_MAE = 4;
-	public static final int EVAL_AUC = 5;
+	static final int EVAL_DEFAULT = 1;
+	static final int EVAL_ACCURACY = 2;
+	static final int EVAL_RMSE = 3;
+	static final int EVAL_MAE = 4;
+	static final int EVAL_AUC = 5;
 	
-	public static final Tag[] TAGS_EVALUATION = {
+	static final Tag[] TAGS_EVALUATION = {
 			new Tag(EVAL_DEFAULT, "Default: accuracy (discrete class); RMSE (numeric class)"),
 			new Tag(EVAL_ACCURACY, "Accuracy (discrete class only"),
 			new Tag(EVAL_RMSE, "RMSE (of the class probabilities for discrete class)"),
@@ -254,7 +254,7 @@ public class DecisionTableTS
 			new Tag(EVAL_AUC, "AUC (area under the ROC curve - discrete class only)")
 	};
 	
-	protected int m_evaluationMeasure = EVAL_DEFAULT;
+	int m_evaluationMeasure = EVAL_DEFAULT;
 	
 	/*
 	 * Returns a string describing classifier
@@ -580,7 +580,7 @@ public class DecisionTableTS
 	 * @return the estimated accuracy
 	 * @throws Exception if subset can't be evaluated
 	 */
-	protected double estimatePerformance(BitSet feature_set, int num_atts)
+	double estimatePerformance(BitSet feature_set, int num_atts)
 			throws Exception {
 		
 		m_evaluation = new EvaluationTS(m_theInstances);
@@ -694,7 +694,7 @@ public class DecisionTableTS
 	/*
 	 * Resets the options.
 	 */
-	protected void resetOptions() {
+	void resetOptions() {
 		
 		m_entries = null;
 		m_decisionFeatures = null;
@@ -773,7 +773,7 @@ public class DecisionTableTS
 	 *
 	 * @param folds the number of folds
 	 */
-	public void setCrossVal(int folds) {
+	void setCrossVal(int folds) {
 		
 		m_CVFolds = folds;
 	}
@@ -783,7 +783,7 @@ public class DecisionTableTS
 	 *
 	 * @return the number of cross validation folds
 	 */
-	public int getCrossVal() {
+	int getCrossVal() {
 		
 		return m_CVFolds;
 	}
@@ -864,7 +864,7 @@ public class DecisionTableTS
 	 *
 	 * @param search
 	 */
-	public void setSearch(ASSearch search) {
+	void setSearch(ASSearch search) {
 		m_search = search;
 	}
 	
@@ -873,7 +873,7 @@ public class DecisionTableTS
 	 *
 	 * @return the search method used
 	 */
-	public ASSearch getSearch() {
+	ASSearch getSearch() {
 		return m_search;
 	}
 	
@@ -904,7 +904,7 @@ public class DecisionTableTS
 	 *
 	 * @param newMethod the new performance evaluation metric to use
 	 */
-	public void setEvaluationMeasure(SelectedTag newMethod) {
+	void setEvaluationMeasure(SelectedTag newMethod) {
 		if (newMethod.getTags() == TAGS_EVALUATION) {
 			m_evaluationMeasure = newMethod.getSelectedTag().getID();
 		}
@@ -1057,7 +1057,7 @@ public class DecisionTableTS
 	 *
 	 * @return the search string.
 	 */
-	protected String getSearchSpec() {
+	private String getSearchSpec() {
 		
 		ASSearch s = getSearch();
 		if (s instanceof OptionHandler) {
@@ -1123,11 +1123,11 @@ public class DecisionTableTS
 	 * Sets up a dummy subset evaluator that basically just delegates
 	 * evaluation to the estimatePerformance method in DecisionTable
 	 */
-	protected void setUpEvaluator() throws Exception {
+	void setUpEvaluator() throws Exception {
 		m_evaluator = new DummySubsetEvaluator();
 	}
 	
-	protected boolean m_saveMemory = true;
+	boolean m_saveMemory = true;
 	
 	/*
 	 * Generates the classifier.
@@ -1300,7 +1300,7 @@ public class DecisionTableTS
 	 *
 	 * @return a string of features
 	 */
-	public String printFeatures() {
+	private String printFeatures() {
 		
 		int i;
 		String s = "";
@@ -1320,7 +1320,7 @@ public class DecisionTableTS
 	 *
 	 * @return the number of rules
 	 */
-	public double measureNumRules() {
+	double measureNumRules() {
 		return m_entries.size();
 	}
 	

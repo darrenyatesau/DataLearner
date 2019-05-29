@@ -126,34 +126,34 @@ public class IBkTS
 	/*
 	 * The training instances used for classification.
 	 */
-	protected Instances m_Train;
+	private Instances m_Train;
 	
 	/*
 	 * The number of class values (or 1 if predicting numeric).
 	 */
-	protected int m_NumClasses;
+	private int m_NumClasses;
 	
 	/*
 	 * The class attribute type.
 	 */
-	protected int m_ClassType;
+	private int m_ClassType;
 	
 	/*
 	 * The number of neighbours to use for classification (currently).
 	 */
-	protected int m_kNN;
+	private int m_kNN;
 	
 	/*
 	 * The value of kNN provided by the user. This may differ from
 	 * m_kNN if cross-validation is being used.
 	 */
-	protected int m_kNNUpper;
+	private int m_kNNUpper;
 	
 	/*
 	 * Whether the value of k selected by cross validation has
 	 * been invalidated by a change in the training instances.
 	 */
-	protected boolean m_kNNValid;
+	private boolean m_kNNValid;
 	
 	/*
 	 * The maximum number of training instances allowed. When
@@ -161,40 +161,40 @@ public class IBkTS
 	 * so the training data is "windowed". Set to 0 for unlimited
 	 * numbers of instances.
 	 */
-	protected int m_WindowSize;
+	private int m_WindowSize;
 	
 	/*
 	 * Whether the neighbours should be distance-weighted.
 	 */
-	protected int m_DistanceWeighting;
+	private int m_DistanceWeighting;
 	
 	/*
 	 * Whether to select k by cross validation.
 	 */
-	protected boolean m_CrossValidate;
+	private boolean m_CrossValidate;
 	
 	/*
 	 * Whether to minimise mean squared error rather than mean absolute
 	 * error when cross-validating on numeric prediction tasks.
 	 */
-	protected boolean m_MeanSquared;
+	private boolean m_MeanSquared;
 	
 	/*
 	 * no weighting.
 	 */
-	public static final int WEIGHT_NONE = 1;
+	private static final int WEIGHT_NONE = 1;
 	/*
 	 * weight by 1/distance.
 	 */
-	public static final int WEIGHT_INVERSE = 2;
+	private static final int WEIGHT_INVERSE = 2;
 	/*
 	 * weight by 1-distance.
 	 */
-	public static final int WEIGHT_SIMILARITY = 4;
+	private static final int WEIGHT_SIMILARITY = 4;
 	/*
 	 * possible instance weighting methods.
 	 */
-	public static final Tag[] TAGS_WEIGHTING = {
+	private static final Tag[] TAGS_WEIGHTING = {
 			new Tag(WEIGHT_NONE, "No distance weighting"),
 			new Tag(WEIGHT_INVERSE, "Weight by 1/distance"),
 			new Tag(WEIGHT_SIMILARITY, "Weight by 1-distance")
@@ -203,17 +203,17 @@ public class IBkTS
 	/*
 	 * for nearest-neighbor search.
 	 */
-	protected NearestNeighbourSearch m_NNSearch = new LinearNNSearch();
+	private NearestNeighbourSearch m_NNSearch = new LinearNNSearch();
 	
 	/*
 	 * The number of attributes the contribute to a prediction.
 	 */
-	protected double m_NumAttributesUsed;
+	private double m_NumAttributesUsed;
 	
 	/*
 	 * Default ZeroR model to use when there are no training instances
 	 */
-	protected ZeroRTS m_defaultModel;
+	private ZeroRTS m_defaultModel;
 	
 	/*
 	 * IBk classifier. Simple instance-based learner that uses the class
@@ -288,7 +288,7 @@ public class IBkTS
 	 *
 	 * @param k the number of neighbours.
 	 */
-	public void setKNN(int k) {
+	private void setKNN(int k) {
 		m_kNN = k;
 		m_kNNUpper = k;
 		m_kNNValid = false;
@@ -299,7 +299,7 @@ public class IBkTS
 	 *
 	 * @return the number of neighbours.
 	 */
-	public int getKNN() {
+	private int getKNN() {
 		
 		return m_kNN;
 	}
@@ -338,7 +338,7 @@ public class IBkTS
 	 *
 	 * @param newWindowSize Value to assign to WindowSize.
 	 */
-	public void setWindowSize(int newWindowSize) {
+	private void setWindowSize(int newWindowSize) {
 		
 		m_WindowSize = newWindowSize;
 	}
@@ -371,7 +371,7 @@ public class IBkTS
 	 *
 	 * @param newMethod the distance weighting method to use
 	 */
-	public void setDistanceWeighting(SelectedTag newMethod) {
+	private void setDistanceWeighting(SelectedTag newMethod) {
 		
 		if (newMethod.getTags() == TAGS_WEIGHTING) {
 			m_DistanceWeighting = newMethod.getSelectedTag().getID();
@@ -396,7 +396,7 @@ public class IBkTS
 	 *
 	 * @return true if so.
 	 */
-	public boolean getMeanSquared() {
+	private boolean getMeanSquared() {
 		
 		return m_MeanSquared;
 	}
@@ -407,7 +407,7 @@ public class IBkTS
 	 *
 	 * @param newMeanSquared true if so.
 	 */
-	public void setMeanSquared(boolean newMeanSquared) {
+	private void setMeanSquared(boolean newMeanSquared) {
 		
 		m_MeanSquared = newMeanSquared;
 	}
@@ -431,7 +431,7 @@ public class IBkTS
 	 *
 	 * @return true if cross-validation will be used.
 	 */
-	public boolean getCrossValidate() {
+	private boolean getCrossValidate() {
 		
 		return m_CrossValidate;
 	}
@@ -442,7 +442,7 @@ public class IBkTS
 	 *
 	 * @param newCrossValidate true if cross-validation should be used.
 	 */
-	public void setCrossValidate(boolean newCrossValidate) {
+	private void setCrossValidate(boolean newCrossValidate) {
 		
 		m_CrossValidate = newCrossValidate;
 	}
@@ -473,7 +473,7 @@ public class IBkTS
 	 *
 	 * @param nearestNeighbourSearchAlgorithm - The NearestNeighbourSearch class.
 	 */
-	public void setNearestNeighbourSearchAlgorithm(NearestNeighbourSearch nearestNeighbourSearchAlgorithm) {
+	private void setNearestNeighbourSearchAlgorithm(NearestNeighbourSearch nearestNeighbourSearchAlgorithm) {
 		m_NNSearch = nearestNeighbourSearchAlgorithm;
 	}
 	
@@ -872,7 +872,7 @@ public class IBkTS
 	/*
 	 * Initialise scheme variables.
 	 */
-	protected void init() {
+	private void init() {
 		
 		setKNN(1);
 		m_WindowSize = 0;
@@ -889,7 +889,7 @@ public class IBkTS
 	 * @return the probability distribution
 	 * @throws Exception if computation goes wrong or has no class attribute
 	 */
-	protected double[] makeDistribution(Instances neighbours, double[] distances)
+	private double[] makeDistribution(Instances neighbours, double[] distances)
 			throws Exception {
 		
 		double total = 0, weight;
@@ -948,7 +948,7 @@ public class IBkTS
 	 * minimised. If the class attribute is numeric, mean absolute
 	 * error is minimised
 	 */
-	protected void crossValidate() {
+	private void crossValidate() {
 		
 		try {
 			if (m_NNSearch instanceof weka.core.neighboursearch.CoverTree)
@@ -1075,7 +1075,7 @@ public class IBkTS
 	 * @param k          the number of neighbors to keep.
 	 * @return the pruned neighbours.
 	 */
-	public Instances pruneToK(Instances neighbours, double[] distances, int k) {
+	private Instances pruneToK(Instances neighbours, double[] distances, int k) {
 		
 		if (neighbours == null || distances == null || neighbours.numInstances() == 0) {
 			return null;

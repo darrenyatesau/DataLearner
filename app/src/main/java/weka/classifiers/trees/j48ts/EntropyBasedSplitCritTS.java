@@ -39,12 +39,12 @@ public abstract class EntropyBasedSplitCritTS
   private static final long serialVersionUID = -2618691439791653056L;
 
   /** The log of 2. */
-  protected static double log2 = Math.log(2);
+  private static double log2 = Math.log(2);
 
   /**
    * Help method for computing entropy.
    */
-  public final double logFunc(double num) {
+  final double logFunc(double num) {
 
     // Constant hard coded for efficiency reasons
     if (num < 1e-6)
@@ -69,7 +69,7 @@ public abstract class EntropyBasedSplitCritTS
   /**
    * Computes entropy of distribution after splitting.
    */
-  public final double newEnt(DistributionTS bags) {
+  final double newEnt(DistributionTS bags) {
     
     double returnValue = 0;
     int i,j;
@@ -86,7 +86,7 @@ public abstract class EntropyBasedSplitCritTS
    * Computes entropy after splitting without considering the
    * class values.
    */
-  public final double splitEnt(DistributionTS bags) {
+  final double splitEnt(DistributionTS bags) {
 
     double returnValue = 0;
     int i;

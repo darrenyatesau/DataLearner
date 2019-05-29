@@ -176,7 +176,7 @@ public class OneRTS
 		 * @param attribute the attribute to use
 		 * @throws Exception if something goes wrong
 		 */
-		public OneRRule(Instances data, Attribute attribute) throws Exception {
+		OneRRule(Instances data, Attribute attribute) throws Exception {
 			
 			m_class = data.classAttribute();
 			m_numInst = data.numInstances();
@@ -193,7 +193,7 @@ public class OneRTS
 		 * @param nBreaks   the break point
 		 * @throws Exception if something goes wrong
 		 */
-		public OneRRule(Instances data, Attribute attribute, int nBreaks) throws Exception {
+		OneRRule(Instances data, Attribute attribute, int nBreaks) throws Exception {
 			
 			m_class = data.classAttribute();
 			m_numInst = data.numInstances();
@@ -375,7 +375,7 @@ public class OneRTS
 	 * @return the generated rule
 	 * @throws Exception if the rule can't be built successfully
 	 */
-	public OneRRule newRule(Attribute attr, Instances data) throws Exception {
+	private OneRRule newRule(Attribute attr, Instances data) throws Exception {
 		
 		OneRRule r;
 		
@@ -406,8 +406,8 @@ public class OneRTS
 	 * @return the generated rule
 	 * @throws Exception if the rule can't be built successfully
 	 */
-	public OneRRule newNominalRule(Attribute attr, Instances data,
-								   int[] missingValueCounts) throws Exception {
+	private OneRRule newNominalRule(Attribute attr, Instances data,
+									int[] missingValueCounts) throws Exception {
 		
 		// ... create arrays to hold the counts
 		int[][] counts = new int[attr.numValues()]
@@ -442,8 +442,8 @@ public class OneRTS
 	 * @return the generated rule
 	 * @throws Exception if the rule can't be built successfully
 	 */
-	public OneRRule newNumericRule(Attribute attr, Instances data,
-								   int[] missingValueCounts) throws Exception {
+	private OneRRule newNumericRule(Attribute attr, Instances data,
+									int[] missingValueCounts) throws Exception {
 		
 		// make a copy before sorting so that ties are treated consistently
 		// and aren't affected by sorting performed for any numeric

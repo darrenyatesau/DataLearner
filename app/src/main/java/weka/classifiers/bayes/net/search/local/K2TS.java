@@ -109,7 +109,7 @@ public class K2TS
   	static final long serialVersionUID = 6176545934752116631L;
 	
 	/* Holds flag to indicate ordering should be random **/
-	boolean m_bRandomOrder = false;
+	private boolean m_bRandomOrder = false;
 	
 	/*
 	 * Returns an instance of a TechnicalInformation object, containing 
@@ -221,7 +221,7 @@ public class K2TS
 	 *
 	 * @param nMaxNrOfParents the max number of parents
 	 */
-	public void setMaxNrOfParents(int nMaxNrOfParents) {
+	private void setMaxNrOfParents(int nMaxNrOfParents) {
 	  m_nMaxNrOfParents = nMaxNrOfParents;
 	}
 	
@@ -230,7 +230,7 @@ public class K2TS
 	 *
 	 * @return the max number of parents
 	 */
-	public int getMaxNrOfParents() {
+	private int getMaxNrOfParents() {
 	  return m_nMaxNrOfParents;
 	}
 	
@@ -248,7 +248,7 @@ public class K2TS
 	 *
 	 * @return whether to init as naive bayes
 	 */
-	public boolean getInitAsNaiveBayes() {
+	private boolean getInitAsNaiveBayes() {
 	  return m_bInitAsNaiveBayes;
 	}
 	
@@ -257,7 +257,7 @@ public class K2TS
 	 *
 	 * @param bRandomOrder the random order flag
 	 */
-	public void setRandomOrder(boolean bRandomOrder) {
+	private void setRandomOrder(boolean bRandomOrder) {
 		m_bRandomOrder = bRandomOrder;
 	} // SetRandomOrder
 	
@@ -266,7 +266,7 @@ public class K2TS
 	 *
 	 * @return the random order flag
 	 */
-	public boolean getRandomOrder() {
+	private boolean getRandomOrder() {
 		return m_bRandomOrder;
 	} // getRandomOrder
 	

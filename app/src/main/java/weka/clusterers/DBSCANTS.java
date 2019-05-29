@@ -412,7 +412,7 @@ public class DBSCANTS
      * @param instances Instances that were delivered from WEKA
      * @return Database New constructed Database
      */
-    public Database databaseForName(String database_Type, Instances instances) {
+	private Database databaseForName(String database_Type, Instances instances) {
         Object o = null;
 
         Constructor co = null;
@@ -444,7 +444,7 @@ public class DBSCANTS
      * @param database Link to the database
      * @return DataObject New constructed DataObject
      */
-    public DataObject dataObjectForName(String database_distanceType, Instance instance, String key, Database database) {
+	private DataObject dataObjectForName(String database_distanceType, Instance instance, String key, Database database) {
         Object o = null;
 
         Constructor co = null;
@@ -473,7 +473,7 @@ public class DBSCANTS
      * Sets a new value for minPoints
      * @param minPoints MinPoints
      */
-    public void setMinPoints(int minPoints) {
+	private void setMinPoints(int minPoints) {
         this.minPoints = minPoints;
     }
     
@@ -481,7 +481,7 @@ public class DBSCANTS
      * Sets a new value for epsilon
      * @param epsilon Epsilon
      */
-    public void setEpsilon(double epsilon) {
+	private void setEpsilon(double epsilon) {
         this.epsilon = epsilon;
     }
     
@@ -489,7 +489,7 @@ public class DBSCANTS
      * Returns the value of epsilon
      * @return double Epsilon
      */
-    public double getEpsilon() {
+	private double getEpsilon() {
         return epsilon;
     }
     
@@ -497,7 +497,7 @@ public class DBSCANTS
      * Returns the value of minPoints
      * @return int MinPoints
      */
-    public int getMinPoints() {
+	private int getMinPoints() {
         return minPoints;
     }
     
@@ -505,7 +505,7 @@ public class DBSCANTS
      * Returns the distance-type
      * @return String Distance-type
      */
-    public String getDatabase_distanceType() {
+	private String getDatabase_distanceType() {
         return database_distanceType;
     }
     
@@ -513,7 +513,7 @@ public class DBSCANTS
      * Returns the type of the used index (database)
      * @return String Index-type
      */
-    public String getDatabase_Type() {
+	private String getDatabase_Type() {
         return database_Type;
     }
     
@@ -521,7 +521,7 @@ public class DBSCANTS
      * Sets a new distance-type
      * @param database_distanceType The new distance-type
      */
-    public void setDatabase_distanceType(String database_distanceType) {
+	private void setDatabase_distanceType(String database_distanceType) {
         this.database_distanceType = database_distanceType;
     }
     
@@ -529,7 +529,7 @@ public class DBSCANTS
      * Sets a new database-type
      * @param database_Type The new database-type
      */
-    public void setDatabase_Type(String database_Type) {
+	private void setDatabase_Type(String database_Type) {
         this.database_Type = database_Type;
     }
     

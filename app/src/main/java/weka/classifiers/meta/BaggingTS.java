@@ -164,17 +164,17 @@ public class BaggingTS extends RandomizableIteratedSingleClassifierEnhancer
 	/**
 	 * The size of each bag sample, as a percentage of the training size
 	 */
-	protected int m_BagSizePercent = 100;
+	private int m_BagSizePercent = 100;
 	
 	/**
 	 * Whether to calculate the out of bag error
 	 */
-	protected boolean m_CalcOutOfBag = false;
+	private boolean m_CalcOutOfBag = false;
 	
 	/**
 	 * The out of bag error that has been calculated
 	 */
-	protected double m_OutOfBagError;
+	private double m_OutOfBagError;
 	
 	/**
 	 * Constructor.
@@ -398,7 +398,7 @@ public class BaggingTS extends RandomizableIteratedSingleClassifierEnhancer
 	 *
 	 * @return the bag size, as a percentage.
 	 */
-	public int getBagSizePercent() {
+	private int getBagSizePercent() {
 		
 		return m_BagSizePercent;
 	}
@@ -408,7 +408,7 @@ public class BaggingTS extends RandomizableIteratedSingleClassifierEnhancer
 	 *
 	 * @param newBagSizePercent the bag size, as a percentage.
 	 */
-	public void setBagSizePercent(int newBagSizePercent) {
+	private void setBagSizePercent(int newBagSizePercent) {
 		
 		m_BagSizePercent = newBagSizePercent;
 	}
@@ -438,7 +438,7 @@ public class BaggingTS extends RandomizableIteratedSingleClassifierEnhancer
 	 *
 	 * @return whether the out of bag error is calculated
 	 */
-	public boolean getCalcOutOfBag() {
+	private boolean getCalcOutOfBag() {
 		
 		return m_CalcOutOfBag;
 	}
