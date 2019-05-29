@@ -93,7 +93,7 @@ public final class GainRatioSplitCritTS
   /**
    * Help method for computing the split entropy.
    */
-  private final double splitEnt(DistributionTS bags,double totalnoInst){
+  private double splitEnt(DistributionTS bags, double totalnoInst) {
     
     double returnValue = 0;
     double noUnknown;

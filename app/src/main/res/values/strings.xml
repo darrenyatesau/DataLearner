@@ -1,6 +1,11 @@
 <resources>
     <string name="str_run">Run</string>
+    <string name="str_load">Load</string>
+    <string name="str_select">Select</string>
     <string name="app_name">DataLearner</string>
+    <string name="novalue">---</string>
+    <string name="str_ready">Ready.</string>
+
     <string name="intro_text">DataLearner is data-mining app powered by the Weka data-mining core (version 3.6.15) and includes algorithms sourced from Weka and Charles Sturt University.
     </string>
     <string-array name="arrayBayes">

@@ -107,8 +107,7 @@ class DataAnalysis implements Runnable {
 //                 TextView cci, TextView ici, TextView kappa, TextView mae, TextView rmse, TextView rae, TextView rrse, TextView tni) {
 //	DataAnalysis(Context context, TextView v, TextView sl3, Button btnRun, Button btnCM, String algorithm, int validate, Instances dataset,
 //				 TextView cci, TextView ici, TextView kappa, TextView mae, TextView rmse, TextView rae, TextView rrse, TextView tni) {
-	DataAnalysis(Context context, String algorithm, int validate, Instances dataset,
-				 TextView cci, TextView ici, TextView kappa, TextView mae, TextView rmse, TextView rae, TextView rrse, TextView tni) {
+	DataAnalysis(Context context, String algorithm, int validate, Instances dataset) {
 //		DataAnalysis(Context context) {
 		
 		this.context = context;
@@ -119,14 +118,14 @@ class DataAnalysis implements Runnable {
 		this.algorithm = algorithm;
 		this.validate = validate;
 		this.data = dataset;
-		this.cci = cci;
-		this.ici = ici;
-		this.kappa = kappa;
-		this.mae = mae;
-		this.rmse = rmse;
-		this.rae = rae;
-		this.rrse = rrse;
-		this.tni = tni;
+		this.cci = ((Activity) context).findViewById(R.id.tvCCI);
+		this.ici = ((Activity) context).findViewById(R.id.tvICI);
+		this.kappa = ((Activity) context).findViewById(R.id.tvKappa);
+		this.mae = ((Activity) context).findViewById(R.id.tvMAE);
+		this.rmse = ((Activity) context).findViewById(R.id.tvRMSE);
+		this.rae = ((Activity) context).findViewById(R.id.tvRAE);
+		this.rrse = ((Activity) context).findViewById(R.id.tvRRSE);
+		this.tni = ((Activity) context).findViewById(R.id.tvTNI);
 		
 	}
 	

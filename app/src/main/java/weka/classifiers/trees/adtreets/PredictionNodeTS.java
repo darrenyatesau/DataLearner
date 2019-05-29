@@ -139,7 +139,7 @@ public final class PredictionNodeTS
 
     PredictionNodeTS clone = new PredictionNodeTS(value);
     for (Enumeration e = children.elements(); e.hasMoreElements(); )
-      clone.children.addElement((SplitterTS)((SplitterTS) e.nextElement()).clone());
+      clone.children.addElement(((SplitterTS) e.nextElement()).clone());
     return clone;
   }
 
@@ -164,7 +164,7 @@ public final class PredictionNodeTS
    * @param addChild the root of the subtree
    * @param addingTo the tree that this node will belong to
    */
-  private final void setOrderAddedSubtree(SplitterTS addChild, ADTreeTS addingTo) {
+  private void setOrderAddedSubtree(SplitterTS addChild, ADTreeTS addingTo) {
 
     addChild.orderAdded = addingTo.nextSplitAddedOrder();
     for (int i=0; i<addChild.getNumOfBranches(); i++) {

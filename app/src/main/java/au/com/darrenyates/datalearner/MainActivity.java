@@ -170,17 +170,6 @@ public class MainActivity extends AppCompatActivity {
 		public LoadFragment() {
 		}
 
-		/**
-		 * Returns a new instance of this fragment for the given section
-		 * number.
-		 */
-//		public static LoadFragment newInstance() {
-//			LoadFragment fragment = new LoadFragment();
-//			Bundle args = new Bundle();
-//			//        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-//			fragment.setArguments(args);
-//			return fragment;
-//		}
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -296,25 +285,12 @@ public class MainActivity extends AppCompatActivity {
 		public SelectFragment() {
 		}
 
-		/**
-		 * Returns a new instance of this fragment for the given section
-		 * number.
-		 */
-		
+
 		View rootView;
 		TextView textView, tvClassifier;
-//		TextView tvStatus;
 		
 		Spinner spinBayes, spinRules, spinTrees, spinMeta, spinLazy, spinFunctions, spinCluster, spinAssociate;
 		Integer idBayes, idRules, idTrees, idMeta, idLazy, idFunctions, idCluster, idAssociate;
-
-//		public static SelectFragment newInstance() {
-//			SelectFragment fragment = new SelectFragment();
-//			Bundle args = new Bundle();
-//			//        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-//			fragment.setArguments(args);
-//			return fragment;
-//		}
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -495,21 +471,8 @@ public class MainActivity extends AppCompatActivity {
 
 		public RunFragment() {
 		}
-
-		/**
-		 * Returns a new instance of this fragment for the given section
-		 * number.
-		 */
-//        public static RunFragment newInstance() {
-//            RunFragment fragment = new RunFragment();
-//            Bundle args = new Bundle();
-//            //        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-//            fragment.setArguments(args);
-//            return fragment;
-//        }
-//		TextView tvStatus;
 		
-		//@Override
+		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 								 Bundle savedInstanceState) {
 
@@ -580,8 +543,7 @@ public class MainActivity extends AppCompatActivity {
 //			DataAnalysis task = new DataAnalysis(getContext());
 //			DataAnalysis task = new DataAnalysis(getContext(), tvStatus, tvsl3, btnRun, btnCM, nameClassifier, validate, data,
 //					cci, ici, kappa, mae, rmse, rae, rrse, tni);
-			DataAnalysis task = new DataAnalysis(getContext(), nameClassifier, validate, data,
-					cci, ici, kappa, mae, rmse, rae, rrse, tni);
+			DataAnalysis task = new DataAnalysis(getContext(), nameClassifier, validate, data);
 			threadGroup = new ThreadGroup("null");
 			thread = new Thread(threadGroup, task, "dataRunnable", 64000);
 			thread.start();
