@@ -22,7 +22,5 @@ Algorithms include:
 
 Training datasets must conform to the Weka’ ARFF format (we are working on a CSV dataset reader – thanks for your patience).
 
-Any problems, please drop me a line at darrenyates at gmail dot com.
-
 This application is part of the lead developer’s PhD program at Charles Sturt University, Australia.
 This research is supported by an Australian Government Research Training Program (RTS) scholarship.
