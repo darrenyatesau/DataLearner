@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
 			return true;
 		}
 		if (id == R.id.clear) {
-			tvStatus.setText("Ready.");
+			tvStatus.setText(getResources().getString(R.string.str_ready));
 			return true;
 		}
 
