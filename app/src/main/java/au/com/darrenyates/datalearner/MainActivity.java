@@ -10,6 +10,7 @@ package au.com.darrenyates.datalearner;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.constraint.ConstraintLayout;
@@ -76,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
 	private static Thread thread;
 	private static ThreadGroup threadGroup;
 	static int alType = 1;
+	static int viewCount = 0;
 	
 	LoadFragment fragL = new LoadFragment();
 	SelectFragment fragS = new SelectFragment();
@@ -190,12 +192,29 @@ public class MainActivity extends AppCompatActivity {
 		}
 		
 		void performFileSearch() {
+			if (viewCount < 1) {
+				viewCount++;
+				AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+				alertDialog.setTitle("First-time users");
+				alertDialog.setMessage("If you can't find your folder on the next screen, tap the three-dot menu button top-right and select 'Show internal storage'," +
+						" then navigate to your dataset file (you only need set this once).");
+				alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Got it.", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						loadOpenFile();
+					}
+				});
+				alertDialog.show();
+			} else loadOpenFile();
+		}
+		
+		void loadOpenFile() {
 			Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
 			intent.addCategory(Intent.CATEGORY_OPENABLE);
 			intent.setType("*/*");
 			startActivityForResult(intent, READ_REQUEST_CODE);
 		}
-
+		
+		
 		@Override
 		public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
 			if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
