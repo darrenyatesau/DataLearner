@@ -6,8 +6,6 @@ DataLearner features classification, association and clustering algorithms from 
 
 DataLearner collects no information – it requires access to your device storage simply to load your datasets and build your requested models.
 
-DataLearner is open-source, with the source code for this project available at github.com/darrenyatesau/DataLearner.
-
 Algorithms include:
 •	Bayes – BayesNet, NaiveBayes
 •	Functions – Logistic, SimpleLogistic
