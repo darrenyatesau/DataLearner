@@ -1,4 +1,4 @@
-# DataLearner - Machine-Learning on Android
+# DataLearner - Data Mining and Knowledge Discovery on Android
 
 DataLearner is an easy-to-use tool for machine-learning and knowledge discovery from your own compatible training datasets. It’s fully self-contained, requires no external storage or network connectivity – it builds machine-learning models directly on your phone or tablet.
 
