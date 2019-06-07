@@ -20,5 +20,5 @@ Algorithms include:
 
 Training datasets must conform to the Weka’ ARFF format (we are working on a CSV dataset reader – thanks for your patience).
 
-Researchers: please cite the research paper - 
+Researchers: if you use this work, please cite the research paper -
 Yates, D., Islam, M.Z, Gao, J. DataLearner: A Data-Mining and Knowledge Discovery Tool for Android Smartphones and Tablets. ArXiv, 2019
