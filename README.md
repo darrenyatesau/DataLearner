@@ -7,6 +7,7 @@ DataLearner features classification, association and clustering algorithms from 
 DataLearner collects no information – it requires access to your device storage simply to load your datasets and build your requested models.
 
 App on Google Play: https://play.google.com/store/apps/details?id=au.com.darrenyates.datalearner
+
 Short video tutorial on YouTube: https://youtu.be/H-7pETJZf-g
 
 Algorithms include:
