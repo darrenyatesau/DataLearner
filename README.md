@@ -10,6 +10,8 @@ App on Google Play: https://play.google.com/store/apps/details?id=au.com.darreny
 
 Short video tutorial on YouTube: https://youtu.be/H-7pETJZf-g
 
+Research paper on arXiv: https://arxiv.org/abs/1906.03773
+
 Algorithms include:
 •	Bayes – BayesNet, NaiveBayes
 •	Functions – Logistic, SimpleLogistic
