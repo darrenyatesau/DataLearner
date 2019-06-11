@@ -12,6 +12,8 @@ Short video tutorial on YouTube: https://youtu.be/H-7pETJZf-g
 
 Research paper on arXiv: https://arxiv.org/abs/1906.03773
 
+Researchers: if you use this work, please cite the research paper above.
+
 Algorithms include:
 •	Bayes – BayesNet, NaiveBayes
 •	Functions – Logistic, SimpleLogistic
@@ -24,5 +26,3 @@ Algorithms include:
 
 Training datasets must conform to the Weka’ ARFF format (we are working on a CSV dataset reader – thanks for your patience).
 
-Researchers: if you use this work, please cite the research paper -
-Yates, D., Islam, M.Z, Gao, J. DataLearner: A Data-Mining and Knowledge Discovery Tool for Android Smartphones and Tablets. ArXiv, 2019
