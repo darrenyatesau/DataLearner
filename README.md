@@ -12,7 +12,7 @@ Short video tutorial on YouTube: https://youtu.be/H-7pETJZf-g
 
 Research paper on arXiv: https://arxiv.org/abs/1906.03773
 
-Researchers: if you use this work, please cite the research paper above.
+Researchers: if you use this work, please cite the research paper above. Thanks.
 
 Algorithms include:
 •	Bayes – BayesNet, NaiveBayes
