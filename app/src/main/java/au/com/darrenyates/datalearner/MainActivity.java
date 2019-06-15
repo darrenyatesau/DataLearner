@@ -26,7 +26,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
+import android.provider.OpenableColumns;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -230,21 +232,26 @@ public class MainActivity extends AppCompatActivity {
 		
 		
 		@Override
-		public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
+		public void onActivityResult(int requestCode, int resultCode, Intent returnIntent) {
 			if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
 				uriDataset = null;
-				if (resultData != null) {
-					uriDataset = resultData.getData();
+				if (returnIntent != null) {
+					uriDataset = returnIntent.getData();
 					System.out.println("FILE: " + uriDataset.toString());
-					String fileCut = uriDataset.getPath();
+					Cursor returnCursor = getActivity().getContentResolver().query(uriDataset, null, null, null, null);
+					returnCursor.moveToFirst();
+					int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+					System.out.println(returnCursor.getString(nameIndex));
+					String fileCut = returnCursor.getString(nameIndex);
 					int split = fileCut.lastIndexOf('/');
 					fileCut = fileCut.substring(split + 1);
 					split = fileCut.lastIndexOf(':');
+					System.out.println(fileCut);
 					if (fileCut.endsWith("arff")) {
 						tvFileName = fileCut.substring(split + 1);
 						tvFile.setText(tvFileName);
 						tvStats.setText("");
-						data = getData(fileCut);
+						data = getData(uriDataset.getPath());
 						tvStats.append(data.toSummaryString());
 						tvIntro.setText("");
 						ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) tvIntro.getLayoutParams();
