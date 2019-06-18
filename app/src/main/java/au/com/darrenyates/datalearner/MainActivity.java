@@ -23,7 +23,6 @@
 package au.com.darrenyates.datalearner;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -32,7 +31,6 @@ import android.provider.OpenableColumns;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -53,19 +51,28 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.HorizontalScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
-import weka.classifiers.trees.adtreets.PredictionNodeTS;
+import weka.core.Attribute;
+import weka.core.FastVector;
+import weka.core.Instance;
 import weka.core.Instances;
+
 import weka.core.converters.CSVLoader;
 import weka.core.converters.ConverterUtils;
-//import weka.gui.GenericObjectEditor;
+import weka.core.converters.DLCSVLoader;
+import weka.filters.Filter;
+import weka.filters.unsupervised.attribute.NumericToNominal;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -154,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
 		if (id == R.id.about) {
 			AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
 			builder1.setTitle("About DataLearner");
-			builder1.setMessage("Version 1.0\r\n© Copyright Darren Yates, Zahid Islam, Junbin Gao\r\nDeveloped as part of a research PhD at the School of Computing and Mathematics, Charles Sturt University, 2018-2019." +
+			builder1.setMessage("Version 1.0.2\r\n© Copyright Darren Yates, Zahid Islam, Junbin Gao\r\nDeveloped as part of a research PhD at the School of Computing and Mathematics, Charles Sturt University, 2018-2019." +
 					"\r\n\r\nDataLearner is a data-mining app powered by the Weka data-mining core and includes " +
 					"algorithms developed by Charles Sturt University.\r\nWeka was created by the University of Waikato.");
 			AlertDialog alert1 = builder1.create();
@@ -165,7 +172,15 @@ public class MainActivity extends AppCompatActivity {
 			tvStatus.setText(getResources().getString(R.string.str_ready));
 			return true;
 		}
-
+		
+		if (id == R.id.changelog) {
+			AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+			builder1.setTitle("DataLearner - changelog");
+			builder1.setMessage(getResources().getString(R.string.str_changes));
+			AlertDialog alert1 = builder1.create();
+			alert1.show();
+			return true;
+		}
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -236,6 +251,7 @@ public class MainActivity extends AppCompatActivity {
 			if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
 				uriDataset = null;
 				if (returnIntent != null) {
+					tvStats.setText("Retrieving data - please wait...");
 					uriDataset = returnIntent.getData();
 					System.out.println("FILE: " + uriDataset.toString());
 					Cursor returnCursor = getActivity().getContentResolver().query(uriDataset, null, null, null, null);
@@ -247,24 +263,18 @@ public class MainActivity extends AppCompatActivity {
 					fileCut = fileCut.substring(split + 1);
 					split = fileCut.lastIndexOf(':');
 					System.out.println(fileCut);
-					if (fileCut.endsWith("arff")) {
+					if (fileCut.endsWith("arff") || fileCut.endsWith("csv")) {
 						tvFileName = fileCut.substring(split + 1);
 						tvFile.setText(tvFileName);
 						tvStats.setText("");
-						data = getData(uriDataset.getPath());
-						tvStats.append(data.toSummaryString());
-						tvIntro.setText("");
-						ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) tvIntro.getLayoutParams();
-						params.topMargin = 16;
-						params.height = 0;
-						tvIntro.setLayoutParams(params);
-						tvTest.setLayoutParams(params);
+						data = getData(fileCut);
+						displayData();
 					} else {
 						AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
 						alertDialog.setTitle("Warning");
 						alertDialog.setMessage("DataLearner only accepts Weka-style ARFF files for now (we're working on a .CSV reader).");
 						alertDialog.show();
-						
+
 					}
 					//					tvIntro.getLayoutParams().height = 0;
 
@@ -274,26 +284,34 @@ public class MainActivity extends AppCompatActivity {
 			}
 		}
 		
+		
+		void displayData() {
+			tvStats.append(data.toSummaryString());
+			tvIntro.setText("");
+			ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) tvIntro.getLayoutParams();
+			params.topMargin = 16;
+			params.height = 0;
+			tvIntro.setLayoutParams(params);
+			tvTest.setLayoutParams(params);
+		}
+		
+		
 		Instances getData(String filePath) {
 			Instances newdata = null;
-			File file = new File(uriDataset.getPath());
 			try {
 				InputStream inputStream = getContext().getContentResolver().openInputStream(uriDataset);
 				ConverterUtils.DataSource dataSource = new ConverterUtils.DataSource(inputStream);
-
-//				CSVLoader csvLoader = new CSVLoader();
-//				csvLoader.setSource(inputStream);
-//				ConverterUtils.DataSource dataSource = new ConverterUtils.DataSource(csvLoader);
-
-				newdata = dataSource.getDataSet();
-				if (newdata == null)
+				if (filePath.endsWith("arff")) {
+					newdata = dataSource.getDataSet();
+				} else {
+					newdata = csvReader(inputStream, filePath);
+				}
 				inputStream.close();
 				spinClassAtt.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 					@Override
 					public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 						data.setClassIndex(i);
 //						RunFragment.cleanDisplay();
-						
 					}
 
 					@Override
@@ -308,6 +326,25 @@ public class MainActivity extends AppCompatActivity {
 				tvStats.append("\r\nERROR: " + e.getMessage() + "\r\n");
 			}
 			return newdata;
+		}
+		
+		Instances csvReader(InputStream inputStream, String filePath) throws Exception {
+			String fileCut = filePath;
+			int split = fileCut.lastIndexOf('/');
+			fileCut = fileCut.substring(split + 1);
+			DLCSVLoader cl = new DLCSVLoader();
+			cl.setSource(inputStream);
+			Instances dataSet = cl.getDataSet();
+			NumericToNominal ntn = new NumericToNominal();
+			String[] options = new String[2];
+			options[0] = "-R";
+			options[1] = Integer.toString(dataSet.numAttributes());
+			ntn.setOptions(options);
+			ntn.setInputFormat(dataSet);
+			Instances newData = Filter.useFilter(dataSet, ntn);
+			newData.setRelationName(fileCut);
+			
+			return newData;
 		}
 		
 		void setSpinClass(int number) {
