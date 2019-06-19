@@ -23,6 +23,7 @@
 package au.com.darrenyates.datalearner;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -40,7 +41,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.SpannableString;
+import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
+import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -161,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
 		if (id == R.id.about) {
 			AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
 			builder1.setTitle("About DataLearner");
-			builder1.setMessage("Version 1.0.2\r\n© Copyright Darren Yates, Zahid Islam, Junbin Gao\r\nDeveloped as part of a research PhD at the School of Computing and Mathematics, Charles Sturt University, 2018-2019." +
+			builder1.setMessage("Version 1.0.3\r\n© Copyright Darren Yates, Zahid Islam, Junbin Gao\r\nDeveloped as part of a research PhD at the School of Computing and Mathematics, Charles Sturt University, 2018-2019." +
 					"\r\n\r\nDataLearner is a data-mining app powered by the Weka data-mining core and includes " +
 					"algorithms developed by Charles Sturt University.\r\nWeka was created by the University of Waikato.");
 			AlertDialog alert1 = builder1.create();
@@ -179,6 +184,24 @@ public class MainActivity extends AppCompatActivity {
 			builder1.setMessage(getResources().getString(R.string.str_changes));
 			AlertDialog alert1 = builder1.create();
 			alert1.show();
+			return true;
+		}
+		if (id == R.id.help) {
+			AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+			builder1.setTitle("DataLearner - Help");
+			builder1.setMessage(getText(R.string.str_help));
+			AlertDialog alert1 = builder1.create();
+			alert1.show();
+			return true;
+		}
+		if (id == R.id.yt_help) {
+			Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:H-7pETJZf-g"));
+			Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtu.be/H-7pETJZf-g"));
+			try {
+				startActivity(appIntent);
+			} catch (ActivityNotFoundException ex) {
+				startActivity(webIntent);
+			}
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

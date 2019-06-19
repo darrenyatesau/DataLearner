@@ -8,13 +8,23 @@
         android:title="Clear status area"
         app:showAsAction="never" />
     <item
+        android:id="@+id/changelog"
+        android:orderInCategory="100"
+        android:title="Changelog"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/about"
         android:orderInCategory="100"
         android:title="About DataLearner"
         app:showAsAction="never" />
     <item
-        android:id="@+id/changelog"
+        android:id="@+id/help"
         android:orderInCategory="100"
-        android:title="Changelog"
+        android:title="Help"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/yt_help"
+        android:orderInCategory="100"
+        android:title="Help video on YouTube"
         app:showAsAction="never" />
 </menu>
