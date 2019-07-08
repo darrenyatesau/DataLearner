@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
 		if (id == R.id.about) {
 			AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
 			builder1.setTitle("About DataLearner");
-			builder1.setMessage("Version 1.0.3\r\n© Copyright Darren Yates, Zahid Islam, Junbin Gao\r\nDeveloped as part of a research PhD at the School of Computing and Mathematics, Charles Sturt University, 2018-2019." +
+			builder1.setMessage("Version 1.0.4\r\n© Copyright Darren Yates, Supervisors: Zahid Islam, Junbin Gao\r\nDeveloped as part of a research PhD at the School of Computing and Mathematics, Charles Sturt University, 2018-2019." +
 					"\r\n\r\nDataLearner is a data-mining app powered by the Weka data-mining core and includes " +
 					"algorithms developed by Charles Sturt University.\r\nWeka was created by the University of Waikato.");
 			AlertDialog alert1 = builder1.create();
@@ -295,7 +295,7 @@ public class MainActivity extends AppCompatActivity {
 					} else {
 						AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
 						alertDialog.setTitle("Warning");
-						alertDialog.setMessage("DataLearner only accepts Weka-style ARFF files for now (we're working on a .CSV reader).");
+						alertDialog.setMessage("DataLearner only accepts Weka-style ARFF files or CSV files.");
 						alertDialog.show();
 
 					}
