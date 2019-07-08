@@ -24,5 +24,5 @@ Algorithms include:
 •	Clusterers – DBSCAN, Expectation Maximisation (EM), Farthest-First, FilteredClusterer, SimpleKMeans
 •	Associations – Apriori, FilteredAssociator, FPGrowth
 
-Training datasets must conform to the Weka’ ARFF or CSV file format (CSV requires header row, class attribute is last column and will be configured as nominal).
+Training datasets must conform to the Weka ARFF or standard CSV file format (CSV requires header row, class attribute is last column and will be configured as nominal).
 
