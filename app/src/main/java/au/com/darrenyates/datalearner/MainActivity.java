@@ -41,11 +41,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.SpannableString;
-import android.text.TextUtils;
+//import android.text.Html;
+//import android.text.SpannableString;
+//import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
-import android.text.util.Linkify;
+//import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -59,21 +59,21 @@ import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+//import java.io.BufferedReader;
+//import java.io.File;
+//import java.io.FileNotFoundException;
+//import java.io.IOException;
 import java.io.InputStream;
-import java.io.StringWriter;
+//import java.io.StringWriter;
 import java.util.ArrayList;
-import java.util.Scanner;
+//import java.util.Scanner;
 
-import weka.core.Attribute;
-import weka.core.FastVector;
-import weka.core.Instance;
+//import weka.core.Attribute;
+//import weka.core.FastVector;
+//import weka.core.Instance;
 import weka.core.Instances;
 
-import weka.core.converters.CSVLoader;
+//import weka.core.converters.CSVLoader;
 import weka.core.converters.ConverterUtils;
 import weka.core.converters.DLCSVLoader;
 import weka.filters.Filter;
@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
 		if (id == R.id.about) {
 			AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
 			builder1.setTitle("About DataLearner");
-			builder1.setMessage("Version 1.0.4\r\n© Copyright Darren Yates, Supervisors: Zahid Islam, Junbin Gao\r\nDeveloped as part of a research PhD at the School of Computing and Mathematics, Charles Sturt University, 2018-2019." +
+			builder1.setMessage("Version 1.0.5\r\n© Copyright Darren Yates, Supervisors: Zahid Islam, Junbin Gao\r\nDeveloped as part of a research PhD at the School of Computing and Mathematics, Charles Sturt University, 2018-2019." +
 					"\r\n\r\nDataLearner is a data-mining app powered by the Weka data-mining core and includes " +
 					"algorithms developed by Charles Sturt University.\r\nWeka was created by the University of Waikato.");
 			AlertDialog alert1 = builder1.create();
@@ -250,6 +250,7 @@ public class MainActivity extends AppCompatActivity {
 				viewCount++;
 				AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
 				alertDialog.setTitle("First-time users");
+				alertDialog.setIcon(R.mipmap.ic_launcher);
 				alertDialog.setMessage("If you can't find your folder on the next screen, tap the three-dot menu button top-right and select 'Show internal storage'," +
 						" then navigate to your dataset file (you only need set this once).");
 				alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Got it.", new DialogInterface.OnClickListener() {
@@ -296,8 +297,8 @@ public class MainActivity extends AppCompatActivity {
 						AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
 						alertDialog.setTitle("Warning");
 						alertDialog.setMessage("DataLearner only accepts Weka-style ARFF files or CSV files.");
+						alertDialog.setIcon(R.mipmap.ic_launcher);
 						alertDialog.show();
-
 					}
 					//					tvIntro.getLayoutParams().height = 0;
 
@@ -526,19 +527,31 @@ public class MainActivity extends AppCompatActivity {
 					nameClassifier = adapterView.getItemAtPosition(pos).toString();
 					if (nameClassifier.trim().equals("Rotation Forest")) {
 						AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
-						alertDialog.setTitle("Warning");
 						alertDialog.setMessage("Rotation Forest is accurate, but can be slow on mobile devices and anything but very small datasets. " +
 								"Stopping it mid-process may take extra time.");
-						alertDialog.show();
+						showDialog(alertDialog);
 					} else if (nameClassifier.trim().equals("ZeroR")) {
 						AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
-						alertDialog.setTitle("Warning");
 						alertDialog.setMessage("ZeroR isn't really a classifier - it simply selects the majority class value. It's great for getting " +
 								"a 'ground-level' accuracy score, but nothing more.");
-						alertDialog.show();
+						showDialog(alertDialog);
+					} else if (nameClassifier.trim().equals("MultilayerPerceptron")) {
+						AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+						alertDialog.setMessage("MultilayerPerceptron is also known as a 'feed-forward artificial neural network' and as close to 'deep learning' " +
+								"as we can do in DataLearner. But be warned - it'll likely be very slow even with smaller datasets and high-speed phones.");
+						showDialog(alertDialog);
 					}
 				}
 				
+				public void showDialog(AlertDialog alertDialog) {
+					alertDialog.setTitle("Warning");
+					alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Got it.", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {
+						}
+					});
+					alertDialog.setIcon(R.mipmap.ic_launcher);
+					alertDialog.show();
+				}
 				
 				@Override
 				public void onNothingSelected(AdapterView<?> adapterView) {
@@ -630,6 +643,7 @@ public class MainActivity extends AppCompatActivity {
 				} else {
 					AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
 					alertDialog.setTitle("You're missing something...");
+					alertDialog.setIcon(R.mipmap.ic_launcher);
 					alertDialog.setMessage("Please select a training set file and an algorithm before you try to model something.");
 					alertDialog.show();
 				}
