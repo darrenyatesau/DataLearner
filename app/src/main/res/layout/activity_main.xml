@@ -42,6 +42,7 @@
             android:layout_height="40dp"
             android:layout_weight="1"
             app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:logo="@mipmap/ic_launcher"
             app:title="@string/app_name">
             <!-- app:layout_scrollFlags="scroll|enterAlways" -->
             <!--android:background="?attr/colorPrimary" -->
