@@ -43,6 +43,7 @@
             android:layout_weight="1"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:title="@string/app_name"
+            app:logo="@mipmap/ic_launcher"
             app:titleTextAppearance="@style/Toolbar.TitleText">
             <!-- app:layout_scrollFlags="scroll|enterAlways" -->
             <!--android:background="?attr/colorPrimary" -->
