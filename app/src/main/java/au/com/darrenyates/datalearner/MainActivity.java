@@ -221,7 +221,8 @@ public class MainActivity extends AppCompatActivity {
 
 		public LoadFragment() {
 		}
-
+		
+		
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 								 Bundle savedInstanceState) {
@@ -234,6 +235,7 @@ public class MainActivity extends AppCompatActivity {
 			spinClassAtt = rootView.findViewById(R.id.spinClass);
 //            if (tvFileName != null) tvFile.setText(tvFileName);
 			Button btnLoad = rootView.findViewById(R.id.button1);
+			Button btnDemo = rootView.findViewById(R.id.button);
 			btnLoad.setOnClickListener(new Button.OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -241,8 +243,59 @@ public class MainActivity extends AppCompatActivity {
 
 				}
 			});
-
+			btnDemo.setOnClickListener(new Button.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					uriDataset = Uri.parse("android.resource://au.com.darrenyates.datalearner/raw/rain.csv");
+					tvStats.setText("");
+					
+					Instances newdata = null;
+					try {
+						InputStream inputStream = getContext().getResources().openRawResource(R.raw.rain);
+						ConverterUtils.DataSource dataSource = new ConverterUtils.DataSource(inputStream);
+						newdata = csvReader(inputStream, uriDataset.toString());
+						inputStream.close();
+						data = newdata;
+						displayData();
+						spinClassAtt.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+							@Override
+							public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+								data.setClassIndex(i);
+								RunFragment.cleanDisplay();
+							}
+							
+							@Override
+							public void onNothingSelected(AdapterView<?> adapterView) {
+							}
+						});
+						setSpinClass(newdata.numAttributes());
+						spinClassAtt.setSelection(newdata.numAttributes() - 1);
+						showDemoSteps();
+					} catch (Exception e) {
+						statusUpdateStore += "\r\nERROR: " + e.getMessage() + "\r\n";
+						tvStats.append("\r\nERROR: " + e.getMessage() + "\r\n");
+					}
+					
+					
+					System.out.println("DEMO DATADFILE: " + uriDataset.toString());
+//					displayData();
+				}
+				
+			});
 			return rootView;
+		}
+		
+		void showDemoSteps() {
+			AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+			alertDialog.setTitle("You've got this!");
+			alertDialog.setIcon(R.mipmap.ic_launcher);
+			alertDialog.setMessage(getText(R.string.demo_text));
+			alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Got it.", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+				}
+			});
+			alertDialog.show();
+			
 		}
 		
 		void performFileSearch() {
@@ -291,7 +344,8 @@ public class MainActivity extends AppCompatActivity {
 						tvFileName = fileCut.substring(split + 1);
 						tvFile.setText(tvFileName);
 						tvStats.setText("");
-						data = getData(fileCut);
+//						data = getData(fileCut);
+						data = getData();
 						displayData();
 					} else {
 						AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
@@ -320,7 +374,19 @@ public class MainActivity extends AppCompatActivity {
 		}
 		
 		
-		Instances getData(String filePath) {
+		//		public Instances getData(String filePath) {
+		public Instances getData() {
+			Cursor returnCursor = getActivity().getContentResolver().query(uriDataset, null, null, null, null);
+			returnCursor.moveToFirst();
+			int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+			System.out.println(returnCursor.getString(nameIndex));
+			String fileCut = returnCursor.getString(nameIndex);
+			int split = fileCut.lastIndexOf('/');
+			fileCut = fileCut.substring(split + 1);
+			split = fileCut.lastIndexOf(':');
+			System.out.println(fileCut);
+			String filePath = fileCut;
+
 			Instances newdata = null;
 			try {
 				InputStream inputStream = getContext().getContentResolver().openInputStream(uriDataset);
@@ -335,7 +401,7 @@ public class MainActivity extends AppCompatActivity {
 					@Override
 					public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 						data.setClassIndex(i);
-//						RunFragment.cleanDisplay();
+						RunFragment.cleanDisplay();
 					}
 
 					@Override
