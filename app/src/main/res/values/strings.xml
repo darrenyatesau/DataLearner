@@ -12,7 +12,7 @@
     <string name="str_help">DataLearner works in three steps: 1. Load a Weka-formatted ARFF file or a CSV file (header row, class attribute last in list and nominal) 2. Swipe left and select an algorithm 3. Swipe left again and tap the Run button. Not every algorithm will work with every dataset, so you may get a no-result or something weird happen - just try another algorithm. </string>
     <string name="intro_text">DataLearner is data-mining app powered by the Weka data-mining core (version 3.6.15) and includes algorithms sourced from Weka and Charles Sturt University.</string>
     <string name="demo_text">DataLearner is easy to use, but if you\'re new to data-mining, this demo is for you.\n\n
-        We\'ve just loaded a synthetic (fake) \'rain\' dataset. It has six attributes (columns) - minTemp, maxTemp, windDirection, RelHumidity, BaroPressure and Rain.
+        We\'ve just loaded a synthetic \'rain\' dataset. It has six attributes (columns) - minTemp, maxTemp, windDirection, RelHumidity, BaroPressure and Rain.
         It records 500 days (rows) of weather values, grouped or \'classed\' by how much rain there was that day - none, less than 5mm, less than 20mm or greater than 20mm.\n\n
         Our job is to develop a set of rules or \'model\' that can predict whether it rained or not on a particular day by knowing just the first five weather measurements of that day.\n\n
         The next step is tap the \'Select\' tab and choose a classification algorithm from one of six groups above the line.
