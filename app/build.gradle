@@ -6,7 +6,7 @@ android {
         applicationId "au.com.darrenyates.datalearner"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 10
+        versionCode 11
         versionName "1.1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
