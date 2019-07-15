@@ -8,7 +8,10 @@
     <string name="str_label_load">Load a Weka-format file for learning:</string>
     <string name="str_label_file">... ARFF/CSV data file to test...</string>
     <string name="str_label_btn_load">Load ARFF or CSV file</string>
-    <string name="str_changes">v1.0.5 - Added basic MultilayerPerception model. It\'s quite slow on phone-grade hardware, but it works.\nv1.0.4 - Minor bug fixes.\nv1.0.3 - Added experimental CSV reader. DataLearner expects a header row, the class attribute must be last in the list and must be nominal type (will be forced to nominal). And a couple of bug fixes.</string>
+    <string name="str_changes">v1.1.0 - Added new demo mode (includes synthetic \'rain\' dataset).\n
+        v1.0.5 - Added basic MultilayerPerception model. It\'s quite slow on phone-grade hardware, but it works.\n
+        v1.0.4 - Minor bug fixes.\n
+        v1.0.3 - Added experimental CSV reader. DataLearner expects a header row, the class attribute must be last in the list and must be nominal type (will be forced to nominal). And a couple of bug fixes.</string>
     <string name="str_help">DataLearner works in three steps: 1. Load a Weka-formatted ARFF file or a CSV file (header row, class attribute last in list and nominal) 2. Swipe left and select an algorithm 3. Swipe left again and tap the Run button. Not every algorithm will work with every dataset, so you may get a no-result or something weird happen - just try another algorithm. </string>
     <string name="intro_text">DataLearner is data-mining app powered by the Weka data-mining core (version 3.6.15) and includes algorithms sourced from Weka and Charles Sturt University.</string>
     <string name="demo_text">DataLearner is easy to use, but if you\'re new to data-mining, this demo is for you.\n\n
