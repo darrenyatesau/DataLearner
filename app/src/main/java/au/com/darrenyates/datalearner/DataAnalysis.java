@@ -15,7 +15,7 @@
 /*
 	DataLearner - a data-mining app for Android
 	DataAnalysis.java
-   (C) Copyright Darren Yates 2018-2019
+    (C) Copyright Darren Yates 2018-2019
 	Developed using a combination of Weka 3.6.15 and algorithms developed by Charles Sturt University
 	DataLearner is licensed GPLv3.0, source code is available on GitHub
 	Weka 3.6.15 is licensed GPLv2.0, source code is available on GitHub
@@ -103,7 +103,6 @@ class DataAnalysis implements Runnable {
 	private Button btnCM;
 	private String algorithm;
 	private int validate;
-	//    Uri dataset;
 	private Instances data;
 	private boolean isRunning;
 	private long timeBuildStart;
@@ -118,12 +117,7 @@ class DataAnalysis implements Runnable {
 	private Instances clusterdata;
 	private int dotCount = 0;
 	
-	//    DataAnalysis(Context context, TextView v, TextView sl3, Button btnRun, Button btnCM, String algorithm, int validate, Uri dataset,
-//                 TextView cci, TextView ici, TextView kappa, TextView mae, TextView rmse, TextView rae, TextView rrse, TextView tni) {
-//	DataAnalysis(Context context, TextView v, TextView sl3, Button btnRun, Button btnCM, String algorithm, int validate, Instances dataset,
-//				 TextView cci, TextView ici, TextView kappa, TextView mae, TextView rmse, TextView rae, TextView rrse, TextView tni) {
 	DataAnalysis(Context context, String algorithm, int validate, Instances dataset) {
-//		DataAnalysis(Context context) {
 		
 		this.context = context;
 		this.tv = ((Activity) context).findViewById(R.id.tvStatus);

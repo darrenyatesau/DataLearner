@@ -41,11 +41,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-//import android.text.Html;
-//import android.text.SpannableString;
-//import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
-//import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -59,21 +55,10 @@ import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-//import java.io.BufferedReader;
-//import java.io.File;
-//import java.io.FileNotFoundException;
-//import java.io.IOException;
 import java.io.InputStream;
-//import java.io.StringWriter;
 import java.util.ArrayList;
-//import java.util.Scanner;
-
-//import weka.core.Attribute;
-//import weka.core.FastVector;
-//import weka.core.Instance;
 import weka.core.Instances;
 
-//import weka.core.converters.CSVLoader;
 import weka.core.converters.ConverterUtils;
 import weka.core.converters.DLCSVLoader;
 import weka.filters.Filter;
