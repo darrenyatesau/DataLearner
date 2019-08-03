@@ -1,5 +1,7 @@
 # DataLearner - Data Mining and Knowledge Discovery on Android
 
+*** Some news... DataLearner has been accepted for presentation at ADMA 2019 (International Conference on Advanced Data Mining and Applications) and will be published in 'Lecture Notes in Artificial Intelligence' (Springer) ***
+
 DataLearner is an open-source easy-to-use tool for data mining and knowledge discovery from your own compatible training datasets. It’s fully self-contained, requires no external storage or network connectivity – it builds machine-learning models directly on your phone or tablet.
 
 DataLearner features classification, association and clustering algorithms from the open-source Weka (Waikato Environment for Knowledge Analysis) package, plus new algorithms developed by the Data Science Research Unit (DSRU) at Charles Sturt University. Combined, the app currently provides 40 machine-learning/data-mining algorithms, including RandomForest, C4.5 (J48) and NaiveBayes.
