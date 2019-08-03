@@ -16,9 +16,9 @@ Researchers: if you use this work, please cite the research paper above. Thanks.
 
 Algorithms include:
 •	Bayes – BayesNet, NaiveBayes
-•	Functions – Logistic, SimpleLogistic
+•	Functions – Logistic, SimpleLogistic, MultilayerPerceptron
 •	Lazy – IBk (K Nearest Neighbours), KStar
-•	Meta – AdaBoostM1, Bagging, LogitBoost, MultiBoostAB, Random Committee, RotationForest
+•	Meta – AdaBoostM1, Bagging, LogitBoost, MultiBoostAB, Random Committee, RandomSubSpace, RotationForest
 •	Rules – Conjunctive Rule, Decision Table, DTNB, JRip, OneR, PART, Ridor, ZeroR
 •	Trees – ADTree, BFTree, DecisionStump, ForestPA, J48 (C4.5), LADTree, Random Forest, RandomTree, REPTree, SimpleCART, SPAARC, SysFor.
 •	Clusterers – DBSCAN, Expectation Maximisation (EM), Farthest-First, FilteredClusterer, SimpleKMeans
