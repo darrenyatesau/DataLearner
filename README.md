@@ -27,4 +27,5 @@ Algorithms include:
 Training datasets must conform to the Weka ARFF or standard CSV file format (CSV requires header row, class attribute is last column and will be configured as nominal).
 
 Privacy Policy
+
 Pretty simply, really - DataLearner doesn't collect any data. (Google Play collects standard download analytics, but they do that for every app on Google Play. In other words, that's them, not us.)
