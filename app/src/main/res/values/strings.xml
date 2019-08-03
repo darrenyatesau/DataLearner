@@ -28,7 +28,8 @@
     <string name="str_label_load">Load a Weka-format file for learning:</string>
     <string name="str_label_file">... ARFF/CSV data file to test...</string>
     <string name="str_label_btn_load">Load ARFF or CSV file</string>
-    <string name="str_changes">v1.1.0 - Added new demo mode (includes synthetic \'rain\' dataset).\n
+    <string name="str_changes">v1.1.2 - Added RandomSubSpace algorithm from Weka 3.6.15\n
+        v1.1.0 - Added new demo mode (includes synthetic \'rain\' dataset).\n
         v1.0.5 - Added basic MultilayerPerception model. It\'s quite slow on phone-grade hardware, but it works.\n
         v1.0.4 - Minor bug fixes.\n
         v1.0.3 - Added experimental CSV reader. DataLearner expects a header row, the class attribute must be last in the list and must be nominal type (will be forced to nominal). And a couple of bug fixes.</string>
