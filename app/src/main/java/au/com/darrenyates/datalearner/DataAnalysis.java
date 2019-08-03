@@ -77,6 +77,7 @@ import weka.classifiers.trees.SPAARC;
 import weka.clusterers.FarthestFirstTS;
 import weka.clusterers.FilteredClustererTS;
 import weka.clusterers.SimpleKMeansTS;
+import weka.classifiers.meta.RandomSubSpaceTS;
 import weka.core.Instances;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.Remove;
@@ -172,6 +173,7 @@ class DataAnalysis implements Runnable {
 		ForestPA forestPA = new ForestPA();
 		SPAARC spaarc = new SPAARC();
 		ADTreeTS adtree = new ADTreeTS();
+		RandomSubSpaceTS randomSubSpace = new RandomSubSpaceTS();
 		
 		SimpleKMeansTS simpleK = new SimpleKMeansTS();
 		EMTS em = new EMTS();
@@ -252,6 +254,7 @@ class DataAnalysis implements Runnable {
 			else if (algorithm.equals("ForestPA")) cl.forestPA.buildClassifier(data);
 			else if (algorithm.equals("SPAARC")) cl.spaarc.buildClassifier(data);
 			else if (algorithm.equals("MultilayerPerceptron")) cl.mlp.buildClassifier(data);
+			else if (algorithm.equals("RandomSubSpace")) cl.randomSubSpace.buildClassifier(data);
 			else if (algorithm.equals("SimpleKMeans")) {
 				clusterdata = removeClass(data);
 				cl.simpleK.buildClusterer(new Instances(clusterdata));
@@ -329,6 +332,8 @@ class DataAnalysis implements Runnable {
 			else if (algorithm.equals("ForestPA")) classifierTree = cl.forestPA.toString();
 			else if (algorithm.equals("SPAARC")) classifierTree = cl.spaarc.toString();
 			else if (algorithm.equals("MultilayerPerceptron")) classifierTree = cl.mlp.toString();
+			else if (algorithm.equals("RandomSubSpace"))
+				classifierTree = cl.randomSubSpace.toString();
 			
 			if (validate == 1 && killThread == false) runEvaluation(algorithm, cl, data);
 			else restoreSettings();
@@ -515,6 +520,10 @@ class DataAnalysis implements Runnable {
 				case "MultilayerPerceptron":
 					timeEvalStart = System.nanoTime();
 					eval.crossValidateModel(cl.mlp, data, 10, new Random(1));
+					break;
+				case "RandomSubSpace":
+					timeEvalStart = System.nanoTime();
+					eval.crossValidateModel(cl.randomSubSpace, data, 10, new Random(1));
 					break;
 				case "SimpleKMeans":
 					timeEvalStart = System.nanoTime();

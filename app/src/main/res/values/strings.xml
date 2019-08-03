@@ -82,6 +82,7 @@
         <item>LogitBoost</item>
         <item>MultiBoostAB</item>
         <item>Random Committee</item>
+        <item>RandomSubSpace</item>
         <item>Rotation Forest</item>
     </string-array>
     <string-array name="arrayLazy">
