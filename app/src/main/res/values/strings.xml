@@ -19,15 +19,40 @@
  * Developed using a combination of Weka 3.6.15 and algorithms developed by Charles Sturt University
 -->
 <resources>
-    <string name="str_run">Run</string>
-    <string name="str_load">Load</string>
     <string name="str_select">Select</string>
     <string name="app_name">DataLearner</string>
     <string name="novalue">---</string>
+    <string name="str_load">Load</string>
     <string name="str_ready">Ready.</string>
+    <string name="str_run">Run</string>
+    <string name="str_view_det">View details / confusion matrix</string>
+    <string name="str_inc_class">Incorrectly Classified</string>
+    <string name="str_kappa">Kappa statistic</string>
+    <string name="str_mean_abs">Mean absolute error</string>
+    <string name="str_root_mean">Root mean square error</string>
+    <string name="str_rel_abs">Relative absolute error</string>
+    <string name="str_root_rel">Root relative squared error</string>
+    <string name="str_total_num">Total Number of Instances</string>
+    <string name="str_label_demo" translatable="false">Demo</string>
+    <string name="str_label_bayes" translatable="false">Bayes :</string>
+    <string name="str_label_functions">Functions :</string>
+    <string name="str_label_lazy">Lazy :</string>
+    <string name="str_label_meta" translatable="false">Meta :</string>
+    <string name="str_label_rules">Rules :</string>
+    <string name="str_label_trees">Trees :</string>
+    <string name="str_label_clust" translatable="false">Clusterers :</string>
+    <string name="str_label_assoc">Associators :</string>
+    <string name="str_tap_run">Tap \'Run\' to model your data:</string>
+    <string name="str_inc_ten">Include 10-fold cross-validation</string>
+    <string name="str_cor_class">Correctly Classified</string>
+    <string name="str_sel_alg">&#8230; selected algorithm &#8230;</string>
+    <string name="str_sel_opt">Selected option:</string>
+    <string name="str_sel_cca">Select to classify / cluster / associate:</string>
     <string name="str_label_load">Load a Weka-format file for learning:</string>
-    <string name="str_label_file">... ARFF/CSV data file to test...</string>
+    <string name="str_label_file">&#8230; ARFF/CSV data file to test &#8230;</string>
     <string name="str_label_btn_load">Load ARFF or CSV file</string>
+    <string name="str_file_test">Data file to test:</string>
+    <string name="str_alt_att">Set alternate class attribute :</string>
     <string name="str_changes">v1.1.2 - Added RandomSubSpace algorithm from Weka 3.6.15\n
         v1.1.0 - Added new demo mode (includes synthetic \'rain\' dataset).\n
         v1.0.5 - Added basic MultilayerPerception model. It\'s quite slow on phone-grade hardware, but it works.\n
@@ -35,15 +60,16 @@
         v1.0.3 - Added experimental CSV reader. DataLearner expects a header row, the class attribute must be last in the list and must be nominal type (will be forced to nominal). And a couple of bug fixes.</string>
     <string name="str_help">DataLearner works in three steps: 1. Load a Weka-formatted ARFF file or a CSV file (header row, class attribute last in list and nominal) 2. Swipe left and select an algorithm 3. Swipe left again and tap the Run button. Not every algorithm will work with every dataset, so you may get a no-result or something weird happen - just try another algorithm. </string>
     <string name="intro_text">DataLearner is data-mining app powered by the Weka data-mining core (version 3.6.15) and includes algorithms sourced from Weka and Charles Sturt University.</string>
-    <string name="demo_text">DataLearner is easy to use, but if you\'re new to data-mining, this demo is for you.\n\n
-        We\'ve just loaded a synthetic \'rain\' dataset. It has six attributes (columns) - minTemp, maxTemp, windDirection, RelHumidity, BaroPressure and Rain.
+    <string name="demo_text">DataLearner is easy to use, but if you\'re new to data-mining, this demo will help.\n\n
+        We\'ve just loaded a synthetic \'rain\' dataset. It has six attributes (columns) - minTemp, maxTemp, windDirection, relHumidity, baroPressure and Rain.
         It records 500 days (rows) of weather values, grouped or \'classed\' by how much rain there was that day - none, less than 5mm, less than 20mm or greater than 20mm.\n\n
         Our job is to develop a set of rules or \'model\' that can predict whether it rained or not on a particular day by knowing just the first five weather measurements of that day.\n\n
-        The next step is tap the \'Select\' tab and choose a classification algorithm from one of six groups above the line.
-        Next, press the \'Run\' tab, tap the Run button and build a model using your chosen algorithm.
+        Our next step is tap the \'Select\' tab and choose a classification algorithm from one of six groups above the line.
+        After that, press the \'Run\' tab, tap the Run button and build a model using your chosen algorithm.
         DataLearner will self-test using what\'s called \'ten-fold cross-validation\' to see how accurate the model is.
         The higher the \'correctly classified\' accuracy percentage, the better the prediction.
-        You should be able to do better than 56%. Press the \'View details\' button to see the model.
+        You should be able to do better than 56% (that\'s the base score). Press the \'View details\' button to see the model.\n\n
+        DataLearner won\'t turn you into a data scientist, but we hope it can help you on your way.
     </string>
     <string-array name="arrayBayes">
         <item>-- none selected --</item>

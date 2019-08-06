@@ -35,7 +35,7 @@
         android:layout_height="20dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Tap 'Run' to model your data:"
+        android:text="@string/str_tap_run"
         android:textColor="#333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -46,7 +46,7 @@
         android:layout_width="88dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:text="Run"
+        android:text="@string/str_run"
         app:layout_constraintBaseline_toBaselineOf="@+id/section_label3"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -57,7 +57,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:checked="true"
-        android:text="Include 10-fold cross-validation"
+        android:text="@string/str_inc_ten"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/section_label3" />
@@ -94,7 +94,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:enabled="false"
-        android:text="View details / confusion matrix"
+        android:text="@string/str_view_det"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -105,7 +105,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="96dp"
-        android:text="Correctly Classified"
+        android:text="@string/str_cor_class"
         android:textColor="#333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -116,7 +116,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="6dp"
-        android:text="Incorrectly Classified"
+        android:text="@string/str_inc_class"
         android:textColor="#333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -127,7 +127,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="6dp"
-        android:text="Kappa statistic"
+        android:text="@string/str_kappa"
         android:textColor="#333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -138,7 +138,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="6dp"
-        android:text="Mean absolute error"
+        android:text="@string/str_mean_abs"
         android:textColor="#333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
@@ -149,7 +149,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="6dp"
-        android:text="Root mean square error"
+        android:text="@string/str_root_mean"
         android:textColor="#333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
@@ -160,7 +160,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="6dp"
-        android:text="Relative absolute error"
+        android:text="@string/str_rel_abs"
         android:textColor="#333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
@@ -171,7 +171,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="6dp"
-        android:text="Root relative squared error"
+        android:text="@string/str_root_rel"
         android:textColor="#333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView12" />
@@ -183,7 +183,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="6dp"
         android:layout_marginBottom="8dp"
-        android:text="Total Number of Instances"
+        android:text="@string/str_total_num"
         android:textColor="#333"
         app:layout_constraintBottom_toTopOf="@+id/tvStatus"
         app:layout_constraintStart_toStartOf="parent"
