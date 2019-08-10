@@ -24,6 +24,7 @@
 package au.com.darrenyates.datalearner;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.os.Handler;
 import android.text.method.ScrollingMovementMethod;
@@ -381,6 +382,11 @@ class DataAnalysis implements Runnable {
 	private void runEvaluation(String algorithm, Classifiers cl, Instances data) {
 //        int correct, incorrect, totalInst;
 //		if (killThread == false) {
+
+//		Runtime rt = Runtime.getRuntime();
+//		long maxMemory = rt.maxMemory();
+//		System.out.println(maxMemory);
+		
 		try {
 			EvaluationTS eval = new EvaluationTS(data);
 			ClusterEvaluation ceval = new ClusterEvaluation();

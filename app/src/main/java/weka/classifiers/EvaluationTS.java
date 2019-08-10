@@ -537,7 +537,15 @@ public class EvaluationTS implements Summarizable, RevisionHandler {
 			throws Exception {
 
 		// Make a copy of the data we can reorder
+		
+		Runtime rt = Runtime.getRuntime();
+		long maxMemory = rt.maxMemory();
+		System.out.println("BEFORE: " + maxMemory);
+		
+		
 		data = new Instances(data);
+		
+		
 		data.randomize(random);
 		if (data.classAttribute().isNominal()) {
 			data.stratify(numFolds);

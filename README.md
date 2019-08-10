@@ -27,3 +27,17 @@ Algorithms include:
 •	Associations – Apriori, FilteredAssociator, FPGrowth
 
 Training datasets must conform to the Weka ARFF or standard CSV file format (CSV requires header row, class attribute is last column and will be configured as nominal).
+
+<H3>CSV file support</H3>
+To use CSV files in DataLearner, the file MUST include the following:
+1. header row
+2. class attribute must be the last column in the CSV table
+3. class attribute will be forced to 'nominal' - that means the class values will be considered 'categorical' or 'nominal'.
+(points 2 and 3 may change once we're sure that it works reliably).
+
+<H3>Bug Report</H3>
+If you wish to report a bug in DataLearner, please don't just say 'your app is crap - it crashed' - it might make you feel better, but won't help.
+Instead, tell us the number of attributes and records in your dataset, the approximate file size and the algorithm you were attempting to use.
+From that, we can get to work and see what the problem was.
+While we've tested the app as thoroughly as we could, we can't claim to have found every possible way to crash an Android app.
+At time of writing, there was no other app on Google Play like DataLearner, so we're discovering new things about locally-executed data-mining all the time.
