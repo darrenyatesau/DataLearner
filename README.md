@@ -36,7 +36,7 @@ To use CSV files in DataLearner, the file MUST include the following:
 (points 2 and 3 may change once we're sure that it works reliably).
 
 <H3>Bug Report</H3>
-If you wish to report a bug in DataLearner, please don't just say 'your app is crap - it crashed' - it might make you feel better, but it won't help us fix it.
+If you wish to report a bug in DataLearner, please don't just say 'your app is rubbish - it crashed' - it might make you feel better, but it won't help us fix it.
 Instead, tell us the number of attributes and records in your dataset, the approximate file size and the algorithm you were attempting to use.
 From that, we can get to work and see what the problem was.
 While we've tested the app as thoroughly as we could, we can't claim to have found every possible way to crash an Android app.
