@@ -17,14 +17,14 @@ Research paper on arXiv: https://arxiv.org/abs/1906.03773
 Researchers: if you use this work, please cite the research paper above. Thanks.
 
 Algorithms include:
-•	Bayes – BayesNet, NaiveBayes
-•	Functions – Logistic, SimpleLogistic, MultilayerPerceptron
-•	Lazy – IBk (K Nearest Neighbours), KStar
-•	Meta – AdaBoostM1, Bagging, LogitBoost, MultiBoostAB, Random Committee, RandomSubSpace, RotationForest
-•	Rules – Conjunctive Rule, Decision Table, DTNB, JRip, OneR, PART, Ridor, ZeroR
-•	Trees – ADTree, BFTree, DecisionStump, ForestPA, J48 (C4.5), LADTree, Random Forest, RandomTree, REPTree, SimpleCART, SPAARC, SysFor.
-•	Clusterers – DBSCAN, Expectation Maximisation (EM), Farthest-First, FilteredClusterer, SimpleKMeans
-•	Associations – Apriori, FilteredAssociator, FPGrowth
+<br>•	Bayes – BayesNet, NaiveBayes
+<br>•	Functions – Logistic, SimpleLogistic, MultilayerPerceptron
+<br>•	Lazy – IBk (K Nearest Neighbours), KStar
+<br>•	Meta – AdaBoostM1, Bagging, LogitBoost, MultiBoostAB, Random Committee, RandomSubSpace, RotationForest
+<br>•	Rules – Conjunctive Rule, Decision Table, DTNB, JRip, OneR, PART, Ridor, ZeroR
+<br>•	Trees – ADTree, BFTree, DecisionStump, ForestPA, J48 (C4.5), LADTree, Random Forest, RandomTree, REPTree, SimpleCART, SPAARC, SysFor.
+<br>•	Clusterers – DBSCAN, Expectation Maximisation (EM), Farthest-First, FilteredClusterer, SimpleKMeans
+<br>•	Associations – Apriori, FilteredAssociator, FPGrowth
 
 Training datasets must conform to the Weka ARFF or standard CSV file format (CSV requires header row, class attribute is last column and will be configured as nominal).
 
