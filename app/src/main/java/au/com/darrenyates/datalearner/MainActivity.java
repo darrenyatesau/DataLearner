@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
 	private static ThreadGroup threadGroup;
 	static int alType = 1;
 	static int viewCount = 0;
+	static int classType = 0;
 	
 	LoadFragment fragL = new LoadFragment();
 	SelectFragment fragS = new SelectFragment();
@@ -215,7 +216,8 @@ public class MainActivity extends AppCompatActivity {
 		TextView tvFile, tvIntro, tvTest, tvStats;
 		Spinner spinClassAtt;
 		String tvFileName;
-
+		Button btnForce;
+		
 		public LoadFragment() {
 		}
 		
@@ -224,13 +226,11 @@ public class MainActivity extends AppCompatActivity {
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 								 Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_main_tab1, container, false);
-//			TextView textView = rootView.findViewById(R.id.section_label1);
 			tvStats = rootView.findViewById(R.id.tvStats);
-			tvFile = rootView.findViewById(R.id.textViewFile);
 			tvIntro = rootView.findViewById(R.id.tvIntro);
-			tvTest = rootView.findViewById(R.id.tvTest);
 			spinClassAtt = rootView.findViewById(R.id.spinClass);
-//            if (tvFileName != null) tvFile.setText(tvFileName);
+			btnForce = rootView.findViewById(R.id.btnForce);
+			btnForce.setEnabled(false);
 			Button btnLoad = rootView.findViewById(R.id.button1);
 			Button btnDemo = rootView.findViewById(R.id.button);
 			btnLoad.setOnClickListener(new Button.OnClickListener() {
@@ -253,11 +253,13 @@ public class MainActivity extends AppCompatActivity {
 						newdata = csvReader(inputStream, uriDataset.toString());
 						inputStream.close();
 						data = newdata;
+						data.setClassIndex(data.numAttributes() - 1);
 						displayData();
 						spinClassAtt.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 							@Override
 							public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 								data.setClassIndex(i);
+								displayData();
 								RunFragment.cleanDisplay();
 							}
 							
@@ -268,16 +270,19 @@ public class MainActivity extends AppCompatActivity {
 						setSpinClass(newdata.numAttributes());
 						spinClassAtt.setSelection(newdata.numAttributes() - 1);
 						showDemoSteps();
+						btnForce.setEnabled(true);
 					} catch (Exception e) {
 						statusUpdateStore += "\r\nERROR: " + e.getMessage() + "\r\n";
 						tvStats.append("\r\nERROR: " + e.getMessage() + "\r\n");
 					}
-					
-					
-					System.out.println("DEMO DATADFILE: " + uriDataset.toString());
-//					displayData();
 				}
 				
+			});
+			btnForce.setOnClickListener(new Button.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					showLimits();
+				}
 			});
 			return rootView;
 		}
@@ -338,12 +343,10 @@ public class MainActivity extends AppCompatActivity {
 					split = fileCut.lastIndexOf(':');
 					System.out.println(fileCut);
 					if (fileCut.endsWith("arff") || fileCut.endsWith("csv")) {
-						tvFileName = fileCut.substring(split + 1);
-						tvFile.setText(tvFileName);
 						tvStats.setText("");
-//						data = getData(fileCut);
 						data = getData();
-						displayData();
+//						data.setClassIndex(data.numAttributes()-1);
+//						displayData();
 					} else {
 						AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
 						alertDialog.setTitle("Warning");
@@ -361,13 +364,18 @@ public class MainActivity extends AppCompatActivity {
 		
 		
 		void displayData() {
+			tvStats.setText("");
 			tvStats.append(data.toSummaryString());
+			tvStats.append("\nClass attribute: (" + ((data.classIndex() + 1) + ") " + data.classAttribute().name()));
+			if (data.classAttribute().isNominal())
+				tvStats.append("\nAttribute type : Nominal/Categorical");
+			else tvStats.append("\nAttribute type : Numeric");
+			tvStats.append("\nDistinct values: " + data.numDistinctValues(data.classAttribute()) + "\n");
 			tvIntro.setText("");
 			ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) tvIntro.getLayoutParams();
-			params.topMargin = 16;
+			params.topMargin = 0;
 			params.height = 0;
 			tvIntro.setLayoutParams(params);
-			tvTest.setLayoutParams(params);
 		}
 		
 		
@@ -394,10 +402,13 @@ public class MainActivity extends AppCompatActivity {
 					newdata = csvReader(inputStream, filePath);
 				}
 				inputStream.close();
+				data = new Instances(newdata);
+				data.setClassIndex(data.numAttributes() - 1);
 				spinClassAtt.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 					@Override
 					public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 						data.setClassIndex(i);
+						displayData();
 						RunFragment.cleanDisplay();
 					}
 
@@ -408,12 +419,54 @@ public class MainActivity extends AppCompatActivity {
 				});
 				setSpinClass(newdata.numAttributes());
 				spinClassAtt.setSelection(newdata.numAttributes() - 1);
+				btnForce.setEnabled(true);
+				
 			} catch (Exception e) {
 				statusUpdateStore += "\r\nERROR: " + e.getMessage() + "\r\n";
 				tvStats.append("\r\nERROR: " + e.getMessage() + "\r\n");
 			}
 			return newdata;
 		}
+		
+		void showLimits() {
+			double numInstances = data.numInstances();
+			double numDistinct = data.numDistinctValues(data.classAttribute());
+			double ratio = numInstances / numDistinct;
+			if (ratio < 3 || numDistinct > 255) { // too many class values for number of instances = better as numeric
+				AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+				alertDialog.setTitle("Sure about this?");
+				alertDialog.setIcon(R.mipmap.ic_launcher);
+				alertDialog.setMessage(getText(R.string.noconvert));
+				if (numDistinct <= 255) {
+					alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes, do it.", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {
+							try {
+								data = convertClass(data);
+								displayData();
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						}
+					});
+				} else {
+					alertDialog.setMessage("Sorry, your class attribute has more than 255 distinct values.");
+				}
+				alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No, let's not.", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+					}
+				});
+				alertDialog.show();
+			} else {
+				try {
+					data = convertClass(data);
+					displayData();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			}
+		}
+		
 		
 		Instances csvReader(InputStream inputStream, String filePath) throws Exception {
 			String fileCut = filePath;
@@ -422,15 +475,29 @@ public class MainActivity extends AppCompatActivity {
 			DLCSVLoader cl = new DLCSVLoader();
 			cl.setSource(inputStream);
 			Instances dataSet = cl.getDataSet();
+//			NumericToNominal ntn = new NumericToNominal();
+//			String[] options = new String[2];
+//			options[0] = "-R";
+//			options[1] = Integer.toString(dataSet.numAttributes());
+//			ntn.setOptions(options);
+//			ntn.setInputFormat(dataSet);
+//			Instances newData = Filter.useFilter(dataSet, ntn);
+//			newData.setRelationName(fileCut);
+//			return newData;
+			dataSet.setRelationName(fileCut);
+			return dataSet;
+		}
+		
+		Instances convertClass(Instances input) throws Exception {
+			Instances output = new Instances(input);
+			System.out.println("CLASS ATTR: " + output.classIndex());
 			NumericToNominal ntn = new NumericToNominal();
 			String[] options = new String[2];
 			options[0] = "-R";
-			options[1] = Integer.toString(dataSet.numAttributes());
+			options[1] = Integer.toString(output.classIndex() + 1);
 			ntn.setOptions(options);
-			ntn.setInputFormat(dataSet);
-			Instances newData = Filter.useFilter(dataSet, ntn);
-			newData.setRelationName(fileCut);
-			
+			ntn.setInputFormat(output);
+			Instances newData = Filter.useFilter(output, ntn);
 			return newData;
 		}
 		
@@ -444,8 +511,11 @@ public class MainActivity extends AppCompatActivity {
 			spinClassAtt.setAdapter(adapter);
 			spinClassAtt.setSelection(spinClassAtt.getCount());
 		}
+		
 	}
 
+	
+	
 	//-----------------------------------------------------------------------------------------------------
 	// [2] ------------------------------------------------------------------------------------------------
 	public static class SelectFragment extends Fragment {

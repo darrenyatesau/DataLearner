@@ -115,6 +115,7 @@ class DataAnalysis implements Runnable {
 	private long timeEval;
 	static EvaluationTS returnEval;
 	static String classifierTree;
+	static int classType = 0;
 	private Handler handler = new Handler();
 	private Instances clusterdata;
 	private int dotCount = 0;
@@ -236,10 +237,10 @@ class DataAnalysis implements Runnable {
 			else if (algorithm.equals("J48 (C4.5)")) cl.j48.buildClassifier(data);
 			else if (algorithm.equals("RandomForest")) cl.randomForest.buildClassifier(data);
 			else if (algorithm.equals("RandomTree")) cl.randomTree.buildClassifier(data);
-			else if (algorithm.equals("REPTree")) cl.reptree.buildClassifier(data);
+			else if (algorithm.equals("*REPTree")) cl.reptree.buildClassifier(data);
 			else if (algorithm.equals("SimpleCART")) cl.simpleCart.buildClassifier(data);
 			else if (algorithm.equals("AdaBoostM1")) cl.adaBoostM1.buildClassifier(data);
-			else if (algorithm.equals("Bagging")) cl.bagging.buildClassifier(data);
+			else if (algorithm.equals("*Bagging")) cl.bagging.buildClassifier(data);
 			else if (algorithm.equals("LogitBoost")) cl.logitBoost.buildClassifier(data);
 			else if (algorithm.equals("Random Committee")) cl.randomCommittee.buildClassifier(data);
 			else if (algorithm.equals("IBk (KNN)")) cl.ibk.buildClassifier(data);
@@ -254,7 +255,7 @@ class DataAnalysis implements Runnable {
 			else if (algorithm.equals("SysFor")) cl.sysFor.buildClassifier(data);
 			else if (algorithm.equals("ForestPA")) cl.forestPA.buildClassifier(data);
 			else if (algorithm.equals("SPAARC")) cl.spaarc.buildClassifier(data);
-			else if (algorithm.equals("MultilayerPerceptron")) cl.mlp.buildClassifier(data);
+			else if (algorithm.equals("*MultilayerPerceptron")) cl.mlp.buildClassifier(data);
 			else if (algorithm.equals("RandomSubSpace")) cl.randomSubSpace.buildClassifier(data);
 			else if (algorithm.equals("SimpleKMeans")) {
 				clusterdata = removeClass(data);
@@ -311,10 +312,10 @@ class DataAnalysis implements Runnable {
 			else if (algorithm.equals("J48 (C4.5)")) classifierTree = cl.j48.toString();
 			else if (algorithm.equals("RandomForest")) classifierTree = cl.randomForest.toString();
 			else if (algorithm.equals("RandomTree")) classifierTree = cl.randomTree.toString();
-			else if (algorithm.equals("REPTree")) classifierTree = cl.reptree.toString();
+			else if (algorithm.equals("*REPTree")) classifierTree = cl.reptree.toString();
 			else if (algorithm.equals("SimpleCART")) classifierTree = cl.simpleCart.toString();
 			else if (algorithm.equals("AdaBoostM1")) classifierTree = cl.adaBoostM1.toString();
-			else if (algorithm.equals("Bagging")) classifierTree = cl.bagging.toString();
+			else if (algorithm.equals("*Bagging")) classifierTree = cl.bagging.toString();
 			else if (algorithm.equals("LogitBoost")) classifierTree = cl.logitBoost.toString();
 			else if (algorithm.equals("Random Committee"))
 				classifierTree = cl.randomCommittee.toString();
@@ -332,7 +333,7 @@ class DataAnalysis implements Runnable {
 			else if (algorithm.equals("SysFor")) classifierTree = cl.sysFor.toString();
 			else if (algorithm.equals("ForestPA")) classifierTree = cl.forestPA.toString();
 			else if (algorithm.equals("SPAARC")) classifierTree = cl.spaarc.toString();
-			else if (algorithm.equals("MultilayerPerceptron")) classifierTree = cl.mlp.toString();
+			else if (algorithm.equals("*MultilayerPerceptron")) classifierTree = cl.mlp.toString();
 			else if (algorithm.equals("RandomSubSpace"))
 				classifierTree = cl.randomSubSpace.toString();
 			
@@ -386,6 +387,8 @@ class DataAnalysis implements Runnable {
 //		Runtime rt = Runtime.getRuntime();
 //		long maxMemory = rt.maxMemory();
 //		System.out.println(maxMemory);
+		if (data.classAttribute().isNominal()) classType = 0;
+		else classType = 1;
 		
 		try {
 			EvaluationTS eval = new EvaluationTS(data);
@@ -451,7 +454,7 @@ class DataAnalysis implements Runnable {
 					timeEvalStart = System.nanoTime();
 					eval.crossValidateModel(cl.randomTree, data, 10, new Random(1));
 					break;
-				case "REPTree":
+				case "*REPTree":
 					timeEvalStart = System.nanoTime();
 					eval.crossValidateModel(cl.reptree, data, 10, new Random(1));
 					break;
@@ -463,7 +466,7 @@ class DataAnalysis implements Runnable {
 					timeEvalStart = System.nanoTime();
 					eval.crossValidateModel(cl.adaBoostM1, data, 10, new Random(1));
 					break;
-				case "Bagging":
+				case "*Bagging":
 					timeEvalStart = System.nanoTime();
 					eval.crossValidateModel(cl.bagging, data, 10, new Random(1));
 					break;
@@ -523,7 +526,7 @@ class DataAnalysis implements Runnable {
 					timeEvalStart = System.nanoTime();
 					eval.crossValidateModel(cl.spaarc, data, 10, new Random(1));
 					break;
-				case "MultilayerPerceptron":
+				case "*MultilayerPerceptron":
 					timeEvalStart = System.nanoTime();
 					eval.crossValidateModel(cl.mlp, data, 10, new Random(1));
 					break;
@@ -570,11 +573,13 @@ class DataAnalysis implements Runnable {
 			isRunning = false;
 			if (killThread == false) {
 				if (alType == 1) {
-					enableBtnCM();
 					DecimalFormat df = new DecimalFormat("#.####");
-					updateResults(cci, (int) eval.correct() + " (" + df.format(eval.pctCorrect()) + "%)");
-					updateResults(ici, (int) eval.incorrect() + " (" + df.format(eval.pctIncorrect()) + "%)");
-					updateResults(kappa, "" + df.format(eval.kappa()));
+					enableBtnCM();
+					if (classType == 0) {
+						updateResults(cci, (int) eval.correct() + " (" + df.format(eval.pctCorrect()) + "%)");
+						updateResults(ici, (int) eval.incorrect() + " (" + df.format(eval.pctIncorrect()) + "%)");
+						updateResults(kappa, "" + df.format(eval.kappa()));
+					}
 					updateResults(mae, df.format(eval.meanAbsoluteError()));
 					updateResults(rmse, df.format(eval.rootMeanSquaredError()));
 					updateResults(rae, df.format(eval.relativeAbsoluteError()) + "%");

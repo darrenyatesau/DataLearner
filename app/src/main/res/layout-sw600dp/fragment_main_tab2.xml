@@ -123,19 +123,22 @@
 
     <TextView
         android:id="@+id/tvClass"
-        android:layout_width="220dp"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/str_sel_alg"
-        android:textAlignment="textEnd"
+        android:textAlignment="viewEnd"
         android:textColor="#333"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/spinner6" />
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

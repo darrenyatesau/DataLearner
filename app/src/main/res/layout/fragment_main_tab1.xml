@@ -50,27 +50,16 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/str_label_btn_load"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnForce"
         app:layout_constraintEnd_toStartOf="@+id/button"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/tvTest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/str_file_test"
-        android:textColor="#333"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvIntro" />
 
     <TextView
         android:id="@+id/textViewFile"
         android:layout_width="236dp"
         android:layout_height="19dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:text="@string/str_label_file"
         android:textAlignment="center"
@@ -78,15 +67,16 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTest" />
+        app:layout_constraintTop_toBottomOf="@+id/tvIntro" />
 
     <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
         android:layout_weight="1"
         android:background="#f0f0f0"
         app:layout_constraintBottom_toTopOf="@+id/spinClass"
@@ -147,11 +137,12 @@
 
     <Spinner
         android:id="@+id/spinClass"
-        android:layout_width="88dp"
+        android:layout_width="100dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
         android:entries="@array/arrayNumbers"
+        android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/button1"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -160,14 +151,23 @@
         android:layout_width="wrap_content"
         android:layout_height="44dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
         android:text="@string/str_label_demo"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/button1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.52"
-        app:layout_constraintStart_toEndOf="@+id/button1"
-        app:layout_constraintTop_toBottomOf="@+id/spinClass" />
+        app:layout_constraintStart_toEndOf="@+id/button1" />
+
+    <Button
+        android:id="@+id/btnForce"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="Force Class Attribute to Nominal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
