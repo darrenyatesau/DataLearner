@@ -27,10 +27,5 @@
         android:orderInCategory="100"
         android:title="Help video on YouTube"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/privacy"
-        android:orderInCategory="100"
-        android:title="Privacy Policy"
-        app:showAsAction="never" />
 
 </menu>

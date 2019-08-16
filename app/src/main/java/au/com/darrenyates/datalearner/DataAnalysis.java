@@ -213,7 +213,8 @@ class DataAnalysis implements Runnable {
 	
 	private void runAlgorithm() {
 		Classifiers cl = new Classifiers();
-		
+		if (data.classAttribute().isNominal()) classType = 0;
+		else classType = 1;
 		try {
 			isRunning = true;
 //            Instances data = getData();
