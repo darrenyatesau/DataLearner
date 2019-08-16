@@ -381,14 +381,6 @@ class DataAnalysis implements Runnable {
 	
 	
 	private void runEvaluation(String algorithm, Classifiers cl, Instances data) {
-//        int correct, incorrect, totalInst;
-//		if (killThread == false) {
-
-//		Runtime rt = Runtime.getRuntime();
-//		long maxMemory = rt.maxMemory();
-//		System.out.println(maxMemory);
-		if (data.classAttribute().isNominal()) classType = 0;
-		else classType = 1;
 		
 		try {
 			EvaluationTS eval = new EvaluationTS(data);
@@ -610,7 +602,6 @@ class DataAnalysis implements Runnable {
 			}
 		}
 	}
-//	}
 	
 	private void restoreSettings() {
 		if (killThread == false) {
@@ -631,22 +622,6 @@ class DataAnalysis implements Runnable {
 		System.out.println("Ready.");
 	}
 
-//    public Instances getData() {
-//        Instances data = null;
-//        try {
-//            InputStream inputStream = context.getContentResolver().openInputStream(dataset);
-//            ConverterUtils.DataSource dataSource = new ConverterUtils.DataSource(inputStream);
-//            System.out.println("PATH: "+dataset.getPath());
-//            data = dataSource.getDataSet();
-//            data.setClassIndex(data.numAttributes() - 1);
-//            inputStream.close();
-//        } catch (Exception e) {
-//            statusUpdateStore += "\r\nERROR: "+e.getMessage()+"\r\n";
-//            statusUpdate("\r\nERROR: "+e.getMessage()+"\r\n");
-//        }
-//        return data;
-//    }
-	
 	private void statusUpdate(String status) {
 		final String newStatus;
 		newStatus = status;
