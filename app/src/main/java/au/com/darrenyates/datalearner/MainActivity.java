@@ -202,6 +202,19 @@ public class MainActivity extends AppCompatActivity {
 			}
 			return true;
 		}
+		if (id == R.id.privacy) {
+			AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+			builder1.setTitle("DataLearner - Privacy Policy");
+			builder1.setMessage(getText(R.string.str_privacy));
+			AlertDialog alert1 = builder1.create();
+			alert1.setButton(AlertDialog.BUTTON_POSITIVE, "Got it.", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+				}
+			});
+			alert1.show();
+			return true;
+		}
+		
 		return super.onOptionsItemSelected(item);
 	}
 
