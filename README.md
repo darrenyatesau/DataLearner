@@ -44,5 +44,5 @@ While we've tested the app as thoroughly as we could, we can't claim to have fou
 At time of writing, there was no other app on Google Play like DataLearner, so we're discovering new things about locally-executed data-mining all the time.
 
 <H3>Privacy Policy</H3>
-Our privacy policy is pretty basic - the DataLearner app does not collect any user data. The Google Play site collects standard analytics on general app download stuff about DataLearner - but that's Google, not us.
-(it's the same basic info that Google Play collects for every app you download). However, as for DataLearner itself, it doesn't collect anything.
+Our privacy policy is pretty basic - the DataLearner app does not collect, use or transmit any user data.
+The Google Play site collects standard analytics on general app download stuff about DataLearner (the same basic info that Google Play collects for every app you download) - but that's Google, not us. However, as for DataLearner itself, it doesn't collect anything.
