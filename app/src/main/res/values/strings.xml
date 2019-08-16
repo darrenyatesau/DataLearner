@@ -57,6 +57,7 @@
         1. DataLearner does not collect, use or transmit any user data. The only data it uses is the training datasets you provide in ARFF or CSV files (otherwise, it doesn\'t do anything).
         \n2. DataLearner does not save any data, including any data regarding any training dataset you load for data-mining. Any training data remaining in RAM after use can be erased by just rebooting your phone.
         \n\n(Google Play collects general app download and usage analytics about DataLearner, which we use to correct bugs and issues, but this is no different to any other app on Google Play.)
+        \n\nIf you do not agree with this policy, please uninstall the app. Cheers!
     </string>
     <string name="str_changes">v1.1.4 - added Privacy Policy
         v1.1.3 - Bug fixes; UI improvements; added new \'force numeric class attribute to nominal\' feature (class attribute in a CSV file is no longer forced to nominal).
