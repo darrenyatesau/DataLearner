@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
 		if (id == R.id.about) {
 			AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
 			builder1.setTitle("About DataLearner");
-			builder1.setMessage("Version 1.1.4\r\n© Copyright Darren Yates, Supervisors: Zahid Islam, Junbin Gao\r\nDeveloped as part of a research PhD at the School of Computing and Mathematics, Charles Sturt University, 2018-2019." +
+			builder1.setMessage("Version 1.1.5\r\n© Copyright Darren Yates, Supervisors: Zahid Islam, Junbin Gao\r\nDeveloped as part of a research PhD at the School of Computing and Mathematics, Charles Sturt University, 2018-2019." +
 					"\r\n\r\nDataLearner is a data-mining app powered by the Weka data-mining core and includes " +
 					"algorithms developed by Charles Sturt University.\r\nWeka was created by the University of Waikato.");
 			AlertDialog alert1 = builder1.create();
@@ -485,12 +485,13 @@ public class MainActivity extends AppCompatActivity {
 //			newData.setRelationName(fileCut);
 //			return newData;
 			dataSet.setRelationName(fileCut);
+			dataSet.setClassIndex(dataSet.numAttributes() - 1);
+//			if (dataSet.numDistinctValues(dataSet.classAttribute()) < 256 ) dataSet = convertClass(dataSet);
 			return dataSet;
 		}
 		
 		Instances convertClass(Instances input) throws Exception {
 			Instances output = new Instances(input);
-			System.out.println("CLASS ATTR: " + output.classIndex());
 			NumericToNominal ntn = new NumericToNominal();
 			String[] options = new String[2];
 			options[0] = "-R";

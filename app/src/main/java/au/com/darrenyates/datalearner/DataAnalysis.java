@@ -346,7 +346,9 @@ class DataAnalysis implements Runnable {
 				statusUpdateStore += "\r\n[" + algorithm + "] model build stopped.\r\nReady.";
 				statusUpdate("\r\n[" + algorithm + "] model build stopped.\r\nReady.");
 			} else {
-				statusUpdate("\r\n=== ERROR: This dataset is not supported.\r\nReady.");
+				statusUpdate("\r\n=== ERROR: Does the dataset have a numeric class attribute?\r\nTry 'Force class attribute to nominal' button on Load screen.\r\n" +
+						"Otherwise, try Trees-REPTree or Meta-Bagging instead.\r\nReady.");
+//				statusUpdate(R.string.classerror);
 			}
 			restoreCode();
 			System.out.print("ERROR: " + Log.getStackTraceString(e));
