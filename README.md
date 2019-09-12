@@ -45,7 +45,7 @@ At time of writing, there was no other app on Google Play like DataLearner, so w
 
 <H3>Privacy Policy</H3>
 DataLearner's privacy policy is pretty simple:
-<br>1. DataLearner does not collect, use or transmit any user data. The only data it uses is the training datasets you provide in ARFF or CSV files (otherwise, it doesn't do anything).
+<br>1. DataLearner does not collect or transmit any user data. The only data it uses is the training datasets you provide in ARFF or CSV files (otherwise, it doesn't do anything).
 <br>2. DataLearner does not save any data, including any data regarding any training dataset you load for data-mining. Any training data remaining in RAM after use can be erased by just rebooting your phone.
-<br>(Google Play collects general app download and usage analytics about DataLearner, which we use to correct bugs and issues, but this is no different to any other app on Google Play.)
-<br>If you do not agree with this policy, please uninstall the app. Cheers!
+<br>(Google Play collects general app download and usage analytics about DataLearner, which we use to correct bugs and issues, but this is no different to any other app on Google Play. We have no control over this.)
+<br>By installing and using the app, you agree to this policy. Cheers!

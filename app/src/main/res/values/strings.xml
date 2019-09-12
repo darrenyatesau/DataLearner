@@ -65,7 +65,7 @@
         3. Swipe left again and tap the Run button. Not every algorithm will work with every dataset, so you may get a no-result or something weird happen - just try another algorithm, or if you have a numeric class attribute, use the \'Force class attribute to Nominal\' button on the Load screen.
         \n\n NOTE: Algorithms marked with * are able to model datasets with a numeric class attribute (Trees/REPTree, Functions/MultilayerPerceptron, Meta/Bagging)
     </string>
-    <string name="intro_text">DataLearner is data-mining app powered by the Weka data-mining core (version 3.6.15) and includes algorithms sourced from Weka and Charles Sturt University.</string>
+    <string name="intro_text">DataLearner is data-mining app powered by the Weka data-mining core (version 3.6.15) and includes algorithms sourced from Weka and the Data Science Research Unit (DSRU) at Charles Sturt University.</string>
     <string name="demo_text">DataLearner is easy to use, but if you\'re new to data-mining, this demo will help.\n\n
         We\'ve just loaded a synthetic \'rain\' dataset. It has six attributes (columns) - minTemp, maxTemp, windDirection, relHumidity, baroPressure and Rain.
         It records 500 days (rows) of weather values, grouped or \'classed\' by how much rain there was that day - none, less than 5mm, less than 20mm or greater than 20mm.\n\n
