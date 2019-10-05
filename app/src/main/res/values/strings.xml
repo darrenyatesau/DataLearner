@@ -79,6 +79,7 @@
     </string>
     <string name="noconvert">Given the number of distinct values the selected class attribute has, converting this class attribute to nominal might not be the best thing. You can still choose to do so if you wish.
     </string>
+    <string name="copy">You can now open up a text editor and paste the data onto a page.</string>
     <string-array name="arrayBayes">
         <item>-- none selected --</item>
         <item>BayesNet</item>
@@ -109,6 +110,7 @@
         <item>SimpleCART</item>
         <item>SysFor</item>
         <item>SPAARC</item>
+        <item>ForestSSD</item>
     </string-array>
     <string-array name="arrayMeta">
         <item>-- none selected --</item>

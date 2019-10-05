@@ -42,7 +42,7 @@ import weka.core.TechnicalInformationHandler;
 import weka.core.Utils;
 import weka.core.WeightedInstancesHandler;
 
-/**
+/*
  * <!-- globalinfo-start -->
  * Class for bagging a classifier to reduce variance.
  * Can do classification and regression depending on the base learner. <br/>
@@ -229,7 +229,7 @@ public class BaggingTS extends RandomizableIteratedSingleClassifierEnhancer
 	@Override
 	protected String defaultClassifierString() {
 		
-		return "weka.classifiers.trees.REPTree";
+		return "weka.classifiers.trees.SSRRandomTreeTS";
 	}
 	
 	/**
@@ -399,7 +399,7 @@ public class BaggingTS extends RandomizableIteratedSingleClassifierEnhancer
 	 *
 	 * @return the bag size, as a percentage.
 	 */
-	private int getBagSizePercent() {
+	protected int getBagSizePercent() {
 		
 		return m_BagSizePercent;
 	}
@@ -409,7 +409,7 @@ public class BaggingTS extends RandomizableIteratedSingleClassifierEnhancer
 	 *
 	 * @param newBagSizePercent the bag size, as a percentage.
 	 */
-	private void setBagSizePercent(int newBagSizePercent) {
+	protected void setBagSizePercent(int newBagSizePercent) {
 		
 		m_BagSizePercent = newBagSizePercent;
 	}
@@ -439,7 +439,7 @@ public class BaggingTS extends RandomizableIteratedSingleClassifierEnhancer
 	 *
 	 * @return whether the out of bag error is calculated
 	 */
-	private boolean getCalcOutOfBag() {
+	protected boolean getCalcOutOfBag() {
 		
 		return m_CalcOutOfBag;
 	}
@@ -658,7 +658,7 @@ public class BaggingTS extends RandomizableIteratedSingleClassifierEnhancer
 		StringBuffer text = new StringBuffer();
 		text.append("All the base classifiers: \n\n");
 		for (int i = 0; i < m_Classifiers.length; i++)
-			text.append(m_Classifiers[i].toString() + "\n\n");
+			text.append("Iteration " + i + ":\n" + m_Classifiers[i].toString() + "\n\n");
 		
 		if (m_CalcOutOfBag) {
 			text.append("Out of bag error: "

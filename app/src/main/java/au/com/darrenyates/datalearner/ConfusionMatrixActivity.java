@@ -23,9 +23,15 @@
 
 package au.com.darrenyates.datalearner;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import static au.com.darrenyates.datalearner.DataAnalysis.returnEval;
@@ -34,14 +40,22 @@ import static au.com.darrenyates.datalearner.DataAnalysis.classType;
 
 
 public class ConfusionMatrixActivity extends AppCompatActivity {
-	
+	TextView tv;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.matrix_main);
 		
-		TextView tv = findViewById(R.id.tvMatrix);
+		tv = findViewById(R.id.tvMatrix);
+		Button btnCopy = findViewById(R.id.btnCopy);
+		btnCopy.setOnClickListener(new Button.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				copyToClipBoard();
+			}
+		});
+		
 		tv.setMovementMethod(new ScrollingMovementMethod());
 		try {
 			if (classType == 0) {
@@ -59,6 +73,26 @@ public class ConfusionMatrixActivity extends AppCompatActivity {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private void copyToClipBoard() {
+		ClipboardManager cb = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+		ClipData cd = ClipData.newPlainText("Confusion Matrx/Model Data", tv.getText());
+		cb.setPrimaryClip(cd);
+		showCopySteps();
+	}
+	
+	void showCopySteps() {
+		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+		alertDialog.setTitle("Model data bas been copied");
+		alertDialog.setIcon(R.mipmap.ic_launcher);
+		alertDialog.setMessage(getText(R.string.copy));
+		alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Got it.", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+			}
+		});
+		alertDialog.show();
+		
 	}
 	
 }
