@@ -58,7 +58,7 @@ public class ConfusionMatrixActivity extends AppCompatActivity {
 		
 		tv.setMovementMethod(new ScrollingMovementMethod());
 		try {
-			if (classType == 0) {
+			if (classType == 0 && returnEval != null) {
 				tv.append(returnEval.toClassDetailsString("=== Detailed Accuracy by Class ===\r\n"));
 				tv.append("\r\n");
 				tv.append(returnEval.toMatrixString("=== Confusion Matrix ===\r\n"));

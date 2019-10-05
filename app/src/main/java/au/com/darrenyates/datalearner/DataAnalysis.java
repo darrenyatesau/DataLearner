@@ -338,6 +338,7 @@ class DataAnalysis implements Runnable {
 			else if (algorithm.equals("RandomSubSpace"))
 				classifierTree = cl.randomSubSpace.toString();
 			
+			enableBtnCM();
 			if (validate == 1 && killThread == false) runEvaluation(algorithm, cl, data);
 			else restoreSettings();
 			
